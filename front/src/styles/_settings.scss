@@ -1,54 +1,19 @@
-@font-face {
-    font-family: "font-1";
-    src: url(../assets/fonts/Sigmar-Regular.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap');
 
-@font-face {
-    font-family: "font-2";
-    src: url(../assets/fonts/Montserrat-Bold.ttf);
-}
+$font-LeagueSpartan: 'League Spartan', sans-serif;
+$font-Roboto: 'Roboto', sans-serif;
 
-@font-face {
-    font-family: "font-3";
-    src: url(../assets/fonts/Montserrat-Light.ttf);
-}
-
-@font-face {
-    font-family: "font-4";
-    src: url(../assets/fonts/Montserrat-Regular.ttf);
-}
-
-@font-face {
-    font-family: "font-5";
-    src: url(../assets/fonts/Montserrat-SemiBold.ttf);
-}
-
-@font-face {
-    font-family: "font-6";
-    src: url(../assets/fonts/Montserrat-Thin.ttf);
-}
-
-$font-1: "font-1", cursive;
-$font-2: "font-2", sans-serif;
-$font-3: "font-3", sans-serif;
-$font-4: "font-4", sans-serif;
-$font-5: "font-5", sans-serif;
-$font-6: "font-6", sans-serif;
-
-$color-1: white;
-$color-2: black;
-$color-3: #DEF5E5;
-$color-4: #BCEAD5;
-$color-5: #9ED5C5;
-$color-6: #8EC3B0;
-$color-7: #569DAA;
-$color-8: #577D86;
-$color-9: #05BFDB;
-$color-10: #E5FCC2;
-$color-11: #13403e;
-$color-12: #e9ece4;
-$color-13: #FA8F00;
-$color-14: #3ADA64;
+$red-orange: #fa5756;
+$orange: #f98e44;
+$green: #81e367;
+$yellow: #f6da3f;
+$black: #000000;
+$white: #ffffff;
+$violet: #8c52ff;
+$dark-blue: #151729;
+$grey: #e8e8e8;
+$dark-grey: #c5c5c5;
 
 * {
     padding: 0;
@@ -56,7 +21,8 @@ $color-14: #3ADA64;
     box-sizing: border-box;
     outline: none;
     scroll-behavior: smooth;
-    font-family: $font-5;
+    font-family: $font-Roboto;
+    font-weight: 500;
     font-size: 1rem;
 }
 
@@ -66,16 +32,17 @@ body {
     height: 100%;
 }
 
+
 ::-webkit-scrollbar {
     width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: $color-10;
+    background: $grey;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: $color-11;
+    background: $dark-grey;
     border-radius: 8px;
 }
 
