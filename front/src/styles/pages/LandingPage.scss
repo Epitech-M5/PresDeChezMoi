@@ -1,0 +1,267 @@
+.landing_page {
+    height: 100vh;
+    width: 100%;
+}
+
+.main_area {
+    background: linear-gradient(to left, $red-orange, $orange);
+    width: 100%;
+    height: 100%;
+}
+
+.circles {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 1;
+        border-radius: 8px;
+        transform: translateY(0) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        border-radius: 8px;
+        transform: translateY(-1000px) rotate(720deg);
+    }
+}
+
+.circles div {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    bottom: -150px;
+    animation: animate 25s linear infinite;
+}
+
+.circles div:nth-child(1) {
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+.circles div:nth-child(2) {
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.circles div:nth-child(3) {
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+}
+
+.circles div:nth-child(4) {
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.circles div:nth-child(5) {
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+
+.circles div:nth-child(6) {
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+
+.circles div:nth-child(7) {
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+
+.circles div:nth-child(8) {
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+
+.circles div:nth-child(9) {
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+
+.circles div:nth-child(9) {
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+
+.title {
+    width: 100%;
+    color: $white;
+    position: absolute;
+    top: 45%;
+}
+
+.main_title {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.main_title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    font-family: $font-LeagueSpartan;
+}
+
+.main_title_2 {
+    width: 100%;
+    text-align: center;
+}
+
+.main_title_2 h3 {
+    font-family: $font-LeagueSpartan;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.btn_title {
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+}
+
+.container_explain {
+    width: 100%;
+    height: auto;
+}
+
+.title_explain {
+    text-align: center;
+    padding: 60px;
+}
+
+.title_explain h1,
+span {
+    font-size: 3.5vw;
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+}
+
+#offer {
+    color: $orange;
+}
+
+#me {
+    color: $green;
+}
+
+.title_explain_hr hr {
+    margin-top: 60px;
+    width: 300px;
+}
+
+.title_explain_hr {
+    display: flex;
+    justify-content: center;
+}
+
+.title_explain {
+    text-align: center;
+    margin: 40px;
+}
+
+.mytext {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.mytext.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.wrapper_explain {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: nowrap !important;
+    margin-bottom: 10%;
+}
+
+.logo_explain {
+    width: 30%;
+    text-align: center;
+    align-items: center;
+}
+
+.logo_explain img {
+    width: 100%;
+}
+
+.text_explain {
+    width: 50%;
+}
+
+.text_explain h1 {
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    font-size: 3vw;
+    margin-bottom: 40px;
+}
+
+.text_explain p {
+    font-weight: 300;
+    font-size: 2vw;
+}
+
+.text_explain i {
+    color: $red-orange;
+    margin-top: 5%;
+    padding-right: 20px;
+    font-size: 2vw;
+}
+
+.before_footer_btn {
+    width: 100%;
+    height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_footer {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+}
+
+.logo_nav img:hover {
+    cursor: pointer;
+}
