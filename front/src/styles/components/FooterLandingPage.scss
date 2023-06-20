@@ -87,3 +87,42 @@
 #footer_title {
     color: $black !important;
 }
+
+@media(max-width:800px) {
+
+    .end_footer_right,
+    .links_footer {
+        gap: 1rem;
+    }
+
+    .end_footer_right h1,
+    .links_footer a,
+    .social i {
+        font-size: 10px;
+    }
+
+    .social i {
+        margin-top: 5px;
+    }
+
+}
+
+@media(max-width:380px) {
+
+    .end_footer_right,
+    .links_footer {
+        gap: 0.5rem;
+    }
+
+    .end_footer_right h1,
+    .links_footer a,
+    .social i {
+        font-size: 8px;
+    }
+
+    #footer_title {
+        display: none;
+    }
+
+
+}

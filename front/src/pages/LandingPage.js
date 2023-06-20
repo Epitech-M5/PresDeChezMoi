@@ -12,7 +12,6 @@ const LandingPage = () => {
         const handleIntersection = (entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    console.log('Element is visible:', entry.target);
                     entry.target.classList.add('active')
                 }
             });

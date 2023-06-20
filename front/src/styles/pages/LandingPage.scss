@@ -265,3 +265,20 @@ span {
 .logo_nav img:hover {
     cursor: pointer;
 }
+
+@media(max-width:700px) {
+
+    .main_title h1 {
+        font-size: 32px;
+    }
+
+    .main_title_2 h3 {
+        font-size: 10px;
+    }
+
+    .title_explain h1,
+    span {
+        font-size: 13px;
+    }
+
+}
