@@ -26,9 +26,6 @@ const NavBarLandingPage = () => {
                     <li><a href='#'>Equipes</a></li>
                     <li><a href='#'>Contact</a></li>
                 </ul>
-                <div className="btn_nav">
-                    <ButtonLandingPage text="C'est parti !" navigation='/login' />
-                </div>
                 <div className='btn_toggle' onClick={handleToggle}>
                     <i className='fa-solid fa-bars'></i>
                 </div>

@@ -1,9 +1,10 @@
 .navbar {
-    position: sticky;
+    position: fixed;
     top: 0;
     width: 100%;
     height: 8vh;
-    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px) !important;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -36,7 +37,7 @@
 }
 
 .links a:hover {
-    color: $red-orange;
+    color: $green;
 }
 
 .logo_nav a {
@@ -49,12 +50,13 @@
 }
 
 .logo_nav a:hover {
-    color: $red-orange;
+    color: $green;
 }
 
 .links {
     display: flex;
-    gap: 2rem;
+    gap: 6rem;
+    padding-right: 5%;
 }
 
 .btn_toggle {
@@ -71,10 +73,12 @@
     height: 0;
     top: 90px;
     width: 300px;
-    backdrop-filter: blur(20px);
+    z-index: 5000;
     border-radius: 10px;
     overflow: hidden;
     transition: height 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px) !important;
 }
 
 .dropdown_navbar.open {
@@ -96,13 +100,12 @@
 }
 
 .dropdown_navbar a:hover {
-    color: $red-orange;
+    color: $green;
 }
 
 @media(max-width:1000px) {
 
-    .links,
-    .btn_nav {
+    .links {
         display: none;
     }
 

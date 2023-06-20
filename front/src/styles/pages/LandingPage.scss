@@ -1,11 +1,16 @@
+.landing_page {
+    height: 100vh;
+    width: 100%;
+}
+
 .main_area {
     background: linear-gradient(to left, $red-orange, $orange);
     width: 100%;
-    height: 100vh;
+    height: 100%;
 }
 
 .circles {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -127,7 +132,7 @@
 }
 
 .main_title h1 {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 700;
     font-family: $font-LeagueSpartan;
 }
@@ -139,7 +144,7 @@
 
 .main_title_2 h3 {
     font-family: $font-LeagueSpartan;
-    font-weight: 300;
+    font-weight: 500;
     font-style: italic;
 }
 
@@ -147,4 +152,112 @@
     display: flex;
     justify-content: center;
     padding-top: 5%;
+}
+
+.container_explain {
+    width: 100%;
+    height: auto;
+}
+
+.title_explain {
+    text-align: center;
+    padding: 60px;
+}
+
+.title_explain h1,
+span {
+    font-size: 3.5vw;
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+}
+
+#offer {
+    color: $orange;
+}
+
+#me {
+    color: $green;
+}
+
+.title_explain_hr hr {
+    margin-top: 60px;
+    width: 300px;
+}
+
+.title_explain_hr {
+    display: flex;
+    justify-content: center;
+}
+
+.title_explain {
+    text-align: center;
+    margin: 40px;
+}
+
+.mytext {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.mytext.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.wrapper_explain {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: nowrap !important;
+    margin-bottom: 10%;
+}
+
+.logo_explain {
+    width: 30%;
+    text-align: center;
+    align-items: center;
+}
+
+.logo_explain img {
+    width: 100%;
+}
+
+.text_explain {
+    width: 50%;
+}
+
+.text_explain h1 {
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    font-size: 3vw;
+    margin-bottom: 40px;
+}
+
+.text_explain p {
+    font-weight: 300;
+    font-size: 2vw;
+}
+
+.text_explain i {
+    color: $red-orange;
+    margin-top: 5%;
+    padding-right: 20px;
+    font-size: 2vw;
+}
+
+.before_footer_btn {
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_footer {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
 }
