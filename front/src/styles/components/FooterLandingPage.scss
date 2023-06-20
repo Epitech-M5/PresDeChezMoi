@@ -1,18 +1,18 @@
 .container_footer {
     width: 100%;
-    height: 20vh;
+    height: auto;
     margin-top: 3%;
     display: flex;
     justify-content: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    margin-top: 5%;
 }
 
 .links_footer {
     display: flex;
     gap: 4rem;
-    width: 50%;
+    width: 45%;
     text-align: left;
-    margin-left: 3%;
 }
 
 .links_footer li {
@@ -34,20 +34,56 @@
     width: 50%;
     justify-content: right;
     gap: 2rem;
-    margin-right: 3%;
 }
 
 .social i {
     font-size: 1.5rem;
+    transition: all 0.4s;
+}
+
+.social i:hover {
+    color: $green;
+    cursor: pointer;
 }
 
 .line_footer hr {
-    width: 90%;
-    margin-left: 5%;
-    border: 4px solid black;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 .line_footer {
     width: 100%;
+}
 
+.end_footer {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-bottom: 5%;
+}
+
+.end_footer_right {
+    width: 70%;
+    display: flex;
+    gap: 4rem;
+    justify-content: right;
+    margin-top: 5px;
+    flex-wrap: nowrap;
+}
+
+.end_footer_right h1 {
+    transition: all 0.4s;
+}
+
+.end_footer_right h1:hover {
+    color: $green;
+    cursor: pointer;
+}
+
+#footer_title {
+    color: $black !important;
 }

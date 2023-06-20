@@ -6,7 +6,6 @@ import FooterLandingPage from '../components/FooterLandingPage';
 const LandingPage = () => {
 
     const observerRef = useRef(null);
-    console.log(observerRef);
 
     useEffect(() => {
 
@@ -24,13 +23,16 @@ const LandingPage = () => {
         return () => {
             observerRef.current.disconnect();
         };
+
     }, []);
 
     useEffect(() => {
+
         const elements = document.querySelectorAll('.mytext');
         elements.forEach((element) => {
             observerRef.current.observe(element);
         });
+
     }, []);
 
     return (

@@ -14,11 +14,24 @@ const FooterLandingPage = () => {
                     <i class="fa-brands fa-twitter"></i>
                     <i class="fa-brands fa-youtube"></i>
                 </div>
+                <div className="line_footer">
+                    <hr />
+                </div>
+                <div className="end_footer">
+                    <div className='logo_nav'>
+                        <div>
+                            <img src='media/img/carotte.png' alt='logo' />
+                        </div>
+                        <a href='#' id='footer_title'>PresDeChezMoi</a>
+                    </div>
+                    <div className="end_footer_right">
+                        <h1>@M5 Team</h1>
+                        <h1>Terms of Services</h1>
+                        <h1>Privacy Policy</h1>
+                    </div>
+                </div>
+            </div>
 
-            </div>
-            <div className="line_footer">
-                <hr />
-            </div>
         </>
     );
 };
