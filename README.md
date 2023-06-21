@@ -30,6 +30,7 @@ For start the front you need to go here ``` cd front ``` and do ``` npm i ``` ..
 [![My Skills](https://skills.thijs.gg/icons?i=react,css,docker,nodejs,figma,mysql&theme=light)](https://skills.thijs.gg)
 
 ## Unit test with ...
+with junit selenium ?
 
 ## TEAM
 🔵 [Maxence Bonnici](lien) - **Design • Map • Chat • ChatBot • Annonce**  
@@ -37,3 +38,6 @@ For start the front you need to go here ``` cd front ``` and do ``` npm i ``` ..
 🟢 [Morgan Navarra](lien) - **Chat • Map**    
 🟣 [Meriem Boussaid](lien) - **API • Admin • Annonce**    
 🟡 [Matéo Salvy](lien) - **Score • Deployment**  
+
+## Project Social Media
+[FACEBOOK](lien) • [REDDIT](lien) • [INSTAGRAM](lien) • [TWITTER](lien)
