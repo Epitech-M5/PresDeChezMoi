@@ -32,7 +32,9 @@ For start the front you need to go here ``` cd front ``` and do ``` npm i ``` ..
 ## Unit test with ...
 with junit selenium + jenkins ?  
 @mateo check pour faire des test automatisé via jenkins pour la non regression du projet + test screenshots si possible  
-https://youtu.be/0Aiu5E0rQLw
+https://youtu.be/0Aiu5E0rQLw  
+
+objectif creer une pipeline pour -> dès qu'on push sur master, des tests auto s'execute sur jenkins pour tester que tous est OK
 
 ## TEAM
 🔵 [Maxence Bonnici](lien) - **Design • Map • Chat • ChatBot • Annonce**  
