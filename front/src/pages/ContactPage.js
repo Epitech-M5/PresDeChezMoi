@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TeamPage = () => {
+const ContactPage = () => {
     return (
         <>
             <div className="container_back">
@@ -23,4 +23,4 @@ const TeamPage = () => {
     );
 };
 
-export default TeamPage;
+export default ContactPage;

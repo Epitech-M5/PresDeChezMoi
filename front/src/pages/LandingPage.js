@@ -45,7 +45,7 @@ const LandingPage = () => {
                         <h3>Le réseau social de ta commune !</h3>
                     </div>
                     <div className="btn_title">
-                        <ButtonLandingPage text="C'est parti !" nagifation="/login" />
+                        <ButtonLandingPage text="C'est parti !" navigation="/login" />
                     </div>
                 </div>
                 <div className="main_area">
@@ -115,7 +115,7 @@ const LandingPage = () => {
                 </div>
                 <div className="before_footer_btn">
                     <div className="btn_footer">
-                        <ButtonLandingPage text="C'est parti !" nagifation="/login" />
+                        <ButtonLandingPage text="C'est parti !" navigation="/login" />
                     </div>
                     <div className="main_area">
                         <div className="circles">
@@ -132,7 +132,6 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </div>
-                <FooterLandingPage />
             </div>
 
         </>
