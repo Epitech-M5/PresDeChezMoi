@@ -37,7 +37,6 @@ const LandingPage = () => {
     return (
         <>
             <div className='landing_page'>
-                <NavBarLandingPage />
                 <div className="title">
                     <div className="main_title">
                         <h1>PresDeChezMoi</h1>
