@@ -14,5 +14,8 @@
     "mysql2": "^3.4.0",
     "sequelize": "^6.32.1"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }

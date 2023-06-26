@@ -5,6 +5,10 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
+        pseudo: {
+            type: Sequelize.STRING,
+            unique: true
+        },
         nom: {
             type: Sequelize.STRING
         },
@@ -15,7 +19,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         mail: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: true
         },
         motDePasse: {
             type: Sequelize.STRING
