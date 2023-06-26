@@ -31,7 +31,7 @@ exports.create = (req, res) => {
         prenom: null,
         photoProfil: null,
         mail: req.body.mail,
-        motDePasse: req.body.motDePasse,
+        motDePasse: bcrypt.hashSync(req.body.password, 8),
         idVille: null,
         score: null,
         participation: null,
@@ -42,11 +42,11 @@ exports.create = (req, res) => {
         listRecompense: null,
         nombreSignalement: null,
         estBanni: null,
-        idRole: null,
+        idRole: req.body.roles, // A RAJOUTER DANS POSTMAN
         listAnnonceEnregistre: null
     };
 
-    // Save Tutorial in the database adn catch internal error
+    // Save User in the database adn catch internal error
     Utilisateur.create(utilisateurObjet)
         .then(data => {
             res.send(data);

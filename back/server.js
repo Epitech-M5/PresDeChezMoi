@@ -30,7 +30,8 @@ db.sequelize.sync()
 //     res.json({ message: "Welcome to bezkoder application." });
 // });
 
-
+// routes
+require('./app/routes/auth.routes')(app);
 require("./routes/utilisateur.routes.js")(app);
 
 // set port, listen for requests
