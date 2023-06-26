@@ -37,7 +37,9 @@ const App = () => {
           <Route path='/login' element={<LoginPage />} />
         </Routes>
         <FooterLandingPage />
+
       </BrowserRouter>
+
     )
   );
 };
