@@ -27,6 +27,7 @@
 
 .links_footer a:hover {
     color: $green;
+    cursor: pointer;
 }
 
 .social {
@@ -107,7 +108,7 @@
 
 }
 
-@media(max-width:380px) {
+@media(max-width:400px) {
 
     .end_footer_right,
     .links_footer {
@@ -123,6 +124,5 @@
     #footer_title {
         display: none;
     }
-
 
 }

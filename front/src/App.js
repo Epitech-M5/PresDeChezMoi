@@ -8,6 +8,7 @@ import FooterLandingPage from './components/FooterLandingPage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import AnimateBackground from './components/AnimateBackground';
+import PageNotFound from './pages/PageNotFound';
 
 const App = () => {
 
@@ -35,6 +36,7 @@ const App = () => {
           <Route path='/team' element={<TeamPage />} />
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/login' element={<LoginPage />} />
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
         <FooterLandingPage />
 

@@ -25,7 +25,7 @@ const NavBarLandingPage = () => {
             case 3:
                 return navigate('/contact')
             default:
-                return null
+                return navigate('/404')
         }
     }
 
@@ -33,7 +33,7 @@ const NavBarLandingPage = () => {
         <>
             <div className='navbar'>
                 <div className='logo_nav'>
-                    <div>
+                    <div onClick={() => handleNavigate(1)}>
                         <img src='media/img/carotte.png' alt='logo' onClick={() => handleNavigate(1)} />
                     </div>
                     <a onClick={() => handleNavigate(1)}>PresDeChezMoi</a>

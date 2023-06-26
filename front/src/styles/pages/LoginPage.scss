@@ -8,6 +8,10 @@
     overflow: hidden;
 }
 
+#forgot_password {
+    color: $green;
+}
+
 .container_loginpage:before {
     content: '';
     position: absolute;
@@ -17,7 +21,7 @@
     top: -10%;
     right: 48%;
     transform: translateY(-50%);
-    background: linear-gradient(to left, $orange, $green);
+    background: linear-gradient(to left, $orange, $red-orange);
     z-index: 6;
     transition: all 1.8s ease-in-out;
 }
@@ -282,7 +286,6 @@
         right: initial;
         top: initial;
         transition: 2s ease-in-out;
-        background: linear-gradient(to left, $orange, $red-orange);
     }
 
     .signin_signup {
@@ -390,11 +393,16 @@
     }
 
     .container_loginpage.sign_up_mode .panel {
-        margin-top: 35%;
+        margin-top: 170px;
     }
 
     .panel {
         margin-top: 8%;
     }
+
+    .container_loginpage.sign_up_mode .signin_signup form.sign_up_form {
+        margin-top: 50px;
+    }
+
 
 }

@@ -2,15 +2,21 @@ import { React, useEffect } from 'react';
 
 const LoginPage = () => {
 
-    const container = document.querySelector(".container_loginpage");
+    useEffect(() => {
 
-    const handleChangeUp = () => {
-        container.classList.add("sign_up_mode");
-    }
+        const sign_in_btn = document.querySelector("#sign-in-btn");
+        const sign_up_btn = document.querySelector("#sign-up-btn");
+        const container = document.querySelector(".container_loginpage");
 
-    const handleChangeIn = () => {
-        container.classList.remove("sign_up_mode");
-    }
+        sign_up_btn.addEventListener("click", () => {
+            container.classList.add("sign_up_mode");
+        });
+
+        sign_in_btn.addEventListener("click", () => {
+            container.classList.remove("sign_up_mode");
+        });
+
+    }, []);
 
     return (
         <>
@@ -29,6 +35,7 @@ const LoginPage = () => {
                                 <input type="password" placeholder='Mot de passe' />
                             </div>
                             <input type="submit" value="Se connecter" className='btn_login' />
+                            <a href="/404" target='_blank' id='forgot_password'><h3>Mot de passe oublié ?</h3></a>
                             <p className='social_text'>Ou avec les réseaux sociaux</p>
                             <div className="social_login">
                                 <a href="" className='social_login_icon'>
@@ -85,7 +92,7 @@ const LoginPage = () => {
                             <h3>Nouveau ici ?</h3>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing
                                 elit. Debitis, ex ratione. Aliquid</p>
-                            <button className='btn_login transparent' id='sign-up-btn' onClick={handleChangeUp}>S'enregistrer</button>
+                            <button className='btn_login transparent' id='sign-up-btn'>S'enregistrer</button>
                         </div>
                         <img src="media/img/login.png" alt="login_img" className='img_panel' />
                     </div>
@@ -95,7 +102,7 @@ const LoginPage = () => {
                             <h3>Déjà chez nous ?</h3>
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing
                                 elit. Debitis, ex ratione. Aliquid</p>
-                            <button className='btn_login transparent' id='sign-in-btn' onClick={handleChangeIn}>Se connecter</button>
+                            <button className='btn_login transparent' id='sign-in-btn'>Se connecter</button>
                         </div>
                         <img src="media/img/signup.png" alt="register_img" className='img_panel' />
                     </div>
