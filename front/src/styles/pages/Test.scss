@@ -1,13 +1,10 @@
-.test {
-    height: 110vh;
-    width: 100%;
-    background-color: red;
-    background-image: url('../../media/img/test.png');
-}
-
-.test2 {
-    background-color: lightpink;
-    width: 100%;
+.testdiv {
+    width: 30%;
+    height: 10vh;
+    margin: 50px;
+    background-color: lightcoral;
+    border-radius: 8px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }

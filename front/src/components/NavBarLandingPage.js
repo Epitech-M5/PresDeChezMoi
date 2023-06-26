@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState } from 'react';
 import ButtonLandingPage from '../components/ButtonLandingPage';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,8 +15,8 @@ const NavBarLandingPage = () => {
         toggleBtnIcon.classList = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'
     }
 
-
     const handleNavigate = (number) => {
+        window.scrollTo({ top: 0 });
         switch (number) {
             case 1:
                 return navigate('/');
