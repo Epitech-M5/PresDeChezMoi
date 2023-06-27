@@ -1,0 +1,109 @@
+.notifications {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    color: $white;
+}
+
+.notifications .toast {
+    position: relative;
+    width: 400px;
+    list-style: none;
+    border-radius: 4px;
+    padding: 16px 17px;
+    margin-bottom: 10px;
+    background-color: $dark-blue;
+    justify-content: space-between;
+    overflow: hidden;
+    // animation: show_toast 0.3s ease forwards;
+}
+
+@keyframes show_toast {
+    0% {
+        transform: translateX(100%);
+    }
+
+    40% {
+        transform: translateX(-5%);
+    }
+
+    80% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-10px);
+    }
+}
+
+.notifications :where(.toast, .column) {
+    display: flex;
+    align-items: center;
+}
+
+.toast::before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 50%;
+    background-color: red;
+    bottom: 0px;
+    left: 0px;
+    //animation: progress 5s linear forwards;
+}
+
+@keyframes progress {
+    100% {
+        width: 0%;
+    }
+}
+
+.toast.success::before {
+    background-color: $green;
+}
+
+.toast.info::before {
+    background-color: $blue;
+}
+
+.toast.warning::before {
+    background-color: $yellow;
+}
+
+.toast.danger::before {
+    background-color: $red-orange;
+}
+
+.toast.success .column i {
+    color: $green;
+}
+
+.toast.info .column i {
+    color: $blue;
+}
+
+.toast.warning .column i {
+    color: $yellow;
+}
+
+.toast.danger .column i {
+    color: $red-orange;
+}
+
+.toast .column i {
+    font-size: 1.75rem;
+}
+
+.toast .column span {
+    font-size: 1.07rem;
+    margin-left: 12px;
+}
+
+.toast i:last-child {
+    color: $dark-grey;
+    cursor: pointer;
+}
+
+.toast i:last-child:hover {
+    color: $orange;
+}
