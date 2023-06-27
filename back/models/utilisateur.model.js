@@ -5,6 +5,10 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
+        pseudo: {
+            type: Sequelize.STRING,
+            unique: true
+        },
         nom: {
             type: Sequelize.STRING
         },
@@ -15,7 +19,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         mail: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: true
         },
         motDePasse: {
             type: Sequelize.STRING
@@ -64,12 +69,6 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: []
         }
     });
-
-    Utilisateur.associate = (models) => {
-        Utilisateur.belongsTo(models.Ville, { foreignKey: 'idVille' });
-        Utilisateur.belongsTo(models.Recompense, { foreignKey: 'idRecompense' });
-        Utilisateur.belongsTo(models.Roles, { foreignKey: 'idRole' });
-    };
 
     return Utilisateur;
 };
