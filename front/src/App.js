@@ -1,3 +1,4 @@
+import Home from './pages/Home';
 import { React, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from './pages/LandingPage';
@@ -31,6 +32,7 @@ const App = () => {
       <BrowserRouter>
         <NavBarLandingPage />
         <AnimateBackground />
+
         <Routes>
           <Route path='/' element={<LandingPage />} />
           <Route path='/test' element={<Test />} />
