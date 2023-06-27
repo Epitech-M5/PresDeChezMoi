@@ -12,7 +12,6 @@ const LandingPage = () => {
         const handleIntersection = (entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    console.log('Element is visible:', entry.target);
                     entry.target.classList.add('active')
                 }
             });
@@ -37,32 +36,15 @@ const LandingPage = () => {
 
     return (
         <>
-            <div className='landing_page'>
-                <NavBarLandingPage />
-                <div className="title">
-                    <div className="main_title">
-                        <h1>PresDeChezMoi</h1>
-                    </div>
-                    <div className="main_title_2">
-                        <h3>Le réseau social de ta commune !</h3>
-                    </div>
-                    <div className="btn_title">
-                        <ButtonLandingPage text="C'est parti !" nagifation="/login" />
-                    </div>
+            <div className="title">
+                <div className="main_title">
+                    <h1>PresDeChezMoi</h1>
                 </div>
-                <div className="main_area">
-                    <div className="circles">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
+                <div className="main_title_2">
+                    <h3>Le réseau social de ta commune !</h3>
+                </div>
+                <div className="btn_title">
+                    <ButtonLandingPage text="C'est parti !" navigation="/login" />
                 </div>
             </div>
             <div className="container_explain">
@@ -117,7 +99,7 @@ const LandingPage = () => {
                 </div>
                 <div className="before_footer_btn">
                     <div className="btn_footer">
-                        <ButtonLandingPage text="C'est parti !" nagifation="/login" />
+                        <ButtonLandingPage text="C'est parti !" navigation="/login" />
                     </div>
                     <div className="main_area">
                         <div className="circles">
@@ -134,7 +116,6 @@ const LandingPage = () => {
                         </div>
                     </div>
                 </div>
-                <FooterLandingPage />
             </div>
 
         </>

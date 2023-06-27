@@ -6,6 +6,7 @@ const ButtonLandingPage = (props) => {
     const navigate = useNavigate();
 
     const handleNavigation = () => {
+        window.scrollTo({ top: 0 });
         navigate(props.navigation)
     }
 

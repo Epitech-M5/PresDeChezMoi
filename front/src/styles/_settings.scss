@@ -14,6 +14,7 @@ $violet: #8c52ff;
 $dark-blue: #151729;
 $grey: #e8e8e8;
 $dark-grey: #c5c5c5;
+$blue: #3D9BFF;
 
 * {
     padding: 0;
@@ -42,5 +43,25 @@ $dark-grey: #c5c5c5;
 @media(max-width:600px) {
     ::-webkit-scrollbar {
         width: 6px;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
     }
 }

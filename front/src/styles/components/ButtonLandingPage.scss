@@ -39,3 +39,12 @@
 .btn1:hover::before {
     transform: scaleX(1);
 }
+
+@media(max-width:550px) {
+
+    .btn {
+        font-size: 10px;
+        padding: 8px 11px;
+    }
+
+}

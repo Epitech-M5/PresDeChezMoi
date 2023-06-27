@@ -24,6 +24,10 @@
     gap: 1rem;
 }
 
+.logo_nav a:hover {
+    cursor: pointer;
+}
+
 .links li {
     list-style: none;
 }
@@ -38,6 +42,7 @@
 
 .links a:hover {
     color: $green;
+    cursor: pointer;
 }
 
 .logo_nav a {
@@ -101,6 +106,7 @@
 
 .dropdown_navbar a:hover {
     color: $green;
+    cursor: pointer;
 }
 
 @media(max-width:1000px) {
@@ -136,5 +142,10 @@
     .dropdown_navbar {
         left: 2rem;
         width: unset;
+    }
+
+    .logo_nav a {
+        font-size: 13px;
+        margin-top: 8px;
     }
 }

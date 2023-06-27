@@ -1,13 +1,19 @@
-.test {
-    height: 110vh;
-    width: 100%;
-    background-color: red;
-    background-image: url('../../media/img/test.png');
-}
-
-.test2 {
-    background-color: lightpink;
-    width: 100%;
+.testdiv {
+    width: 30%;
+    height: 10vh;
+    margin: 50px;
+    background-color: lightcoral;
+    border-radius: 8px;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.abs_test_container {
+    width: 100%;
+    height: 100vh;
+    background-color: violet;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
