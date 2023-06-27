@@ -70,11 +70,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
-    Utilisateur.associate = (models) => {
-        Utilisateur.belongsTo(models.Ville, { foreignKey: 'idVille' });
-        Utilisateur.belongsTo(models.Recompense, { foreignKey: 'idRecompense' });
-        Utilisateur.belongsTo(models.Roles, { foreignKey: 'idRole' });
-    };
-
     return Utilisateur;
 };
