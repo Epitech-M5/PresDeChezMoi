@@ -1,5 +1,5 @@
 const db = require("../models");
-const Utilisateur = db.utilisateur;
+const Ticket = db.ticket;
 
 // title: req.body.title,
 // description: req.body.description,
@@ -11,11 +11,10 @@ exports.create = (req, res) => {
     var stringErrorMessage = "";
 
     // Champ nécessaire pour la requete
-    if (!req.body.pseudo || !req.body.mail || !req.body.motDePasse) {
+    if (!req.body.titre) {
         boolErrorFlag = true
         stringErrorMessage = "Content can not be empty!"
     }
-
     // Validate request
     if (boolErrorFlag) {
         res.status(400).send({
@@ -25,29 +24,16 @@ exports.create = (req, res) => {
     }
 
     // Create User
-    const utilisateurObjet = {
-        pseudo: req.body.pseudo,
-        nom: null,
-        prenom: null,
-        photoProfil: null,
-        mail: req.body.mail,
-        motDePasse: req.body.motDePasse,
-        idVille: null,
-        score: 0,
-        participation: null,
-        estAdministrateur: null,
-        abonnement: null,
-        profession: null,
-        idRecompense: null,
-        listRecompense: null,
-        nombreSignalement: 0,
-        estBanni: false,
-        idRole: null,
-        listAnnonceEnregistre: null
+    const ticketObjet = {
+        idUtilisateur: req.body.idUtilisateur,
+        titre: req.body.titre,
+        idStatus: req.body.idStatus,
+        message: req.body.message,
+        dateCreation: req.body.dateCreation
     };
 
     // Save Tutorial in the database adn catch internal error
-    Utilisateur.create(utilisateurObjet)
+    Ticket.create(ticketObjet)
         .then(data => {
             res.send(data);
         })
@@ -62,25 +48,25 @@ exports.create = (req, res) => {
 exports.find_one = (req, res) => {
     const id = req.params.id;
 
-    Utilisateur.findByPk(id)
+    Ticket.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find utilisateur with id=${id}.`
+                    message: `Cannot find Type Signalement with id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving utilisateur with id=" + id
+                message: "Error retrieving Type Signalement with id=" + id
             });
         });
 };
 
 exports.find_all = (req, res) => {
-    Utilisateur.findAll()
+    Ticket.findAll()
         .then(data => {
             res.send(data);
         })
@@ -95,23 +81,23 @@ exports.find_all = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Utilisateur.update(req.body, {
+    Ticket.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Utilisateur was updated successfully."
+                    message: "Type Signalement was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Utilisateur with id=${id}. Maybe Utilisateur was not found or req.body is empty!`
+                    message: `Cannot update Type Signalement with id=${id}. Maybe Type Signalement was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Utilisateur with id=" + id + "(" + err + ")"
+                message: "Error updating Type Signalement with id=" + id + "(" + err + ")"
             });
         });
 };
@@ -119,23 +105,23 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Utilisateur.destroy({
+    Ticket.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Utilisateur was deleted successfully!"
+                    message: "Type Signalement was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Utilisateur with id=${id}. Maybe Utilisateur was not found!`
+                    message: `Cannot delete Type Signalement with id=${id}. Maybe Type Signalement was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Utilisateur with id=" + id
+                message: "Could not delete Type Signalement with id=" + id
             });
         });
 };

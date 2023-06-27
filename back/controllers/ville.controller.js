@@ -1,5 +1,5 @@
 const db = require("../models");
-const Utilisateur = db.utilisateur;
+const Ville = db.ville;
 
 // title: req.body.title,
 // description: req.body.description,
@@ -11,7 +11,7 @@ exports.create = (req, res) => {
     var stringErrorMessage = "";
 
     // Champ nécessaire pour la requete
-    if (!req.body.pseudo || !req.body.mail || !req.body.motDePasse) {
+    if (!req.body.nom || !req.body.codePostal || !req.body.scoreVilleFleurie) {
         boolErrorFlag = true
         stringErrorMessage = "Content can not be empty!"
     }
@@ -25,29 +25,21 @@ exports.create = (req, res) => {
     }
 
     // Create User
-    const utilisateurObjet = {
-        pseudo: req.body.pseudo,
-        nom: null,
-        prenom: null,
-        photoProfil: null,
-        mail: req.body.mail,
-        motDePasse: req.body.motDePasse,
-        idVille: null,
-        score: 0,
-        participation: null,
-        estAdministrateur: null,
-        abonnement: null,
-        profession: null,
-        idRecompense: null,
-        listRecompense: null,
-        nombreSignalement: 0,
-        estBanni: false,
-        idRole: null,
-        listAnnonceEnregistre: null
+    const VilleObjet = {
+        nom: req.body.nom,
+        codePostal: req.body.codePostal,
+        scoreVilleFleurie: req.body.scoreVilleFleurie,
+        noteHygiene: null,
+        moyenneHygiene: null,
+        noteService: null,
+        moyenneService: null,
+        noteEvenement: null,
+        moyenneEvenement: null,
+        scoreGlocale: null
     };
 
     // Save Tutorial in the database adn catch internal error
-    Utilisateur.create(utilisateurObjet)
+    Ville.create(VilleObjet)
         .then(data => {
             res.send(data);
         })
@@ -62,25 +54,25 @@ exports.create = (req, res) => {
 exports.find_one = (req, res) => {
     const id = req.params.id;
 
-    Utilisateur.findByPk(id)
+    Ville.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find utilisateur with id=${id}.`
+                    message: `Cannot find Ville with id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving utilisateur with id=" + id
+                message: "Error retrieving Ville with id=" + id
             });
         });
 };
 
 exports.find_all = (req, res) => {
-    Utilisateur.findAll()
+    Ville.findAll()
         .then(data => {
             res.send(data);
         })
@@ -95,23 +87,23 @@ exports.find_all = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Utilisateur.update(req.body, {
+    Ville.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Utilisateur was updated successfully."
+                    message: "Ville was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Utilisateur with id=${id}. Maybe Utilisateur was not found or req.body is empty!`
+                    message: `Cannot update Ville with id=${id}. Maybe Ville was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Utilisateur with id=" + id + "(" + err + ")"
+                message: "Error updating Ville with id=" + id + "(" + err + ")"
             });
         });
 };
@@ -119,23 +111,23 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Utilisateur.destroy({
+    Ville.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Utilisateur was deleted successfully!"
+                    message: "Ville was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Utilisateur with id=${id}. Maybe Utilisateur was not found!`
+                    message: `Cannot delete Ville with id=${id}. Maybe Ville was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Utilisateur with id=" + id
+                message: "Could not delete Ville with id=" + id
             });
         });
 };

@@ -9,7 +9,8 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         codePostal: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            unique: true
         },
         scoreVilleFleurie: {
             type: Sequelize.INTEGER
