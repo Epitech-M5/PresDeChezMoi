@@ -1,5 +1,5 @@
 module.exports = {
-    HOST: "localhost",
+    HOST: "db",                     //db (nom du service) pour l'utiliser dans un container 
     USER: "root",
     PASSWORD: "x9474h7mPwSxAEZt92Nb",
     DB: "testdb",
