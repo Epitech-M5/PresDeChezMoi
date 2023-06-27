@@ -9,6 +9,7 @@ import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import AnimateBackground from './components/AnimateBackground';
 import PageNotFound from './pages/PageNotFound';
+import ForgotPassword from './pages/ForgotPassword';
 
 const App = () => {
 
@@ -37,6 +38,7 @@ const App = () => {
           <Route path='/contact' element={<ContactPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='*' element={<PageNotFound />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
         </Routes>
         <FooterLandingPage />
 

@@ -35,7 +35,7 @@ const LoginPage = () => {
                                 <input type="password" placeholder='Mot de passe' />
                             </div>
                             <input type="submit" value="Se connecter" className='btn_login' />
-                            <a href="/404" target='_blank' id='forgot_password'><h3>Mot de passe oublié ?</h3></a>
+                            <a href="/forgot-password" target='_blank' id='forgot_password'><h3>Mot de passe oublié ?</h3></a>
                             <p className='social_text'>Ou avec les réseaux sociaux</p>
                             <div className="social_login">
                                 <a href="" className='social_login_icon'>

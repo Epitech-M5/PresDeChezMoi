@@ -1,0 +1,87 @@
+.contact_form_title h1 {
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    text-align: center;
+    font-size: 4vw;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.contact_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#textarea_contact {
+    border-radius: 8px;
+    height: 100px;
+}
+
+.input_field textarea {
+    font-weight: 700;
+    border: none;
+    resize: none;
+    padding-top: 18px;
+    background: transparent;
+    font-size: 0.8rem;
+}
+
+.input_field textarea::placeholder {
+    color: $dark-grey;
+}
+
+.max-height {
+    height: 550px !important;
+}
+
+@media (max-height: 680px) {
+    .max-height {
+        height: 400px !important;
+    }
+
+    #subject_to_delete {
+        display: none;
+    }
+
+    .contact_form_title h1 {
+        margin: 0;
+        margin-top: 20px;
+    }
+}
+
+@media (max-height: 495px) {
+    .max-height {
+        height: 340px !important;
+    }
+
+    .contact_form_title h1 {
+        margin: 0;
+        margin-top: 10px;
+    }
+
+
+    #textarea_contact {
+        border-radius: 8px;
+        height: auto;
+        border-radius: 55px;
+    }
+
+    .input_field textarea {
+        font-weight: 700;
+        border: none;
+        resize: none;
+        padding-top: 18px;
+        background: transparent;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .contact_form {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
