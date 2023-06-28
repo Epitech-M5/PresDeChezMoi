@@ -1,45 +1,55 @@
 import React, { useState } from "react";
-import mainLogo from "../media/img/lapin-removebg-preview.png";
 
-const Home = () => {
-  const [showLinks, setShowLinks] = useState(false);
-
-  const handleClick = () => {
-    setShowLinks(!showLinks);
-  };
+const Home = (props) => {
+  // a faire :
+  // - faire une props pour le logo
+  // - mettre le background des rond gradient avec le orange de la charte graphique
+  // - faire une props pour le spacing des rond
+  var mainLogo = props.image;
 
   return (
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="ms-nav-container">
-            <ul class="ms-nav">
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-xs-12">
+          <div className="ms-nav-container">
+            <ul className="ms-nav">
               <input
                 type="checkbox"
                 id="ms-menu"
-                class="ms-menu-toggle"
+                className="ms-menu-toggle"
                 name="ms-menu-toggle"
               />
-              <li class="ms-main">
+              <li className="ms-li ms-li1 ms-li-first">
                 <a href="javascript:void(0)">
-                  <label class="ms-menu-toggle-lbl" for="ms-menu">
-                    <img src={mainLogo} alt="logo" className="userLogo" />
+                  <span className="fa fa-fort-awesome"></span>
+                </a>
+              </li>
+              <li className="ms-li ms-li2">
+                <a href="javascript:void(0)">
+                  <span className="fa fa-flask"></span>
+                </a>
+              </li>
+              <li className="ms-li ms-li3 ms-li-last">
+                <a href="javascript:void(0)">
+                  <span className="fa fa-search"></span>
+                </a>
+              </li>
+              <div className="ms-nav-point"> </div>
+              <div className="ms-nav-point"> </div>
+              <div className="ms-nav-point"> </div>
+              <div className="ms-nav-point"> </div>
+              <div className="ms-nav-point"> </div>
+              <div className="ms-nav-point"> </div>
+              <div className="ms-nav-point"> </div>
+              <div className="ms-nav-point"> </div>
+              <div className="ms-nav-point"> </div>
+              <div className="ms-nav-point"> </div>
+              <li className="ms-main">
+                <a href="javascript:void(0)">
+                  <label className="ms-menu-toggle-lbl" for="ms-menu">
+                    <img src={mainLogo} alt="logo" className="userProfile" />
+                    <h3>Pseudo</h3>
                   </label>
-                </a>
-              </li>
-              <li class="ms-li ms-li1 ms-li-first">
-                <a href="javascript:void(0)">
-                  <span class="fa fa-fort-awesome"></span>
-                </a>
-              </li>
-              <li class="ms-li ms-li2">
-                <a href="javascript:void(0)">
-                  <span class="fa fa-flask"></span>
-                </a>
-              </li>
-              <li class="ms-li ms-li3 ms-li-last">
-                <a href="javascript:void(0)">
-                  <span class="fa fa-search"></span>
                 </a>
               </li>
             </ul>

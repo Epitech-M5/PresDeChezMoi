@@ -34,6 +34,7 @@ const App = () => {
         <AnimateBackground />
         <Routes>
           <Route path='/' element={<LandingPage />} />
+          <Route path='/home' element={<Home />} />
           <Route path='/test' element={<Test />} />
           <Route path='/team' element={<TeamPage />} />
           <Route path='/contact' element={<ContactPage />} />
