@@ -1,14 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
-    const Statut = sequelize.define("statut", {
+    const status = sequelize.define("status", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         titre: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: true
         }
     });
 
-    return Statut;
+    return status;
 };
