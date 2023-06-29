@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, {useState} from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> dev
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Test from "./pages/Test";
