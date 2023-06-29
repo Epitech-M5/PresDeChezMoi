@@ -48,7 +48,7 @@ a {
   position: absolute;
   top: 10px;
   left: 5px;
-  transition: top 0.6s ease;
+  transition: top 0.4s ease;
   z-index: 1;
 }
 
@@ -90,7 +90,6 @@ a {
 .ms-nav > .ms-main > a > label {
   font-size: 30px;
   color: #ffffff;
-  background: linear-gradient(90deg, #8a55fd, #5cdee6);
   width: 75px;
   height: 75px;
   display: block;
@@ -98,8 +97,11 @@ a {
   position: relative;
   text-align: center;
   z-index: 19;
+  background: linear-gradient(to right, #8a55fd, #5cdee6);
+  background-size: 200% 100%;
+  transition: background-position 0.5s;
   &:hover {
-    background-position: right center;
+    background-position: right;
   }
 }
 
@@ -136,7 +138,7 @@ a {
 }
 .ms-nav .ms-menu-toggle:checked ~ .ms-li1 {
   top: 170%;
-  transition: top 0.5s ease;
+  transition: top 0.4s ease;
 }
 
 $child-count: 15; // Nombre d'enfants de .ms-nav-point
@@ -190,7 +192,7 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
 
 .ms-nav .ms-menu-toggle:checked ~ .ms-li2 {
   top: 285%;
-  transition: top 0.6s ease;
+  transition: top 0.55s ease;
 }
 .ms-nav .ms-menu-toggle:checked ~ .ms-li2 a span {
   opacity: 1;
@@ -207,7 +209,7 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
 
 .ms-nav .ms-menu-toggle:checked ~ .ms-li3 {
   top: 400%;
-  transition: top 0.8s ease;
+  transition: top 0.68s ease;
 }
 .ms-nav .ms-menu-toggle:checked ~ .ms-li3 a span {
   opacity: 1;
