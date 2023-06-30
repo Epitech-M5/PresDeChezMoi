@@ -109,3 +109,25 @@
 .toast i:last-child:hover {
     color: $orange;
 }
+
+.notifications .toast.hide {
+    animation: hide_toast 0.3s ease forwards;
+}
+
+@keyframes hide_toast {
+    0% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(0%);
+    }
+
+    80% {
+        transform: translateX(-5%);
+    }
+
+    100% {
+        transform: translateX(110%);
+    }
+}

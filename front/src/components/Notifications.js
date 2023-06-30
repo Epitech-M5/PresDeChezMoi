@@ -3,8 +3,16 @@ import React, { useEffect, useState } from 'react';
 const Notifications = (props) => {
 
     const [notif, setNotif] = useState();
+    const timer = 5000;
 
     useEffect(() => {
+
+        setTimeout(() => removeNotif(), timer);
+
+        const removeNotif = () => {
+            document.querySelector(".toast").classList.add("hide");
+            // document.querySelector(".toast").style.display = "none";
+        }
 
         switch (props.type) {
             case '1':
