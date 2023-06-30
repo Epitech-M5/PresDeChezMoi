@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
         titre: {
             type: Sequelize.STRING
         },
-        idStatut: {
+        idStatus: {
             type: Sequelize.BOOLEAN
         },
         message: {

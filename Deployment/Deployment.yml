@@ -1,11 +1,11 @@
 ---
-- name: Installation de Docker et Docker Compose sur Ubuntu
-  hosts: BDD
+- name: Deployment projet (BDD + front + back)
+  hosts: VM
   become: true
   become_method: sudo
 
   vars:
-    repo_git: "https://github.com/MateoSalvy/BDD.git"
+    repo_git: "https://github.com/MateoSalvy/DeploimentTest.git"
 
   tasks:
     - name: Mise à jour du cache APT
@@ -53,11 +53,11 @@
     - name: Clone du référentiel Git
       git:
         repo: "{{repo_git}}"
-        dest: "./BDD"
+        dest: "./Code"
 
     - name: Lancement docker-compose
       become: true
-      shell: cd BDD && sudo docker-compose up -d
+      shell: cd Code && sudo docker-compose up -d
 
     - name: Ajout port 3306 MariaDB
       become: true
@@ -66,3 +66,7 @@
     - name: Ajout port 8080 phpMyAdmin
       become: true
       shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 8080 -j ACCEPT && netfilter-persistent save
+
+    - name: Ajout port 3001 react
+      become: true
+      shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 3001 -j ACCEPT && netfilter-persistent save

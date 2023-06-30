@@ -7,7 +7,7 @@ const Test = () => {
 
     const [data, setData] = useState([]);
     const [success, setSuccess] = useState(false);
-    const [list, setList] = useState();
+    const [list, setList] = useState([]);
 
     const handleFakeRequest = () => {
 
@@ -16,6 +16,12 @@ const Test = () => {
             .then((response) => {
                 setData([response.data]);
                 setSuccess(true);
+
+                setList(list => [...list, <Notifications type='1' text='dddddd d dddd ddd' />]);
+                // setList(list => [...list.keys(), <Notifications type='1' text='dddddd d dddd ddd' />]);
+                // setList([<Notifications type='1' text='dddddd d dddd ddd' />]);
+
+                console.log(list);
 
             })
             .catch((error) => {
@@ -55,9 +61,20 @@ const Test = () => {
                         </div>
                     )
                 }
-                <Notifications type='1' text='ddddddd d dddd ddd' />
-                <Notifications type='2' text='ddddddd d dddd ddd' />
+
                 <button onClick={handleFakeRequest}>Request</button>
+
+                <div className="container_notif_btn">
+                    <button onClick={() => setList(list => [...list, <Notifications type='1' text='dddddd d dddd ddd' />])}>success</button>
+                    <button onClick={() => setList(list => [...list, <Notifications type='2' text='dddddd d dddd ddd' />])}>info</button>
+                    <button onClick={() => setList(list => [...list, <Notifications type='3' text='dddddd d dddd ddd' />])}>warning</button>
+                    <button onClick={() => setList(list => [...list, <Notifications type='4' text='dddddd d dddd ddd' />])}>danger</button>
+                </div>
+                <ul className='notifications'>
+
+                    {list}
+
+                </ul>
 
             </div>
         </>

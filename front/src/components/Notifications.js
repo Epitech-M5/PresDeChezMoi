@@ -3,8 +3,16 @@ import React, { useEffect, useState } from 'react';
 const Notifications = (props) => {
 
     const [notif, setNotif] = useState();
+    const timer = 5000;
 
     useEffect(() => {
+
+        setTimeout(() => removeNotif(), timer);
+
+        const removeNotif = () => {
+            document.querySelector(".toast").classList.add("hide");
+            // document.querySelector(".toast").style.display = "none";
+        }
 
         switch (props.type) {
             case '1':
@@ -47,8 +55,6 @@ const Notifications = (props) => {
                         <i class="fa-solid fa-xmark"></i>
                     </li>
                 );
-            default:
-                return null;
 
         }
 
@@ -56,9 +62,9 @@ const Notifications = (props) => {
 
     return (
         <>
-            <ul className='notifications'>
-                {notif}
-            </ul>
+
+            {notif}
+
         </>
     );
 };

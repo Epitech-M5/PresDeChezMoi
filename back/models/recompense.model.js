@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         idVille: {
             type: Sequelize.INTEGER
+        },
+        scoreNecessaire: {
+            type: Sequelize.INTEGER
         }
     });
 
