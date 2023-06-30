@@ -47,8 +47,6 @@ const Notifications = (props) => {
                         <i class="fa-solid fa-xmark"></i>
                     </li>
                 );
-            default:
-                return null;
 
         }
 
@@ -56,9 +54,9 @@ const Notifications = (props) => {
 
     return (
         <>
-            <ul className='notifications'>
-                {notif}
-            </ul>
+
+            {notif}
+
         </>
     );
 };

@@ -3,6 +3,8 @@
     top: 100px;
     right: 20px;
     color: $white;
+    background-color: red;
+    z-index: 99999999999999;
 }
 
 .notifications .toast {
@@ -15,7 +17,7 @@
     background-color: $dark-blue;
     justify-content: space-between;
     overflow: hidden;
-    // animation: show_toast 0.3s ease forwards;
+    animation: show_toast 0.3s ease forwards;
 }
 
 @keyframes show_toast {
@@ -45,11 +47,11 @@
     content: "";
     position: absolute;
     height: 3px;
-    width: 50%;
+    width: 100%;
     background-color: red;
     bottom: 0px;
     left: 0px;
-    //animation: progress 5s linear forwards;
+    animation: progress 5s linear forwards;
 }
 
 @keyframes progress {

@@ -7,7 +7,7 @@ const Test = () => {
 
     const [data, setData] = useState([]);
     const [success, setSuccess] = useState(false);
-    const [list, setList] = useState();
+    const [list, setList] = useState([]);
 
     const handleFakeRequest = () => {
 
@@ -16,6 +16,10 @@ const Test = () => {
             .then((response) => {
                 setData([response.data]);
                 setSuccess(true);
+
+                setList(list => [...list, <Notifications type='1' text='dddddd d dddd ddd' />]);
+
+                console.log(list);
 
             })
             .catch((error) => {
@@ -55,9 +59,12 @@ const Test = () => {
                         </div>
                     )
                 }
-                <Notifications type='1' text='ddddddd d dddd ddd' />
-                <Notifications type='2' text='ddddddd d dddd ddd' />
+
                 <button onClick={handleFakeRequest}>Request</button>
+
+                <ul className='notifications'>
+                    {list}
+                </ul>
 
             </div>
         </>
