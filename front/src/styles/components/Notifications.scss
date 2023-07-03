@@ -1,13 +1,4 @@
-.notifications {
-    position: fixed;
-    top: 100px;
-    right: 20px;
-    color: $white;
-    background-color: red;
-    z-index: 99999999999999;
-}
-
-.notifications .toast {
+.container_message_queu .toast {
     position: relative;
     width: 400px;
     list-style: none;
@@ -38,7 +29,7 @@
     }
 }
 
-.notifications :where(.toast, .column) {
+.container_message_queu :where(.toast, .column) {
     display: flex;
     align-items: center;
 }
@@ -104,13 +95,14 @@
 .toast i:last-child {
     color: $dark-grey;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 .toast i:last-child:hover {
     color: $orange;
 }
 
-.notifications .toast.hide {
+.container_message_queu .toast.hide {
     animation: hide_toast 0.3s ease forwards;
 }
 

@@ -1,70 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 
-const Notifications = (props) => {
+const Notifications = ({ message, removeMessage }) => {
 
     const [notif, setNotif] = useState();
-    const timer = 5000;
 
     useEffect(() => {
 
-        setTimeout(() => removeNotif(), timer);
+        switch (message.type) {
 
-        const removeNotif = () => {
-            document.querySelector(".toast").classList.add("hide");
-            // document.querySelector(".toast").style.display = "none";
+            case 'success':
+                document.querySelector('.toast').classList.add('success');
+                return setNotif(<i class="fa-solid fa-circle-check"></i>);
+            case 'info':
+                document.querySelector('.toast').classList.add('info');
+                return setNotif(<i class="fa-solid fa-circle-info"></i>);
+            case 'error':
+                document.querySelector('.toast').classList.add('error');
+                return setNotif(<i class="fa-sharp fa-solid fa-ban"></i>);
         }
 
-        switch (props.type) {
-            case '1':
-                return setNotif(
-                    <li className="toast success">
-                        <div className="column">
-                            <i class="fa-solid fa-circle-check"></i>
-                            <span>{props.text}</span>
-                        </div>
-                        <i class="fa-solid fa-xmark"></i>
-                    </li>
-                );
-            case '2':
-                return setNotif(
-                    <li className="toast info">
-                        <div className="column">
-                            <i class="fa-solid fa-circle-info"></i>
-                            <span>{props.text}</span>
-                        </div>
-                        <i class="fa-solid fa-xmark"></i>
-                    </li>
-                );
-            case '3':
-                return setNotif(
-                    <li className="toast warning">
-                        <div className="column">
-                            <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
-                            <span>{props.text}</span>
-                        </div>
-                        <i class="fa-solid fa-xmark"></i>
-                    </li>
-                );
-            case '4':
-                return setNotif(
-                    <li className="toast danger">
-                        <div className="column">
-                            <i class="fa-sharp fa-solid fa-ban"></i>
-                            <span>{props.text}</span>
-                        </div>
-                        <i class="fa-solid fa-xmark"></i>
-                    </li>
-                );
-
-        }
 
     }, [])
 
     return (
         <>
-
-            {notif}
-
+            <li className="toast">
+                <div className="column">
+                    {notif}
+                    <span>{message.caption}</span>
+                </div>
+                <i class="fa-solid fa-xmark" onClick={() => { removeMessage(message.id) }}></i>
+            </li >
         </>
     );
 };

@@ -1,27 +1,24 @@
-import { React, useEffect, useState } from 'react';
+import { React, useState } from 'react';
 import Loader from '../components/Loader.js'
 import axios from 'axios';
-import Notifications from '../components/Notifications.js';
+import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
 
 const Test = () => {
 
     const [data, setData] = useState([]);
     const [success, setSuccess] = useState(false);
-    const [list, setList] = useState([]);
+
+    const { addMessage, removeMessage, messages } = useMessageQueue();
 
     const handleFakeRequest = () => {
+
+        addMessage("It is a long established fact that a reader will be distracted by the readable", "success");
 
         axios
             .get('https://my-json-server.typicode.com/typicode/demo/db')
             .then((response) => {
                 setData([response.data]);
                 setSuccess(true);
-
-                setList(list => [...list, <Notifications type='1' text='dddddd d dddd ddd' />]);
-                // setList(list => [...list.keys(), <Notifications type='1' text='dddddd d dddd ddd' />]);
-                // setList([<Notifications type='1' text='dddddd d dddd ddd' />]);
-
-                console.log(list);
 
             })
             .catch((error) => {
@@ -31,22 +28,10 @@ const Test = () => {
 
     }
 
-    /*
-        useEffect(() => {
-            axios
-                .get('https://my-json-server.typicode.com/typicode/demo/db')
-                .then((response) => {
-                    setData([response.data]);
-                    setSuccess(true);
-                })
-                .catch((error) => {
-                    console.log("error " + error);
-                    setSuccess(false);
-                })
-        })
-    */
     return (
         <>
+            <MessageQueue messages={messages} removeMessage={removeMessage} />
+
             <div className="abs_test_container">
                 {
                     success ? (
@@ -64,19 +49,7 @@ const Test = () => {
 
                 <button onClick={handleFakeRequest}>Request</button>
 
-                <div className="container_notif_btn">
-                    <button onClick={() => setList(list => [...list, <Notifications type='1' text='dddddd d dddd ddd' />])}>success</button>
-                    <button onClick={() => setList(list => [...list, <Notifications type='2' text='dddddd d dddd ddd' />])}>info</button>
-                    <button onClick={() => setList(list => [...list, <Notifications type='3' text='dddddd d dddd ddd' />])}>warning</button>
-                    <button onClick={() => setList(list => [...list, <Notifications type='4' text='dddddd d dddd ddd' />])}>danger</button>
-                </div>
-                <ul className='notifications'>
-
-                    {list}
-
-                </ul>
-
-            </div>
+            </div >
         </>
     );
 };
