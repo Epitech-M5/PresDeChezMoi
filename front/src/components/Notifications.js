@@ -1,64 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 
-const Notifications = (props) => {
+const Notifications = ({ message, removeMessage }) => {
 
     const [notif, setNotif] = useState();
 
     useEffect(() => {
 
-        switch (props.type) {
-            case '1':
-                return setNotif(
-                    <li className="toast success">
-                        <div className="column">
-                            <i class="fa-solid fa-circle-check"></i>
-                            <span>{props.text}</span>
-                        </div>
-                        <i class="fa-solid fa-xmark"></i>
-                    </li>
-                );
-            case '2':
-                return setNotif(
-                    <li className="toast info">
-                        <div className="column">
-                            <i class="fa-solid fa-circle-info"></i>
-                            <span>{props.text}</span>
-                        </div>
-                        <i class="fa-solid fa-xmark"></i>
-                    </li>
-                );
-            case '3':
-                return setNotif(
-                    <li className="toast warning">
-                        <div className="column">
-                            <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
-                            <span>{props.text}</span>
-                        </div>
-                        <i class="fa-solid fa-xmark"></i>
-                    </li>
-                );
-            case '4':
-                return setNotif(
-                    <li className="toast danger">
-                        <div className="column">
-                            <i class="fa-sharp fa-solid fa-ban"></i>
-                            <span>{props.text}</span>
-                        </div>
-                        <i class="fa-solid fa-xmark"></i>
-                    </li>
-                );
-            default:
-                return null;
+        switch (message.type) {
 
+            case 'success':
+                document.querySelector('.toast').classList.add('success');
+                return setNotif(<i class="fa-solid fa-circle-check"></i>);
+            case 'info':
+                document.querySelector('.toast').classList.add('info');
+                return setNotif(<i class="fa-solid fa-circle-info"></i>);
+            case 'error':
+                document.querySelector('.toast').classList.add('error');
+                return setNotif(<i class="fa-sharp fa-solid fa-ban"></i>);
         }
+
 
     }, [])
 
     return (
         <>
-            <ul className='notifications'>
-                {notif}
-            </ul>
+            <li className="toast">
+                <div className="column">
+                    {notif}
+                    <span>{message.caption}</span>
+                </div>
+                <i class="fa-solid fa-xmark" onClick={() => { removeMessage(message.id) }}></i>
+            </li >
         </>
     );
 };

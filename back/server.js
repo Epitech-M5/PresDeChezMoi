@@ -29,22 +29,22 @@ db.sequelize.sync({ force: true })
         console.log("Failed to sync db: " + err.message);
     });
 
-    function initial() {
-        Role.create({
-          id: 1,
-          titre: "user"
-        });
-       
-        Role.create({
-          id: 2,
-          titre: "moderator"
-        });
-       
-        Role.create({
-          id: 3,
-          titre: "admin"
-        });
-      }
+function initial() {
+    Role.create({
+        id: 1,
+        titre: "user"
+    });
+
+    Role.create({
+        id: 2,
+        titre: "moderator"
+    });
+
+    Role.create({
+        id: 3,
+        titre: "admin"
+    });
+}
 
 // // simple route
 // app.get("/", (req, res) => {
@@ -53,6 +53,22 @@ db.sequelize.sync({ force: true })
 
 // routes
 require("./routes/utilisateur.routes.js")(app);
+require("./routes/roles.routes.js")(app);
+require("./routes/typeUrgence.routes.js")(app);
+require("./routes/typeSignalement.routes.js")(app);
+require("./routes/status.routes.js")(app);
+require("./routes/ville.routes.js")(app);
+require("./routes/recompense.routes.js")(app);
+require("./routes/ticket.routes.js")(app);
+require("./routes/notification.routes.js")(app);
+require("./routes/signalement.routes.js")(app);
+require("./routes/commentaireAdmin.routes.js")(app);
+require("./routes/annonce.routes.js")(app);
+require("./routes/commentaire.routes.js")(app);
+require("./routes/typeActivite.routes.js")(app);
+require("./routes/map.routes.js")(app);
+require("./routes/room.routes.js")(app);
+require("./routes/chat.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;

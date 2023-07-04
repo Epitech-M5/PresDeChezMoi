@@ -1,11 +1,4 @@
-.notifications {
-    position: fixed;
-    top: 100px;
-    right: 20px;
-    color: $white;
-}
-
-.notifications .toast {
+.container_message_queu .toast {
     position: relative;
     width: 400px;
     list-style: none;
@@ -15,7 +8,7 @@
     background-color: $dark-blue;
     justify-content: space-between;
     overflow: hidden;
-    // animation: show_toast 0.3s ease forwards;
+    animation: show_toast 0.3s ease forwards;
 }
 
 @keyframes show_toast {
@@ -36,7 +29,7 @@
     }
 }
 
-.notifications :where(.toast, .column) {
+.container_message_queu :where(.toast, .column) {
     display: flex;
     align-items: center;
 }
@@ -45,11 +38,11 @@
     content: "";
     position: absolute;
     height: 3px;
-    width: 50%;
+    width: 100%;
     background-color: red;
     bottom: 0px;
     left: 0px;
-    //animation: progress 5s linear forwards;
+    animation: progress 5s linear forwards;
 }
 
 @keyframes progress {
@@ -102,8 +95,31 @@
 .toast i:last-child {
     color: $dark-grey;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 .toast i:last-child:hover {
     color: $orange;
+}
+
+.container_message_queu .toast.hide {
+    animation: hide_toast 0.3s ease forwards;
+}
+
+@keyframes hide_toast {
+    0% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(0%);
+    }
+
+    80% {
+        transform: translateX(-5%);
+    }
+
+    100% {
+        transform: translateX(110%);
+    }
 }
