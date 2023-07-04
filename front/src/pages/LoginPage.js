@@ -1,6 +1,81 @@
-import { React, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
+import { axiosGet, axiosPost, axiosPut, axiosDelete } from './../api.js';
 
 const LoginPage = () => {
+
+    const navigate = useNavigate();
+
+    const [idLogin, setIdLogin] = useState("");
+    const [passwordLogin, setPasswordLogin] = useState("");
+
+    const [idRegister, setIdRegister] = useState("");
+    const [email, setEmail] = useState("");
+    const [passwordRegister, setPasswordRegister] = useState("");
+
+    const { addMessage, removeMessage, messages } = useMessageQueue();
+
+    const handleNavigationLogin = () => {
+
+        console.log("input id : " + idLogin);
+        console.log("input pwd : " + passwordLogin);
+
+        if (idLogin.length <= 0 || passwordLogin.length <= 0) {
+            addMessage('Les champs "Identifiant" et "Mot de passe" ne sont pas remplis', 'info');
+        }
+
+        else {
+
+
+            var response, error = axiosGet('http://127.0.0.1:8081/api/status/', null, null);
+            console.log("response : " + response)
+            console.log("error : " + error)
+
+            addMessage('Connexion réussie, attendez quelques instants....', 'success');
+            setTimeout(() => {
+                navigate('/home')
+            }, 3000);
+        }
+
+    }
+
+    const handleNavigationRegister = () => {
+
+        console.log("input id : " + idRegister);
+        console.log("input pwd : " + passwordRegister);
+        console.log("input email : " + email);
+
+        if (idRegister.length <= 0 || passwordRegister.length <= 0 || email.length <= 0) {
+            addMessage('Les champs "Identifiant", "Mot de passe" et "Email" ne sont pas remplis', 'info');
+        }
+
+        else {
+            addMessage('Enregistrement réussie, veuillez maintenant vous connecter', 'success');
+        }
+
+    }
+
+    const handleId_login = (event) => {
+        setIdLogin(event.target.value);
+    }
+
+    const handlePassword_login = (event) => {
+        setPasswordLogin(event.target.value);
+    }
+
+    const handleId_register = (event) => {
+        setIdRegister(event.target.value);
+    }
+
+    const handlePassword_register = (event) => {
+        setPasswordRegister(event.target.value);
+    }
+
+    const handleEmail = (event) => {
+        setEmail(event.target.value);
+    }
 
     useEffect(() => {
 
@@ -20,6 +95,7 @@ const LoginPage = () => {
 
     return (
         <>
+            <MessageQueue messages={messages} removeMessage={removeMessage} />
             <div className="container_loginpage">
                 <div className="forms_container">
                     <div className="signin_signup">
@@ -28,13 +104,13 @@ const LoginPage = () => {
                             <h2 className='title_login'>Se connecter</h2>
                             <div className="input_field">
                                 <i class="fa-solid fa-user"></i>
-                                <input type="text" placeholder='Identifiant' />
+                                <input type="text" placeholder='Identifiant' onChange={handleId_login} />
                             </div>
                             <div className="input_field">
                                 <i class="fa-solid fa-lock"></i>
-                                <input type="password" placeholder='Mot de passe' />
+                                <input type="password" placeholder='Mot de passe' onChange={handlePassword_login} />
                             </div>
-                            <input type="submit" value="Se connecter" className='btn_login' />
+                            <input type="button" value="Se connecter" className='btn_login' onClick={handleNavigationLogin} />
                             <a href="/forgot-password" target='_blank' id='forgot_password'><h3>Mot de passe oublié ?</h3></a>
                             <p className='social_text'>Ou avec les réseaux sociaux</p>
                             <div className="social_login">
@@ -57,17 +133,17 @@ const LoginPage = () => {
                             <h2 className='title_login'>S'enregistrer</h2>
                             <div className="input_field">
                                 <i class="fa-solid fa-user"></i>
-                                <input type="text" placeholder='Identifiant' />
+                                <input type="text" placeholder='Identifiant' onChange={handleId_register} />
                             </div>
                             <div className="input_field">
                                 <i class="fa-solid fa-envelope"></i>
-                                <input type="text" placeholder='Email' />
+                                <input type="text" placeholder='Email' onChange={handleEmail} />
                             </div>
                             <div className="input_field">
                                 <i class="fa-solid fa-lock"></i>
-                                <input type="password" placeholder='Mot de passe' />
+                                <input type="password" placeholder='Mot de passe' onChange={handlePassword_register} />
                             </div>
-                            <input type="submit" value="S'enregistrer" className='btn_login' />
+                            <input type="button" value="S'enregistrer" className='btn_login' onClick={handleNavigationRegister} />
                             <p className='social_text'>Ou avec les réseaux sociaux</p>
                             <div className="social_login">
                                 <a href="" className='social_login_icon'>

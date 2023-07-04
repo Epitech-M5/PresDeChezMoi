@@ -37,9 +37,9 @@ const ForgotPassword = () => {
 
                                 <i onClick={change_eye1} className='slash_eye'>
                                     {eye1 ? (
-                                        <AiOutlineEye size={"3vw"} />
+                                        <AiOutlineEye size={"2rem"} />
                                     ) : (
-                                        <AiOutlineEyeInvisible size={"3vw"} />
+                                        <AiOutlineEyeInvisible size={"2rem"} />
                                     )}
                                 </i>
                                 <input type={eye1 ? "text" : "password"} placeholder='Nouveau mot de passe' onChange={handlePassword1} />
@@ -49,9 +49,9 @@ const ForgotPassword = () => {
                             <div className="input_field">
                                 <i onClick={change_eye2} className='slash_eye'>
                                     {eye2 ? (
-                                        <AiOutlineEye size={"3vw"} />
+                                        <AiOutlineEye size={"2rem"} />
                                     ) : (
-                                        <AiOutlineEyeInvisible size={"3vw"} />
+                                        <AiOutlineEyeInvisible size={"2rem"} />
                                     )}
                                 </i>
                                 <input type={eye2 ? "text" : "password"} placeholder='Confirmer votre mot de passe' onChange={handlePassword2} />
