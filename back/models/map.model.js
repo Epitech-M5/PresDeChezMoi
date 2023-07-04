@@ -17,9 +17,6 @@ module.exports = (sequelize, Sequelize) => {
         idUtilisateur: {
             type: Sequelize.INTEGER
         },
-        publieLe: {
-            type: Sequelize.DATE
-        },
         parking: {
             type: Sequelize.BOOLEAN
         },

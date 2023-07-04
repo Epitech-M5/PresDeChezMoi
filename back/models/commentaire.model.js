@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         note: {
-            type: Sequelize.FLOAT
+            type: Sequelize.INTEGER
         },
         texte: {
             type: Sequelize.TEXT
