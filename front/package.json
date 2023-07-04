@@ -13,7 +13,9 @@
     "react-router-dom": "^6.13.0",
     "react-scripts": "5.0.1",
     "sass": "^1.63.4",
+    "socket.io": "^4.7.1",
     "socket.io-client": "^4.7.1",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

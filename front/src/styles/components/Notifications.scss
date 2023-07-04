@@ -8,7 +8,9 @@
     background-color: $dark-blue;
     justify-content: space-between;
     overflow: hidden;
-    animation: show_toast 0.3s ease forwards;
+    animation:
+        show_toast 0.3s ease forwards,
+        hide_toast 0.3s 4.5s ease forwards;
 }
 
 @keyframes show_toast {
@@ -26,6 +28,25 @@
 
     100% {
         transform: translateX(-10px);
+    }
+}
+
+
+@keyframes hide_toast {
+    0% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(0%);
+    }
+
+    80% {
+        transform: translateX(-5%);
+    }
+
+    100% {
+        transform: translateX(110%);
     }
 }
 
@@ -104,22 +125,4 @@
 
 .container_message_queu .toast.hide {
     animation: hide_toast 0.3s ease forwards;
-}
-
-@keyframes hide_toast {
-    0% {
-        transform: translateX(-10px);
-    }
-
-    40% {
-        transform: translateX(0%);
-    }
-
-    80% {
-        transform: translateX(-5%);
-    }
-
-    100% {
-        transform: translateX(110%);
-    }
 }
