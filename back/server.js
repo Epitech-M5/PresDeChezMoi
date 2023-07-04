@@ -59,6 +59,14 @@ require("./routes/ville.routes.js")(app);
 require("./routes/recompense.routes.js")(app);
 require("./routes/ticket.routes.js")(app);
 require("./routes/notification.routes.js")(app);
+require("./routes/signalement.routes.js")(app);
+require("./routes/commentaireAdmin.routes.js")(app);
+require("./routes/annonce.routes.js")(app);
+require("./routes/commentaire.routes.js")(app);
+require("./routes/typeActivite.routes.js")(app);
+require("./routes/map.routes.js")(app);
+require("./routes/room.routes.js")(app);
+require("./routes/chat.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;

@@ -21,9 +21,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.JSON,
             defaultValue: []
         },
-        dateCreation: {
-            type: Sequelize.DATE,
-        },
         dateDebut: {
             type: Sequelize.DATE
         },

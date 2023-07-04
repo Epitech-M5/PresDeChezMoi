@@ -29,7 +29,7 @@ db.typeSignalement = require("./typeSignalement.model.js")(sequelize, Sequelize)
 db.typeActivite = require("./typeActivite.model.js")(sequelize, Sequelize);
 db.map = require("./map.model.js")(sequelize, Sequelize);
 db.room = require("./room.model.js")(sequelize, Sequelize);
-db.room = require("./chat.model.js")(sequelize, Sequelize);
+db.chat = require("./chat.model.js")(sequelize, Sequelize);
 db.ticket = require("./ticket.model.js")(sequelize, Sequelize);
 db.status = require("./status.model.js")(sequelize, Sequelize);
 db.notification = require("./notification.model.js")(sequelize, Sequelize);
@@ -40,10 +40,10 @@ db.utilisateur = require("./utilisateur.model.js")(sequelize, Sequelize);
 
 // Foreign key (userId -> refreshToken(table))
 db.refreshToken.belongsTo(db.utilisateur, {
-foreignKey: 'userId', targetKey: 'id'
+    foreignKey: 'userId', targetKey: 'id'
 });
 db.utilisateur.hasOne(db.refreshToken, {
-foreignKey: 'userId', targetKey: 'id'
+    foreignKey: 'userId', targetKey: 'id'
 });
 
 // Foreign key (villeId -> user(table))
