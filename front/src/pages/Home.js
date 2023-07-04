@@ -1,5 +1,5 @@
 import { React } from 'react';
-import UserMenu from '../components/Main Component/UserMenu';
+import UserMenu from '../components/MainComponent/UserMenu';
 
 
 const Home = () => {

@@ -1,0 +1,16 @@
+.chat_foot {
+  display: flex;
+}
+
+.chat_send {
+  width: 10%;
+  margin-left: 1%;
+  border-radius: 8px;
+  background: linear-gradient(90deg,yellow, orange);
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+}
+
+.chat_message span {
+  font-size: 2em;
+}
