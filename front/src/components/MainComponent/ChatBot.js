@@ -5,6 +5,7 @@ const ChatBot = () => {
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [socketId, setSocketId] = useState(null);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     const newSocket = io("http://localhost:8081");
@@ -25,18 +26,40 @@ const ChatBot = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (socket) {
+      socket.on("receive_message", (data) => {
+        console.log(data);
+        setHistory((prevHistory) => [...prevHistory, data]);
+      });
+    }
+  }, [socket]);
+
   const sendMessage = () => {
-    socket.emit("message", message);
+    socket.emit("message", { socketId: socketId, message: message });
   };
 
   return (
     <>
-      <input
-        type="text"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={sendMessage}>Envoyer un message</button>
+      <div className="chat_foot">
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <button onClick={sendMessage} className="chat_send">
+          Send
+        </button>
+      </div>
+
+      <div className="chat_history">
+        {history.map((item, index) => (
+          <div key={index} className="chat_message">
+            <span>{item.socketId}: </span>
+            <span>{item.message}</span>
+          </div>
+        ))}
+      </div>
     </>
   );
 };

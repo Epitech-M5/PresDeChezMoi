@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, {useState} from "react";
-=======
 import React, { useState } from "react";
->>>>>>> dev
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Test from "./pages/Test";
@@ -15,6 +11,7 @@ import AnimateBackground from "./components/AnimateBackground";
 import PageNotFound from "./pages/PageNotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
+import ChatBot from "./components/MainComponent/ChatBot";
 
 const LandingContainer = () => {
   return (
@@ -53,6 +50,7 @@ const App = () => {
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/*" element={<LandingContainer />} />
+          <Route path="/chatbot" element={<ChatBot />} />
         </Routes>
       </BrowserRouter>
     )
