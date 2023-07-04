@@ -11,9 +11,6 @@ module.exports = (sequelize, Sequelize) => {
         texte: {
             type: Sequelize.TEXT
         },
-        dateEnvoie: {
-            type: Sequelize.INTEGER
-        },
         idUtilisateur: {
             type: Sequelize.INTEGER
         }
