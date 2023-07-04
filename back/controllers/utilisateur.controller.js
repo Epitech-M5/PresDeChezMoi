@@ -54,8 +54,21 @@ exports.signup = (req, res) => {
 
     // Save User in the database adn catch internal error
     Utilisateur.create(utilisateurObjet)
-        .then(data => {
-            res.send(data);
+        .then(async data => {
+          const token = jwt.sign({ id: data.id }, config.secret, {
+            expiresIn: config.jwtExpiration // Durée de validité du token d'accès (1 heure dans cet exemple)
+          });
+    
+          // Generate refresh token
+          const refreshToken = await RefreshToken.createToken(data.id);
+    
+          res.status(200).send({
+            id: data.id,
+            pseudo: data.pseudo,
+            idRole: data.idRole,
+            accessToken: token,
+            refreshToken: refreshToken
+          });
             console.log("inscription", "User was registered successfully!")
         })
         .catch(err => {
