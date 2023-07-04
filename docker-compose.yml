@@ -1,6 +1,6 @@
 version: '3'
 services:
-  db:
+  mariadb:
     image: mariadb
     restart: always
     environment:
@@ -10,32 +10,35 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - db_data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
     networks:
-      - back-db
+      - back-mariadb
 
   phpmyadmin:
     depends_on:
-      - db
+      - mariadb
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
       - 8080:80
     environment:
-      PMA_HOST: db
+      PMA_HOST: mariadb
       MYSQL_ROOT_PASSWORD: x9474h7mPwSxAEZt92Nb
+      TZ: Europe/Paris
     networks:
-      - back-db
+      - back-mariadb
 
   back:
     depends_on:
-      - db
+      - mariadb
     build: ./back/
     ports:
       - "8081:8081"
+    environment:
+      TZ: Europe/Paris
     restart: always
     networks:
-      - back-db
+      - back-mariadb
 
   front:
     depends_on:
@@ -43,13 +46,40 @@ services:
     build: ./front/
     ports:
       - "3001:3000"
+    environment:
+      TZ: Europe/Paris
     restart: always
     networks:
       - front-back
 
+  portainer:
+    image: portainer/portainer-ce
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    environment:
+      TZ: Europe/Paris
+    restart: always
+
+  cadvisor:
+    image: google/cadvisor:latest
+    ports:
+      - 8083:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    environment:
+      TZ: Europe/Paris
+    restart: always
+
 volumes:
-  db_data:
+  mariadb_data:
+  portainer_data:
 
 networks:
-  back-db:
+  back-mariadb:
   front-back:
