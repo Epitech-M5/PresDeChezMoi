@@ -1,12 +1,12 @@
 import { React } from 'react';
-import UserMenu from '../components/Main Component/UserMenu';
-
+//import UserMenu from '../components/Main Component/UserMenu';
+// <UserMenu image="https://cdn-icons-png.flaticon.com/512/802/802287.png" />
 
 const Home = () => {
 
     return (
         <>
-            <UserMenu image="https://cdn-icons-png.flaticon.com/512/802/802287.png" />
+            <h1>home</h1>
         </>
     );
 };
