@@ -23,7 +23,6 @@ const LandingContainer = () => {
       <AnimateBackground />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/test" element={<Test />} />
         <Route path="/team" element={<TeamPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -53,6 +52,7 @@ const App = () => {
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/*" element={<LandingContainer />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>
     )
