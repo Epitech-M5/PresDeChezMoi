@@ -1,3 +1,107 @@
+import { useState } from 'react';
+import axios from 'axios';
+
+const useAxios = () => {
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const fetchData = async (url, method, body = null) => {
+        setIsLoading(true);
+        try {
+            const response = await axios({
+                method,
+                url,
+                data: body,
+            });
+            setData(response.data);
+        } catch (error) {
+            setError(error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const get = async (url) => {
+        await fetchData(url, 'GET');
+    };
+
+    const post = async (url, body) => {
+        await fetchData(url, 'POST', body);
+    };
+
+    const put = async (url, body) => {
+        await fetchData(url, 'PUT', body);
+    };
+
+    const del = async (url) => {
+        await fetchData(url, 'DELETE');
+    };
+
+    return { data, isLoading, error, get, post, put, del };
+};
+
+export default useAxios;
+
+/*
+import axios from 'axios';
+
+export default function useAxiosApi() {
+
+
+    function axiosGet(url, header, body) {
+        axios
+            .get(url, body, { header })
+            .then((response) => {
+                return response.data, true
+            })
+            .catch((error) => {
+                return error, true
+            })
+    }
+
+    function axiosPost(url, header, body) {
+        axios
+            .post(url, body, { header })
+            .then((response) => {
+                return response.data, true
+            })
+            .catch((error) => {
+                return error, true
+            })
+    }
+
+
+    function axiosPut(url, header, body) {
+        axios
+            .put(url, body, { header })
+            .then((response) => {
+                return response.data, true
+            })
+            .catch((error) => {
+                return error, true
+            })
+    }
+
+    function axiosDelete(url, header, body) {
+        axios
+            .delete(url, body, { header })
+            .then((response) => {
+                return response.data, true
+            })
+            .catch((error) => {
+                return error, true
+            })
+    }
+
+
+    return { axiosGet, axiosPost, axiosPut, axiosDelete }
+}
+
+*/
+
+/*
+
 import axios from 'axios';
 
 
@@ -76,7 +180,4 @@ export function axiosDelete(url, header, body) {
 // Make sure to adjust the code according to your specific use case, including the URL, headers, and request body.
 
 
-
-
-
-
+*/

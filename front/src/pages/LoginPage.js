@@ -2,7 +2,8 @@ import { React, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
-import { axiosGet, axiosPost, axiosPut, axiosDelete } from './../api.js';
+// import useAxiosApi, { axiosGet, axiosPut, axiosDelete, axiosPost } from './../api.js';
+//import useAxios from '../api.js';
 
 const LoginPage = () => {
 
@@ -17,7 +18,9 @@ const LoginPage = () => {
 
     const { addMessage, removeMessage, messages } = useMessageQueue();
 
-    const handleNavigationLogin = () => {
+    const handleNavigationLogin = (event) => {
+
+        event.preventDefault();
 
         console.log("input id : " + idLogin);
         console.log("input pwd : " + passwordLogin);
@@ -27,11 +30,6 @@ const LoginPage = () => {
         }
 
         else {
-
-
-            var response, error = axiosGet('http://127.0.0.1:8081/api/status/', null, null);
-            console.log("response : " + response)
-            console.log("error : " + error)
 
             addMessage('Connexion réussie, attendez quelques instants....', 'success');
             setTimeout(() => {

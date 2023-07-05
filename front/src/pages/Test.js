@@ -1,55 +1,44 @@
-import { React, useState } from 'react';
-import Loader from '../components/Loader.js'
-import axios from 'axios';
-import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
+import React from 'react';
+import useAxios from '../api';
 
 const Test = () => {
 
-    const [data, setData] = useState([]);
-    const [success, setSuccess] = useState(false);
+    const { data, isLoading, error, get, post, put, del } = useAxios();
 
-    const { addMessage, removeMessage, messages } = useMessageQueue();
+    const fetchData = () => {
+        get('https://api.example.com/data');
+    };
 
-    const handleFakeRequest = () => {
+    const addData = () => {
+        const newData = { name: 'New Item' };
+        post('https://api.example.com/data', newData);
+    };
 
-        addMessage("It is a long established fact that a reader will be distracted by the readable", "success");
+    const updateData = () => {
+        const updatedData = { id: 1, name: 'Updated Item' };
+        put('https://api.example.com/data/1', updatedData);
+    };
 
-        axios
-            .get('https://my-json-server.typicode.com/typicode/demo/db')
-            .then((response) => {
-                setData([response.data]);
-                setSuccess(true);
-
-            })
-            .catch((error) => {
-                console.log("error " + error);
-                setSuccess(false);
-            })
-
-    }
+    const deleteData = () => {
+        del('https://api.example.com/data/1');
+    };
 
     return (
         <>
-            <MessageQueue messages={messages} removeMessage={removeMessage} />
+            <div>
+                <button onClick={fetchData}>Fetch Data</button>
+                <button onClick={addData}>Add Data</button>
+                <button onClick={updateData}>Update Data</button>
+                <button onClick={deleteData}>Delete Data</button>
 
-            <div className="abs_test_container">
-                {
-                    success ? (
-                        data.map((fake_data) => (
-                            <div key={fake_data.posts[0].id} className='testdiv'>
-                                <p>{fake_data.posts[0].title}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <div className='testdiv'>
-                            <Loader />
-                        </div>
-                    )
-                }
-
-                <button onClick={handleFakeRequest}>Request</button>
-
-            </div >
+                {data && (
+                    <ul>
+                        {data.map((item) => (
+                            <li key={item.id}>{item.name}</li>
+                        ))}
+                    </ul>
+                )}
+            </div>
         </>
     );
 };

@@ -126,3 +126,25 @@
 .container_message_queu .toast.hide {
     animation: hide_toast 0.3s ease forwards;
 }
+
+@media(max-width:440px) {
+
+    .container_message_queu .toast {
+        width: 300px;
+    }
+
+}
+
+@media(max-width:340px) {
+
+    .container_message_queu .toast {
+        width: 220px;
+
+    }
+
+    .toast .column span {
+        font-size: 0.8rem;
+        margin-left: 12px;
+    }
+
+}
