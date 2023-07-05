@@ -3,7 +3,7 @@ import useAxios from '../api';
 
 const Test = () => {
 
-    const { data, isLoading, error, get, post, put, del } = useAxios();
+    const { data, isLoading, errorApi, get, post, put, del } = useAxios();
 
     const fetchData = () => {
         get('https://api.example.com/data');

@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
-// import useAxiosApi, { axiosGet, axiosPut, axiosDelete, axiosPost } from './../api.js';
-//import useAxios from '../api.js';
+import useAxios from '../api';
 
 const LoginPage = () => {
+
+    const { data, isLoading, errorApi, get, post, put, del } = useAxios();
 
     const navigate = useNavigate();
 
@@ -16,7 +16,15 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [passwordRegister, setPasswordRegister] = useState("");
 
+    const [errorCall, setErrorCall] = useState("");
+
     const { addMessage, removeMessage, messages } = useMessageQueue();
+
+    useEffect(() => {
+        console.log('errorApi:', errorApi);
+        setErrorCall(errorApi);
+        console.log('errorApi when call:', errorCall);
+    }, [errorApi]);
 
     const handleNavigationLogin = (event) => {
 
@@ -32,6 +40,7 @@ const LoginPage = () => {
         else {
 
             addMessage('Connexion réussie, attendez quelques instants....', 'success');
+
             setTimeout(() => {
                 navigate('/home')
             }, 3000);
@@ -39,7 +48,9 @@ const LoginPage = () => {
 
     }
 
-    const handleNavigationRegister = () => {
+    const handleNavigationRegister = (event) => {
+
+        event.preventDefault();
 
         console.log("input id : " + idRegister);
         console.log("input pwd : " + passwordRegister);
@@ -50,7 +61,26 @@ const LoginPage = () => {
         }
 
         else {
-            addMessage('Enregistrement réussie, veuillez maintenant vous connecter', 'success');
+
+            const newData = { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2 };
+            post('http://127.0.0.1:8081/user/auth/signup', newData);
+
+            console.log('ERROR : ' + errorApi);
+            setTimeout(() => {
+
+                if (errorApi) {
+                    addMessage('kakakak', 'error');
+                }
+                else {
+                    addMessage('Enregistrement réussie, veuillez maintenant vous connecter', 'success');
+
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000)
+                }
+
+            }, 6000)
+
         }
 
     }
