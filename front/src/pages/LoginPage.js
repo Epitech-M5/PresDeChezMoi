@@ -5,7 +5,7 @@ import useAxios from '../api';
 
 const LoginPage = () => {
 
-    const { data, isLoading, errorApi, get, post, put, del } = useAxios();
+    const { dataAPI, isLoadingAPI, errorAPI, get, post, put, del } = useAxios();
 
     const navigate = useNavigate();
 
@@ -16,17 +16,10 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [passwordRegister, setPasswordRegister] = useState("");
 
-    const [errorCall, setErrorCall] = useState("");
-
     const { addMessage, removeMessage, messages } = useMessageQueue();
 
-    useEffect(() => {
-        console.log('errorApi:', errorApi);
-        setErrorCall(errorApi);
-        console.log('errorApi when call:', errorCall);
-    }, [errorApi]);
 
-    const handleNavigationLogin = (event) => {
+    const handleNavigationLogin = async (event) => {
 
         event.preventDefault();
 
@@ -48,7 +41,7 @@ const LoginPage = () => {
 
     }
 
-    const handleNavigationRegister = (event) => {
+    const handleNavigationRegister = async (event) => {
 
         event.preventDefault();
 
@@ -62,24 +55,25 @@ const LoginPage = () => {
 
         else {
 
-            const newData = { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2 };
-            post('http://127.0.0.1:8081/user/auth/signup', newData);
+            try {
 
-            console.log('ERROR : ' + errorApi);
-            setTimeout(() => {
+                const newData = { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2 };
+                const response = await post('http://127.0.0.1:8081/api/user/auth/signup', newData);
 
-                if (errorApi) {
-                    addMessage('kakakak', 'error');
-                }
-                else {
-                    addMessage('Enregistrement réussie, veuillez maintenant vous connecter', 'success');
+                console.log(response.data);
 
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 3000)
-                }
+                addMessage('Enregistrement réussie, veuillez maintenant vous connecter', 'success');
 
-            }, 6000)
+            } catch (error) {
+
+                console.log('Error:', error);
+                addMessage(`${errorAPI}`, 'error');
+
+            }
+
+            console.log("errorAPI : " + errorAPI);
+            console.log("loadingAPI : " + isLoadingAPI);
+            console.log("dataAPI : " + dataAPI);
 
         }
 

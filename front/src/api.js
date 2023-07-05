@@ -3,9 +3,21 @@ import axios from 'axios';
 
 export default function useAxios() {
 
-    const [data, setData] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [errorApi, setErrorApi] = useState(null);
+    const [dataAPI, setData] = useState(null);
+    const [isLoadingAPI, setIsLoading] = useState(false);
+    const [errorAPI, setError] = useState(null);
+
+    useEffect(() => {
+        console.log('DATA:', dataAPI);
+    }, [dataAPI]);
+
+    useEffect(() => {
+        console.log('LOADING:', isLoadingAPI);
+    }, [isLoadingAPI]);
+
+    useEffect(() => {
+        console.log('ERROR:', errorAPI);
+    }, [errorAPI]);
 
     const fetchData = async (url, method, body = null) => {
         setIsLoading(true);
@@ -16,8 +28,10 @@ export default function useAxios() {
                 data: body,
             });
             setData(response.data);
+            console.log('DATA IN FETCH : ' + response.data)
         } catch (error) {
-            setErrorApi(error);
+            setError(error);
+            console.log('ERROR IN FETCH : ' + error)
         } finally {
             setIsLoading(false);
         }
@@ -39,9 +53,6 @@ export default function useAxios() {
         await fetchData(url, 'DELETE');
     };
 
-    useEffect(() => {
-        console.log('ERROR IN API FILE 2 : ' + errorApi);
-    }, [errorApi]);
 
-    return { data, isLoading, errorApi, get, post, put, del };
+    return { dataAPI, isLoadingAPI, errorAPI, get, post, put, del };
 }
