@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 
 const ChatBot = () => {
+
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [socketId, setSocketId] = useState(null);
@@ -39,20 +40,37 @@ const ChatBot = () => {
     socket.emit("message", { socketId: socketId, message: message });
   };
 
+  const handleToggle = () => {
+
+    const toggleBtnIcon = document.querySelector('.container_logo_chatbot i')
+    const ToUp = document.querySelector('.container_chatbot_chat')
+    ToUp.classList.toggle('open')
+
+    const isOpen = ToUp.classList.contains('open')
+    toggleBtnIcon.classList = isOpen ? 'fa-solid fa-greater-than fa-rotate-90' : 'fa-solid fa-robot'
+  }
+
   return (
     <>
-      <div className="chat_foot">
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button onClick={sendMessage} className="chat_send">
-          Send
-        </button>
+      <div className="toCenter">
+        <div className="container_logo_chatbot" onClick={handleToggle}>
+          <i className="fa-solid fa-robot"></i>
+        </div>
       </div>
+      <div className="container_chatbot_chat">
+        <div className="container_title_msg_chatbot">
+          <div className="center_forchatbot">
+            <h1>BipBopBip</h1>
+            <i className="fa-solid fa-circle"></i>
+          </div>
+        </div>
+        <div className="container_send_msg_chatbot">
+          <div className="center_forchatbot">
+            <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
+            <i class="fa-solid fa-paper-plane" onClick={sendMessage}></i>
+          </div>
+        </div>
 
-      <div className="chat_history">
         {history.map((item, index) => (
           <div key={index} className="chat_message">
             <span>{item.socketId}: </span>
@@ -60,6 +78,7 @@ const ChatBot = () => {
           </div>
         ))}
       </div>
+
     </>
   );
 };

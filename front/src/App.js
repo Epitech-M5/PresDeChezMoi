@@ -49,6 +49,7 @@ const App = () => {
       <>
         <BrowserRouter>
           <NavBarHome />
+          <ChatBot />
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/*" element={<LandingContainer />} />

@@ -1,16 +1,118 @@
-.chat_foot {
+.container_logo_chatbot {
+  background: linear-gradient(to top, #8c52ff, #5ce1e5);
+  z-index: 3000;
+  width: 80px;
+  height: 80px;
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 30px;
+  border-radius: 50%;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.chat_send {
-  width: 10%;
-  margin-left: 1%;
-  border-radius: 8px;
-  background: linear-gradient(90deg,yellow, orange);
-  font-family: "Roboto", sans-serif;
-  font-weight: bold;
+.container_logo_chatbot:hover {
+  cursor: pointer;
 }
 
-.chat_message span {
-  font-size: 2em;
+.container_logo_chatbot i {
+  color: $white;
+  font-size: 2rem;
 }
+
+.toCenter {
+  width: 20% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container_chatbot_chat {
+  left: 5%;
+  position: fixed;
+  bottom: -100%;
+  width: 400px;
+  height: 550px;
+  z-index: 8888;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: bottom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: linear-gradient(to top, #5ce1e5, #8c52ff);
+  overflow-y: scroll;
+  margin-bottom: 120px;
+}
+
+.container_chatbot_chat::-webkit-scrollbar {
+  display: none;
+}
+
+.container_chatbot_chat.open {
+  bottom: 0;
+}
+
+.container_send_msg_chatbot {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.container_title_msg_chatbot {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.center_forchatbot {
+  background-color: $white;
+  padding: 10px;
+  border-radius: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.container_send_msg_chatbot input {
+  background-color: transparent;
+  border: none;
+  width: 80%;
+  height: 100%;
+}
+
+.container_send_msg_chatbot i {
+  font-size: 1.5rem;
+  color: $dark-grey;
+  width: 20%;
+  text-align: center;
+}
+
+.container_send_msg_chatbot i {
+  cursor: pointer;
+}
+
+.container_title_msg_chatbot h1 {
+  font-weight: 700;
+}
+
+.container_title_msg_chatbot i {
+  font-size: 10px;
+  color: $green;
+}
+
+.chat_message {
+  background-color: red;
+}
+
+/*
+
+@media (max-height: 1570px) {
+  .container_chatbot_chat.open {
+    top: 600px;
+  }
+}
+*/
