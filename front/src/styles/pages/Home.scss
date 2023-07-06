@@ -1,0 +1,41 @@
+.container_1_home {
+    width: 20%;
+    height: 100vh;
+    background-color: red;
+}
+
+.container_2_home {
+    width: 50%;
+    height: 100vh;
+    background-color: yellow;
+}
+
+.container_3_home {
+    width: 20%;
+    height: 100vh;
+    background-color: blue;
+}
+
+.main_container_home {
+    width: 100%;
+    height: 100vh;
+    background-color: lightcoral;
+
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+}
+
+@media(max-width:650px),
+(max-height:450px) {
+
+    .container_3_home,
+    .container_1_home {
+        display: none;
+    }
+
+    .container_2_home {
+        width: 80%;
+    }
+
+}

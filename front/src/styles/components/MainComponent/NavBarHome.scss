@@ -68,6 +68,7 @@
 
 .container_homenav_right {
     width: 50%;
+    max-width: 150px;
 }
 
 .container_homenav_right h1 {
@@ -95,7 +96,7 @@
 }
 
 .container_buttons_home .btn_home {
-    padding: 20px;
+    padding: 15px;
     min-width: 220px;
     border-radius: 54px;
     border: none;

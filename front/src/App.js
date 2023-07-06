@@ -48,6 +48,7 @@ const App = () => {
     !loading && (
       <>
         <BrowserRouter>
+          <NavBarHome />
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/*" element={<LandingContainer />} />

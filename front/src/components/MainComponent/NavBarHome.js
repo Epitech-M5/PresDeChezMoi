@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const NavBarHome = () => {
 
@@ -17,6 +17,10 @@ const NavBarHome = () => {
     const toggleUnderline = (id) => {
         setActiveId(id);
     };
+
+    useEffect(() => {
+        setActiveId(1);
+    }, []);
 
     return (
         <>
