@@ -12,6 +12,7 @@ import PageNotFound from "./pages/PageNotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import ChatBot from "./components/MainComponent/ChatBot";
+import NavBarHome from "./components/MainComponent/NavBarHome";
 
 const LandingContainer = () => {
   return (
@@ -45,14 +46,16 @@ const App = () => {
   }
   return (
     !loading && (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/*" element={<LandingContainer />} />
-          <Route path="/chatbot" element={<ChatBot />} />
-          <Route path="/test" element={<Test />} />
-        </Routes>
-      </BrowserRouter>
+      <>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/*" element={<LandingContainer />} />
+            <Route path="/chatbot" element={<ChatBot />} />
+            <Route path="/test" element={<Test />} />
+          </Routes>
+        </BrowserRouter>
+      </>
     )
   );
 };
