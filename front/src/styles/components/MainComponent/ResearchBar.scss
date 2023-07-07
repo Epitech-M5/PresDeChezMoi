@@ -1,0 +1,45 @@
+.container_rebar {
+    width: 50%;
+    background-color: $grey;
+    border-radius: 54px;
+    height: 35px;
+    position: fixed;
+    left: 25%;
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.container_rebar input {
+    width: 90%;
+    border: none;
+    font-size: 1rem;
+    padding-left: 20px;
+    background-color: transparent;
+}
+
+.container_rebar i {
+    font-size: 1.5rem;
+    padding: 10px;
+    margin-right: 10px;
+    color: $dark-grey;
+}
+
+.container_rebar i:hover {
+    cursor: pointer;
+}
+
+@media(max-width:1600px) {
+    .container_rebar {
+        margin-top: 33px;
+    }
+}
+
+@media(max-width:650px) {
+    .container_rebar {
+        width: 70%;
+        left: 15%;
+    }
+}

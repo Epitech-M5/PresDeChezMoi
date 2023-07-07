@@ -13,6 +13,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import ChatBot from "./components/MainComponent/ChatBot";
 import NavBarHome from "./components/MainComponent/NavBarHome";
+import UserMenu from "./components/MainComponent/UserMenu";
+import ResearchBar from "./components/MainComponent/ResearchBar";
 
 const LandingContainer = () => {
   return (
@@ -50,6 +52,7 @@ const App = () => {
         <BrowserRouter>
           <NavBarHome />
           <ChatBot />
+          <ResearchBar />
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/*" element={<LandingContainer />} />

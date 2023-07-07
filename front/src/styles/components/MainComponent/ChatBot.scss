@@ -134,6 +134,7 @@
   height: 100vh;
   overflow: hidden;
   transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 9998;
 }
 
 .chatbot_toslide.open {
@@ -153,8 +154,15 @@
   color: $green
 }
 
-.container_send_msg_chatbot.forPhone {
-  background-color: red;
+@media(max-width:1600px) {
+  .container_logo_chatbot {
+    height: 60px;
+    width: 60px;
+  }
+
+  .container_logo_chatbot i {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-height: 700px) {
