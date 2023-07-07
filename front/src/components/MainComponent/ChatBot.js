@@ -50,6 +50,16 @@ const ChatBot = () => {
     toggleBtnIcon.classList = isOpen ? 'fa-solid fa-greater-than fa-rotate-90' : 'fa-solid fa-robot'
   }
 
+  const handleToggleToSlide = () => {
+
+    const toggleBtnIcon = document.querySelector('.container_forphone_navbar_chatbot i')
+    const ToSlide = document.querySelector('.chatbot_toslide')
+    ToSlide.classList.toggle('open')
+
+    const isOpen = ToSlide.classList.contains('open')
+    toggleBtnIcon.classList = isOpen ? 'fa-solid fa-greater-than fa-rotate-180' : 'fa-solid fa-robot'
+  }
+
   return (
     <>
       <div className="toCenter">
@@ -77,8 +87,32 @@ const ChatBot = () => {
             <span>{item.message}</span>
           </div>
         ))}
+
       </div>
 
+      <div className="container_forphone_navbar_chatbot" onClick={handleToggleToSlide}>
+        <i class="fa-solid fa-greater-than"></i>
+      </div>
+      <div className="chatbot_toslide">
+        <div className="center_forchatbot forPhone">
+          <h1>BipBopBip</h1>
+          <i className="fa-solid fa-circle"></i>
+        </div>
+        <div className="container_send_msg_chatbot forPhone">
+          <div className="center_forchatbot">
+            <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
+            <i class="fa-solid fa-paper-plane" onClick={sendMessage}></i>
+          </div>
+        </div>
+
+        {history.map((item, index) => (
+          <div key={index} className="chat_message">
+            <span>{item.socketId}: </span>
+            <span>{item.message}</span>
+          </div>
+        ))}
+
+      </div>
     </>
   );
 };
