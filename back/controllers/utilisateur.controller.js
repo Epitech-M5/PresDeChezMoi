@@ -30,40 +30,53 @@ exports.signup = (req, res) => {
     return;
   }
 
-  // Create User
-  const utilisateurObjet = {
-    pseudo: req.body.pseudo,
-    nom: null,
-    prenom: null,
-    photoProfil: null,
-    mail: req.body.mail,
-    motDePasse: bcrypt.hashSync(req.body.motDePasse, 8),
-    idVille: null,
-    score: 0,
-    participation: null,
-    estAdministrateur: null,
-    abonnement: null,
-    profession: null,
-    idRecompense: null,
-    listRecompense: null,
-    nombreSignalement: 0,
-    estBanni: false,
-    idRole: req.body.idRole,
-    listAnnonceEnregistre: null
-  };
+    // Create User
+    const utilisateurObjet = {
+        pseudo: req.body.pseudo,
+        nom: null,
+        prenom: null,
+        photoProfil: null,
+        mail: req.body.mail,
+        motDePasse: bcrypt.hashSync(req.body.motDePasse, 8),
+        idVille: null,
+        score: null,
+        participation: null,
+        estAdministrateur: null,
+        abonnement: null,
+        profession: null,
+        idRecompense: null,
+        listRecompense: null,
+        nombreSignalement: null,
+        estBanni: null,
+        idRole: req.body.idRole, // A RAJOUTER DANS POSTMAN
+        listAnnonceEnregistre: null
+    };
 
-  // Save User in the database adn catch internal error
-  Utilisateur.create(utilisateurObjet)
-    .then(data => {
-      res.send(data);
-      console.log("inscription", "User was registered successfully!")
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Tutorial."
-      });
-    });
+    // Save User in the database adn catch internal error
+    Utilisateur.create(utilisateurObjet)
+        .then(async data => {
+          const token = jwt.sign({ id: data.id }, config.secret, {
+            expiresIn: config.jwtExpiration // Durée de validité du token d'accès (1 heure dans cet exemple)
+          });
+    
+          // Generate refresh token
+          const refreshToken = await RefreshToken.createToken(data.id);
+    
+          res.status(200).send({
+            id: data.id,
+            pseudo: data.pseudo,
+            idRole: data.idRole,
+            accessToken: token,
+            refreshToken: refreshToken
+          });
+            console.log("inscription", "User was registered successfully!")
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating the Tutorial."
+            });
+        });
 };
 
 exports.signin = (req, res) => {

@@ -3,9 +3,11 @@ import NavBarLandingPage from '../components/NavBarLandingPage';
 import ButtonLandingPage from '../components/ButtonLandingPage';
 import FooterLandingPage from '../components/FooterLandingPage';
 
+
 const LandingPage = () => {
 
     const observerRef = useRef(null);
+    
 
     useEffect(() => {
 
