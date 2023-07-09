@@ -4,7 +4,6 @@
 @import "./pages/Test.scss";
 @import "./components/ButtonLandingPage.scss";
 @import "./components/FooterLandingPage.scss";
-@import "../styles/pages/UserMenu.scss";
 @import "./pages/TeamPage.scss";
 @import "./pages/ContactPage.scss";
 @import "./pages/LoginPage.scss";
@@ -14,5 +13,7 @@
 @import "./pages/PageNotFound.scss";
 @import "./pages/ForgotPassword.scss";
 @import "./components/Notifications.scss";
+@import "../styles/pages/UserMenu.scss";
 @import "./components/MainComponent/ChatBot.scss";
+@import "./components/MainComponent/Chat.scss";
 @import "./components/MessageQueue.scss";

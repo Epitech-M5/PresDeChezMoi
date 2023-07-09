@@ -35,31 +35,32 @@ const ChatBot = () => {
     }
   }, [socket]);
 
-  const sendMessage = () => {
-    socket.emit("message", { socketId: socketId, message: message });
+  const sendMessage = (e) => {
+    e.preventDefault();
+    socket.emit("message", { reveive : true, message: message });
   };
 
   return (
     <>
-      <div className="chat_foot">
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button onClick={sendMessage} className="chat_send">
-          Send
-        </button>
-      </div>
-
-      <div className="chat_history">
+      <div className="chatbot_history">
         {history.map((item, index) => (
-          <div key={index} className="chat_message">
-            <span>{item.socketId}: </span>
-            <span>{item.message}</span>
+          <div key={index} className={`chatbot_messages`}>
+            {/* <span>{item.socketId}: </span> */}
+            <p className={`${ item.receive ? 'chatbot_receive' : 'chatbot_send'}`}>{item.message}</p>
           </div>
         ))}
       </div>
+      <form onSubmit={sendMessage} className="chatbot_foot">
+        <input
+          type="text"
+          value={message}
+          className="inputText"
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <button type="submit" className="chatbot_btn_send">
+          Send
+        </button>
+      </form>
     </>
   );
 };
