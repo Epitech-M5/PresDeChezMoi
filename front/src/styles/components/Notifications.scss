@@ -60,7 +60,7 @@
     position: absolute;
     height: 3px;
     width: 100%;
-    background-color: red;
+    background-color: $white;
     bottom: 0px;
     left: 0px;
     animation: progress 5s linear forwards;
@@ -88,6 +88,10 @@
     background-color: $red-orange;
 }
 
+.toast.error::before {
+    background-color: $red-orange;
+}
+
 .toast.success .column i {
     color: $green;
 }
@@ -101,6 +105,10 @@
 }
 
 .toast.danger .column i {
+    color: $red-orange;
+}
+
+.toast.error .column i {
     color: $red-orange;
 }
 

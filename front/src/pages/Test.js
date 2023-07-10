@@ -1,12 +1,12 @@
 import React from 'react';
-import NavBarHome from '../components/MainComponent/NavBarHome';
-import ChatBot from '../components/MainComponent/ChatBot';
 
 const Test = () => {
     return (
-        <>
-            <ChatBot />
-        </>
+        <div className='center'>
+
+            <h1>page test</h1>
+
+        </div>
     );
 };
 

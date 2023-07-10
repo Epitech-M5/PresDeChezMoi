@@ -1,8 +1,8 @@
-.title {
+.title_landingpage {
     width: 100%;
     color: $white;
     position: absolute;
-    top: 10%;
+    top: 40%;
 }
 
 .main_title {
@@ -161,10 +161,4 @@ span {
         font-size: 13px;
     }
 
-}
-
-@media(max-height:580px) {
-    .title {
-        top: 120px;
-    }
 }

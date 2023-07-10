@@ -7,7 +7,7 @@ import FooterLandingPage from '../components/FooterLandingPage';
 const LandingPage = () => {
 
     const observerRef = useRef(null);
-    
+
 
     useEffect(() => {
 
@@ -38,7 +38,7 @@ const LandingPage = () => {
 
     return (
         <>
-            <div className="title">
+            <div className="title_landingpage">
                 <div className="main_title">
                     <h1>PresDeChezMoi</h1>
                 </div>

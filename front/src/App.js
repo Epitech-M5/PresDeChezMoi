@@ -15,6 +15,8 @@ import ChatBot from "./components/MainComponent/ChatBot";
 import NavBarHome from "./components/MainComponent/NavBarHome";
 import UserMenu from "./components/MainComponent/UserMenu";
 import ResearchBar from "./components/MainComponent/ResearchBar";
+import Protected from "./protected";
+
 
 const LandingContainer = () => {
   return (
@@ -26,17 +28,36 @@ const LandingContainer = () => {
         <Route path="/team" element={<TeamPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<PageNotFound />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="*" element={<PageNotFound />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
       <FooterLandingPage />
     </>
   );
 };
 
+const HomeContainer = () => {
+
+  return (
+    <>
+      <NavBarHome />
+      <ChatBot />
+      <ResearchBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="home/test" element={<Test />} />
+      </Routes>
+    </>
+  );
+};
+
+
 const App = () => {
   const [loading, setLoading] = useState(true);
   const spinner = document.getElementById("spinner_onload");
+
+  const isLog = true; //modif avec redux pour savoir si oui on non le user est connecté
 
   if (spinner) {
     setTimeout(() => {
@@ -50,14 +71,9 @@ const App = () => {
     !loading && (
       <>
         <BrowserRouter>
-          <NavBarHome />
-          <ChatBot />
-          <ResearchBar />
           <Routes>
-            <Route path="/home" element={<Home />} />
             <Route path="/*" element={<LandingContainer />} />
-            <Route path="/chatbot" element={<ChatBot />} />
-            <Route path="/test" element={<Test />} />
+            <Route path="/home/*" element={<Protected isLoggedIn={isLog}><HomeContainer /></Protected>} />
           </Routes>
         </BrowserRouter>
       </>

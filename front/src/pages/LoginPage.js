@@ -1,11 +1,9 @@
 import { React, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
-import useAxios from '../api';
+import axios from 'axios';
 
 const LoginPage = () => {
-
-    const { dataAPI, isLoadingAPI, errorAPI, get, post, put, del } = useAxios();
 
     const navigate = useNavigate();
 
@@ -19,29 +17,7 @@ const LoginPage = () => {
     const { addMessage, removeMessage, messages } = useMessageQueue();
 
 
-    const handleNavigationLogin = async (event) => {
-
-        event.preventDefault();
-
-        console.log("input id : " + idLogin);
-        console.log("input pwd : " + passwordLogin);
-
-        if (idLogin.length <= 0 || passwordLogin.length <= 0) {
-            addMessage('Les champs "Identifiant" et "Mot de passe" ne sont pas remplis', 'info');
-        }
-
-        else {
-
-            addMessage('Connexion réussie, attendez quelques instants....', 'success');
-
-            setTimeout(() => {
-                navigate('/home')
-            }, 3000);
-        }
-
-    }
-
-    const handleNavigationRegister = async (event) => {
+    const handleNavigationRegister = (event) => {
 
         event.preventDefault();
 
@@ -55,25 +31,56 @@ const LoginPage = () => {
 
         else {
 
-            try {
+            axios
+                .post("http://127.0.0.1:8081/api/user/auth/signup", { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2 })
+                .then(response => {
 
-                const newData = { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2 };
-                const response = await post('http://127.0.0.1:8081/api/user/auth/signup', newData);
+                    console.log(response)
 
-                console.log(response.data);
+                    addMessage('Votre compte a bien été crée ! Attendez quelques instant...', 'success');
 
-                addMessage('Enregistrement réussie, veuillez maintenant vous connecter', 'success');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
 
-            } catch (error) {
+                }).catch(error => {
+                    console.log("error", error);
+                    addMessage(`${error}`, 'error');
+                })
 
-                console.log('Error:', error);
-                addMessage(`${errorAPI}`, 'error');
+        }
 
-            }
+    }
 
-            console.log("errorAPI : " + errorAPI);
-            console.log("loadingAPI : " + isLoadingAPI);
-            console.log("dataAPI : " + dataAPI);
+    const handleNavigationLogin = (event) => {
+
+        event.preventDefault();
+
+        console.log("input id : " + idLogin);
+        console.log("input pwd : " + passwordLogin);
+
+        if (idLogin.length <= 0 || passwordLogin.length <= 0) {
+            addMessage('Les champs "Identifiant" et "Mot de passe" ne sont pas remplis', 'info');
+        }
+
+        else {
+
+            axios
+                .post("http://127.0.0.1:8081/api/user/auth/signin", { "pseudo": idLogin, "motDePasse": passwordLogin })
+                .then(response => {
+
+                    console.log(response)
+
+                    addMessage('Connexion réussie, attendez quelques instants....', 'success');
+
+                    setTimeout(() => {
+                        navigate('/home')
+                    }, 3000);
+
+                }).catch(error => {
+                    console.log("error", error);
+                    addMessage(`${error}`, 'error');
+                })
 
         }
 
