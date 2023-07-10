@@ -108,6 +108,13 @@
 
 }
 
+@media(max-width:450px) {
+
+    #m5_team {
+        display: none;
+    }
+}
+
 @media(max-width:400px) {
 
     .end_footer_right,

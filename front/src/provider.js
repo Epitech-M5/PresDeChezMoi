@@ -8,8 +8,6 @@ export default function useMessageQueue() {
     const ref = useRef();
     ref.current = messages;
 
-
-
     function addMessage(caption, type = 'info', timeout = 5000) {
         const id = uuidv4();
         setMessages([
