@@ -41,12 +41,14 @@ const HomeContainer = () => {
 
   return (
     <>
-      <NavBarHome />
+
       <ChatBot />
       <ResearchBar />
+      <NavBarHome></NavBarHome>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="home/test" element={<Test />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
   );
