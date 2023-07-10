@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const PageNotFound = () => {
+const PageNotFound = (props) => {
 
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const PageNotFound = () => {
                         <h2>404</h2>
                         <h4>Oups! La page n'a pas été trouvé</h4>
                         <p>La page que vous cherchiez n'existe pas. Vous avez peut-être mal tapé l'adresse ou la page peut avoir été déplacé</p>
-                        <button onClick={() => { navigate('/') }}>Retourner à l'acceuil</button>
+                        <button onClick={() => { navigate(props.navigation) }}>Retourner à l'acceuil</button>
                     </div>
                 </div>
             </div>

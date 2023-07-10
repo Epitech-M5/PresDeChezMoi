@@ -29,7 +29,7 @@ const LandingContainer = () => {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="*" element={<PageNotFound navigation={"/"} />} />
         <Route path="/test" element={<Test />} />
       </Routes>
       <FooterLandingPage />
@@ -48,7 +48,7 @@ const HomeContainer = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/test" element={<Test />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="*" element={<PageNotFound navigation={"/home"} />} />
       </Routes>
     </>
   );
