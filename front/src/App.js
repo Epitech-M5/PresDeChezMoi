@@ -38,10 +38,8 @@ const LandingContainer = () => {
 };
 
 const HomeContainer = () => {
-
   return (
     <>
-
       <ChatBot />
       <ResearchBar />
       <NavBarHome></NavBarHome>
@@ -54,8 +52,8 @@ const HomeContainer = () => {
   );
 };
 
-
 const App = () => {
+
   const [loading, setLoading] = useState(true);
   const spinner = document.getElementById("spinner_onload");
 

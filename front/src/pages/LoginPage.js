@@ -195,8 +195,7 @@ const LoginPage = () => {
                     <div className="panel left_panel">
                         <div className="content_panel">
                             <h3>Nouveau ici ?</h3>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing
-                                elit. Debitis, ex ratione. Aliquid</p>
+                            <p>Vous êtes nouveau ici ? Bienvenue sur notre plateforme !</p>
                             <button className='btn_login transparent' id='sign-up-btn'>S'enregistrer</button>
                         </div>
                         <img src="media/img/login.png" alt="login_img" className='img_panel' />
@@ -205,8 +204,7 @@ const LoginPage = () => {
                     <div className="panel right_panel">
                         <div className="content_panel">
                             <h3>Déjà chez nous ?</h3>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing
-                                elit. Debitis, ex ratione. Aliquid</p>
+                            <p>Vous avez déjà un compte ? Content de vous revoir sur notre plateforme !</p>
                             <button className='btn_login transparent' id='sign-in-btn'>Se connecter</button>
                         </div>
                         <img src="media/img/signup.png" alt="register_img" className='img_panel' />

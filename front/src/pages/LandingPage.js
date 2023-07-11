@@ -62,24 +62,20 @@ const LandingPage = () => {
                         <img src="media/img/onphone.png" alt="onphone" />
                     </div>
                     <div className="text_explain mytext">
-                        <h1>Une communauté auto-géré</h1>
-                        <p>Lorem ipsum dolor sit amet. Sed mollitia esse aut natu<br />
-                            autem hic exercitationem enim et velit eaque aut aspes<br />
-                            natus ut soluta vero. Vel possimus </p>
-                        <p><i class="fa-regular fa-circle"></i>Lorem ipsum dolor sit </p>
-                        <p><i class="fa-regular fa-circle"></i>Lorem ipsum dolor sit </p>
-                        <p><i class="fa-regular fa-circle"></i>Lorem ipsum dolor sit </p>
+                        <h1>Renforcer la communauté locale ensemble</h1>
+                        <p>"PrèsDeChezMoi" est un réseau social pour la Commune, favorisant l'entraide et le développement local. Il promeut les services locaux, soutient les petites entreprises et renforce les liens entre les habitants et leur environnement local</p>
+                        <p><i class="fa-regular fa-circle"></i>Entraide et développement local</p>
+                        <p><i class="fa-regular fa-circle"></i>Services et commerces locaux</p>
+                        <p><i class="fa-regular fa-circle"></i>Renforcement des liens</p>
                     </div>
                 </div>
                 <div className="wrapper_explain">
                     <div className="text_explain mytext">
-                        <h1>Une communauté auto-géré</h1>
-                        <p>Lorem ipsum dolor sit amet. Sed mollitia esse aut natu<br />
-                            autem hic exercitationem enim et velit eaque aut aspes<br />
-                            natus ut soluta vero. Vel possimus </p>
-                        <p><i class="fa-regular fa-circle"></i>Lorem ipsum dolor sit </p>
-                        <p><i class="fa-regular fa-circle"></i>Lorem ipsum dolor sit </p>
-                        <p><i class="fa-regular fa-circle"></i>Lorem ipsum dolor sit </p>
+                        <h1>Soutien aux commerces et services locaux</h1>
+                        <p>L'application met en avant les commerces de proximité et facilite l'accès aux services municipaux et aux événements communautaires</p>
+                        <p><i class="fa-regular fa-circle"></i>Commerces de proximité valorisés</p>
+                        <p><i class="fa-regular fa-circle"></i>Accès aux services municipaux</p>
+                        <p><i class="fa-regular fa-circle"></i>Événements communautaires promus</p>
                     </div>
                     <div className="logo_explain">
                         <img src="media/img/market.png" alt="onphone" />
@@ -90,13 +86,11 @@ const LandingPage = () => {
                         <img src="media/img/rocket.png" alt="onphone" />
                     </div>
                     <div className="text_explain mytext">
-                        <h1>Une communauté auto-géré</h1>
-                        <p>Lorem ipsum dolor sit amet. Sed mollitia esse aut natu<br />
-                            autem hic exercitationem enim et velit eaque aut aspes<br />
-                            natus ut soluta vero. Vel possimus </p>
-                        <p><i class="fa-regular fa-circle"></i>Lorem ipsum dolor sit </p>
-                        <p><i class="fa-regular fa-circle"></i>Lorem ipsum dolor sit </p>
-                        <p><i class="fa-regular fa-circle"></i>Lorem ipsum dolor sit </p>
+                        <h1>Liens forts entre habitants et environnement</h1>
+                        <p>Elle crée une communauté en favorisant les échanges d'informations et les collaborations entre les résidents, renforçant le sentiment d'appartenance à la Commune</p>
+                        <p><i class="fa-regular fa-circle"></i>Communauté solidaire créée</p>
+                        <p><i class="fa-regular fa-circle"></i>Échanges et collaborations résidents</p>
+                        <p><i class="fa-regular fa-circle"></i>Appartenance communautaire renforcée</p>
                     </div>
                 </div>
                 <div className="before_footer_btn">
