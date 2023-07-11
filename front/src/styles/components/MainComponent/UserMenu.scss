@@ -1,0 +1,444 @@
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  outline: none !important;
+}
+
+.userProfile {
+  width: 90%;
+  height: 90%;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.ms-nav-container {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+}
+
+#ms-menu {
+  display: none;
+}
+
+.ms-nav {
+  position: fixed;
+  top: 12%;
+  right: 4%;
+}
+
+.ms-nav>.ms-main {
+  position: relative;
+}
+
+.ms-nav>.ms-li {
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  transition: top 0.4s ease;
+  z-index: 1;
+}
+
+
+.ms-menu-toggle-lbl {
+  cursor: pointer;
+}
+
+.ms-nav-point {
+  opacity: 0;
+  position: absolute;
+  border-radius: 100%;
+  background-color: #69B8ED;
+  top: 0px;
+  right: 30%;
+  width: 8px;
+  height: 8px;
+}
+
+
+//----------------li main-----------------//
+
+.ms-nav>.ms-main>a {
+  box-shadow: 0px 5px 10px #333333;
+}
+
+.ms-nav>li a {
+  font-size: 30px;
+  color: #ffffff;
+  background: linear-gradient(90deg, #8a55fd, #5cdee6);
+  width: 75px;
+  height: 75px;
+  display: block;
+  border-radius: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.ms-nav>.ms-main a,
+.ms-nav>.ms-main>a>label {
+  font-size: 30px;
+  color: #ffffff;
+  width: 75px;
+  height: 75px;
+  display: block;
+  border-radius: 100%;
+  position: relative;
+  text-align: center;
+  z-index: 19;
+  background: linear-gradient(to right, #8a55fd, #5cdee6);
+  background-size: 200% 100%;
+  transition: background-position 0.5s;
+
+  &:hover {
+    background-position: right;
+  }
+}
+
+.ms-nav>.ms-main>a>label>h3 {
+  position: relative;
+  top: 5%;
+  color: #333333;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: $font-LeagueSpartan;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-main:after {
+  animation: big-border-top-animation 0.5s ease 0.1s;
+}
+
+.ms-nav>li>a span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+  height: 30px;
+  width: 30px;
+  opacity: 0;
+  z-index: 12;
+}
+
+//----------------li1-----------------//
+
+.ms-nav .ms-menu-toggle:checked~.ms-li a {
+  box-shadow: 0px 5px 10px #333333;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li1 {
+  top: 170%;
+  transition: top 0.4s ease;
+}
+
+$child-count: 15; // Nombre d'enfants de .ms-nav-point
+
+.ms-nav .ms-menu-toggle:checked~.ms-nav-point {
+  opacity: 1;
+  top: 110%;
+  transition: top 0.7s ease;
+}
+
+@for $i from 1 through $child-count {
+  $top: random(350); // Valeur aléatoire pour le top (de 0 à 50)
+  $left: random(30); // Valeur aléatoire pour la position left (de 0 à 100)
+  $size: random(40)+10; // Valeur aléatoire pour la taille (de 10 à 30)
+  $shrink: 1 - ($i * 0.03); // Facteur de rétrécissement basé sur le numéro d'enfant
+
+  .ms-nav .ms-menu-toggle:checked~.ms-nav-point:nth-child(#{$i}) {
+    top: calc(110% + #{$top}%);
+    left: calc(#{$left}% - 3%);
+    width: calc(#{$size}px * #{$shrink});
+    height: calc(#{$size}px * #{$shrink});
+    animation: fadeOut 1s ease calc(0.5s + (#{$i} * 0.1s)) forwards;
+    z-index: -1;
+  }
+}
+
+.ms-nav .ms-menu-toggle~.ms-li a span {
+  position: relative;
+  font-size: 1.0em;
+  opacity: 0;
+  transition: opacity 0.1s ease 0.1s;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li1 a span {
+  opacity: 1;
+  transition: opacity 0.5s ease 0.1s;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li1:before {
+  animation: border-top-animation 0.5s ease 0.2s;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li1:after {
+  animation: border-top-animation 0.5s ease 0.2s;
+}
+
+//----------------li2-----------------//
+
+.ms-nav .ms-menu-toggle~.ms-li2 a span {
+  opacity: 0;
+  transition: opacity 0.1s ease 0.1s;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li2 {
+  top: 285%;
+  transition: top 0.55s ease;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li2 a span {
+  opacity: 1;
+  transition: opacity 0.7s ease 0.2s;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li2:before {
+  animation: border-top-animation 0.5s ease 0.2s;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li2:after {
+  animation: border-top-animation 0.5s ease 0.3s;
+}
+
+//----------------li3-----------------//
+
+.ms-nav .ms-menu-toggle:checked~.ms-li3 {
+  top: 400%;
+  transition: top 0.68s ease;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li3 a span {
+  opacity: 1;
+  transition: opacity 0.7s ease 0.3s;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li3:before {
+  animation: border-top-animation 0.5s ease 0.3s;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li3:after {
+  animation: border-top-animation 0.5s ease 0.4s;
+}
+
+//----------------li4-----------------//
+
+.ms-nav .ms-menu-toggle:checked~.ms-li4 {
+  top: 495%;
+  transition: top 0.9s ease;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li4 a span {
+  opacity: 1;
+  transition: opacity 0.8s ease 0.4s;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li4:before {
+  animation: border-top-animation 0.5s ease 0.4s;
+}
+
+//----------------when toggle-----------------//
+
+.ms-nav .ms-menu-toggle~.ms-li:before {
+  content: "";
+  width: 45px;
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 0px solid #337ab7;
+}
+
+.ms-nav .ms-menu-toggle~.ms-li:before {
+  content: "";
+  width: 45px;
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 0px solid #337ab7;
+}
+
+.ms-nav .ms-menu-toggle:checked~.ms-li-last:after {
+  content: "";
+  width: 45px;
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-left: 0px solid transparent;
+  border-right: 0px solid transparent;
+  border-top: 0px solid #337ab7;
+}
+
+//----------------BreakPoint-----------------//
+
+/* Styles pour les écrans de taille supérieure à 1200px */
+/* Styles pour les écrans de taille supérieure à 1200px */
+@media (min-width: 1200px) {
+  .ms-nav .ms-menu-toggle:checked~.ms-nav-point {
+    transform: scale(0.9);
+    /* Rétrécissement à 90% de la taille originale */
+  }
+
+  .ms-nav>li a {
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .ms-nav>.ms-main a,
+  .ms-nav>.ms-main>a>label {
+    font-size: 35px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .ms-nav>.ms-main>a>label>h3 {
+    font-size: 24px;
+  }
+}
+
+/* Styles pour les écrans de taille comprise entre 992px et 1199px */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .ms-nav .ms-menu-toggle:checked~.ms-nav-point {
+    transform: scale(0.8);
+    /* Rétrécissement à 80% de la taille originale */
+  }
+
+  .ms-nav>li a {
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .ms-nav>.ms-main a,
+  .ms-nav>.ms-main>a>label {
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .ms-nav>.ms-main>a>label>h3 {
+    font-size: 20px;
+  }
+}
+
+/* Styles pour les écrans de taille comprise entre 768px et 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+  .ms-nav .ms-menu-toggle:checked~.ms-nav-point {
+    transform: scale(0.7);
+    /* Rétrécissement à 70% de la taille originale */
+  }
+
+  .ms-nav>li a {
+    font-size: 15px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .ms-nav>.ms-main a,
+  .ms-nav>.ms-main>a>label {
+    font-size: 25px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .ms-nav>.ms-main>a>label>h3 {
+    font-size: 18px;
+  }
+}
+
+/* Styles pour les écrans de taille inférieure à 767px */
+@media (max-width: 767px) {
+  .ms-nav .ms-menu-toggle:checked~.ms-nav-point {
+    transform: scale(0.6);
+    /* Rétrécissement à 60% de la taille originale */
+  }
+
+  .ms-nav>li a {
+    font-size: 12px;
+    width: 25px;
+    height: 25px;
+  }
+
+  .ms-nav>.ms-main a,
+  .ms-nav>.ms-main>a>label {
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+  }
+
+  .ms-nav>.ms-main>a>label>h3 {
+    font-size: 14px;
+  }
+}
+
+//----------------KeyFrame-----------------//
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes border-top-animation {
+  0% {
+    top: 0px;
+  }
+
+  50% {
+    top: -14px;
+  }
+
+  100% {
+    top: 0px;
+  }
+}
+
+@keyframes border-top-animation {
+  0% {
+    top: 0px;
+  }
+
+  50% {
+    top: -13px;
+  }
+
+  100% {
+    top: 0px;
+  }
+}
+
+@keyframes big-border-top-animation {
+  0% {
+    top: 0px;
+  }
+
+  50% {
+    top: -30px;
+  }
+
+  100% {
+    top: 0px;
+  }
+}

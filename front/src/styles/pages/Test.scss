@@ -1,65 +1,12 @@
-.testdiv {
-    width: 30%;
-    height: 10vh;
-    margin: 50px;
-    background-color: lightcoral;
-    border-radius: 8px;
+.center {
+    width: 100%;
+    height: 100vh;
+    background-color: red;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.abs_test_container {
-    width: 100%;
-    height: 100vh;
+    z-index: 9999;
     position: absolute;
-    left: 0;
     top: 0;
-}
-
-.container_notif_btn {
-    background-color: lightcoral;
-    width: 80%;
-    margin-left: 10%;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 30px;
-    margin-top: 20%;
-}
-
-.container_notif_btn button {
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    background-color: white;
-    color: black;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    font-family: $font-LeagueSpartan;
-    font-weight: 700;
-}
-
-.container_notif_btn button:hover {
-    scale: 1.1;
-}
-
-.container_notif_btn button:nth-child(1):hover {
-    background-color: greenyellow;
-}
-
-.container_notif_btn button:nth-child(2):hover {
-    background-color: lightskyblue;
-}
-
-.container_notif_btn button:nth-child(3):hover {
-    background-color: yellow;
-}
-
-.container_notif_btn button:nth-child(4):hover {
-    background-color: red;
-}
-
-.container_notif_btn button:active {
-    scale: 0.9;
+    left: 0;
 }

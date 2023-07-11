@@ -43,7 +43,7 @@ const FooterLandingPage = () => {
                         <a onClick={() => handleNavigate(1)} id='footer_title'>PresDeChezMoi</a>
                     </div>
                     <div className="end_footer_right">
-                        <h1 onClick={() => handleNavigate(2)}>@M5 Team</h1>
+                        <h1 id='m5_team' onClick={() => handleNavigate(2)}>@M5 Team</h1>
                         <h1 onClick={() => handleNavigate(99)}>Terms of Services</h1>
                         <h1 onClick={() => handleNavigate(99)}>Privacy Policy</h1>
                     </div>

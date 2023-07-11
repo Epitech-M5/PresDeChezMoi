@@ -8,7 +8,9 @@
     background-color: $dark-blue;
     justify-content: space-between;
     overflow: hidden;
-    animation: show_toast 0.3s ease forwards;
+    animation:
+        show_toast 0.3s ease forwards,
+        hide_toast 0.3s 4.5s ease forwards;
 }
 
 @keyframes show_toast {
@@ -29,6 +31,25 @@
     }
 }
 
+
+@keyframes hide_toast {
+    0% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(0%);
+    }
+
+    80% {
+        transform: translateX(-5%);
+    }
+
+    100% {
+        transform: translateX(110%);
+    }
+}
+
 .container_message_queu :where(.toast, .column) {
     display: flex;
     align-items: center;
@@ -39,7 +60,7 @@
     position: absolute;
     height: 3px;
     width: 100%;
-    background-color: red;
+    background-color: $white;
     bottom: 0px;
     left: 0px;
     animation: progress 5s linear forwards;
@@ -67,6 +88,10 @@
     background-color: $red-orange;
 }
 
+.toast.error::before {
+    background-color: $red-orange;
+}
+
 .toast.success .column i {
     color: $green;
 }
@@ -80,6 +105,10 @@
 }
 
 .toast.danger .column i {
+    color: $red-orange;
+}
+
+.toast.error .column i {
     color: $red-orange;
 }
 
@@ -106,20 +135,24 @@
     animation: hide_toast 0.3s ease forwards;
 }
 
-@keyframes hide_toast {
-    0% {
-        transform: translateX(-10px);
+@media(max-width:440px) {
+
+    .container_message_queu .toast {
+        width: 300px;
     }
 
-    40% {
-        transform: translateX(0%);
+}
+
+@media(max-width:340px) {
+
+    .container_message_queu .toast {
+        width: 220px;
+
     }
 
-    80% {
-        transform: translateX(-5%);
+    .toast .column span {
+        font-size: 0.8rem;
+        margin-left: 12px;
     }
 
-    100% {
-        transform: translateX(110%);
-    }
 }

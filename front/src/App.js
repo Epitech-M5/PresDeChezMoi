@@ -12,6 +12,11 @@ import PageNotFound from "./pages/PageNotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import ChatBot from "./components/MainComponent/ChatBot";
+import NavBarHome from "./components/MainComponent/NavBarHome";
+import UserMenu from "./components/MainComponent/UserMenu";
+import ResearchBar from "./components/MainComponent/ResearchBar";
+import Protected from "./protected";
+
 
 const LandingContainer = () => {
   return (
@@ -23,17 +28,38 @@ const LandingContainer = () => {
         <Route path="/team" element={<TeamPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="*" element={<PageNotFound />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="*" element={<PageNotFound />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
       <FooterLandingPage />
     </>
   );
 };
 
+const HomeContainer = () => {
+
+  return (
+    <>
+
+      <ChatBot />
+      <ResearchBar />
+      <NavBarHome></NavBarHome>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </>
+  );
+};
+
+
 const App = () => {
   const [loading, setLoading] = useState(true);
   const spinner = document.getElementById("spinner_onload");
+
+  const isLog = true; //modif avec redux pour savoir si oui on non le user est connecté
 
   if (spinner) {
     setTimeout(() => {
@@ -45,14 +71,14 @@ const App = () => {
   }
   return (
     !loading && (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/home" element={<Home />} />
-          <Route path="/*" element={<LandingContainer />} />
-          <Route path="/chatbot" element={<ChatBot />} />
-          <Route path="/test" element={<Test />} />
-        </Routes>
-      </BrowserRouter>
+      <>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/*" element={<LandingContainer />} />
+            <Route path="/home/*" element={<Protected isLoggedIn={isLog}><HomeContainer /></Protected>} />
+          </Routes>
+        </BrowserRouter>
+      </>
     )
   );
 };

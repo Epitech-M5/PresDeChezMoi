@@ -1,8 +1,8 @@
-.title {
+.title_landingpage {
     width: 100%;
     color: $white;
     position: absolute;
-    top: 300px;
+    top: 40%;
 }
 
 .main_title {
@@ -41,7 +41,7 @@
 
 .title_explain {
     text-align: center;
-    padding: 60px;
+    padding: 10%;
 }
 
 .title_explain h1,
@@ -60,8 +60,8 @@ span {
 }
 
 .title_explain_hr hr {
-    margin-top: 60px;
-    width: 300px;
+    margin-top: 100px;
+    width: 70%;
 }
 
 .title_explain_hr {
