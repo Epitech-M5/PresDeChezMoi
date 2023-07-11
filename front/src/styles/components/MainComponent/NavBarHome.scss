@@ -106,8 +106,17 @@
     transition: all 0.2s;
 }
 
+.container_buttons_home .btn_home.admin {
+    background-color: $violet;
+}
+
 .container_buttons_home .btn_home::before {
     content: '+ Publier';
+}
+
+.container_buttons_home .btn_home.admin::before {
+    content: 'Administration';
+    color: $white;
 }
 
 .container_buttons_home .btn_home:hover {
@@ -233,6 +242,10 @@
 
     .container_buttons_home .btn_home::before {
         content: '+';
+    }
+
+    .container_buttons_home .btn_home.admin::before {
+        content: 'Adm';
     }
 
 }

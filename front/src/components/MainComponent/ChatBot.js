@@ -91,7 +91,7 @@ const ChatBot = () => {
       </div>
 
       <div className="container_forphone_navbar_chatbot" onClick={handleToggleToSlide}>
-        <i class="fa-solid fa-greater-than"></i>
+        <i class="fa-solid fa-robot"></i>
       </div>
       <div className="chatbot_toslide">
         <div className="center_forchatbot forPhone">

@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-const NavBarHome = () => {
+const NavBarHome = (props) => {
 
     const [activeId, setActiveId] = useState(null);
+    var [allButtons, setAllButtons] = useState(
+        <>
+            <div className="container_buttons_home">
+                <button className='btn_home'></button>
+            </div>
+        </>
+    );
 
     const handleToggle = () => {
 
@@ -20,6 +27,23 @@ const NavBarHome = () => {
 
     useEffect(() => {
         setActiveId(1);
+
+        console.log('admin : ' + props.isAdmin)
+        console.log(props.isAdmin === "admin")
+
+        if (props.isAdmin === "admin") {
+            setAllButtons(
+                <>
+                    <div className="container_buttons_home">
+                        <button className='btn_home'></button>
+                    </div>
+                    <div className="container_buttons_home">
+                        <button className='btn_home admin'></button>
+                    </div>
+                </>
+            );
+        }
+
     }, []);
 
     return (
@@ -51,9 +75,7 @@ const NavBarHome = () => {
                             onClick={() => toggleUnderline(4)}>Messages</h1>
                     </div>
                 </div>
-                <div className="container_buttons_home">
-                    <button className='btn_home'></button>
-                </div>
+                {allButtons}
             </div>
             <div className="container_forphone_navbar" onClick={handleToggle}>
                 <i class="fa-solid fa-greater-than"></i>
@@ -68,9 +90,7 @@ const NavBarHome = () => {
                         onClick={() => toggleUnderline(3)}>Notifications</h1></div>
                     <div className='toAlign'><h1 className={`underline-animation ${activeId === 4 ? 'underline' : ''}`}
                         onClick={() => toggleUnderline(4)}>Messages</h1></div>
-                    <div className="container_buttons_home">
-                        <button className='btn_home'></button>
-                    </div>
+                    {allButtons}
                 </div>
             </div>
         </>
