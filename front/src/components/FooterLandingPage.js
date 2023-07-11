@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const FooterLandingPage = () => {
 
@@ -28,9 +28,9 @@ const FooterLandingPage = () => {
                     <li><a onClick={() => handleNavigate(2)}>Contact</a></li>
                 </ul>
                 <div className="social">
-                    <i className="fa-brands fa-facebook" onClick={() => handleNavigate(99)}></i>
-                    <i className="fa-brands fa-twitter" onClick={() => handleNavigate(99)}></i>
-                    <i className="fa-brands fa-youtube" onClick={() => handleNavigate(99)}></i>
+                    <i className="fa-brands fa-facebook" onClick={() => window.open("https://www.facebook.com/profile.php?id=100094532983584", "_blank")}></i>
+                    <i className="fa-brands fa-twitter" onClick={() => window.open("https://twitter.com/PresDeChezMoi", "_blank")}></i>
+                    <i className="fa-brands fa-youtube" onClick={() => window.open("https://www.youtube.com/@PresDeChezMoi", "_blank")}></i>
                 </div>
                 <div className="line_footer">
                     <hr />
@@ -44,11 +44,11 @@ const FooterLandingPage = () => {
                     </div>
                     <div className="end_footer_right">
                         <h1 id='m5_team' onClick={() => handleNavigate(2)}>@M5 Team</h1>
-                        <h1 onClick={() => handleNavigate(99)}>Terms of Services</h1>
-                        <h1 onClick={() => handleNavigate(99)}>Privacy Policy</h1>
+                        <h1 onClick={() => window.open("https://policies.google.com/terms?hl=en-US", "_blank")}>Terms of Services</h1>
+                        <h1 onClick={() => window.open("https://policies.google.com/privacy?hl=en-US", "_blank")}>Privacy Policy</h1>
                     </div>
                 </div>
-            </div>
+            </div >
 
         </>
     );

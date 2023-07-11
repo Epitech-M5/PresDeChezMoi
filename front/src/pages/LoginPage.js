@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { useDispatch } from "react-redux";
 import { isLogin } from "../redux/Utilisateur";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux"
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -148,16 +148,16 @@ const LoginPage = () => {
                             <a href="/forgot-password" target='_blank' id='forgot_password'><h3>Mot de passe oublié ?</h3></a>
                             <p className='social_text'>Ou avec les réseaux sociaux</p>
                             <div className="social_login">
-                                <a href="" className='social_login_icon'>
+                                <a onClick={() => window.open("https://instagram.com/presdechezmoi?igshid=OGQ5ZDc2ODk2ZA==", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-instagram"></i>
                                 </a>
-                                <a href="" className='social_login_icon'>
+                                <a onClick={() => window.open("https://www.facebook.com/profile.php?id=100094532983584", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-facebook-f"></i>
                                 </a>
-                                <a href="" className='social_login_icon'>
+                                <a onClick={() => window.open("https://twitter.com/PresDeChezMoi", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-twitter"></i>
                                 </a>
-                                <a href="" className='social_login_icon'>
+                                <a onClick={() => window.open("https://www.linkedin.com/in/mfive-presdechezmoi-80aa89282/", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-linkedin-in"></i>
                                 </a>
                             </div>
@@ -180,16 +180,16 @@ const LoginPage = () => {
                             <input type="button" value="S'enregistrer" className='btn_login' onClick={handleNavigationRegister} />
                             <p className='social_text'>Ou avec les réseaux sociaux</p>
                             <div className="social_login">
-                                <a href="" className='social_login_icon'>
+                                <a onClick={() => window.open("https://instagram.com/presdechezmoi?igshid=OGQ5ZDc2ODk2ZA==", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-instagram"></i>
                                 </a>
-                                <a href="" className='social_login_icon'>
+                                <a onClick={() => window.open("https://www.facebook.com/profile.php?id=100094532983584", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-facebook-f"></i>
                                 </a>
-                                <a href="" className='social_login_icon'>
+                                <a onClick={() => window.open("https://twitter.com/PresDeChezMoi", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-twitter"></i>
                                 </a>
-                                <a href="" className='social_login_icon'>
+                                <a onClick={() => window.open("https://www.linkedin.com/in/mfive-presdechezmoi-80aa89282/", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-linkedin-in"></i>
                                 </a>
                             </div>
