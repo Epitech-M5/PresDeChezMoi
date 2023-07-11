@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
 import axios from 'axios';
 
+import { useDispatch } from "react-redux";
+import { isLogin } from "../redux/Utilisateur";
+import {useSelector} from "react-redux"
+
 const LoginPage = () => {
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -70,9 +75,9 @@ const LoginPage = () => {
                 .then(response => {
 
                     console.log(response)
-
+                    // isLogin(idLogin,true)
                     addMessage('Connexion réussie, attendez quelques instants....', 'success');
-
+                    dispatch(isLogin(idLogin));
                     setTimeout(() => {
                         navigate('/home')
                     }, 3000);
