@@ -38,15 +38,17 @@ const LandingPage = () => {
 
     return (
         <>
-            <div className="title_landingpage">
-                <div className="main_title">
-                    <h1>PresDeChezMoi</h1>
-                </div>
-                <div className="main_title_2">
-                    <h3>Le réseau social de ta commune !</h3>
-                </div>
-                <div className="btn_title">
-                    <ButtonLandingPage text="C'est parti !" navigation="/login" />
+            <div className="container_for_fix_title">
+                <div className="title_landingpage">
+                    <div className="main_title">
+                        <h1>PresDeChezMoi</h1>
+                    </div>
+                    <div className="main_title_2">
+                        <h3>Le réseau social de ta commune !</h3>
+                    </div>
+                    <div className="btn_title">
+                        <ButtonLandingPage text="C'est parti !" navigation="/login" />
+                    </div>
                 </div>
             </div>
             <div className="container_explain">
