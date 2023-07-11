@@ -5,7 +5,7 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        idUtilisateur: {
+        membres: {
             type: Sequelize.JSON,
             defaultValue: []
         }
