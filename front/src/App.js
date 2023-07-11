@@ -48,15 +48,14 @@ const LandingContainer = () => {
 
 const HomeContainer = () => {
 
-  const user = useSelector((state) => state.utilisateur) // isLogin obligatoire dans balise protected
+  const user = useSelector((state) => state.utilisateur)
 
-  if (user.isLogin) { // A checker si c'est ok !
+  if (user.isLogin && user.isAdmin) {
     return (
-
       <>
         <ChatBot />
         <ResearchBar />
-        <NavBarHome></NavBarHome>
+        <NavBarHome isAdmin='admin' />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
@@ -64,7 +63,22 @@ const HomeContainer = () => {
         </Routes>
       </>
     );
-  } else {
+  }
+  if (user.isLogin) {
+    return (
+      <>
+        <ChatBot />
+        <ResearchBar />
+        <NavBarHome />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </>
+    );
+  }
+  else {
     return (<Navigate to="/login" replace />);
   }
 
