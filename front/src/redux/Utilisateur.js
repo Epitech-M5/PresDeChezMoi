@@ -1,6 +1,6 @@
-import {configureStore, createSlice} from "@reduxjs/toolkit";
+import { createSlice} from "@reduxjs/toolkit";
 
-const utilisateurSlice = createSlice({
+export const utilisateurSlice = createSlice({
     name: "utilisteur",
     // STATES
     initialState: {
@@ -8,25 +8,35 @@ const utilisateurSlice = createSlice({
         isLogin: false,
         pseudo:"",
         score:0,
-        pathImage:"path/image"
+        pathImage:"path/image",
+        idRole:0,
+        refreshToken:"",
+        idutilisateur:0
     },
       reducers: {
         isLogin:(state, action)=>{
             state.isLogin = true;
-            state.pseudo = action.payload
         },
+        fetchToken:(state,action)=>{
+            state.token = action.payload;
+        },
+        fetchRefreshToken:(state,action)=> {
+            state.refreshToken = action.payload;
+        },
+        fetchUtilisateurData:(state,action)=> {
+            const {pseudo, idutilisateur, idRole} = action.payload
+            state.pseudo = pseudo
+            state.idutilisateur = idutilisateur
+            state.idRole = idRole
+            // score, pathImage
+        }
 
       }
 })
 
 
 // En définissant mes reducer (plus haut) redux m'a crée mes action (creator action) ! ! !
-export const {isLogin} = utilisateurSlice.actions;
+export const {isLogin,fetchUtilisateurData,fetchToken,fetchRefreshToken} = utilisateurSlice.actions;
 
-// Création du store qui va stocker toute les slices
-export const store = configureStore({
-    reducer: {
-        utilisateur: utilisateurSlice.reducer,
-    },
-})
+
 

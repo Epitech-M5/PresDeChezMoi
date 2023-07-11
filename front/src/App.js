@@ -20,7 +20,7 @@ import Protected from "./protected";
 import { Navigate } from "react-router-dom";
 
 import { Provider, useSelector } from "react-redux";
-import { store } from "./redux/Utilisateur";
+import { store } from "./redux/store";
 
 import Chat from "./components/MainComponent/Chat/Chat";
 

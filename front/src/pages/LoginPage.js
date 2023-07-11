@@ -4,8 +4,8 @@ import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
 import axios from 'axios';
 
 import { useDispatch } from "react-redux";
-import { isLogin } from "../redux/Utilisateur";
-import { useSelector } from "react-redux"
+import { isLogin,fetchUtilisateurData,fetchRefreshToken,fetchToken } from "../redux/Utilisateur";
+import {useSelector} from "react-redux"
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -21,6 +21,7 @@ const LoginPage = () => {
 
     const { addMessage, removeMessage, messages } = useMessageQueue();
 
+    const user = useSelector((state)=> console.log("STATE", state)) 
 
     const handleNavigationRegister = (event) => {
 
@@ -40,12 +41,23 @@ const LoginPage = () => {
                 .post("http://127.0.0.1:8081/api/user/auth/signup", { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2 })
                 .then(response => {
 
-                    console.log(response)
+                    // permet de récupérer les info utilisateurs retourné dans la response
+                    var data = response.data;
 
+                    // Initialisation de l'objet qui va comporter les information de l'utilisateur pour le stocker dans redux(store)
+                    var infoUtilisateur = {
+                        pseudo: data.pseudo,
+                        idRole: data.idRole,
+                        idutilisateur: data.id
+                    };
                     addMessage('Votre compte a bien été crée ! Attendez quelques instant...', 'success');
-
+                    // Stock dans store
+                    dispatch(isLogin());
+                    dispatch(fetchToken(data.accessToken));
+                    dispatch(fetchRefreshToken(data.refreshToken));
+                    dispatch(fetchUtilisateurData(infoUtilisateur));
                     setTimeout(() => {
-                        window.location.reload();
+                        navigate('/home')
                     }, 3000);
 
                 }).catch(error => {
@@ -75,9 +87,21 @@ const LoginPage = () => {
                 .then(response => {
 
                     console.log(response)
-                    // isLogin(idLogin,true)
+                    // permet de récupérer les info utilisateurs retourné dans la response
+                    var data = response.data;
+
+                    // Initialisation de l'objet qui va comporter les information de l'utilisateur pour le stocker dans redux(store)
+                    var infoUtilisateur = {
+                        pseudo: data.pseudo,
+                        idRole: data.idRole,
+                        idutilisateur: data.id
+                    };
                     addMessage('Connexion réussie, attendez quelques instants....', 'success');
-                    dispatch(isLogin(idLogin));
+                    // Stock dans store
+                    dispatch(isLogin());
+                    dispatch(fetchToken(data.accessToken));
+                    dispatch(fetchRefreshToken(data.refreshToken));
+                    dispatch(fetchUtilisateurData(infoUtilisateur));
                     setTimeout(() => {
                         navigate('/home')
                     }, 3000);
