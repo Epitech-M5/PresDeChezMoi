@@ -1,58 +1,41 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function useAxios() {
+export const getAPI = async (url, body, header) => {
+    return await fetchData(url, 'GET', body, header);
+};
 
-    const [dataAPI, setData] = useState(null);
-    const [isLoadingAPI, setIsLoading] = useState(false);
-    const [errorAPI, setError] = useState(null);
-    /*
-        useEffect(() => {
-            console.log('DATA:', dataAPI);
-        }, [dataAPI]);
-    
-        useEffect(() => {
-            console.log('LOADING:', isLoadingAPI);
-        }, [isLoadingAPI]);
-    
-        useEffect(() => {
-            console.log('ERROR:', errorAPI);
-        }, [errorAPI]);
-    */
-    const fetchData = async (url, method, body = null) => {
-        setIsLoading(true);
-        try {
-            const response = await axios({
-                method,
-                url,
-                data: body,
-            });
-            setData(response.data);
-            console.log('DATA IN FETCH : ' + response.data)
-        } catch (error) {
-            setError(error);
-            console.log('ERROR IN FETCH : ' + error)
-        } finally {
-            setIsLoading(false);
-        }
-    };
+export const postAPI = async (url, body, header) => {
+    return await fetchData(url, 'POST', body, header);
+};
 
-    const get = async (url) => {
-        await fetchData(url, 'GET');
-    };
+export const putAPI = async (url, body, header) => {
+    return await fetchData(url, 'PUT', body, header);
+};
 
-    const post = async (url, body) => {
-        await fetchData(url, 'POST', body);
-    };
+export const deleteAPI = async (url, body, header) => {
+    return await fetchData(url, 'DELETE', body, header);
+};
 
-    const put = async (url, body) => {
-        await fetchData(url, 'PUT', body);
-    };
-
-    const del = async (url) => {
-        await fetchData(url, 'DELETE');
-    };
-
-
-    return { dataAPI, isLoadingAPI, errorAPI, get, post, put, del };
+async function fetchData(url, method, body, header) {
+    var isLoadingAPI = true;
+    var dataAPI = null;
+    var errorAPI = null;
+    try {
+        console.log("URL de l'API : ", url); // Ajout de la console de débogage
+        const response = await axios({
+            method: method,
+            url: url,
+            data: body,
+            headers: header
+        });
+        dataAPI = response.data;
+        console.log("Données de l'API : ", dataAPI); // Ajout de la console de débogage
+    } catch (error) {
+        errorAPI = error;
+        console.error("Erreur lors de l'appel à l'API : ", error); // Ajout de la console de débogage
+    } finally {
+        isLoadingAPI = false;
+        return { "dataAPI": dataAPI, "isLoading": isLoadingAPI, "errorAPI": errorAPI };
+    }
 }
