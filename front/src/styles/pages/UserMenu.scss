@@ -11,17 +11,16 @@ ul {
   padding: 0;
   list-style: none;
 }
-a {
-  outline: none !important;
-}
 
 .userProfile {
-  width: 90%;
-  height: 90%;
   justify-content: center;
   margin: 0;
   padding: 0;
   position: relative;
+  border-radius: 50%;
+  max-width: 100%;
+  max-height: 100px;
+  object-fit: contain;
 }
 
 .ms-nav-container {
@@ -50,11 +49,21 @@ a {
   left: 5px;
   transition: top 0.4s ease;
   z-index: 1;
+  &:hover {
+    opacity: 0.9;
+  }
 }
 
 
 .ms-menu-toggle-lbl {
   cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100px; /* Modifier la largeur maximale selon vos besoins */
+  border-radius: 50%;
 }
 
 .ms-nav-point {
@@ -84,22 +93,27 @@ a {
   border-radius: 100%;
   position: relative;
   text-align: center;
+  border-radius: 50%;
+  text-decoration: none !important;
 }
 
 .ms-nav > .ms-main a,
 .ms-nav > .ms-main > a > label {
   font-size: 30px;
+  position: relative;
   color: #ffffff;
   width: 75px;
   height: 75px;
   display: block;
-  border-radius: 100%;
+  border-radius: 50%;
   position: relative;
   text-align: center;
   z-index: 19;
   background: linear-gradient(to right, #8a55fd, #5cdee6);
   background-size: 200% 100%;
   transition: background-position 0.5s;
+  background-clip: padding-box;
+  border-radius: 50%;
   &:hover {
     background-position: right;
   }
@@ -107,11 +121,36 @@ a {
 
 .ms-nav > .ms-main > a > label > h3 {
   position: relative;
-  top: 5%;
+  top: 2%;
+  left: -8%;
   color: #333333;
-  text-decoration: none;
   font-size: 20px;
   font-family: $font-LeagueSpartan;
+}
+
+.ms-main::before,
+.ms-main::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ms-main::before {
+  z-index: -1;
+  // background: linear-gradient(to right, #8a55fd, #5cdee6);
+  background-size: 200% 100%;
+  transition: background-position 0.5s;
+}
+
+.ms-main:hover::before {
+  background-position: right;
+}
+
+.ms-main:hover .userProfile {
+  opacity: 0.7; /* Ajustez la luminosité selon vos préférences */
 }
 
 .ms-nav .ms-menu-toggle:checked ~ .ms-main:after {
@@ -151,7 +190,7 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
 
 @for $i from 1 through $child-count {
   $top: random(350); // Valeur aléatoire pour le top (de 0 à 50)
-  $left: random(30); // Valeur aléatoire pour la position left (de 0 à 100)
+  $left: random(60); // Valeur aléatoire pour la position left (de 0 à 100)
   $size: random(40) + 10; // Valeur aléatoire pour la taille (de 10 à 30)
   $shrink: 1 - ($i * 0.03); // Facteur de rétrécissement basé sur le numéro d'enfant
 
@@ -166,21 +205,23 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
 }
 
 .ms-nav .ms-menu-toggle ~ .ms-li a span {
-  position: relative;
-  font-size: 1.0em;
+  font-size: 1.4em;
+  top: 15%;
   opacity: 0;
-  transition: opacity 0.1s ease 0.1s;
+  transition: opacity 0.1s ease 0.1s;justify-content: center; /* Ajouter justify-content: center; */
+  align-items: center;
 }
 
 .ms-nav .ms-menu-toggle:checked ~ .ms-li1 a span {
   opacity: 1;
   transition: opacity 0.5s ease 0.1s;
 }
+
 .ms-nav .ms-menu-toggle:checked ~ .ms-li1:before {
-  animation: border-top-animation 0.5s ease 0.2s;
+  animation: border-top-animation-1 0.5s ease 0.2s;
 }
 .ms-nav .ms-menu-toggle:checked ~ .ms-li1:after {
-  animation: border-top-animation 0.5s ease 0.2s;
+  animation: border-top-animation-2 0.5s ease 0.2s;
 }
 
 //----------------li2-----------------//
@@ -303,6 +344,12 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   .ms-nav > .ms-main > a > label > h3 {
     font-size: 24px;
   }
+
+  .ms-nav > li a span {
+    font-size: 1.4em;
+    top: 100px;
+    left: -4px;
+  }
 }
 
 /* Styles pour les écrans de taille comprise entre 992px et 1199px */
@@ -325,6 +372,12 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
 
   .ms-nav > .ms-main > a > label > h3 {
     font-size: 20px;
+  }
+
+  .ms-nav > li a span {
+    font-size: 1.2em;
+    top: 4px;
+    left: -2px;
   }
 }
 
@@ -349,6 +402,12 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   .ms-nav > .ms-main > a > label > h3 {
     font-size: 18px;
   }
+
+  .ms-nav > li a span {
+    font-size: 1.0em;
+    top: 2px;
+    left: 0;
+  }
 }
 
 /* Styles pour les écrans de taille inférieure à 767px */
@@ -372,6 +431,12 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   .ms-nav > .ms-main > a > label > h3 {
     font-size: 14px;
   }
+
+  .ms-nav > li a span {
+    font-size: 0.8em;
+    top: 1px;
+    left: -10%;
+  }
 }
 
 //----------------KeyFrame-----------------//
@@ -385,7 +450,7 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   }
 }
 
-@keyframes border-top-animation {
+@keyframes border-top-animation-1 {
   0% {
     top: 0px;
   }
@@ -396,7 +461,8 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
     top: 0px;
   }
 }
-@keyframes border-top-animation {
+
+@keyframes border-top-animation-2 {
   0% {
     top: 0px;
   }
@@ -407,6 +473,7 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
     top: 0px;
   }
 }
+
 @keyframes big-border-top-animation {
   0% {
     top: 0px;
