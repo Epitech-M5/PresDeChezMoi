@@ -36,8 +36,9 @@ const ChatBot = () => {
     }
   }, [socket]);
 
-  const sendMessage = () => {
-    socket.emit("message", { socketId: socketId, message: message });
+  const sendMessage = (e) => {
+    e.preventDefault();
+    socket.emit("message", { reveive : true, message: message });
   };
 
   const handleToggle = () => {
@@ -62,6 +63,7 @@ const ChatBot = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <div className="toCenter">
         <div className="container_logo_chatbot" onClick={handleToggle}>
           <i className="fa-solid fa-robot"></i>
@@ -81,10 +83,13 @@ const ChatBot = () => {
           </div>
         </div>
 
+=======
+      <div className="chatbot_history">
+>>>>>>> dev-morgan
         {history.map((item, index) => (
-          <div key={index} className="chat_message">
-            <span>{item.socketId}: </span>
-            <span>{item.message}</span>
+          <div key={index} className={`chatbot_messages`}>
+            {/* <span>{item.socketId}: </span> */}
+            <p className={`${ item.receive ? 'chatbot_receive' : 'chatbot_send'}`}>{item.message}</p>
           </div>
         ))}
 
@@ -113,6 +118,17 @@ const ChatBot = () => {
         ))}
 
       </div>
+      <form onSubmit={sendMessage} className="chatbot_foot">
+        <input
+          type="text"
+          value={message}
+          className="inputText"
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <button type="submit" className="chatbot_btn_send">
+          Send
+        </button>
+      </form>
     </>
   );
 };

@@ -11,6 +11,7 @@ import AnimateBackground from "./components/AnimateBackground";
 import PageNotFound from "./pages/PageNotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
+<<<<<<< HEAD
 import ChatBot from "./components/MainComponent/ChatBot";
 import NavBarHome from "./components/MainComponent/NavBarHome";
 import UserMenu from "./components/MainComponent/UserMenu";
@@ -20,6 +21,10 @@ import { Navigate } from "react-router-dom";
 
 import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/Utilisateur";
+=======
+import Chat from "./components/MainComponent/Chat/Chat";
+import UserMenu from "./components/MainComponent/UserMenu";
+>>>>>>> dev-morgan
 
 const LandingContainer = () => {
   return (
@@ -81,6 +86,7 @@ const App = () => {
   }
   return (
     !loading && (
+<<<<<<< HEAD
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
@@ -90,6 +96,16 @@ const App = () => {
         </BrowserRouter>
       </Provider>
 
+=======
+      <BrowserRouter>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/*" element={<LandingContainer />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/test" element={<Test />} />
+        </Routes>
+      </BrowserRouter>
+>>>>>>> dev-morgan
     )
   );
 };
