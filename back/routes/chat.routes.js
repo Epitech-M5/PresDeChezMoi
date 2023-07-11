@@ -1,9 +1,11 @@
 module.exports = app => {
     const chat = require("../controllers/chat.controller.js");
+    const { verifySignUp } = require("../middleware");
+    const { authJwt } = require("../middleware");
 
     var router = require("express").Router();
 
-    router.post("/", chat.create);
+    router.post("/", [authJwt.verifyToken], chat.create);
 
     router.get("/", chat.find_all);
 

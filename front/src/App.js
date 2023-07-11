@@ -16,10 +16,14 @@ import NavBarHome from "./components/MainComponent/NavBarHome";
 import UserMenu from "./components/MainComponent/UserMenu";
 import ResearchBar from "./components/MainComponent/ResearchBar";
 import Protected from "./protected";
+import { Navigate } from "react-router-dom";
 
+import { Provider, useSelector } from "react-redux";
+import { store } from "./redux/Utilisateur";
 
 const LandingContainer = () => {
   return (
+
     <>
       <NavBarLandingPage />
       <AnimateBackground />
@@ -34,30 +38,38 @@ const LandingContainer = () => {
       </Routes>
       <FooterLandingPage />
     </>
+
   );
 };
 
 const HomeContainer = () => {
-  return (
-    <>
-      <ChatBot />
-      <ResearchBar />
-      <NavBarHome></NavBarHome>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="*" element={<PageNotFound navigation={"/home"} />} />
-      </Routes>
-    </>
-  );
+
+  const user = useSelector((state) => state.utilisateur) // isLogin obligatoire dans balise protected
+
+  if (user.isLogin) { // A checker si c'est ok !
+    return (
+
+      <>
+        <ChatBot />
+        <ResearchBar />
+        <NavBarHome></NavBarHome>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </>
+    );
+  } else {
+    return (<Navigate to="/login" replace />);
+  }
+
 };
 
 const App = () => {
 
   const [loading, setLoading] = useState(true);
   const spinner = document.getElementById("spinner_onload");
-
-  const isLog = true; //modif avec redux pour savoir si oui on non le user est connecté
 
   if (spinner) {
     setTimeout(() => {
@@ -69,14 +81,15 @@ const App = () => {
   }
   return (
     !loading && (
-      <>
+      <Provider store={store}>
         <BrowserRouter>
           <Routes>
             <Route path="/*" element={<LandingContainer />} />
-            <Route path="/home/*" element={<Protected isLoggedIn={isLog}><HomeContainer /></Protected>} />
+            <Route path="/home/*" element={<HomeContainer />} />
           </Routes>
         </BrowserRouter>
-      </>
+      </Provider>
+
     )
   );
 };
