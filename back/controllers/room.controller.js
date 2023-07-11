@@ -26,7 +26,7 @@ exports.create = (req, res) => {
 
     // Create User
     const roomObjet = {
-        idUtilisateur: req.body.idUtilisateur
+        membres: req.body.membres
     };
 
     // Save Tutorial in the database adn catch internal error

@@ -1,10 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+var bcrypt = require("bcryptjs");
 // ('Access-Control-Allow-Origin', 'http://localhost:8081')
 var corsOptions = {
-  origin: '*'
+    origin: '*'
 };
 
 
@@ -19,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./models");
 // db.sequelize.sync({ force: true })
 const Role = db.roles;
+
+const Utilisateur = db.utilisateur;
 
 db.sequelize.sync({ force: true })
     .then(() => {
@@ -44,6 +46,28 @@ function initial() {
         id: 3,
         titre: "admin"
     });
+
+    Utilisateur.create({
+        id: 1,
+        pseudo: "Administrateur",
+        nom: "Admin",
+        prenom: "Admin",
+        photoProfil: null,
+        mail: "presdechezmoi.email@gmail.com",
+        motDePasse: bcrypt.hashSync("Admin", 8),
+        idVille: null,
+        score: null,
+        participation: null,
+        estAdministrateur: null,
+        abonnement: null,
+        profession: null,
+        idRecompense: null,
+        listRecompense: null,
+        nombreSignalement: null,
+        estBanni: null,
+        idRole: 3, // A RAJOUTER DANS POSTMAN
+        listAnnonceEnregistre: null
+    })
 }
 
 // // simple route
