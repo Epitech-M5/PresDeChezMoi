@@ -4,8 +4,8 @@ import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
 import axios from 'axios';
 
 import { useDispatch } from "react-redux";
-import { isLogin,fetchUtilisateurData,fetchRefreshToken,fetchToken } from "../redux/Utilisateur";
-import {useSelector} from "react-redux"
+import { isLogin, fetchUtilisateurData, fetchRefreshToken, fetchToken } from "../redux/Utilisateur";
+import { useSelector } from "react-redux"
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const LoginPage = () => {
 
     const { addMessage, removeMessage, messages } = useMessageQueue();
 
-    const user = useSelector((state)=> console.log("STATE", state)) 
+    const user = useSelector((state) => console.log("STATE", state))
 
     const handleNavigationRegister = (event) => {
 
@@ -56,6 +56,7 @@ const LoginPage = () => {
                     dispatch(fetchToken(data.accessToken));
                     dispatch(fetchRefreshToken(data.refreshToken));
                     dispatch(fetchUtilisateurData(infoUtilisateur));
+
                     setTimeout(() => {
                         navigate('/home')
                     }, 3000);
@@ -158,7 +159,7 @@ const LoginPage = () => {
                 <div className="forms_container">
                     <div className="signin_signup">
 
-                        <form action="" className='sign_in_form'>
+                        <form action="" className='sign_in_form' onSubmit={handleNavigationLogin}>
                             <h2 className='title_login'>Se connecter</h2>
                             <div className="input_field">
                                 <i class="fa-solid fa-user"></i>
@@ -168,7 +169,7 @@ const LoginPage = () => {
                                 <i class="fa-solid fa-lock"></i>
                                 <input type="password" placeholder='Mot de passe' onChange={handlePassword_login} />
                             </div>
-                            <input type="button" value="Se connecter" className='btn_login' onClick={handleNavigationLogin} />
+                            <input type="submit" value="Se connecter" className='btn_login' />
                             <a href="/forgot-password" target='_blank' id='forgot_password'><h3>Mot de passe oublié ?</h3></a>
                             <p className='social_text'>Ou avec les réseaux sociaux</p>
                             <div className="social_login">
@@ -187,7 +188,7 @@ const LoginPage = () => {
                             </div>
                         </form>
 
-                        <form action="" className='sign_up_form'>
+                        <form action="" className='sign_up_form' onSubmit={handleNavigationRegister}>
                             <h2 className='title_login'>S'enregistrer</h2>
                             <div className="input_field">
                                 <i class="fa-solid fa-user"></i>
@@ -195,13 +196,13 @@ const LoginPage = () => {
                             </div>
                             <div className="input_field">
                                 <i class="fa-solid fa-envelope"></i>
-                                <input type="text" placeholder='Email' onChange={handleEmail} />
+                                <input type='email' placeholder='Email' onChange={handleEmail} />
                             </div>
                             <div className="input_field">
                                 <i class="fa-solid fa-lock"></i>
                                 <input type="password" placeholder='Mot de passe' onChange={handlePassword_register} />
                             </div>
-                            <input type="button" value="S'enregistrer" className='btn_login' onClick={handleNavigationRegister} />
+                            <input type="submit" value="S'enregistrer" className='btn_login' />
                             <p className='social_text'>Ou avec les réseaux sociaux</p>
                             <div className="social_login">
                                 <a onClick={() => window.open("https://instagram.com/presdechezmoi?igshid=OGQ5ZDc2ODk2ZA==", "_blank")} className='social_login_icon'>
