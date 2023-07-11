@@ -7,6 +7,7 @@ const chat = db.chat;
 
 
 exports.create = (req, res) => {
+    //  token
     var boolErrorFlag = false;
     var stringErrorMessage = "";
 
@@ -23,12 +24,13 @@ exports.create = (req, res) => {
         });
         return;
     }
-
+    const userId = req.userId;
+    console.log("userId", userId)
     // Create User
     const chatObjet = {
         idRoom: req.body.idRoom,
         texte: req.body.texte,
-        idUtilisateur: req.body.idUtilisateur
+        idUtilisateur: userId
     };
     console.log("~~~~~~~~~~", chatObjet)
     // Save Tutorial in the database adn catch internal error

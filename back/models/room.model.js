@@ -6,13 +6,10 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true
         },
         idUtilisateur: {
-            type: Sequelize.INTEGER
+            type: Sequelize.JSON,
+            defaultValue: []
         }
     });
-
-    Room.associate = (models) => {
-        Room.belongsTo(models.Utilisateur, { foreignKey: 'idUtilisateur' });
-    };
 
     return Room;
 };

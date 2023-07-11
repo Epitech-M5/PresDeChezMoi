@@ -1,17 +1,17 @@
 module.exports = app => {
     const annonce = require("../controllers/annonce.controller.js");
-
+    const { authJwt } = require("../middleware");
     var router = require("express").Router();
 
-    router.post("/", annonce.create);
+    router.post("/", [authJwt.verifyToken], annonce.create);
 
-    router.get("/", annonce.find_all);
+    router.get("/", [authJwt.verifyToken], annonce.find_all);
 
-    router.get("/:id", annonce.find_one);
+    router.get("/:id", [authJwt.verifyToken], annonce.find_one);
 
-    router.put("/:id", annonce.update);
+    router.put("/:id", [authJwt.verifyToken], annonce.update);
 
-    router.delete("/:id", annonce.delete);
+    router.delete("/:id", [authJwt.verifyToken], annonce.delete);
 
     app.use('/api/annonce', router);
 };
