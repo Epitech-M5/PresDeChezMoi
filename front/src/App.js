@@ -19,7 +19,7 @@ import Protected from "./protected";
 import { Navigate } from "react-router-dom";
 
 import { Provider, useSelector } from "react-redux";
-import { store } from "./redux/Utilisateur";
+import { store } from "./redux/store";
 
 const LandingContainer = () => {
   return (
@@ -43,12 +43,12 @@ const LandingContainer = () => {
 };
 
 const HomeContainer = () => {
-  const user = useSelector((state)=> state.utilisateur) // isLogin obligatoire dans balise protected
-
-  if(user.isLogin) { // A checker si c'est ok !
+  const user = useSelector((state)=> state.utilisateur) 
+  if(user.isLogin) {
     return (
- 
-      <>     <ChatBot />
+
+      <>     
+      <ChatBot />
             <ResearchBar />
             <NavBarHome></NavBarHome>
             <Routes>
