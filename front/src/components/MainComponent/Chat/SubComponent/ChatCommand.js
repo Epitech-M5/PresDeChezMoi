@@ -54,7 +54,7 @@ const ChatCommand = ({
         <div className="chat_input_foot">
           {/* <label htmlFor="imageInput" className="chat_import">
             <span className="chat_import_image">
-              {selectedFileName ? (
+              {selectedFileName ? (git puh
                 selectedFileName
               ) : (
                 <>
@@ -71,7 +71,6 @@ const ChatCommand = ({
           </label> */}
 
           <button type="submit" className="chat_btn_send">
-
           </button>
         </div>
       </form>
