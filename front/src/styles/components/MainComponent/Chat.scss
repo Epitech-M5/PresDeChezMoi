@@ -73,6 +73,7 @@
   height: 15%;
   display: flex;
   flex-direction: row;
+
   &:hover {
     background: var(--chat_footer);
   }
@@ -100,7 +101,8 @@
 .chat_list_users::-webkit-scrollbar {
 
   width: 7px;
-  height: 8px; /* Ajustez la hauteur de la barre de défilement */
+  height: 8px;
+  /* Ajustez la hauteur de la barre de défilement */
 }
 
 .chat_list_users::-webkit-scrollbar-track {
@@ -111,7 +113,8 @@
   // display:none;
   background: orange;
   border-radius: 5px;
-  height: 2px; /* Ajustez la hauteur du pouce de la barre de défilement */
+  height: 2px;
+  /* Ajustez la hauteur du pouce de la barre de défilement */
 }
 
 .chat_list_users::-webkit-scrollbar-thumb:hover {
@@ -144,9 +147,9 @@
 
 .chat_message_containt {
   background: var(--background-chat-color);
-  display:flex;
+  display: flex;
   flex-direction: row;
-  justify-content:flex-start;
+  justify-content: flex-start;
 }
 
 .chat_image {
@@ -159,16 +162,16 @@
   z-index: 1;
 }
 
-.chat_image_receive {
-}
+.chat_image_receive {}
 
 .chat_image_send {
-  margin-left:1.5%;
+  margin-left: 1.5%;
 }
 
 .chat_foot {
   display: flex;
-  flex-direction: column; /* Ajustez cette valeur en fonction de votre disposition */
+  flex-direction: column;
+  /* Ajustez cette valeur en fonction de votre disposition */
   justify-content: flex-end;
   align-items: flex-end;
   width: 80%;
@@ -193,6 +196,7 @@
   width: 50px;
   border: none;
   font-family: "Roboto", sans-serif;
+
   font &:hover {
     cursor: pointer;
     opacity: 0.8;
@@ -330,6 +334,7 @@
     box-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #affda9,
       0 0 7px #affda9, 0 0 8px #affda9, 0 0 10px #affda9, 0 0 15px #affda9;
   }
+
   to {
     box-shadow: 0 0 0.5px #fff, 0 0 1px #fff, 0 0 1.5px #fff, 0 0 2px #affda9,
       0 0 3.5px #affda9, 0 0 4px #affda9, 0 0 5px #affda9, 0 0 7.5px #affda9;
@@ -337,5 +342,4 @@
 }
 
 
-@media screen and (max-width: 768px) {
-}
+@media screen and (max-width: 768px) {}

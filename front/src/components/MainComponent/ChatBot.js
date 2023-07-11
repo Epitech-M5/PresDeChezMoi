@@ -38,7 +38,7 @@ const ChatBot = () => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    socket.emit("message", { reveive : true, message: message });
+    socket.emit("message", { reveive: true, message: message });
   };
 
   const handleToggle = () => {
@@ -63,7 +63,6 @@ const ChatBot = () => {
 
   return (
     <>
-<<<<<<< HEAD
       <div className="toCenter">
         <div className="container_logo_chatbot" onClick={handleToggle}>
           <i className="fa-solid fa-robot"></i>
@@ -82,14 +81,15 @@ const ChatBot = () => {
             <i class="fa-solid fa-paper-plane" onClick={sendMessage}></i>
           </div>
         </div>
+      </div>
 
-=======
+
       <div className="chatbot_history">
->>>>>>> dev-morgan
+
         {history.map((item, index) => (
           <div key={index} className={`chatbot_messages`}>
             {/* <span>{item.socketId}: </span> */}
-            <p className={`${ item.receive ? 'chatbot_receive' : 'chatbot_send'}`}>{item.message}</p>
+            <p className={`${item.receive ? 'chatbot_receive' : 'chatbot_send'}`}>{item.message}</p>
           </div>
         ))}
 
@@ -129,6 +129,7 @@ const ChatBot = () => {
           Send
         </button>
       </form>
+
     </>
   );
 };
