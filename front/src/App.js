@@ -50,7 +50,7 @@ const HomeContainer = () => {
 
   const user = useSelector((state) => state.utilisateur)
 
-  if (user.isLogin && user.isAdmin) {
+  if (user.isLogin && user.idRole === 3) {
     return (
       <>
         <ChatBot />

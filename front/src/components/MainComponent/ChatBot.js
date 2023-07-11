@@ -63,7 +63,6 @@ const ChatBot = () => {
 
   return (
     <>
-<<<<<<< HEAD
       <div className="toCenter">
         <div className="container_logo_chatbot" onClick={handleToggle}>
           <i className="fa-solid fa-robot"></i>
@@ -83,9 +82,6 @@ const ChatBot = () => {
           </div>
         </div>
 
-=======
-      <div className="chatbot_history">
->>>>>>> dev-morgan
         {history.map((item, index) => (
           <div key={index} className={`chatbot_messages`}>
             {/* <span>{item.socketId}: </span> */}

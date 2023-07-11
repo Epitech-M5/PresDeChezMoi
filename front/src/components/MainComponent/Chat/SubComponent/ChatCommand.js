@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AiFillFileImage, FiSend } from "react-icons/ai";
+// import { AiFillFileImage, FiSend } from "react-icons/ai";
 
 const ChatCommand = ({
   message,
@@ -71,7 +71,7 @@ const ChatCommand = ({
           </label> */}
 
           <button type="submit" className="chat_btn_send">
-            <FiSend/>
+            {/* <FiSend/> */}
           </button>
         </div>
       </form>
