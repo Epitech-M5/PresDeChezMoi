@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Modal from './Modal';
+import DropDownBtn from './DropDownBtn';
 
 const NavBarHome = (props) => {
 
     const [activeId, setActiveId] = useState(null);
-    var [allButtons, setAllButtons] = useState(
-        <>
-            <div className="container_buttons_home">
-                <button className='btn_home'></button>
-            </div>
-        </>
-    );
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleToggle = () => {
 
@@ -25,6 +21,14 @@ const NavBarHome = (props) => {
         setActiveId(id);
     };
 
+    const openModal = () => {
+        setIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsOpen(false);
+    };
+
     useEffect(() => {
         setActiveId(1);
 
@@ -35,7 +39,7 @@ const NavBarHome = (props) => {
             setAllButtons(
                 <>
                     <div className="container_buttons_home">
-                        <button className='btn_home'></button>
+                        <button className='btn_home' onClick={openModal}></button>
                     </div>
                     <div className="container_buttons_home">
                         <button className='btn_home admin'></button>
@@ -46,8 +50,40 @@ const NavBarHome = (props) => {
 
     }, []);
 
+    var [allButtons, setAllButtons] = useState(
+        <>
+            <div className="container_buttons_home">
+                <button className='btn_home' onClick={openModal}></button>
+            </div>
+        </>
+    );
+
+    const [selectedValue, setSelectedValue] = useState(null);
+
+    const handleCheckboxChange = (item) => {
+        setSelectedValue(item);
+        console.log('Selected value in parent component: ' + item);
+    };
+
     return (
         <>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <div className="container_x">
+                    <i className="fa-solid fa-xmark" onClick={closeModal}></i>
+                </div>
+                <div className="wrapper_modal">
+                    <div className="modal_content_left">
+                        <textarea placeholder='À quoi pensez-vous @Name ?' ></textarea>
+                        <button className='btn_lieu'><i className='fa-solid fa-location-dot'></i>Ajouter un lieu</button>
+                        <button className='add_img'><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</button>
+                        <input type="button" value="Publier" />
+                    </div>
+                    <div className="modal_content_right">
+                        <DropDownBtn text="Type de post" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post']} onCheckboxChange={handleCheckboxChange} />
+                    </div>
+                </div>
+            </Modal>
+
             <div className="container_nabar_home">
                 <div className="container_logo_home">
                     <img src="../media/img/carotte.png" alt="logo" />

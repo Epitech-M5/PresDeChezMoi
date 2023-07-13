@@ -1,0 +1,148 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200000;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background-color: $white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+}
+
+.modal-content button {
+    margin-top: 10px;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.container_x {
+    width: 100%;
+    text-align: right;
+}
+
+.modal-content .container_x i {
+    margin-bottom: 15px;
+    color: $dark-grey;
+    margin-left: 90%;
+}
+
+.modal_content_left button:hover,
+textarea:hover,
+i:hover,
+input:hover {
+    cursor: pointer;
+}
+
+.modal-content .container_x i:hover {
+    cursor: pointer;
+}
+
+.modal_content_left {
+    width: 40%;
+}
+
+.modal_content_left textarea::placeholder {
+    color: $dark-grey;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.modal_content_left textarea:nth-child(1) {
+    min-width: 270px;
+    resize: none;
+    border: none;
+    padding: 10px;
+}
+
+.modal_content_left .btn_lieu i {
+    color: $orange;
+    margin-right: 10px;
+}
+
+.btn_lieu {
+    color: $orange;
+    font-weight: 700;
+    border: none;
+    background-color: transparent;
+    margin-bottom: 40px;
+}
+
+.modal_content_left .add_img i {
+    color: $white;
+    font-size: 1.5rem;
+    margin-right: 20px;
+}
+
+.add_img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 270px;
+    padding: 6px;
+    background-color: $green;
+    border: none;
+    border-radius: 54px;
+    color: $white;
+    margin-bottom: 20px;
+}
+
+.modal_content_left input {
+    padding: 5px 10px;
+    border-radius: 54px;
+    border: none;
+    background-color: $violet;
+    color: $white;
+    transition: all 0.2s;
+}
+
+.modal_content_left input:hover {
+    background-color: $red-orange;
+}
+
+.modal_content_right {
+    width: 40%;
+}
+
+.wrapper_modal {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+@media(max-width:580px) {
+
+    .modal_content_left {
+        width: 100%;
+    }
+
+    .modal_content_left textarea {
+        width: 100%;
+    }
+}
