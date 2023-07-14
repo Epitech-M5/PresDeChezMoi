@@ -1,5 +1,6 @@
 const db = require("../models");
 const room = db.room;
+const { Op } = require('sequelize');
 
 // title: req.body.title,
 // description: req.body.description,
@@ -11,7 +12,7 @@ exports.create = (req, res) => {
     var stringErrorMessage = "";
 
     // Champ nécessaire pour la requete
-    if (!req.body.idUtilisateur) {
+    if (!req.body.membres) {
         boolErrorFlag = true
         stringErrorMessage = "Content can not be empty!"
     }
@@ -74,6 +75,25 @@ exports.find_all = (req, res) => {
             });
         });
 };
+exports.find_all_members = (req, res) => {
+    console.log(req.body.member)
+    room.findAll({
+        where: {
+            membres: {
+                [Op.contains]: [req.body.member]
+            }
+        }
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
+};
 
 exports.update = (req, res) => {
     const id = req.params.id;
@@ -122,3 +142,26 @@ exports.delete = (req, res) => {
             });
         });
 };
+
+// const express = require('express');
+// const router = express.Router();
+// const db = require('../models');
+// const { Op } = require('sequelize');
+
+// router.get('/rooms', async (req, res) => {
+//     try {
+//         const rooms = await db.Room.findAll({
+//             where: {
+//                 membres: {
+//                     [Op.contains]: ['Maxence']
+//                 }
+//             }
+//         });
+//         res.json(rooms);
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ message: 'Server Error' });
+//     }
+// });
+
+// module.exports = router;
