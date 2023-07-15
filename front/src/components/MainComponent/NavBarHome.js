@@ -6,6 +6,16 @@ const NavBarHome = (props) => {
 
     const [activeId, setActiveId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [selectedValue, setSelectedValue] = useState(null);
+
+    var [toAddModal, setToAddModal] = useState(
+        <div className="modal_content_left">
+            <textarea placeholder='À quoi pensez-vous @Name ?' ></textarea>
+            <button className='btn_lieu'><i className='fa-solid fa-location-dot'></i>Ajouter un lieu</button>
+            <button className='add_img'><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</button>
+            <input type="button" value="Publier" />
+        </div>
+    )
 
     const handleToggle = () => {
 
@@ -29,6 +39,10 @@ const NavBarHome = (props) => {
         setIsOpen(false);
     };
 
+    const handleCheckboxChange = (item) => {
+        setSelectedValue(item);
+    };
+
     useEffect(() => {
         setActiveId(1);
 
@@ -50,6 +64,29 @@ const NavBarHome = (props) => {
 
     }, []);
 
+    useEffect(() => {
+
+        if (selectedValue === 'Vente') {
+            setToAddModal(
+                <div className="modal_content_left">
+                    <h1>tetetetetet</h1>
+                </div>
+            );
+        }
+
+        else {
+            setToAddModal(
+                <div className="modal_content_left">
+                    <textarea placeholder='À quoi pensez-vous @Name ?' ></textarea>
+                    <button className='btn_lieu'><i className='fa-solid fa-location-dot'></i>Ajouter un lieu</button>
+                    <button className='add_img'><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</button>
+                    <input type="button" value="Publier" />
+                </div>
+            );
+        }
+
+    }, [selectedValue]);
+
     var [allButtons, setAllButtons] = useState(
         <>
             <div className="container_buttons_home">
@@ -58,13 +95,6 @@ const NavBarHome = (props) => {
         </>
     );
 
-    const [selectedValue, setSelectedValue] = useState(null);
-
-    const handleCheckboxChange = (item) => {
-        setSelectedValue(item);
-        console.log('Selected value in parent component: ' + item);
-    };
-
     return (
         <>
             <Modal isOpen={isOpen} onClose={closeModal}>
@@ -72,12 +102,7 @@ const NavBarHome = (props) => {
                     <i className="fa-solid fa-xmark" onClick={closeModal}></i>
                 </div>
                 <div className="wrapper_modal">
-                    <div className="modal_content_left">
-                        <textarea placeholder='À quoi pensez-vous @Name ?' ></textarea>
-                        <button className='btn_lieu'><i className='fa-solid fa-location-dot'></i>Ajouter un lieu</button>
-                        <button className='add_img'><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</button>
-                        <input type="button" value="Publier" />
-                    </div>
+                    {toAddModal}
                     <div className="modal_content_right">
                         <DropDownBtn text="Type de post" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post']} onCheckboxChange={handleCheckboxChange} />
                     </div>
