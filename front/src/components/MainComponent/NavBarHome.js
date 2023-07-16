@@ -8,13 +8,26 @@ const NavBarHome = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(null);
 
+    const [titre, setTitre] = useState(null);
+    const [descriptions, setDescriptions] = useState(null);
+    const [image, setImage] = useState(null);
+    const [organisateur, setOrganisateur] = useState(null);
+    const [participants, setParticipants] = useState(null);
+    const [dateDebut, setDateDebut] = useState(null);
+    const [dateFin, setDateFin] = useState(null);
+    const [estActive, setEstActive] = useState(null);
+    const [moyenne, setMoyenne] = useState(null);
+    const [annonceMairie, setAnnonceMairie] = useState(null);
+    const [prix, setPrix] = useState(null);
+
+
     var [toAddModal, setToAddModal] = useState(
-        <div className="modal_content_left">
+        <>
             <textarea placeholder='À quoi pensez-vous @Name ?' ></textarea>
             <button className='btn_lieu'><i className='fa-solid fa-location-dot'></i>Ajouter un lieu</button>
             <button className='add_img'><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</button>
             <input type="button" value="Publier" />
-        </div>
+        </>
     )
 
     const handleToggle = () => {
@@ -68,20 +81,24 @@ const NavBarHome = (props) => {
 
         if (selectedValue === 'Vente') {
             setToAddModal(
-                <div className="modal_content_left">
-                    <h1>tetetetetet</h1>
-                </div>
+                <>
+                    <input type="text" placeholder="Titre de l'annonce" id='title_popup' />
+                    <input type="number" placeholder="Prix" id='price_popup' />
+                    <textarea placeholder='Description du produit' id='simple_textarea'></textarea>
+                    <input type="date" id='date_debut_popup' />
+                    <input type="date" id='date_fin_popup' />
+                    <button className='add_img'><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</button>
+                </>
             );
         }
 
         else {
             setToAddModal(
-                <div className="modal_content_left">
-                    <textarea placeholder='À quoi pensez-vous @Name ?' ></textarea>
+                <>
+                    <textarea placeholder='À quoi pensez-vous @Name ?' id='simple_textarea'></textarea>
                     <button className='btn_lieu'><i className='fa-solid fa-location-dot'></i>Ajouter un lieu</button>
                     <button className='add_img'><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</button>
-                    <input type="button" value="Publier" />
-                </div>
+                </>
             );
         }
 
@@ -101,10 +118,13 @@ const NavBarHome = (props) => {
                 <div className="container_x">
                     <i className="fa-solid fa-xmark" onClick={closeModal}></i>
                 </div>
-                <div className="wrapper_modal">
-                    {toAddModal}
+                <div className="wrapper_popup">
+                    <div className="modal_content_left">
+                        {toAddModal}
+                    </div>
                     <div className="modal_content_right">
                         <DropDownBtn text="Type de post" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post']} onCheckboxChange={handleCheckboxChange} />
+                        <input type="button" value="Publier" id='publish' />
                     </div>
                 </div>
             </Modal>
