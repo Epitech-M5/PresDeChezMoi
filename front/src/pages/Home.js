@@ -1,6 +1,4 @@
 import { React } from 'react';
-import UserMenu from '../components/MainComponent/UserMenu'
-import NavBarHome from '../components/MainComponent/NavBarHome';
 
 const Home = () => {
 

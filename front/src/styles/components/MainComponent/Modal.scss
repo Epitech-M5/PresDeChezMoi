@@ -106,18 +106,21 @@ body.modal-open {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    margin-bottom: 30px;
+    margin-left: 2px;
 }
 
-.add_img {
-    background-color: $green;
-    color: $white;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    border: none;
+.btn_adrr {
+    background-color: transparent;
     padding: 10px;
-    border-radius: 54px;
+    border: none;
+    width: 100%;
+    margin-bottom: 30px;
+    margin-left: -5px !important;
+}
+
+.btn_adrr::placeholder {
+    font-weight: 300;
+    color: $dark-grey;
 }
 
 .inputfile {

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import DropDownBtn from './DropDownBtn';
 import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js';
+import axios from 'axios';
+import { Provider, useSelector } from "react-redux";
+import { getAPI, postAPI, putAPI, deleteAPI } from "./../../api"
 
 const NavBarHome = (props) => {
 
@@ -21,9 +24,17 @@ const NavBarHome = (props) => {
     const [annonceMairie, setAnnonceMairie] = useState(null);
     const [prix, setPrix] = useState(null);
     const [localisation, setLocalisation] = useState(null);
+    const [idTypeSignalement, setidTypeSignalement] = useState(null);
+    const [idUtilisateurSignalement, setidUtilisateurSignalement] = useState(null);
 
-    const [error, setError] = useState(null);
-    var [toAddModal, setToAddModal] = useState(null)
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+    const [addr, setAddr] = useState(null);
+
+    const user = useSelector((state) => state.utilisateur)
+
+    const [error, setError] = useState('');
+    var [toAddModal, setToAddModal] = useState()
 
     const handleToggle = () => {
 
@@ -48,6 +59,9 @@ const NavBarHome = (props) => {
     };
 
     const handleCheckboxChange = (item) => {
+
+        setSelectedValue(item);
+
         setTitre(null);
         setDescriptions(null);
         setImage(null);
@@ -60,8 +74,9 @@ const NavBarHome = (props) => {
         setAnnonceMairie(null);
         setPrix(null);
         setLocalisation(null);
-        setError('');
-        setSelectedValue(item);
+        setError(null);
+        setLatitude(null);
+        setLongitude(null);
 
         const ScrollToTop = document.querySelector('.modal_content_left');
         ScrollToTop.scrollTop = 0;
@@ -87,6 +102,20 @@ const NavBarHome = (props) => {
         }
 
     }, []);
+
+    useEffect(() => {
+
+        const geocoder = new window.google.maps.Geocoder();
+        geocoder.geocode({ 'address': addr }, function (results, status) {
+            if (status === window.google.maps.GeocoderStatus.OK) {
+                setLatitude(results[0].geometry.location.lat());
+                setLongitude(results[0].geometry.location.lng());
+            } else {
+                console.log('Erreur : ' + status);
+            }
+        });
+
+    }, [addr]);
 
     useEffect(() => {
 
@@ -148,7 +177,8 @@ const NavBarHome = (props) => {
             setToAddModal(
                 <>
                     <textarea placeholder='À quoi pensez-vous @Name ?' id='simple_textarea' onChange={(event) => setTitre(event.target.value)}></textarea>
-                    <button className='btn_lieu'><i className='fa-solid fa-location-dot' onChange={(event) => setLocalisation(event.target.value)}></i>Ajouter un lieu</button>
+                    <button className='btn_lieu' onClick={getLocation}><i className='fa-solid fa-location-dot'></i>Ajouter un lieu</button>
+                    <input type="text" id='adrr' placeholder='Ou avec une adresse' className='btn_adrr' onChange={(event) => setAddr(event.target.value)} />
                     <input id='file' type="file" accept="image/png, image/jpeg" class="inputfile" onChange={(event) => setImage(event.target.value)}></input>
                     <label for="file"><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</label>
                 </>
@@ -165,7 +195,7 @@ const NavBarHome = (props) => {
         </>
     );
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
 
         console.log('Localisation : ' + localisation);
         console.log('Prix : ' + prix);
@@ -178,36 +208,163 @@ const NavBarHome = (props) => {
         event.preventDefault();
 
         if (selectedValue === 'Vente') {
-            if (titre === null || prix === null || titre.lenght === 0 || prix.lenght === 0) {
+            if (titre === null || prix === null || titre.length === 0 || prix.length === 0) {
                 setError('Les champs titre et prix ne sont pas remplies')
+            }
+
+            else {
+
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                    .then(response => {
+
+                        console.log('response : ' + response)
+                        setError('OK !')
+
+                        setTimeout(() => {
+                            closeModal();
+                        }, 1500);
+
+                    }).catch(error => {
+                        console.log("error", error);
+                        setError(`${error}`)
+                    })
             }
         }
 
         else if (selectedValue === 'Evénement') {
-            if (titre === null || dateDebut === null || dateFin === null || dateDebut.lenght === 0 || dateFin.lenght === 0 || titre.lenght === 0 || prix.lenght === 0) {
+            if (titre === null || dateDebut === null || dateFin === null || dateDebut.length === 0 || dateFin.length === 0 || titre.length === 0 || prix.length === 0) {
                 setError('Les champs titre et et date ne sont pas remplies')
+            }
+
+            else {
+
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                    .then(response => {
+
+                        console.log('response : ' + response)
+                        setError('OK !')
+
+                        setTimeout(() => {
+                            closeModal();
+                        }, 1500);
+
+                    }).catch(error => {
+                        console.log("error", error);
+                        setError(`${error}`)
+                    })
             }
         }
 
         else if (selectedValue === 'Poste à pourvoir') {
-            if (titre === null || descriptions === null || prix === null || descriptions.lenght === 0 || prix.lenght === 0 || titre.lenght === 0) {
+            if (titre === null || descriptions === null || prix === null || descriptions.length === 0 || prix.length === 0 || titre.length === 0) {
                 setError('Les champs titre, salaire et description ne sont pas remplies')
+            }
+
+            else {
+
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                    .then(response => {
+
+                        console.log('response : ' + response)
+                        setError('OK !')
+
+                        setTimeout(() => {
+                            closeModal();
+                        }, 1500);
+
+                    }).catch(error => {
+                        console.log("error", error);
+                        setError(`${error}`)
+                    })
             }
         }
 
         else if (selectedValue === 'Promotion') {
-            if (titre === null || descriptions === null || descriptions.lenght === 0 || titre.lenght === 0) {
+            if (titre === null || descriptions === null || descriptions.length === 0 || titre.length === 0) {
                 setError('Les champs titre et description doivent être remplies')
+            }
+
+            else {
+
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                    .then(response => {
+
+                        console.log('response : ' + response)
+                        setError('OK !')
+
+                        setTimeout(() => {
+                            closeModal();
+                        }, 1500);
+
+                    }).catch(error => {
+                        console.log("error", error);
+                        setError(`${error}`)
+                    })
             }
         }
 
         else if (selectedValue === 'Simple post') {
-            if (titre === null || titre.lenght === 0) {
+            if (titre === null || titre.length === 0) {
                 setError('Le champs titre doit être remplie')
+            }
+
+            else {
+
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                    .then(response => {
+
+                        console.log('response : ' + response)
+                        setError('OK !')
+
+                        setTimeout(() => {
+                            closeModal();
+                        }, 1500);
+
+                    }).catch(error => {
+                        console.log("error", error);
+                        setError(`${error}`)
+                    })
+            }
+        }
+
+        else {
+            if (titre === null || titre.length === 0) {
+                setError('Le champs titre doit être remplie')
+            }
+
+            else {
+
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                    .then(response => {
+
+                        console.log('response : ' + response)
+                        setError('OK !')
+
+                        setTimeout(() => {
+                            closeModal();
+                        }, 1500);
+
+                    }).catch(error => {
+                        console.log("error", error);
+                        setError(`${error}`)
+                    })
             }
         }
 
     }
+
+    const getLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            setError("Geolocation is not supported by this browser.");
+        }
+    };
+
+    const showPosition = (position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+    };
 
     return (
         <>
