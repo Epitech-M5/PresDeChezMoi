@@ -20,7 +20,7 @@ const LoginPage = () => {
     const [passwordRegister, setPasswordRegister] = useState("");
 
     const { addMessage, removeMessage, messages } = useMessageQueue();
-
+git
     const handleNavigationRegister = (event) => {
 
         event.preventDefault();
