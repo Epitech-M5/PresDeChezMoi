@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 200000;
+    z-index: 10000;
     opacity: 0;
     animation: fadeIn 0.3s ease-in forwards;
 }
@@ -52,7 +52,6 @@ body.modal-open {
 }
 
 .modal_content_left {
-    background-color: violet;
     height: 200px;
     width: 60%;
     overflow-y: scroll;
@@ -63,7 +62,6 @@ body.modal-open {
 }
 
 .modal_content_right {
-    background-color: lightgreen;
     width: 40%;
 }
 
@@ -78,7 +76,7 @@ body.modal-open {
     background-color: $violet;
     color: $white;
     border: none;
-    margin-top: 50px;
+    margin-top: 40px;
     transition: all 0.2s;
 }
 
@@ -120,6 +118,97 @@ body.modal-open {
     border: none;
     padding: 10px;
     border-radius: 54px;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile+label i {
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.inputfile+label {
+    color: white;
+    background-color: $green;
+    display: flex;
+    width: 250px;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 54px;
+    margin-bottom: 20px;
+}
+
+.error_msg {
+    color: $red-orange;
+    width: 100%;
+    padding: 10px;
+}
+
+#title_popup {
+    background-color: transparent;
+    padding: 10px;
+    border: none;
+    width: 90%;
+}
+
+#title_popup::placeholder {
+    color: $dark-grey;
+    font-weight: 300;
+}
+
+#price_popup {
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    width: 90%;
+}
+
+#price_popup::placeholder {
+    color: $dark-grey;
+    font-weight: 300;
+}
+
+#simple_textarea_des {
+    width: 100%;
+    height: 60px;
+    border: none;
+    resize: none;
+    padding: 10px;
+    padding-left: 15px !important;
+}
+
+#simple_textarea_des::placeholder {
+    font-weight: 300;
+    color: $dark-grey;
+}
+
+#date_debut_popup {
+    padding: 5px 10px;
+    border-radius: 54px;
+    border: none;
+    background-color: $blue;
+    color: $white;
+}
+
+#date_fin_popup {
+    padding: 5px 10px;
+    border-radius: 54px;
+    border: none;
+    background-color: $yellow;
+    color: $white;
+    margin-bottom: 20px;
+}
+
+#label_date {
+    margin: 5px 10px;
 }
 
 @media(max-width:580px) {

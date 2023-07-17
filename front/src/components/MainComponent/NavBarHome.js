@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import DropDownBtn from './DropDownBtn';
+import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js';
 
 const NavBarHome = (props) => {
 
@@ -19,16 +20,10 @@ const NavBarHome = (props) => {
     const [moyenne, setMoyenne] = useState(null);
     const [annonceMairie, setAnnonceMairie] = useState(null);
     const [prix, setPrix] = useState(null);
+    const [localisation, setLocalisation] = useState(null);
 
-
-    var [toAddModal, setToAddModal] = useState(
-        <>
-            <textarea placeholder='À quoi pensez-vous @Name ?' ></textarea>
-            <button className='btn_lieu'><i className='fa-solid fa-location-dot'></i>Ajouter un lieu</button>
-            <button className='add_img'><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</button>
-            <input type="button" value="Publier" />
-        </>
-    )
+    const [error, setError] = useState(null);
+    var [toAddModal, setToAddModal] = useState(null)
 
     const handleToggle = () => {
 
@@ -53,7 +48,23 @@ const NavBarHome = (props) => {
     };
 
     const handleCheckboxChange = (item) => {
+        setTitre(null);
+        setDescriptions(null);
+        setImage(null);
+        setOrganisateur(null);
+        setParticipants(null);
+        setDateDebut(null);
+        setDateFin(null);
+        setEstActive(null);
+        setMoyenne(null);
+        setAnnonceMairie(null);
+        setPrix(null);
+        setLocalisation(null);
+        setError('');
         setSelectedValue(item);
+
+        const ScrollToTop = document.querySelector('.modal_content_left');
+        ScrollToTop.scrollTop = 0;
     };
 
     useEffect(() => {
@@ -82,12 +93,53 @@ const NavBarHome = (props) => {
         if (selectedValue === 'Vente') {
             setToAddModal(
                 <>
-                    <input type="text" placeholder="Titre de l'annonce" id='title_popup' />
-                    <input type="number" placeholder="Prix" id='price_popup' />
-                    <textarea placeholder='Description du produit' id='simple_textarea'></textarea>
-                    <input type="date" id='date_debut_popup' />
-                    <input type="date" id='date_fin_popup' />
-                    <button className='add_img'><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</button>
+                    <input type="text" placeholder="Titre de l'annonce" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
+                    <input type="number" placeholder="Prix" id='price_popup' onChange={(event) => setPrix(event.target.value)} />
+                    <textarea placeholder='Description du produit' id='simple_textarea_des' onChange={(event) => setDescriptions(event.target.value)}></textarea>
+                    <label htmlFor="date_debut_popup" id='label_date'>Date début : </label>
+                    <input type="date" id='date_debut_popup' onChange={(event) => setDateDebut(event.target.value)} />
+                    <label htmlFor="date_debut_popup" id='label_date'>Date fin : </label>
+                    <input type="date" id='date_fin_popup' onChange={(event) => setDateFin(event.target.value)} />
+                    <input id='file' type="file" accept="image/png, image/jpeg" class="inputfile" onChange={(event) => setImage(event.target.value)}></input>
+                    <label for="file"><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</label>
+                </>
+            );
+        }
+
+        else if (selectedValue === 'Evénement') {
+            setToAddModal(
+                <>
+                    <input type="text" placeholder="Titre de l'evénement" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
+                    <textarea placeholder="Description de l'evénement" id='simple_textarea_des' onChange={(event) => setDescriptions(event.target.value)}></textarea>
+                    <label htmlFor="date_debut_popup" id='label_date'>Date début : </label>
+                    <input type="date" id='date_debut_popup' onChange={(event) => setDateDebut(event.target.value)} />
+                    <label htmlFor="date_debut_popup" id='label_date'>Date fin : </label>
+                    <input type="date" id='date_fin_popup' onChange={(event) => setDateFin(event.target.value)} />
+                    <input id='file' type="file" accept="image/png, image/jpeg" class="inputfile" onChange={(event) => setImage(event.target.value)}></input>
+                    <label for="file"><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</label>
+                </>
+            );
+        }
+
+        else if (selectedValue === 'Poste à pourvoir') {
+            setToAddModal(
+                <>
+                    <input type="text" placeholder="Titre du poste" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
+                    <textarea placeholder="Description du poste" id='simple_textarea_des' onChange={(event) => setDescriptions(event.target.value)}></textarea>
+                    <input type="number" placeholder="Salaire brut" id='price_popup' onChange={(event) => setPrix(event.target.value)} />
+                    <input id='file' type="file" accept="image/png, image/jpeg" class="inputfile" onChange={(event) => setImage(event.target.value)}></input>
+                    <label for="file"><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</label>
+                </>
+            );
+        }
+
+        else if (selectedValue === 'Promotion') {
+            setToAddModal(
+                <>
+                    <input type="text" placeholder="Titre de l'annonce" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
+                    <textarea placeholder="Description de la promotion" id='simple_textarea_des' onChange={(event) => setDescriptions(event.target.value)}></textarea>
+                    <input id='file' type="file" accept="image/png, image/jpeg" class="inputfile" onChange={(event) => setImage(event.target.value)}></input>
+                    <label for="file"><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</label>
                 </>
             );
         }
@@ -95,9 +147,10 @@ const NavBarHome = (props) => {
         else {
             setToAddModal(
                 <>
-                    <textarea placeholder='À quoi pensez-vous @Name ?' id='simple_textarea'></textarea>
-                    <button className='btn_lieu'><i className='fa-solid fa-location-dot'></i>Ajouter un lieu</button>
-                    <button className='add_img'><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</button>
+                    <textarea placeholder='À quoi pensez-vous @Name ?' id='simple_textarea' onChange={(event) => setTitre(event.target.value)}></textarea>
+                    <button className='btn_lieu'><i className='fa-solid fa-location-dot' onChange={(event) => setLocalisation(event.target.value)}></i>Ajouter un lieu</button>
+                    <input id='file' type="file" accept="image/png, image/jpeg" class="inputfile" onChange={(event) => setImage(event.target.value)}></input>
+                    <label for="file"><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</label>
                 </>
             );
         }
@@ -112,6 +165,50 @@ const NavBarHome = (props) => {
         </>
     );
 
+    const handleSubmit = (event) => {
+
+        console.log('Localisation : ' + localisation);
+        console.log('Prix : ' + prix);
+        console.log('DateFin : ' + dateFin);
+        console.log('DateDebut : ' + dateDebut);
+        console.log('Image : ' + image);
+        console.log('Description : ' + descriptions);
+        console.log('Titre : ' + titre);
+
+        event.preventDefault();
+
+        if (selectedValue === 'Vente') {
+            if (titre === null || prix === null || titre.lenght === 0 || prix.lenght === 0) {
+                setError('Les champs titre et prix ne sont pas remplies')
+            }
+        }
+
+        else if (selectedValue === 'Evénement') {
+            if (titre === null || dateDebut === null || dateFin === null || dateDebut.lenght === 0 || dateFin.lenght === 0 || titre.lenght === 0 || prix.lenght === 0) {
+                setError('Les champs titre et et date ne sont pas remplies')
+            }
+        }
+
+        else if (selectedValue === 'Poste à pourvoir') {
+            if (titre === null || descriptions === null || prix === null || descriptions.lenght === 0 || prix.lenght === 0 || titre.lenght === 0) {
+                setError('Les champs titre, salaire et description ne sont pas remplies')
+            }
+        }
+
+        else if (selectedValue === 'Promotion') {
+            if (titre === null || descriptions === null || descriptions.lenght === 0 || titre.lenght === 0) {
+                setError('Les champs titre et description doivent être remplies')
+            }
+        }
+
+        else if (selectedValue === 'Simple post') {
+            if (titre === null || titre.lenght === 0) {
+                setError('Le champs titre doit être remplie')
+            }
+        }
+
+    }
+
     return (
         <>
             <Modal isOpen={isOpen} onClose={closeModal}>
@@ -124,7 +221,8 @@ const NavBarHome = (props) => {
                     </div>
                     <div className="modal_content_right">
                         <DropDownBtn text="Type de post" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post']} onCheckboxChange={handleCheckboxChange} />
-                        <input type="button" value="Publier" id='publish' />
+                        <input type="button" value="Publier" id='publish' onClick={handleSubmit} />
+                        <p className='error_msg'>{error}</p>
                     </div>
                 </div>
             </Modal>
