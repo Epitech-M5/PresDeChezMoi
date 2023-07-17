@@ -118,7 +118,7 @@ const ChatBot = () => {
         ))}
 
       </div>
-      <form onSubmit={sendMessage} className="chatbot_foot">
+      {/* <form onSubmit={sendMessage} className="chatbot_foot">
         <input
           type="text"
           value={message}
@@ -128,7 +128,7 @@ const ChatBot = () => {
         <button type="submit" className="chatbot_btn_send">
           Send
         </button>
-      </form>
+      </form> */}
 
     </>
   );

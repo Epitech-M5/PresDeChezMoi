@@ -24,7 +24,7 @@ const ContactPage = () => {
         else {
             addMessage('Votre message à bien été envoyé', 'success');
 
-            // 200 email par mois
+            // 200 email par mois, id : presdechezmoi.email@gmail.com mdp : 123Azerty# 
             emailjs.sendForm('service_jnx8o0c', 'template_zal9dbd', form.current, 'AHMnZTYTrMKEh55qV')
                 .then((result) => {
                     console.log(result.text);
