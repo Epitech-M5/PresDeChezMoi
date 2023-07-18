@@ -20,8 +20,6 @@ const LoginPage = () => {
 
     const { addMessage, removeMessage, messages } = useMessageQueue();
 
-    const user = useSelector((state) => console.log("STATE", state))
-
     const handleNavigationRegister = (event) => {
 
         event.preventDefault();
