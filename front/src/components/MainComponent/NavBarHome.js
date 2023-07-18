@@ -5,8 +5,11 @@ import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js'
 import axios from 'axios';
 import { Provider, useSelector } from "react-redux";
 import { getAPI, postAPI, putAPI, deleteAPI } from "./../../api"
+import { useNavigate } from 'react-router-dom';
 
 const NavBarHome = (props) => {
+
+    const navigate = useNavigate();
 
     const [activeId, setActiveId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
@@ -48,6 +51,18 @@ const NavBarHome = (props) => {
 
     const toggleUnderline = (id) => {
         setActiveId(id);
+
+        switch (id) {
+            case 1:
+                navigate('/home');
+            case 2:
+                navigate('/home/map');
+            case 3:
+                navigate('/home/notif');
+            case 4:
+                navigate('/home/chat');
+        }
+
     };
 
     const openModal = () => {
@@ -95,7 +110,7 @@ const NavBarHome = (props) => {
                         <button className='btn_home' onClick={openModal}></button>
                     </div>
                     <div className="container_buttons_home">
-                        <button className='btn_home admin'></button>
+                        <button className='btn_home admin' onClick={() => navigate('/home/administration')}></button>
                     </div>
                 </>
             );

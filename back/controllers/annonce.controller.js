@@ -35,7 +35,7 @@ exports.create = (req, res) => {
     })
         .then(async user => {
             var annonceObjet
-            console.log(user)
+            console.log('USER : ' + user)
             console.log(user.idRole)
             if (user.idRole == 3) {
                 annonceObjet = {

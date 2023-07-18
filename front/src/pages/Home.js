@@ -1,6 +1,23 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
+import { getAPI, postAPI, putAPI, deleteAPI } from "./../api"
+import { Provider, useSelector } from "react-redux";
 
 const Home = () => {
+
+    const [mapData, setMapData] = useState([]);
+    const user = useSelector((state) => state.utilisateur)
+
+    useEffect(() => {
+        getAPI("http://127.0.0.1:8081/api/annonce/", {}, { "x-access-token": user.token })
+            .then(response => {
+                console.log('response : ' + JSON.stringify(response))
+                setMapData(response.data)
+            }).catch(error => {
+                console.log("error", error);
+            })
+
+        console.log(mapData)
+    }, [])
 
     return (
         <>
@@ -10,7 +27,9 @@ const Home = () => {
                 </section>
 
                 <section className='container_2_home'>
+                    <div>
 
+                    </div>
                 </section>
 
                 <section className='container_3_home'>
