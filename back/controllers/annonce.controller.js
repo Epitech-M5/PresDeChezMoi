@@ -47,12 +47,17 @@ exports.create = (req, res) => {
                     dateDebut: req.body.dateDebut,
                     dateFin: req.body.dateFin,
                     estActive: true,
-                    moyenne: null,
+                    reaction: 0,
                     idTypeActivite: req.body.idTypeActivite,
                     annonceMairie: true,
                     idTypeSignalement: req.body.idTypeSignalement,
                     idUtilisateurSignalement: req.body.idUtilisateurSignalement,
-                    prix: req.body.prix
+                    prix: req.body.prix,
+                    longitude: req.body.longitude,
+                    latitude: req.body.latitude,
+                    estVerifie: false,
+                    parking: req.body.parking,
+                    parkingGratuit: req.body.parkingGratuit
                 }
             } else {
                 annonceObjet = {
@@ -64,12 +69,17 @@ exports.create = (req, res) => {
                     dateDebut: req.body.dateDebut,
                     dateFin: req.body.dateFin,
                     estActive: true,
-                    moyenne: null,
+                    reaction: 0,
                     idTypeActivite: req.body.idTypeActivite,
                     annonceMairie: false,
                     idTypeSignalement: req.body.idTypeSignalement,
                     idUtilisateurSignalement: req.body.idUtilisateurSignalement,
-                    prix: req.body.prix
+                    prix: req.body.prix,
+                    longitude: req.body.longitude,
+                    latitude: req.body.latitude,
+                    estVerifie: false,
+                    parking: req.body.parking,
+                    parkingGratuit: req.body.parkingGratuit
                 }
             }
 
