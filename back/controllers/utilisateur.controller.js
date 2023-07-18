@@ -199,7 +199,7 @@ exports.find_all = (req, res) => {
     });
 };
 
-async function test(userId) {
+async function userFindRole(userId) {
   Utilisateur.findOne({
     where: {
             id: userId
@@ -223,7 +223,7 @@ exports.update = (req, res) => {
     flagValidModif = true
   }
   else {
-    flagValidModif = test(req.userId) 
+    flagValidModif = userFindRole(req.userId) 
   }
 
   // si valid

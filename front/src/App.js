@@ -56,6 +56,7 @@ const HomeContainer = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </>
@@ -101,7 +102,7 @@ const App = () => {
           <Routes>
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
-            <Route path="/chat" element={<Chat />} />
+         
           </Routes>
         </BrowserRouter>
       </Provider>

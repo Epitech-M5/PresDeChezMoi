@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const NavBarHome = (props) => {
 
@@ -10,6 +11,8 @@ const NavBarHome = (props) => {
             </div>
         </>
     );
+
+    const navigate = useNavigate()
 
     const handleToggle = () => {
 
@@ -23,6 +26,10 @@ const NavBarHome = (props) => {
 
     const toggleUnderline = (id) => {
         setActiveId(id);
+
+        if (id === 4) {
+            navigate('/home/chat')
+        }
     };
 
     useEffect(() => {
