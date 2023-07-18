@@ -8,7 +8,7 @@ export const utilisateurSlice = createSlice({
         isLogin: false,
         pseudo:"",
         score:0,
-        pathImage:"path/image",
+        pathImage:"",
         idRole:0,
         refreshToken:"",
         idutilisateur:0
