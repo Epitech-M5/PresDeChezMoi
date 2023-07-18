@@ -35,7 +35,7 @@ exports.signup = (req, res) => {
     pseudo: req.body.pseudo,
     nom: null,
     prenom: null,
-    photoProfil: null,
+    photoProfil: req.body.photoProfil,
     mail: req.body.mail,
     motDePasse: bcrypt.hashSync(req.body.motDePasse, 8),
     idVille: null,

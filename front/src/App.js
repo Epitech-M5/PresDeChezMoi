@@ -11,17 +11,14 @@ import AnimateBackground from "./components/AnimateBackground";
 import PageNotFound from "./pages/PageNotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
-
 import ChatBot from "./components/MainComponent/ChatBot";
 import NavBarHome from "./components/MainComponent/NavBarHome";
 import UserMenu from "./components/MainComponent/UserMenu";
 import ResearchBar from "./components/MainComponent/ResearchBar";
 import Protected from "./protected";
 import { Navigate } from "react-router-dom";
-
 import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store";
-
 import Chat from "./components/MainComponent/Chat/Chat";
 
 
@@ -99,17 +96,15 @@ const App = () => {
   }
   return (
     !loading && (
-
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
+            <Route path="/chat" element={<Chat />} />
           </Routes>
         </BrowserRouter>
       </Provider>
-
-
     )
   );
 };

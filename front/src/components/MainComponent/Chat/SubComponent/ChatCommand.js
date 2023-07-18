@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-//import { AiFillFileImage, FiSend } from "react-icons/ai";
+import { FiSend } from "react-icons/fi";
 
 const ChatCommand = ({
   message,
@@ -48,11 +48,15 @@ const ChatCommand = ({
           value={message}
           className="inputText"
           onChange={handleInputChange}
+          placeholder="Send Message Here"
           onKeyDown={handleKeyDown} // Gestionnaire d'événements pour la touche "Entrée"
         />
+        <button type="submit">
+          <FiSend className="chat_btn_send"/>
+        </button>
 
-        <div className="chat_input_foot">
-          {/* <label htmlFor="imageInput" className="chat_import">
+        {/* <div className="chat_input_foot">
+          <label htmlFor="imageInput" className="chat_import">
             <span className="chat_import_image">
               {selectedFileName ? (
                 selectedFileName
@@ -68,12 +72,8 @@ const ChatCommand = ({
               accept="image/*"
               onChange={handleFileChange}
             />
-          </label> */}
-
-          <button type="submit" className="chat_btn_send">
-
-          </button>
-        </div>
+          </label>
+        </div> */}
       </form>
     </div>
   );

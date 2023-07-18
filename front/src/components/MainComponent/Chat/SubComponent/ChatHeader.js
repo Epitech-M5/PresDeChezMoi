@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const ChatHeader = () => {
+const ChatHeader = (props) => {
+  const profileImageDefault = "../../../../media/img/1.png";
+  useEffect(() => {
+    console.log(props);
+  }, []);
+
   return (
     <div className="chat_header">
       <img
         className="chat_picture"
-        src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?cs=srgb&dl=pexels-mohamed-abdelghaffar-771742.jpg&fm=jpg"
+        src={"../../../../media/img/" + props.userInfo.pathImage + ".png"}
         alt="profile"
       />
       <p className="chat_personne">Personne</p>

@@ -1,7 +1,7 @@
-import { createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export const utilisateurSlice = createSlice({
-    name: "utilisteur",
+    name: "utilisateur",
     // STATES
     initialState: {
         token:"",
@@ -24,19 +24,18 @@ export const utilisateurSlice = createSlice({
             state.refreshToken = action.payload;
         },
         fetchUtilisateurData:(state,action)=> {
-            const {pseudo, idutilisateur, idRole} = action.payload
+            const {pseudo, idutilisateur, idRole, pathImage} = action.payload
             state.pseudo = pseudo
             state.idutilisateur = idutilisateur
             state.idRole = idRole
-            // score, pathImage
+            if (pathImage) {
+                state.pathImage = pathImage
+            }
+       // score, pathImage
         }
-
       }
 })
 
 
 // En définissant mes reducer (plus haut) redux m'a crée mes action (creator action) ! ! !
 export const {isLogin,fetchUtilisateurData,fetchToken,fetchRefreshToken} = utilisateurSlice.actions;
-
-
-
