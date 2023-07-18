@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 const ChatHeader = (props) => {
   const profileImageDefault = "../../../../media/img/1.png";
   useEffect(() => {
-    console.log(props);
+    // console.log(props);
   }, []);
 
   return (

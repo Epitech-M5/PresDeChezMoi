@@ -36,29 +36,29 @@ const Chat = () => {
   //↓↓↓↓↓↓↓↓↓↓↓↓↓↓ A SUPPRIMER ↓↓↓↓↓↓↓↓↓↓↓↓
 
   useEffect(() => {
-    // const UserInfo = {
-    //   id: 6,
-    //   pseudo: "test",
-    //   isLogin: true,
-    //   score: null,
-    //   photoProfil: "5",
-    //   idRole: 2,
-    //   accessToken:
-    //     "ZeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjg5NTk0MTEwLCJleHAiOjE2ODk1OTc3MTB9.IfaeAKdfe8P_adUond6OxNpbEgDl9AuOI3HwDg90_MA",
-    //   refreshToken: "4fbd580e-5d16-4eb2-bf4c-7d7a433e30a7",
-    // };
+    const UserInfo = {
+      id: 6,
+      pseudo: "test",
+      isLogin: true,
+      score: null,
+      photoProfil: "5",
+      idRole: 2,
+      accessToken:
+        "ZeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjg5NTk0MTEwLCJleHAiOjE2ODk1OTc3MTB9.IfaeAKdfe8P_adUond6OxNpbEgDl9AuOI3HwDg90_MA",
+      refreshToken: "4fbd580e-5d16-4eb2-bf4c-7d7a433e30a7",
+    };
 
-    // dispatch(isLogin());
-    // dispatch(fetchToken(UserInfo.accessToken));
-    // dispatch(fetchRefreshToken(UserInfo.refreshToken));
-    // dispatch(
-    //   fetchUtilisateurData({
-    //     pseudo: UserInfo.pseudo,
-    //     idutilisateur: UserInfo.id,
-    //     idRole: UserInfo.idRole,
-    //     pathImage: UserInfo.photoProfil,
-    //   })
-    // );
+    dispatch(isLogin());
+    dispatch(fetchToken(UserInfo.accessToken));
+    dispatch(fetchRefreshToken(UserInfo.refreshToken));
+    dispatch(
+      fetchUtilisateurData({
+        pseudo: UserInfo.pseudo,
+        idutilisateur: UserInfo.id,
+        idRole: UserInfo.idRole,
+        pathImage: UserInfo.photoProfil,
+      })
+    );
 
     console.log("Variables set");
   }, []);
@@ -68,7 +68,7 @@ const Chat = () => {
   async function fetchData() {
     // Function pour actualiser les info de la table rooms
     try {
-      
+      console.log("before fetching ", userInfo.token);
       const config = {
         headers: {
           "x-access-token": userInfo.token,
