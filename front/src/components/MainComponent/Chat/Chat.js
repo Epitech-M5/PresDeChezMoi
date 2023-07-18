@@ -45,7 +45,7 @@ const Chat = () => {
       idRole: 2,
       accessToken:
         "ZeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjg5NTk0MTEwLCJleHAiOjE2ODk1OTc3MTB9.IfaeAKdfe8P_adUond6OxNpbEgDl9AuOI3HwDg90_MA",
-      refreshToken: "4fbd580e-5d16-4eb2-bf4c-7d7a433e30a7",
+      refreshToken: "e7693b18-81e9-4c29-a084-82d15934393f",
     };
 
     dispatch(isLogin());
@@ -68,7 +68,6 @@ const Chat = () => {
   async function fetchData() {
     // Function pour actualiser les info de la table rooms
     try {
-      console.log("before fetching ", userInfo.token);
       const config = {
         headers: {
           "x-access-token": userInfo.token,
@@ -113,12 +112,11 @@ const Chat = () => {
       const { accessToken, refreshToken: newRefreshToken } = response.data;
 
       // Mise à jour du token d'accès (accessToken) et du token de rafraîchissement (refreshToken) dans les informations de l'utilisateur
-      console.log(userInfo.token);
+
       dispatch(fetchToken(accessToken));
       dispatch(fetchRefreshToken(newRefreshToken));
 
       console.log("Refresh token & access token successfully update");
-      console.log(userInfo.token);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Erreur 401 - Token de rafraîchissement invalide
@@ -185,7 +183,6 @@ const Chat = () => {
 
   return (
     <>
-      {/* <Provider store={store}> */}
       <div className="chat_container">
         <ChatSidebar fetchData={fetchData} />
 
@@ -204,7 +201,6 @@ const Chat = () => {
           />
         </div>
       </div>
-      {/* </Provider> */}
     </>
   );
 };
