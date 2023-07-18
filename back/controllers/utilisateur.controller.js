@@ -199,35 +199,49 @@ exports.find_all = (req, res) => {
     });
 };
 
+async function test(userId) {
+  Utilisateur.findOne({
+    where: {
+            id: userId
+    }
+  }).then((user) => {
+    console.log("est admin ? ", user.idRole == 3)
+    if (user.idRole == 3) {
+      // console.log("je passe ici")
+      return true
+  } else {
+    return false
+  }})
+}
+
 // Modification des données de l'utilisateurs (Code erreur dispo: 200, 400, 500)
 exports.update = (req, res) => {
   const id = req.params.id;
-  var flagValidModif = false
+  let flagValidModif = false
   
-  console.log("id",id)
-  console.log("idUsqer",req.userId)
-  console.log(id == req.userId)
+  // console.log("id",id)
+  // console.log("idUsqer",req.userId)
+  // console.log(id == req.userId)
   if(id == req.userId){
-    console.log("idUtilisateur token =", req.userId)
+    // console.log("idUtilisateur token =", req.userId)
     flagValidModif = true
   }
   else {
-    console.log("ce n'est pas un utilisateur qui mod =", req.userId)
+    // console.log("ce n'est pas un utilisateur qui mod =", req.userId)
 
-     Utilisateur.findOne({
-    where: {
-            id: req.userId
-        }}).then(async user => {
-          console.log("role", user.idRole == 3)
-          if (user.idRole == 3) {
-            console.log("je passe ici")
-            flagValidModif = true
-            console.log("je passe ici", flagValidModif)
+    flagValidModif = test(req.userId)
+    console.log("je passe ici", flagValidModif)
 
-          }
-        }).catch((error) => {
-          console.log(error)
-        })
+        //       console.log(user)
+        //       console.log("role", user.idRole)
+        //       console.log("role", user.idRole == 3)
+        //       if (user.idRole == 3) {
+        // console.log("je passe ici")
+        // flagValidModif = true
+        // console.log("je passe ici", flagValidModif)
+
+      
+        
   }
   console.log("flagValidModif", flagValidModif)
 
