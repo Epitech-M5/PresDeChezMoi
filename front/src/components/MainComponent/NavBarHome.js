@@ -18,17 +18,10 @@ const NavBarHome = (props) => {
     const [titre, setTitre] = useState(null);
     const [descriptions, setDescriptions] = useState(null);
     const [image, setImage] = useState(null);
-    const [organisateur, setOrganisateur] = useState(null);
-    const [participants, setParticipants] = useState(null);
     const [dateDebut, setDateDebut] = useState(null);
     const [dateFin, setDateFin] = useState(null);
-    const [estActive, setEstActive] = useState(null);
-    const [moyenne, setMoyenne] = useState(null);
-    const [annonceMairie, setAnnonceMairie] = useState(null);
     const [prix, setPrix] = useState(null);
     const [localisation, setLocalisation] = useState(null);
-    const [idTypeSignalement, setidTypeSignalement] = useState(null);
-    const [idUtilisateurSignalement, setidUtilisateurSignalement] = useState(null);
 
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
@@ -54,15 +47,19 @@ const NavBarHome = (props) => {
 
         switch (id) {
             case 1:
+                handleToggle();
                 navigate('/home');
                 break
             case 2:
+                handleToggle();
                 navigate('/home/map');
                 break
             case 3:
+                handleToggle();
                 navigate('/home/notif');
                 break
             case 4:
+                handleToggle();
                 navigate('/home/chat');
                 break
         }
@@ -70,6 +67,17 @@ const NavBarHome = (props) => {
     };
 
     const openModal = () => {
+        setTitre(null);
+        setDescriptions(null);
+        setImage(null);
+        setDateDebut(null);
+        setDateFin(null);
+        setPrix(null);
+        setLocalisation(null);
+        setError(null);
+        setLatitude(null);
+        setLongitude(null);
+
         setIsOpen(true);
     };
 
@@ -84,13 +92,8 @@ const NavBarHome = (props) => {
         setTitre(null);
         setDescriptions(null);
         setImage(null);
-        setOrganisateur(null);
-        setParticipants(null);
         setDateDebut(null);
         setDateFin(null);
-        setEstActive(null);
-        setMoyenne(null);
-        setAnnonceMairie(null);
         setPrix(null);
         setLocalisation(null);
         setError(null);
