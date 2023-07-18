@@ -1,6 +1,6 @@
 module.exports = {
     // HOST: "144.24.197.40",
-    HOST: "129.151.233.95",
+    HOST: "mariadb",
     USER: "root",
     PASSWORD: "x9474h7mPwSxAEZt92Nb",
     DB: "testdb",

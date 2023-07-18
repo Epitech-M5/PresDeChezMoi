@@ -1,0 +1,67 @@
+jenkins:
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+        - entries:
+          - user: "Mateo"
+          name: "admin"
+          pattern: ".*"
+          permissions:
+          - "Overall/Administer"
+        - entries:
+          - user: "MaxenceB"
+          - user: "MaxenceL"
+          - user: "Morgan"
+          - user: "Meriem"
+          name: "Dev"
+          pattern: ".*"
+          permissions:
+          - "Job/Cancel"
+          - "Overall/Read"
+          - "Job/Move"
+          - "Job/Build"
+          - "Job/Delete"
+          - "Job/Create"
+          - "Job/Read"
+          - "Job/Configure"
+          - "Job/Workspace"
+
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+      - id: "Mateo"
+        name: "Mateo"
+        password: ${USER_MATEO_PASSWORD}
+        properties:
+        - "apiToken"
+        - "myView"
+        - preferredProvider:
+            providerId: "default"
+
+      - id: "MaxenceL"
+        name: "MaxenceL"
+        password: ${USER_MaxenceL_PASSWORD}
+
+      - id: "MaxenceB"
+        name: "MaxenceB"
+        password: ${USER_MaxenceB_PASSWORD}
+
+      - id: "Morgan"
+        name: "Morgan"
+        password: ${USER_Morgan_PASSWORD}
+
+      - id: "Meriem"
+        name: "Meriem"
+        password: ${USER_Meriem_PASSWORD}
+
+  systemMessage: "Welcome to the Jenkins."
+
+security:
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  
+jobs:
+  - file: ./var/jenkins_home/my_job.groovy
+
