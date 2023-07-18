@@ -59,7 +59,7 @@ const HomeContainer = () => {
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
           <Route path="/chat" element={<Chat />} />
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
         </Routes>
       </>
     );
@@ -73,7 +73,7 @@ const HomeContainer = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
         </Routes>
       </>
     );
@@ -95,7 +95,7 @@ const AdminContainer = () => {
         <Routes>
           <Route path="/test" element={<Test />} />
           <Route path="/" element={<AdministrationPage />} />
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
         </Routes>
       </>
     );
