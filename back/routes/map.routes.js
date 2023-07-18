@@ -1,17 +1,9 @@
-// module.exports = app => {
-//     const map = require("../controllers/map.controller.js");
+module.exports = app => {
+    const map = require("../controllers/map.controller.js");
+    const { authJwt } = require("../middleware");
+    var router = require("express").Router();
 
-//     var router = require("express").Router();
+    router.get("/", [authJwt.verifyToken], map.find_all);
 
-//     router.post("/", map.create);
-
-//     router.get("/", map.find_all);
-
-//     router.get("/:id", map.find_one);
-
-//     router.put("/:id", map.update);
-
-//     router.delete("/:id", map.delete);
-
-//     app.use('/api/map', router);
-// };
+    app.use('/api/map', router);
+};

@@ -219,6 +219,116 @@ function ajoutAnnonce() {
         parking: true,
         parkingGratuit: false
     })
+    Annonce.create({
+        id: 3,
+        titre: "Vente de petits pains aux chocolats",
+        description: "Encore tous chauds et sortie du four ! =)",
+        image: "124.png",
+        organisateur: 2,
+        participants: [],
+        dateDebut: "2023-07-20 08:00:00",
+        dateFin: "2023-07-20 09:00:00",
+        estActive: true,
+        reaction: 1,
+        idTypeActivite: 1,
+        annonceMairie: false,
+        idTypeSignalement: null,
+        idUtilisateurSignalement: null,
+        prix: 1.0,
+        longitude: 5.4263808,
+        latitude: 43.3455104,
+        estVerifie: true,
+        parking: true,
+        parkingGratuit: false
+    })
+    Annonce.create({
+        id: 4,
+        titre: "Vente de petits pains aux chocolats",
+        description: "Encore tous chauds et sortie du four ! =)",
+        image: "124.png",
+        organisateur: 2,
+        participants: [],
+        dateDebut: "2023-07-20 08:00:00",
+        dateFin: "2023-07-20 09:00:00",
+        estActive: true,
+        reaction: 1,
+        idTypeActivite: 1,
+        annonceMairie: false,
+        idTypeSignalement: null,
+        idUtilisateurSignalement: null,
+        prix: 1.0,
+        longitude: 5.4263808,
+        latitude: 43.3455104,
+        estVerifie: true,
+        parking: true,
+        parkingGratuit: false
+    })
+    Annonce.create({
+        id: 5,
+        titre: "Vente de petits pains aux chocolats",
+        description: "Encore tous chauds et sortie du four ! =)",
+        image: "124.png",
+        organisateur: 2,
+        participants: [],
+        dateDebut: "2023-07-20 08:00:00",
+        dateFin: "2023-07-20 09:00:00",
+        estActive: true,
+        reaction: 1,
+        idTypeActivite: 1,
+        annonceMairie: false,
+        idTypeSignalement: null,
+        idUtilisateurSignalement: null,
+        prix: 1.0,
+        longitude: 5.4263808,
+        latitude: 43.3455104,
+        estVerifie: true,
+        parking: true,
+        parkingGratuit: false
+    })
+    Annonce.create({
+        id: 6,
+        titre: "Vente de petits pains aux chocolats",
+        description: "Encore tous chauds et sortie du four ! =)",
+        image: "124.png",
+        organisateur: 2,
+        participants: [],
+        dateDebut: "2023-07-20 08:00:00",
+        dateFin: "2023-07-20 09:00:00",
+        estActive: true,
+        reaction: 1,
+        idTypeActivite: 1,
+        annonceMairie: false,
+        idTypeSignalement: null,
+        idUtilisateurSignalement: null,
+        prix: 1.0,
+        longitude: 5.4263808,
+        latitude: 43.3455104,
+        estVerifie: true,
+        parking: true,
+        parkingGratuit: false
+    })
+    Annonce.create({
+        id: 7,
+        titre: "Vente de petits pains aux chocolats",
+        description: "Encore tous chauds et sortie du four ! =)",
+        image: "124.png",
+        organisateur: 2,
+        participants: [],
+        dateDebut: "2023-07-20 08:00:00",
+        dateFin: "2023-07-20 09:00:00",
+        estActive: true,
+        reaction: 1,
+        idTypeActivite: 1,
+        annonceMairie: false,
+        idTypeSignalement: null,
+        idUtilisateurSignalement: null,
+        prix: 1.0,
+        longitude: 5.4263808,
+        latitude: 43.3455104,
+        estVerifie: true,
+        parking: true,
+        parkingGratuit: false
+    })
 }
 // =============================================
 // Fin de données factices
@@ -253,7 +363,7 @@ require("./routes/commentaireAdmin.routes.js")(app);
 require("./routes/annonce.routes.js")(app);
 require("./routes/commentaire.routes.js")(app);
 require("./routes/typeActivite.routes.js")(app);
-// require("./routes/map.routes.js")(app);
+require("./routes/map.routes.js")(app);
 require("./routes/room.routes.js")(app);
 require("./routes/chat.routes.js")(app);
 
