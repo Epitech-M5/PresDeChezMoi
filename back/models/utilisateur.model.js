@@ -36,9 +36,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.JSON,
             defaultValue: []
         },
-        estAdministrateur: {
-            type: Sequelize.BOOLEAN
-        },
         abonnement: {
             type: Sequelize.JSON,
             defaultValue: []
@@ -65,6 +62,10 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true
         },
         listAnnonceEnregistre: {
+            type: Sequelize.JSON,
+            defaultValue: []
+        },
+        noteVille: {
             type: Sequelize.JSON,
             defaultValue: []
         }
