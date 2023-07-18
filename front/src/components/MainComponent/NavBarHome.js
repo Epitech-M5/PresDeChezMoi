@@ -55,12 +55,16 @@ const NavBarHome = (props) => {
         switch (id) {
             case 1:
                 navigate('/home');
+                break
             case 2:
                 navigate('/home/map');
+                break
             case 3:
                 navigate('/home/notif');
+                break
             case 4:
                 navigate('/home/chat');
+                break
         }
 
     };

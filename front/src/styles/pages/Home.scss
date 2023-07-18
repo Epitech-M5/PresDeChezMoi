@@ -1,16 +1,29 @@
 .container_1_home {
-    width: 20%;
+    width: $width-navbar-home;
     height: 100vh;
 }
 
 .container_2_home {
-    width: 50%;
-    height: 160vh;
+    width: $width-feed;
+    height: auto;
+}
+
+.container_2_home_loader {
+    width: 100%;
+    height: 60vh;
+}
+
+.spacing {
+    width: 100%;
+    margin-top: 80px;
+    height: auto;
+    display: flex;
+    justify-content: right;
+    align-items: center;
 }
 
 .container_3_home {
-    width: 20%;
-    height: 100vh;
+    width: $width-pub;
 }
 
 .main_container_home {
@@ -20,6 +33,51 @@
     display: flex;
     justify-content: center;
     gap: 5%;
+}
+
+.container_bye {
+    position: fixed;
+    width: 100%;
+    height: 7vh;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, $white, transparent);
+}
+
+.pub1 {
+    background-color: violet;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 20vh;
+    margin-left: 5%;
+    margin-top: 40px;
+}
+
+.pub2 {
+    background-color: lightcoral;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 20vh;
+    margin-left: 5%;
+    margin-top: 10px;
+}
+
+.pub3 {
+    background-color: lightgreen;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 20vh;
+    margin-left: 5%;
+    margin-top: 10px;
 }
 
 @media(max-width:650px),
@@ -32,6 +90,10 @@
 
     .container_2_home {
         width: 80%;
+    }
+
+    .container_bye {
+        height: 3vh;
     }
 
 }
