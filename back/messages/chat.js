@@ -28,8 +28,8 @@ function chatbot() {
     });
   });
 
-  server.listen(8081, () => {
-    console.log("Server running on port 8081");
+  server.listen(8082, () => {
+    console.log("Socket.IO on port 8082");
   });
 }
 

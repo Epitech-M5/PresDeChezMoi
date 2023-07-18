@@ -1,6 +1,6 @@
 const db = require("../models");
 const room = db.room;
-const { Sequelize, Op } = require('sequelize');
+const { Op } = require('sequelize');
 
 // title: req.body.title,
 // description: req.body.description,
@@ -76,18 +76,21 @@ exports.find_all = (req, res) => {
         });
 };
 exports.find_all_members = (req, res) => {
-    // const members = [req.body.membres]; // Convertir en tableau
-    const members = req.body.membres; // Convertir en tableau
-
+    console.log(req.body.member)
     room.findAll({
-        where: Sequelize.literal(`membres LIKE '%${JSON.stringify(members)}%'`)
+        where: {
+            membres: {
+                [Op.contains]: [req.body.member]
+            }
+        }
     })
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Une erreur s'est produite lors de la récupération des membres."
+                message:
+                    err.message || "Some error occurred while retrieving tutorials."
             });
         });
 };

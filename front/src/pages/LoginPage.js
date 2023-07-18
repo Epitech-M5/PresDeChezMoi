@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
 import axios from 'axios';
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { isLogin, fetchUtilisateurData, fetchRefreshToken, fetchToken } from "../redux/Utilisateur";
-import { useSelector } from "react-redux"
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -36,7 +35,7 @@ git
         else {
 
             axios
-                .post("http://127.0.0.1:8081/api/user/auth/signup", { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2 })
+                .post("http://127.0.0.1:8081/api/user/auth/signup", { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2, "photoProfil": "1" })
                 .then(response => {
 
                     // permet de récupérer les info utilisateurs retourné dans la response
@@ -46,7 +45,8 @@ git
                     var infoUtilisateur = {
                         pseudo: data.pseudo,
                         idRole: data.idRole,
-                        idutilisateur: data.id
+                        idutilisateur: data.id,
+                        photoProfil: data.photoProfil
                     };
                     addMessage('Votre compte a bien été crée ! Attendez quelques instant...', 'success');
                     // Stock dans store
