@@ -30,8 +30,8 @@ module.exports = (sequelize, Sequelize) => {
         estActive: {
             type: Sequelize.BOOLEAN
         },
-        moyenne: {
-            type: Sequelize.FLOAT
+        reaction: {
+            type: Sequelize.INTEGER
         },
         idTypeActivite: {
             type: Sequelize.INTEGER
@@ -47,6 +47,21 @@ module.exports = (sequelize, Sequelize) => {
         },
         prix: {
             type: Sequelize.FLOAT
+        },
+        longitude: {
+            type: Sequelize.STRING
+        },
+        latitude: {
+            type: Sequelize.STRING
+        },
+        estVerifie: {
+            type: Sequelize.BOOLEAN
+        },
+        parking: {
+            type: Sequelize.BOOLEAN
+        },
+        parkingGratuit: {
+            type: Sequelize.BOOLEAN
         }
     });
 

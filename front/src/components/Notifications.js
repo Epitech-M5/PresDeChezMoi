@@ -29,7 +29,7 @@ const Notifications = ({ message, removeMessage }) => {
                     {notif}
                     <span>{message.caption}</span>
                 </div>
-                <i class="fa-solid fa-xmark" onClick={() => { removeMessage(message.id) }}></i>
+                <i className="fa-solid fa-xmark" onClick={() => { removeMessage(message.id) }}></i>
             </li >
         </>
     );

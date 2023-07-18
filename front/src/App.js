@@ -20,6 +20,8 @@ import { Navigate } from "react-router-dom";
 import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store";
 import Chat from "./components/MainComponent/Chat/Chat";
+import AdministrationPage from "./pages/AdministrationPage";
+import NavBarAdmin from "./components/Admin/NavBarAdmin";
 
 
 const LandingContainer = () => {
@@ -56,6 +58,7 @@ const HomeContainer = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </>
@@ -81,6 +84,28 @@ const HomeContainer = () => {
 
 };
 
+const AdminContainer = () => {
+
+  const user = useSelector((state) => state.utilisateur)
+
+  if (user.isLogin && user.idRole === 3) {
+    return (
+      <>
+        <NavBarAdmin />
+        <Routes>
+          <Route path="/test" element={<Test />} />
+          <Route path="/" element={<AdministrationPage />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </>
+    );
+  }
+
+  else {
+    return (<Navigate to="/login" replace />);
+  }
+}
+
 const App = () => {
 
   const [loading, setLoading] = useState(true);
@@ -101,7 +126,8 @@ const App = () => {
           <Routes>
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
-            <Route path="/chat" element={<Chat />} />
+            <Route path="/home/administration/*" element={<AdminContainer />} />
+
           </Routes>
         </BrowserRouter>
       </Provider>

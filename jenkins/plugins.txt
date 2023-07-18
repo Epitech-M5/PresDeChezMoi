@@ -1,0 +1,11 @@
+cloudbees-folder:latest
+configuration-as-code:latest
+credentials:latest
+github:latest
+instance-identity:latest
+job-dsl:latest
+script-security:latest
+structs:latest
+role-strategy:latest
+ws-cleanup:latest
+workflow-aggregator:596.v8c21c963d92d

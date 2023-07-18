@@ -36,31 +36,32 @@ const Chat = () => {
   //↓↓↓↓↓↓↓↓↓↓↓↓↓↓ A SUPPRIMER ↓↓↓↓↓↓↓↓↓↓↓↓
 
   useEffect(() => {
-    const UserInfo = {
-      id: 6,
-      pseudo: "test",
-      isLogin: true,
-      score: null,
-      photoProfil: "5",
-      idRole: 2,
-      accessToken:
-        "ZeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjg5NTk0MTEwLCJleHAiOjE2ODk1OTc3MTB9.IfaeAKdfe8P_adUond6OxNpbEgDl9AuOI3HwDg90_MA",
-      refreshToken: "e7693b18-81e9-4c29-a084-82d15934393f",
-    };
+    console.log("USERINFO",userInfo);
+    // const UserInfo = {
+    //   id: 6,
+    //   pseudo: "test",
+    //   isLogin: true,
+    //   score: null,
+    //   photoProfil: "5",
+    //   idRole: 2,
+    //   accessToken:
+    //     "ZeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjg5NTk0MTEwLCJleHAiOjE2ODk1OTc3MTB9.IfaeAKdfe8P_adUond6OxNpbEgDl9AuOI3HwDg90_MA",
+    //   refreshToken: "4fbd580e-5d16-4eb2-bf4c-7d7a433e30a7",
+    // };
 
-    dispatch(isLogin());
-    dispatch(fetchToken(UserInfo.accessToken));
-    dispatch(fetchRefreshToken(UserInfo.refreshToken));
-    dispatch(
-      fetchUtilisateurData({
-        pseudo: UserInfo.pseudo,
-        idutilisateur: UserInfo.id,
-        idRole: UserInfo.idRole,
-        pathImage: UserInfo.photoProfil,
-      })
-    );
+  //   dispatch(isLogin());
+  //   dispatch(fetchToken(UserInfo.accessToken));
+  //   dispatch(fetchRefreshToken(UserInfo.refreshToken));
+  //   dispatch(
+  //     fetchUtilisateurData({
+  //       pseudo: UserInfo.pseudo,
+  //       idutilisateur: UserInfo.id,
+  //       idRole: UserInfo.idRole,
+  //       pathImage: UserInfo.photoProfil,
+  //     })
+  //   );
 
-    console.log("Variables set");
+  //   console.log("Variables set");
   }, []);
 
   //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
@@ -77,7 +78,9 @@ const Chat = () => {
 
       const response = await axios.get(`http://${ipBDD}:8081/api/room/`,config);
 
-      console.log(response.data);
+      console.log("RESPONSE.DATA",response.data);
+      console.log("USERINFO",userInfo);
+
       // Effectuez des actions supplémentaires avec les données de la réponse ici
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -149,8 +152,7 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    console.log(userInfo);
-    fetchData();
+    // fetchData();
     // Mettre en place l'intervalle pour exécuter fetchData toutes les 10 secondes
     const interval = setInterval(() => {
       fetchData();
@@ -162,14 +164,14 @@ const Chat = () => {
     };
   }, [userInfo]); //cela va refetch autmatiquement si le token ou refresh token change, sinon cela va refetch toutes les 10 secondes
 
-  useEffect(() => {
-    if (socket) {
-      socket.on("receive_message", (data) => {
-        console.log(data);
-        setHistory((prevHistory) => [...prevHistory, data]);
-      });
-    }
-  }, [socket]);
+  // useEffect(() => {
+  //   if (socket) {
+  //     socket.on("receive_message", (data) => {
+  //       console.log(data);
+  //       setHistory((prevHistory) => [...prevHistory, data]);
+  //     });
+  //   }
+  // }, [socket]);
 
   const handleImportImage = (selectedImage) => {
     setImage(selectedImage);

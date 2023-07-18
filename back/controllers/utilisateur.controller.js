@@ -1,17 +1,20 @@
 const db = require("../models");
 const Utilisateur = db.utilisateur;
-// Pour jwt
-const config = require("../config/auth.config");
+// Pour token
+const config = require("../config/auth.config"); 
 const Role = db.roles;
 const { refreshToken: RefreshToken } = db;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-// title: req.body.title,
-// description: req.body.description,
-// published: req.body.published ? req.body.published : false
 
+// Fonction pour choisir aléatoirement un nombre
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min +1)) + min;
+}
 
-// Sign UP
+// Inscription (Code erreur dispo: 200, 400, 500)
 exports.signup = (req, res) => {
   var boolErrorFlag = false;
   var stringErrorMessage = "";
@@ -19,10 +22,10 @@ exports.signup = (req, res) => {
   // Champ nécessaire pour la requete
   if (!req.body.pseudo || !req.body.mail || !req.body.motDePasse) {
     boolErrorFlag = true
-    stringErrorMessage = "Content can not be empty!"
+    stringErrorMessage = "Pseudo, Mail ou MotDePasse n'est pas rempli !"
   }
 
-  // Validate request
+  // Validation de la requête
   if (boolErrorFlag) {
     res.status(400).send({
       message: stringErrorMessage
@@ -30,12 +33,12 @@ exports.signup = (req, res) => {
     return;
   }
 
-  // Create User
+  // Création de l'objet Utilisateur
   const utilisateurObjet = {
     pseudo: req.body.pseudo,
     nom: null,
     prenom: null,
-    photoProfil: req.body.photoProfil,
+    photoProfil: getRandomIntInclusive(1, 5), // Choisi aléatoirement une photo de profil par défaut
     mail: req.body.mail,
     motDePasse: bcrypt.hashSync(req.body.motDePasse, 8),
     idVille: null,
@@ -48,20 +51,22 @@ exports.signup = (req, res) => {
     listRecompense: null,
     nombreSignalement: null,
     estBanni: null,
-    idRole: req.body.idRole, // A RAJOUTER DANS POSTMAN
+    idRole: req.body.idRole,
     listAnnonceEnregistre: null
   };
 
-  // Save User in the database adn catch internal error
+  // Enregistre l'utilisateur dans la bdd
   Utilisateur.create(utilisateurObjet)
     .then(async data => {
+      // Définition du token: token = id de l'utilisateur
       const token = jwt.sign({ id: data.id }, config.secret, {
-        expiresIn: config.jwtExpiration // Durée de validité du token d'accès (1 heure dans cet exemple)
+        expiresIn: config.jwtExpiration 
       });
 
-      // Generate refresh token
+      // Generation du refresh token
       const refreshToken = await RefreshToken.createToken(data.id);
 
+      // Reponse en json des élèments importants pour redux et autres
       res.status(200).send({
         id: data.id,
         pseudo: data.pseudo,
@@ -69,27 +74,30 @@ exports.signup = (req, res) => {
         photoProfil: data.photoProfil,
         idRole: data.idRole,
         accessToken: token,
-        refreshToken: refreshToken
+        refreshToken: refreshToken,
+        photoProfil: data.photoProfil
       });
       console.log("inscription", "User was registered successfully!")
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial."
+          err.message || "Une erreur est survenu lors de la création de l'utilisateur"
       });
     });
 };
 
+// Connexion (Code erreur dispo: 200, 404, 401, 500)
 exports.signin = (req, res) => {
   Utilisateur.findOne({
+    // Récupère le bon utilisateur grâce au pseudo
     where: {
       pseudo: req.body.pseudo
     }
   })
     .then(async user => {
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(404).send({ message: "Utilisateur non trouvé." });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -97,18 +105,22 @@ exports.signin = (req, res) => {
         user.motDePasse
       );
 
+      // Si le mot de passe n'est pas valide alors erreur 401
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
-          message: "Invalid Password!"
+          message: "Mot de passe invalide."
         });
       }
 
+      // Création du token à la connexion
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: config.jwtExpiration
       });
 
+      // Création du refresh token à la connexion
       let refreshToken = await RefreshToken.createToken(user);
+      // Check si l'utilisateur à un rôle
       Role.findOne({
         where: {
           id: user.idRole
@@ -129,31 +141,36 @@ exports.signin = (req, res) => {
     });
 };
 
+// Rafraichir le token (Code erreur dispo: 403, 200, 500)
 exports.refreshToken = async (req, res) => {
   const { refreshToken: requestToken } = req.body;
+  // Si aucun token n'est fournis alors erreur
   if (requestToken == null) {
-    return res.status(403).json({ message: "Refresh Token is required!" });
+    return res.status(403).json({ message: "Le refresh Token est requis!" });
   }
 
   try {
     let refreshToken = await RefreshToken.findOne({ where: { token: requestToken } });
 
     if (!refreshToken) {
-      console.log("Refresh token is not in database!");
+      console.log("Le refresh Token n'est pas dans la base de donnée");
 
-      res.status(403).json({ message: "Refresh token is not in database!" });
+      res.status(403).json({ message: "Le refresh token n'existe pas dans la base de données!" });
       return;
     }
 
+    // Si le refresh token est expiré
     if (RefreshToken.verifyExpiration(refreshToken)) {
       RefreshToken.destroy({ where: { id: refreshToken.id } });
-      console.log("Refresh token was expired. Please make a new signin request");
+      console.log("le refresh token est expiré.");
       res.status(403).json({
-        message: "Refresh token was expired. Please make a new signin request",
+        message: "Le refresh token est expiré.",
       });
       return;
     }
+    //Si refreshtoken toujours valide
     const user = await refreshToken.getUtilisateur();
+    //Création du nouveau token
     let newAccessToken = jwt.sign({ id: user.id }, config.secret, {
       expiresIn: config.jwtExpiration,
     });
@@ -168,66 +185,80 @@ exports.refreshToken = async (req, res) => {
   }
 };
 
-// exports.find_all = (req, res) => {
-//   res.status(200).send("Tu as les accès avec le token.");
-
-// exports.find_one = (req, res) => {
-//     const id = req.params.id;
-
-//     Utilisateur.findByPk(id)
-//         .then(data => {
-//             if (data) {
-//                 res.send(data);
-//             } else {
-//                 res.status(404).send({
-//                     message: `Cannot find utilisateur with id=${id}.`
-//                 });
-//             }
-//         })
-//         .catch(err => {
-//             res.status(500).send({
-//                 message: "Error retrieving utilisateur with id=" + id
-//             });
-//         });
-// };
-
+// Récuperer tous les utilisateurs (Code erreur dispo: 200, 500)
 exports.find_all = (req, res) => {
   Utilisateur.findAll()
     .then(data => {
-      res.send(data);
+      res.status(200).send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
       });
     });
 };
 
+async function userFindRole(userId) {
+  Utilisateur.findOne({
+    where: {
+            id: userId
+    }
+  }).then((user) => {
+    console.log("est admin ? ", user.idRole == 3)
+    if (user.idRole == 3) {
+      // console.log("je passe ici")
+      return true
+  } else {
+    return false
+  }})
+}
+
+// Modification des données de l'utilisateurs (Code erreur dispo: 200, 400, 500)
 exports.update = (req, res) => {
   const id = req.params.id;
+  let flagValidModif = false
 
-  Utilisateur.update(req.body, {
-    where: { id: id }
-  })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Utilisateur was updated successfully."
-        });
-      } else {
-        res.send({
-          message: `Cannot update Utilisateur with id=${id}. Maybe Utilisateur was not found or req.body is empty!`
-        });
-      }
+  if(id == req.userId){
+    flagValidModif = true
+  }
+  else {
+    flagValidModif = userFindRole(req.userId) 
+  }
+
+  // si valid
+  if(flagValidModif){
+    req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8)
+    Utilisateur.update(req.body, {
+      where: { id: id }
     })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating Utilisateur with id=" + id + "(" + err + ")"
+      .then(num => {
+        if (num == 1) {
+          res.status(200).send({
+            message: "L'utilisateur a été modifié avec succès."
+          });
+        } else {
+          res.status(400).send({
+            message: `Impossible de modifier l'utilisateur id=${id}.`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Erreur lors de la modification de l'utilisateur id=" + id + "(" + err + ")"
+        });
       });
+  }
+  // Si le profil n'appartiens pas a l'utilisateur ou si pas admin alors erreur
+  else {
+    res.status(400).send({
+      message: "Vous n'êtes pas autorisé à modifier ce profil"
     });
+  }  
 };
 
+
+// Suppression de l'utilisateur
 exports.delete = (req, res) => {
   const id = req.params.id;
 
@@ -237,17 +268,17 @@ exports.delete = (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Utilisateur was deleted successfully!"
+          message: "L'utilisateur a été supprimé avec succès!"
         });
       } else {
         res.send({
-          message: `Cannot delete Utilisateur with id=${id}. Maybe Utilisateur was not found!`
+          message: `Impossible de supprimer l'utilisateur avec id=${id}.`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Utilisateur with id=" + id
+        message: "Impossible de supprimé l'utilisateur avec l'id=" + id
       });
     });
 };

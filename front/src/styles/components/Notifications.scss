@@ -8,6 +8,7 @@
     background-color: $dark-blue;
     justify-content: space-between;
     overflow: hidden;
+    z-index: 11111 !important;
     animation:
         show_toast 0.3s ease forwards,
         hide_toast 0.3s 4.5s ease forwards;
