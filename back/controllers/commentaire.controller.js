@@ -1,11 +1,7 @@
 const db = require("../models");
 const commentaire = db.commentaire;
 
-// title: req.body.title,
-// description: req.body.description,
-// published: req.body.published ? req.body.published : false
-
-
+// Création commentaire
 exports.create = (req, res) => {
     var boolErrorFlag = false;
     var stringErrorMessage = "";
@@ -13,10 +9,10 @@ exports.create = (req, res) => {
     // Champ nécessaire pour la requete
     if (!req.body.note) {
         boolErrorFlag = true
-        stringErrorMessage = "Content can not be empty!"
+        stringErrorMessage = "Le contenu ne peux pas être vide!"
     }
 
-    // Validate request
+    // Validation requête
     if (boolErrorFlag) {
         res.status(400).send({
             message: stringErrorMessage
@@ -24,7 +20,6 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create User
     const commentaireObjet = {
         idUtilisateur: req.body.idUtilisateur,
         idAnnonce: req.body.idAnnonce,
@@ -34,7 +29,7 @@ exports.create = (req, res) => {
         inutile: 0
     };
 
-    // Save Tutorial in the database adn catch internal error
+    // Sauvegarde du commentaire dans la base de données
     commentaire.create(commentaireObjet)
         .then(data => {
             res.send(data);

@@ -2,11 +2,7 @@ const db = require("../models");
 const annonce = db.annonce;
 const Utilisateur = db.utilisateur;
 
-// title: req.body.title,
-// description: req.body.description,
-// published: req.body.published ? req.body.published : false
-
-
+// Ajouter une annonce
 exports.create = (req, res) => {
     var boolErrorFlag = false;
     var stringErrorMessage = "";
@@ -14,10 +10,10 @@ exports.create = (req, res) => {
     // Champ nécessaire pour la requete
     if (!req.body.titre) {
         boolErrorFlag = true
-        stringErrorMessage = "Content can not be empty!"
+        stringErrorMessage = "Le titre ne peux pas être vide"
     }
 
-    // Validate request
+    // Validation de la requête
     if (boolErrorFlag) {
         res.status(400).send({
             message: stringErrorMessage
@@ -25,9 +21,7 @@ exports.create = (req, res) => {
         return;
     }
 
-
-
-    // Create User
+    // Récupération de l'utilisateur qui ajoute l'annonce
     Utilisateur.findOne({
         where: {
             id: req.userId
@@ -37,6 +31,7 @@ exports.create = (req, res) => {
             var annonceObjet
             console.log('USER : ' + user)
             console.log(user.idRole)
+            // Si c'est un administrateur
             if (user.idRole == 3) {
                 annonceObjet = {
                     titre: req.body.titre,
@@ -83,7 +78,7 @@ exports.create = (req, res) => {
                 }
             }
 
-            // Save Tutorial in the database adn catch internal error
+            // Création de l'annonce dans la base de données
             annonce.create(annonceObjet)
                 .then(data => {
                     res.send(data);
@@ -91,12 +86,13 @@ exports.create = (req, res) => {
                 .catch(err => {
                     res.status(500).send({
                         message:
-                            err.message || "Some error occurred while creating the Tutorial."
+                            err.message || "Une erreur est survenu lors de la création de l'annonce"
                     });
                 });
         });
 };
 
+// Sélectionner une annonce grâce à son id
 exports.find_one = (req, res) => {
     const id = req.params.id;
 
@@ -106,17 +102,18 @@ exports.find_one = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Role with id=${id}.`
+                    message: `Impossible de trouver l'annonce id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Role with id=" + id
+                message: "Impossible de trouver l'annonce id=" + id
             });
         });
 };
 
+// trouver toutes les annonces
 exports.find_all = (req, res) => {
     annonce.findAll()
         .then(data => {
@@ -125,19 +122,44 @@ exports.find_all = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Une erreur est survenu lors de la recherche des annonces."
             });
         });
 };
 
-// a faire admin et modérateur report
+async function userFindRole(userId) {
+    Utilisateur.findOne({
+      where: {
+              id: userId
+      }
+    }).then((user) => {
+      console.log("est admin ? ", user.idRole == 3)
+      if (user.idRole == 3) {
+        // console.log("je passe ici")
+        return true
+    } else {
+      return false
+    }})
+  }
+
+// A TESTER
 exports.update = (req, res) => {
     const id = req.params.id;
-    Utilisateur.findOne({
-        where: {
-            id: req.userId
-        }
-    })
+    let flagValidModif = false
+
+    if(id == req.userId){
+      flagValidModif = true
+    }
+    else {
+      flagValidModif = userFindRole(req.userId) 
+    }
+
+    if(flagValidModif){
+        Utilisateur.findOne({
+            where: {
+                id: req.userId
+            }
+        })
         .then(async user => {
             if (user.idRole == 3 || user.idRole == 2) {
                 editAnnonce(req, res, id, true)
@@ -145,8 +167,10 @@ exports.update = (req, res) => {
                 editAnnonce(req, res, id, false)
             }
         })
+    }
 };
 
+// Suppression d'une l'annonce
 exports.delete = (req, res) => {
     const id = req.params.id;
     Utilisateur.findOne({
@@ -178,17 +202,17 @@ function editAnnonce(req, res, id, isAdmin) {
                         .then(num => {
                             if (num == 1) {
                                 res.send({
-                                    message: "Role was updated successfully."
+                                    message: "L'annonce a été modifié avec succès."
                                 });
                             } else {
                                 res.send({
-                                    message: `Cannot update Role with id=${id}. Maybe Role was not found or req.body is empty!`
+                                    message: `Impossible de modifier l'annonce avec id=${id}.`
                                 });
                             }
                         })
                         .catch(err => {
                             res.status(500).send({
-                                message: "Error updating Role with id=" + id + "(" + err + ")"
+                                message: "Erreur lors de la modification de l'annonce avec id=" + id + "(" + err + ")"
                             });
                         });
                 } else {
@@ -203,6 +227,7 @@ function editAnnonce(req, res, id, isAdmin) {
             }
         })
 }
+
 function deleteAnnonce(req, res, id, isAdmin) {
     annonce.findOne({
         where: {

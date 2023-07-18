@@ -42,6 +42,7 @@ function ajoutRole() {
     Role.create({ id: 1, titre: "user" });
     Role.create({ id: 2, titre: "moderator" });
     Role.create({ id: 3, titre: "admin" });
+    Role.create({ id: 4, titre: "super utilisateur" });
 }
 
 function ajoutUtilisateur() {
