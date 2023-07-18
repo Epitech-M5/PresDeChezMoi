@@ -71,7 +71,7 @@ const ContactPage = () => {
                                 <textarea placeholder='Message' name='message' onChange={(event) => setMessage(event.target.value)}></textarea>
                             </div>
                         </div>
-                        <input type="submit" value="Envoyer" className='btn_login' />
+                        <input type="submit" value="Envoyer" className='btn_login center_submit' />
                     </form>
                 </div>
             </div>

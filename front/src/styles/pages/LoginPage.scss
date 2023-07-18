@@ -108,6 +108,12 @@
     text-align: center;
 }
 
+.btn_login.center_submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn_login:hover {
     background-color: $red-orange;
     cursor: pointer;

@@ -57,7 +57,7 @@ const ForgotPassword = () => {
                                 <input type={eye2 ? "text" : "password"} placeholder='Confirmer votre mot de passe' onChange={handlePassword2} />
                             </div>
                         </div>
-                        <input type="submit" value="Modifier" className='btn_login' />
+                        <input type="submit" value="Modifier" className='btn_login center_submit' />
                     </form>
                 </div>
             </div>

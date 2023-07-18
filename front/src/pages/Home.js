@@ -1,22 +1,39 @@
-import { React } from 'react';
-import UserMenu from '../components/MainComponent/UserMenu'
-import NavBarHome from '../components/MainComponent/NavBarHome';
+import { React, useEffect, useState } from 'react';
+import { getAPI, postAPI, putAPI, deleteAPI } from "./../api"
+import { Provider, useSelector } from "react-redux";
 
 const Home = () => {
+
+    const [mapData, setMapData] = useState([]);
+    const user = useSelector((state) => state.utilisateur)
+
+    useEffect(() => {
+        getAPI("http://127.0.0.1:8081/api/annonce/", {}, { "x-access-token": user.token })
+            .then(response => {
+                console.log('response : ' + JSON.stringify(response))
+                setMapData(response.data)
+            }).catch(error => {
+                console.log("error", error);
+            })
+
+        console.log(mapData)
+    }, [])
 
     return (
         <>
             <section className="main_container_home">
                 <section className='container_1_home'>
-                    <h1>premier container, pour la navbar dans app.js</h1>
+
                 </section>
 
                 <section className='container_2_home'>
-                    <h1>barre de recherche et feed ici</h1>
+                    <div>
+
+                    </div>
                 </section>
 
                 <section className='container_3_home'>
-                    <h1>pub, evenement, autre ...</h1>
+
                 </section>
             </section>
         </>
