@@ -1,4 +1,4 @@
-# MSC 1 Final Year-End Project
+# MSC Pro Final Year-End Project
 
 ### Presentation of the project
 Lorem ipsum dolor sit amet. Ut eligendi excepturi eos dolorem molestiae a quia voluptates et architecto iusto quo commodi sequi qui omnis galisum. Et neque nobis ea libero obcaecati aut repellat autem est facilis delectus aut quos laudantium aut nemo facilis. Ut libero dolores eos dolore corrupti ut culpa molestiae quo dicta minus?
