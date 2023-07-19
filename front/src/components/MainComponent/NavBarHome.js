@@ -22,6 +22,7 @@ const NavBarHome = (props) => {
     const [dateFin, setDateFin] = useState(null);
     const [prix, setPrix] = useState(null);
     const [localisation, setLocalisation] = useState(null);
+    const [typeAct, setTypeAct] = useState(null);
 
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
@@ -67,6 +68,9 @@ const NavBarHome = (props) => {
     };
 
     const openModal = () => {
+
+        handleToggle();
+
         setTitre(null);
         setDescriptions(null);
         setImage(null);
@@ -142,6 +146,7 @@ const NavBarHome = (props) => {
     useEffect(() => {
 
         if (selectedValue === 'Vente') {
+            setTypeAct(5);
             setToAddModal(
                 <>
                     <input type="text" placeholder="Titre de l'annonce" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
@@ -158,6 +163,7 @@ const NavBarHome = (props) => {
         }
 
         else if (selectedValue === 'Evénement') {
+            setTypeAct(4);
             setToAddModal(
                 <>
                     <input type="text" placeholder="Titre de l'evénement" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
@@ -173,11 +179,12 @@ const NavBarHome = (props) => {
         }
 
         else if (selectedValue === 'Poste à pourvoir') {
+            setTypeAct(3);
             setToAddModal(
                 <>
                     <input type="text" placeholder="Titre du poste" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
                     <textarea placeholder="Description du poste" id='simple_textarea_des' onChange={(event) => setDescriptions(event.target.value)}></textarea>
-                    <input type="number" placeholder="Salaire brut" id='price_popup' onChange={(event) => setPrix(event.target.value)} />
+                    <input type="number" placeholder="Salaire brut mois" id='price_popup' onChange={(event) => setPrix(event.target.value)} />
                     <input id='file' type="file" accept="image/png, image/jpeg" class="inputfile" onChange={(event) => setImage(event.target.value)}></input>
                     <label for="file"><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</label>
                 </>
@@ -185,6 +192,7 @@ const NavBarHome = (props) => {
         }
 
         else if (selectedValue === 'Promotion') {
+            setTypeAct(2);
             setToAddModal(
                 <>
                     <input type="text" placeholder="Titre de l'annonce" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
@@ -196,6 +204,7 @@ const NavBarHome = (props) => {
         }
 
         else {
+            setTypeAct(1);
             setToAddModal(
                 <>
                     <textarea placeholder='À quoi pensez-vous @Name ?' id='simple_textarea' onChange={(event) => setTitre(event.target.value)}></textarea>
@@ -236,7 +245,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -254,13 +263,13 @@ const NavBarHome = (props) => {
         }
 
         else if (selectedValue === 'Evénement') {
-            if (titre === null || dateDebut === null || dateFin === null || dateDebut.length === 0 || dateFin.length === 0 || titre.length === 0 || prix.length === 0) {
+            if (titre === null || dateDebut === null || dateFin === null || dateDebut.length === 0 || dateFin.length === 0 || titre.length === 0) {
                 setError('Les champs titre et et date ne sont pas remplies')
             }
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -284,7 +293,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -308,7 +317,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -332,7 +341,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -356,7 +365,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
