@@ -12,7 +12,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        getAPI('http://127.0.0.1:8081/api/annonce/', { 'x-access-token': user.token })
+        getAPI('http://127.0.0.1:8081/api/annonce/', {}, { 'x-access-token': user.token })
             .then((response) => {
                 setTimeout(() => {
                     setMapData(response.dataAPI);
