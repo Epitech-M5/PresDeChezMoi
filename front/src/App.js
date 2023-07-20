@@ -22,6 +22,11 @@ import { store } from "./redux/store";
 import Chat from "./components/MainComponent/Chat/Chat";
 import AdministrationPage from "./pages/AdministrationPage";
 import NavBarAdmin from "./components/Admin/NavBarAdmin";
+import General from "./components/Admin/General";
+import Role from "./components/Admin/Role";
+import Tickets from "./components/Admin/Tickets";
+import Event from "./components/Admin/Event";
+import Post from "./components/Admin/Post";
 
 
 const LandingContainer = () => {
@@ -112,7 +117,12 @@ const AdToDelete = () => { // A SUPPRIMER
     <>
       <NavBarAdmin />
       <Routes>
-        <Route path="/" element={<AdministrationPage />} />
+        <Route path="/" element={<General />} />
+        <Route path="*" element={<PageNotFound navigation={"/admin"} />} />
+        <Route path="/role-user" element={<Role />} />
+        <Route path="/tickets" element={<Tickets />} />
+        <Route path="/notif-event" element={<Event />} />
+        <Route path="/post" element={<Post />} />
       </Routes>
     </>
   );
@@ -141,7 +151,7 @@ const App = () => {
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
 
-            <Route path="/admin" element={<AdToDelete />} /> {/* Route à supprimer et supp container aussi*/}
+            <Route path="/admin/*" element={<AdToDelete />} /> {/* Route à supprimer et supp container aussi*/}
 
           </Routes>
         </BrowserRouter>

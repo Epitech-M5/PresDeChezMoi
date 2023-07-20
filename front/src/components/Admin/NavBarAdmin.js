@@ -26,23 +26,23 @@ const NavBarAdmin = () => {
         switch (id) {
             case 1:
                 handleToggle();
-                // navigate('/general')
+                navigate('/admin')
                 break
             case 2:
                 handleToggle();
-                // navigate('/role-user')
+                navigate('/admin/role-user')
                 break
             case 3:
                 handleToggle();
-                // navigate('/post')
+                navigate('/admin/post')
                 break
             case 4:
                 handleToggle();
-                // navigate('/tickets')
+                navigate('/admin/tickets')
                 break
             case 5:
                 handleToggle();
-                // navigate('/notif-event')
+                navigate('/admin/notif-event')
                 break
         }
 
