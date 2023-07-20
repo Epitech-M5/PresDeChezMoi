@@ -352,27 +352,29 @@ const Home = () => {
                 </section>
 
                 <section className="container_3_home">
-                    <div className="pub1">
-                        <h1>PUB ou autre...</h1>
-                    </div>
-                    <div className="pub2">
-                        <h1>PUB</h1>
-                    </div>
-                    <div className="pub3">
-                        <h1>PUB</h1>
-                    </div>
-                    <div className="pub2">
-                        <h1>PUB</h1>
-                    </div>
-                    <div className="pub3">
-                        <h1>PUB</h1>
-                    </div>
-                    <div className="pub2">
-                        <h1>PUB</h1>
-                    </div>
-                    <div className="pub3">
-                        <h1>PUB</h1>
-                    </div>
+                    <aside>
+                        <div className="pub1">
+                            <h1>PUB ou autre...</h1>
+                        </div>
+                        <div className="pub2">
+                            <h1>PUB</h1>
+                        </div>
+                        <div className="pub3">
+                            <h1>PUB</h1>
+                        </div>
+                        <div className="pub2">
+                            <h1>PUB</h1>
+                        </div>
+                        <div className="pub3">
+                            <h1>PUB</h1>
+                        </div>
+                        <div className="pub2">
+                            <h1>PUB</h1>
+                        </div>
+                        <div className="pub3">
+                            <h1>PUB</h1>
+                        </div>
+                    </aside>
                 </section>
             </section>
         </>

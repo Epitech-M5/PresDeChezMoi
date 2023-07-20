@@ -8,7 +8,7 @@ const NavBarAdmin = () => {
 
     const navigate = useNavigate();
 
-    const user = useSelector((state) => state.utilisateur)
+    const user = useSelector((state) => state.utilisateur);
 
     const handleToggle = () => {
 
@@ -26,23 +26,23 @@ const NavBarAdmin = () => {
         switch (id) {
             case 1:
                 handleToggle();
-                navigate('/admin')
+                navigate('/home/administration')
                 break
             case 2:
                 handleToggle();
-                navigate('/admin/role-user')
+                navigate('/home/administration/role-user')
                 break
             case 3:
                 handleToggle();
-                navigate('/admin/post')
+                navigate('/home/administration/post')
                 break
             case 4:
                 handleToggle();
-                navigate('/admin/tickets')
+                navigate('/home/administration/tickets')
                 break
             case 5:
                 handleToggle();
-                navigate('/admin/notif-event')
+                navigate('/home/administration/notif-event')
                 break
         }
 
@@ -60,7 +60,7 @@ const NavBarAdmin = () => {
                         <h1>Page Administration</h1>
                     </div>
                     <div className="container_admin_admin">
-                        <img src="media/img/1.png" alt="logo" />
+                        <img src={`${user.pathImage}`} alt="logo" />
                         <h4>Bienvenue @{user.pseudo}</h4>
                     </div>
                     <div className="container_page_admin">

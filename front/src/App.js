@@ -60,6 +60,7 @@ const HomeContainer = () => {
         <ChatBot />
         <ResearchBar />
         <NavBarHome isAdmin='admin' />
+        <UserMenu />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
@@ -75,6 +76,7 @@ const HomeContainer = () => {
         <ChatBot />
         <ResearchBar />
         <NavBarHome />
+        <UserMenu />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
@@ -98,9 +100,12 @@ const AdminContainer = () => {
       <>
         <NavBarAdmin />
         <Routes>
-          <Route path="/test" element={<Test />} />
-          <Route path="/" element={<AdministrationPage />} />
-          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
+          <Route path="/" element={<General />} />
+          <Route path="*" element={<PageNotFound navigation={"/administration"} />} />
+          <Route path="/role-user" element={<Role />} />
+          <Route path="/tickets" element={<Tickets />} />
+          <Route path="/notif-event" element={<Event />} />
+          <Route path="/post" element={<Post />} />
         </Routes>
       </>
     );
@@ -109,24 +114,6 @@ const AdminContainer = () => {
   else {
     return (<Navigate to="/login" replace />);
   }
-}
-
-const AdToDelete = () => { // A SUPPRIMER
-
-  return (
-    <>
-      <NavBarAdmin />
-      <Routes>
-        <Route path="/" element={<General />} />
-        <Route path="*" element={<PageNotFound navigation={"/admin"} />} />
-        <Route path="/role-user" element={<Role />} />
-        <Route path="/tickets" element={<Tickets />} />
-        <Route path="/notif-event" element={<Event />} />
-        <Route path="/post" element={<Post />} />
-      </Routes>
-    </>
-  );
-
 }
 
 const App = () => {
@@ -150,9 +137,6 @@ const App = () => {
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
-
-            <Route path="/admin/*" element={<AdToDelete />} /> {/* Route à supprimer et supp container aussi*/}
-
           </Routes>
         </BrowserRouter>
       </Provider>
