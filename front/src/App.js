@@ -106,6 +106,19 @@ const AdminContainer = () => {
   }
 }
 
+const AdToDelete = () => { // A SUPPRIMER
+
+  return (
+    <>
+      <NavBarAdmin />
+      <Routes>
+        <Route path="/" element={<AdministrationPage />} />
+      </Routes>
+    </>
+  );
+
+}
+
 const App = () => {
 
   const [loading, setLoading] = useState(true);
@@ -127,6 +140,8 @@ const App = () => {
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
+
+            <Route path="/admin" element={<AdToDelete />} /> {/* Route à supprimer et supp container aussi*/}
 
           </Routes>
         </BrowserRouter>
