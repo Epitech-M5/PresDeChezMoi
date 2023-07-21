@@ -32,24 +32,24 @@
 
 .input_rec_text {
     width: 50%;
-    padding: 10px;
     border: 1px solid $dark-grey;
+    padding: 10px;
 }
 
 .input_rec_number {
     width: 50%;
-    padding: 10px;
     border: 1px solid $dark-grey;
+    padding: 10px;
 }
 
 .input_rec_text:focus,
 .input_rec_number:focus {
-    border: 1px solid $red-orange;
+    border: 1px solid $violet;
 }
 
 .wrapper_inputs_rec {
     margin-top: 20px;
-
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;

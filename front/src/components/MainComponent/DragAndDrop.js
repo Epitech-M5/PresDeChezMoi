@@ -36,6 +36,16 @@ const DragAndDrop = ({ onFileDrop }) => {
         }
     };
 
+    const handleFileInputChange = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile && (selectedFile.type === 'image/jpeg' || selectedFile.type === 'image/png')) {
+            setFile(selectedFile);
+            onFileDrop(selectedFile);
+        } else {
+            addMessage('Les fichiers supportés sont .png et .jpg', 'info');
+        }
+    };
+
     return (
         <>
             <MessageQueue messages={messages} removeMessage={removeMessage} />
@@ -48,11 +58,16 @@ const DragAndDrop = ({ onFileDrop }) => {
             >
                 {file ? (
                     <div>
-                        <h4>Document drop :</h4>
-                        <p>{file.name}</p>
+                        <h4>Nom fichier : {file.name}</h4>
+                        <input id='file' type="file" accept=".png,.jpg,.jpeg" className='inputfile admin' onChange={handleFileInputChange} />
+                        <label for="file">Ou sélectionne un fichier</label>
                     </div>
                 ) : (
-                    <p>Drop un fichier ici !</p>
+                    <>
+                        <p>Drop un fichier ici</p>
+                        <input id='file' type="file" accept=".png,.jpg,.jpeg" className='inputfile admin' onChange={handleFileInputChange} />
+                        <label for="file">Ou sélectionne un fichier</label>
+                    </>
                 )}
             </div>
         </>

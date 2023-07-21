@@ -164,6 +164,16 @@ body.modal-open {
     margin-bottom: 20px;
 }
 
+.inputfile.admin+label {
+    color: $blue;
+    background-color: transparent;
+    width: 100%;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
 .error_msg {
     color: $red-orange;
     width: 100%;

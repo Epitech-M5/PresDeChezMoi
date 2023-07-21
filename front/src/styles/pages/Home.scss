@@ -48,39 +48,176 @@
 }
 
 .pub1 {
-    background-color: violet;
+    position: relative;
     border-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 90%;
     height: 50vh;
     margin-left: 5%;
     margin-top: 120px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.pub1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #E3EE05;
+    opacity: 0.5;
+    margin-top: 5px;
+}
+
+.pub1::after {
+    content: "";
+    background: url(../../media/img/marche.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(40%) blur(2px) saturate(150%) contrast(1.5);
+    z-index: -1;
+    margin-top: 5px;
+}
+
+.text_pub {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.text_pub2 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.text_pub2 img {
+    width: 55%;
+    max-width: 300px;
+}
+
+.text_pub h1 {
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    font-size: 2.2vw;
+    color: $dark-blue;
+    text-align: center;
+    width: 100%;
+}
+
+.text_pub button {
+    padding: 5px 15px 5px 15px;
+    border-radius: 54px;
+    border: none;
+    background-color: $green;
+    color: $dark-green;
+    font-weight: 700;
+    font-size: 1.1vw;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 4px 12px;
+    margin: 0 5px 0 5px;
+}
+
 
 .pub2 {
-    background-color: lightcoral;
+    position: relative;
     border-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 90%;
-    height: 30vh;
+    height: 50vh;
     margin-left: 5%;
     margin-top: 10px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.pub3 {
-    background-color: lightgreen;
-    border-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-    height: 20vh;
-    margin-left: 5%;
-    margin-top: 10px;
+.pub2::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $blue;
+    opacity: 0.5;
+}
+
+.pub2::after {
+    content: "";
+    background: url(../../media/img/map.png);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: grayscale(40%) blur(2px) saturate(150%) contrast(1.5);
+    z-index: -1;
+}
+
+.button-54 {
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    cursor: pointer;
+    border: 3px solid;
+    padding: 0.25em 0.5em;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-54:active {
+    box-shadow: 0px 0px 0px 0px;
+    top: 5px;
+    left: 5px;
+}
+
+.container_bottom_map_ad {
+    text-align: center;
+}
+
+.container_bottom_map_ad h1 {
+    margin-bottom: 20px;
+    width: 100%;
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    font-size: 1.2vw;
+}
+
+@media (min-width: 768px) {
+    .button-54 {
+        padding: 0.25em 0.75em;
+    }
 }
 
 @media(max-width:650px),

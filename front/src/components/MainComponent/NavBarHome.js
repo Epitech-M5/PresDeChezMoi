@@ -86,7 +86,13 @@ const NavBarHome = (props) => {
     };
 
     const closeModal = () => {
-        setIsOpen(false);
+
+        const toClose = document.querySelector('.modal');
+        toClose.classList.add('closing');
+        setTimeout(() => {
+            setIsOpen(false);
+        }, 300);
+
     };
 
     const handleCheckboxChange = (item) => {

@@ -54,6 +54,10 @@ const NavBarAdmin = () => {
 
     return (
         <>
+            <div className="container_arrow_backtohome" onClick={() => navigate('/home')}>
+                <i className="fa-solid fa-arrow-right fa-rotate-180"></i>
+                <h1>Home</h1>
+            </div>
             <div className="container_navbar_admin">
                 <div className="container_left_tofrombottom">
                     <div className="container_title_admin">
@@ -140,6 +144,9 @@ const NavBarAdmin = () => {
                         <div className="align_wrap">
                             <i className={`fa-solid fa-calendar-days underline-animation_logo ${activeId === 5 ? 'underline logo admin' : ''}`}
                                 onClick={() => toggleUnderline(5)}></i>
+                        </div>
+                        <div className="align_wrap_home" onClick={() => navigate('/home')}>
+                            <i className="fa-solid fa-arrow-right fa-rotate-180"></i>
                         </div>
                     </div>
                 </div>

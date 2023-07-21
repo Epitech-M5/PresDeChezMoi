@@ -23,7 +23,7 @@ const Home = () => {
                 console.log('error', error);
                 setLoading(false);
             });
-    }, []);
+    }, [mapData]);
 
     useEffect(() => {
         setTypeAct(0);
@@ -79,7 +79,7 @@ const Home = () => {
                                             <div className="container_content_post">
                                                 {item.idTypeActivite === 1 && (
                                                     <>
-                                                        <p>Type 1 Content</p>
+                                                        <p>{item.titre}</p>
                                                         <p>id type annonce : {item.idTypeActivite}</p>
                                                         <p>id de l'annonce : {item.id}</p>
                                                         <div className="toCenter_post">
@@ -90,7 +90,7 @@ const Home = () => {
 
                                                 {item.idTypeActivite === 2 && (
                                                     <>
-                                                        <p>Type 2 Content</p>
+                                                        <p>{item.titre}</p>
                                                         <p>id type annonce : {item.idTypeActivite}</p>
                                                         <p>id de l'annonce : {item.id}</p>
                                                         <div className="toCenter_post">
@@ -101,7 +101,7 @@ const Home = () => {
 
                                                 {item.idTypeActivite === 3 && (
                                                     <>
-                                                        <p>Type 3 Content</p>
+                                                        <p>{item.titre}</p>
                                                         <p>id type annonce : {item.idTypeActivite}</p>
                                                         <p>id de l'annonce : {item.id}</p>
                                                         <div className="toCenter_post">
@@ -112,7 +112,7 @@ const Home = () => {
 
                                                 {item.idTypeActivite === 4 && (
                                                     <>
-                                                        <p>Type 4 Content</p>
+                                                        <p>{item.titre}</p>
                                                         <p>id type annonce : {item.idTypeActivite}</p>
                                                         <p>id de l'annonce : {item.id}</p>
                                                         <div className="toCenter_post">
@@ -123,7 +123,7 @@ const Home = () => {
 
                                                 {item.idTypeActivite === 5 && (
                                                     <>
-                                                        <p>Type 5 Content</p>
+                                                        <p>{item.titre}</p>
                                                         <p>id type annonce : {item.idTypeActivite}</p>
                                                         <p>id de l'annonce : {item.id}</p>
                                                         <div className="toCenter_post">
@@ -354,25 +354,19 @@ const Home = () => {
                 <section className="container_3_home">
                     <aside>
                         <div className="pub1">
-                            <h1>PUB ou autre...</h1>
+                            <div className="text_pub">
+                                <h1>Invitez vos amis à une fête, un évènement caritatif ou une rencontre </h1>
+                                <button>Créer un évènement</button>
+                            </div>
                         </div>
                         <div className="pub2">
-                            <h1>PUB</h1>
-                        </div>
-                        <div className="pub3">
-                            <h1>PUB</h1>
-                        </div>
-                        <div className="pub2">
-                            <h1>PUB</h1>
-                        </div>
-                        <div className="pub3">
-                            <h1>PUB</h1>
-                        </div>
-                        <div className="pub2">
-                            <h1>PUB</h1>
-                        </div>
-                        <div className="pub3">
-                            <h1>PUB</h1>
+                            <div className="text_pub2">
+                                <img src="media/img/location-mark.png" alt="map" />
+                                <div className="container_bottom_map_ad">
+                                    <h1>Découvrez ce qui se passe près de chez vous</h1>
+                                    <button class="button-54" role="button">Map</button>
+                                </div>
+                            </div>
                         </div>
                     </aside>
                 </section>
