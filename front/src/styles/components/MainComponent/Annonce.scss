@@ -84,7 +84,9 @@
     align-items: center;
 }
 
-.container_bottom_post i {
+.container_bottom_post i,
+a {
     color: $black;
     font-size: 1rem;
+    cursor: pointer !important;
 }

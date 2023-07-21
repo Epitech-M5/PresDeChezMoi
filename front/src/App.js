@@ -60,7 +60,7 @@ const HomeContainer = () => {
         <ChatBot />
         <ResearchBar />
         <NavBarHome isAdmin='admin' />
-        <UserMenu />
+        {/* <UserMenu /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
@@ -76,7 +76,7 @@ const HomeContainer = () => {
         <ChatBot />
         <ResearchBar />
         <NavBarHome />
-        <UserMenu />
+        {/* <UserMenu /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />

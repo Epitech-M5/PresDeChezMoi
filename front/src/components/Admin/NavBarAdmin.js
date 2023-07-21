@@ -60,8 +60,9 @@ const NavBarAdmin = () => {
                         <h1>Page Administration</h1>
                     </div>
                     <div className="container_admin_admin">
-                        <img src={`${user.pathImage}`} alt="logo" />
-                        <h4>Bienvenue @{user.pseudo}</h4>
+                        <img src="https://img.freepik.com/vecteurs-premium/portrait-profil-belle-fille-illustration-vectorielle_257845-4025.jpg?w=2000" alt="logo" />
+                        <h4>Bienvenue</h4>
+                        <h4>@{user.pseudo}</h4>
                     </div>
                     <div className="container_page_admin">
                         <div className="align_wrap">
@@ -115,8 +116,9 @@ const NavBarAdmin = () => {
             <div className='navbar_toslide_responsive_admin'>
                 <div className="toslide_content_responsive_admin">
                     <div className="container_admin_admin">
-                        <img src="media/img/1.png" alt="logo" />
-                        <h4>Bienvenue @{user.pseudo}</h4>
+                        <img src="https://img.freepik.com/vecteurs-premium/portrait-profil-belle-fille-illustration-vectorielle_257845-4025.jpg?w=2000" alt="logo" />
+                        <h4>Bienvenue</h4>
+                        <h4> @{user.pseudo}</h4>
                     </div>
                     <div className="container_page_admin_forphone">
                         <div className="align_wrap">
