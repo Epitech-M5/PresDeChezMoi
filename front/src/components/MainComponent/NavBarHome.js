@@ -168,12 +168,12 @@ const NavBarHome = (props) => {
             );
         }
 
-        else if (selectedValue === 'Evénement') {
+        else if (selectedValue === 'Evenement') {
             setTypeAct(4);
             setToAddModal(
                 <>
-                    <input type="text" placeholder="Titre de l'evénement" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
-                    <textarea placeholder="Description de l'evénement" id='simple_textarea_des' onChange={(event) => setDescriptions(event.target.value)}></textarea>
+                    <input type="text" placeholder="Titre de l'evenement" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
+                    <textarea placeholder="Description de l'evenement" id='simple_textarea_des' onChange={(event) => setDescriptions(event.target.value)}></textarea>
                     <label htmlFor="date_debut_popup" id='label_date'>Date début : </label>
                     <input type="date" id='date_debut_popup' onChange={(event) => setDateDebut(event.target.value)} />
                     <label htmlFor="date_debut_popup" id='label_date'>Date fin : </label>
@@ -268,8 +268,12 @@ const NavBarHome = (props) => {
             }
         }
 
-        else if (selectedValue === 'Evénement') {
-            if (titre === null || dateDebut === null || dateFin === null || dateDebut.length === 0 || dateFin.length === 0 || titre.length === 0) {
+        else if (selectedValue === 'Evenement') {
+
+            if (dateDebut > dateFin) {
+                setError('La date de début ne peut pas être supérieur à la date de fin');
+            }
+            else if (titre === null || dateDebut === null || dateFin === null || dateDebut.length === 0 || dateFin.length === 0 || titre.length === 0) {
                 setError('Les champs titre et et date ne sont pas remplies')
             }
 
@@ -414,7 +418,7 @@ const NavBarHome = (props) => {
                         {toAddModal}
                     </div>
                     <div className="modal_content_right">
-                        <DropDownBtn text="Type de post" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post']} onCheckboxChange={handleCheckboxChange} />
+                        <DropDownBtn text="Type de post" items={['Vente', 'Evenement', 'Poste à pourvoir', 'Promotion', 'Simple post']} onCheckboxChange={handleCheckboxChange} />
                         <input type="button" value="Publier" id='publish' onClick={handleSubmit} />
                         <p className='error_msg'>{error}</p>
                     </div>
