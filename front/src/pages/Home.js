@@ -23,7 +23,7 @@ const Home = () => {
                 console.log('error', error);
                 setLoading(false);
             });
-    }, [mapData]);
+    }, []);
 
     useEffect(() => {
         setTypeAct(0);
