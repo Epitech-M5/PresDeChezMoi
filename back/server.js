@@ -130,26 +130,26 @@ function ajoutVille() {
 }
 
 function ajoutTypeActivite() {
-    TypeActivite.create({
-        id: 1,
-        type: "Vente",
-        description: "Permet la vente d'un bien"
-    })
-    TypeActivite.create({
-        id: 2,
-        type: "Poste à pourvoir",
-        description: "Permet de promouvoir des postes"
-    })
-    TypeActivite.create({
-        id: 3,
-        type: "Publication",
-        description: "Permet de partager une humeur, une idée, ..."
-    })
-    TypeActivite.create({
-        id: 4,
-        type: "Évènement",
-        description: "Permet de créer un évènement pour la commune et ses habitants (Modérateur et Administrateur seulement)"
-    })
+    // TypeActivite.create({
+    //     id: 1,
+    //     type: "Vente",
+    //     description: "Permet la vente d'un bien"
+    // })
+    // TypeActivite.create({
+    //     id: 2,
+    //     type: "Poste à pourvoir",
+    //     description: "Permet de promouvoir des postes"
+    // })
+    // TypeActivite.create({
+    //     id: 3,
+    //     type: "Publication",
+    //     description: "Permet de partager une humeur, une idée, ..."
+    // })
+    // TypeActivite.create({
+    //     id: 4,
+    //     type: "Évènement",
+    //     description: "Permet de créer un évènement pour la commune et ses habitants (Modérateur et Administrateur seulement)"
+    // })
 }
 
 function ajoutTypeSignalement() {

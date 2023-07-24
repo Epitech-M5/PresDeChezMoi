@@ -3,13 +3,15 @@ import { useSelector } from 'react-redux';
 import { getAPI } from './../api';
 import Loader from './../components/Loader';
 import DropDownBtn from '../components/MainComponent/DropDownBtn';
+import axios from 'axios';
+import AddressDisplay from '../components/MainComponent/AddressDisplay';
 
 const Home = () => {
     const [mapData, setMapData] = useState([]);
     const user = useSelector((state) => state.utilisateur);
     const [loading, setLoading] = useState(true);
     const [typeAct, setTypeAct] = useState(null);
-
+    const [dictionnaireUser, setDictionnaireUser] = useState({});
 
     useEffect(() => {
         getAPI('http://127.0.0.1:8081/api/annonce/', {}, { 'x-access-token': user.token })
@@ -27,6 +29,20 @@ const Home = () => {
 
     useEffect(() => {
         setTypeAct(0);
+        getAPI('http://127.0.0.1:8081/api/user/', {}, { 'x-access-token': user.token })
+            .then((response) => {
+
+                var dictionnaire = {}
+                for (const element of response.dataAPI) {
+                    dictionnaire[element.id] = element.pseudo;
+                };
+                setDictionnaireUser(dictionnaire)
+
+            })
+            .catch((error) => {
+                console.log('error', error);
+                setLoading(false);
+            });
     }, []);
 
     const reversedData = [...mapData].reverse();
@@ -42,6 +58,54 @@ const Home = () => {
             'Tout': 0
         }[item];
         setTypeAct(typeActValue);
+    };
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('fr-FR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    };
+
+    const renderDateCreate = (createdAt) => {
+        const formattedCreatedAt = formatDate(createdAt);
+
+        return (
+            <>
+                {formattedCreatedAt}
+            </>
+        );
+    };
+
+    const renderDateEvent = (dateDebut, dateFin) => {
+        const formattedDateDebut = formatDate(dateDebut);
+        const formattedDateFin = formatDate(dateFin);
+
+        if (dateDebut === null || dateFin === null) {
+            return (
+                <>
+                </>
+            )
+        }
+
+        else if (formattedDateDebut && formattedDateFin) {
+            return (
+                <>
+                    <div className="container_dates">
+                        <div className="left_date">
+                            <h4>Date début : </h4>
+                            <p>{formattedDateDebut}</p>
+                        </div>
+                        <div className="right_date">
+                            <h4>Date fin : </h4>
+                            <p>{formattedDateFin}</p>
+                        </div>
+                    </div>
+                </>
+            );
+        }
     };
 
     return (
@@ -68,8 +132,8 @@ const Home = () => {
                                                 <div className="container_left_pdp">
                                                     <img src="media/img/1.png" alt="profil" />
                                                     <div className="other_container_pdp">
-                                                        <h1>@UserName</h1>
-                                                        <h4>@lieu • {item.createdAt}</h4>
+                                                        <h1>{dictionnaireUser[item.organisateur]}</h1>
+                                                        <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                     </div>
                                                 </div>
                                                 <div className="container_right_pdp">
@@ -80,8 +144,6 @@ const Home = () => {
                                                 {item.idTypeActivite === 1 && (
                                                     <>
                                                         <p>{item.titre}</p>
-                                                        <p>id type annonce : {item.idTypeActivite}</p>
-                                                        <p>id de l'annonce : {item.id}</p>
                                                         <div className="toCenter_post">
                                                             <img src={item.img} />
                                                         </div>
@@ -90,9 +152,8 @@ const Home = () => {
 
                                                 {item.idTypeActivite === 2 && (
                                                     <>
-                                                        <p>{item.titre}</p>
-                                                        <p>id type annonce : {item.idTypeActivite}</p>
-                                                        <p>id de l'annonce : {item.id}</p>
+                                                        <p className='title_promo'><span className='type_title promotion'>PROMOTION : </span>{item.titre}</p>
+                                                        <p>{item.description}</p>
                                                         <div className="toCenter_post">
                                                             <img src={item.img} />
                                                         </div>
@@ -101,9 +162,9 @@ const Home = () => {
 
                                                 {item.idTypeActivite === 3 && (
                                                     <>
-                                                        <p>{item.titre}</p>
-                                                        <p>id type annonce : {item.idTypeActivite}</p>
-                                                        <p>id de l'annonce : {item.id}</p>
+                                                        <p className='title_promo'><span className='type_title poste'>POSTE A POURVOIR : </span>{item.titre}</p>
+                                                        <p>{item.description}</p>
+                                                        <p className='margin_price'>Salaire brut : <span className='price'>{item.prix}€</span>/mois</p>
                                                         <div className="toCenter_post">
                                                             <img src={item.img} />
                                                         </div>
@@ -112,9 +173,9 @@ const Home = () => {
 
                                                 {item.idTypeActivite === 4 && (
                                                     <>
-                                                        <p>{item.titre}</p>
-                                                        <p>id type annonce : {item.idTypeActivite}</p>
-                                                        <p>id de l'annonce : {item.id}</p>
+                                                        <p className='title_promo'><span className='type_title event'>EVENEMENT : </span>{item.titre}</p>
+                                                        <p>{item.description}</p>
+                                                        {renderDateEvent(item.dateDebut, item.dateFin)}
                                                         <div className="toCenter_post">
                                                             <img src={item.img} />
                                                         </div>
@@ -123,9 +184,10 @@ const Home = () => {
 
                                                 {item.idTypeActivite === 5 && (
                                                     <>
-                                                        <p>{item.titre}</p>
-                                                        <p>id type annonce : {item.idTypeActivite}</p>
-                                                        <p>id de l'annonce : {item.id}</p>
+                                                        <p className='title_promo'><span className='type_title vente'>VENTE : </span>{item.titre}</p>
+                                                        <p className='margin_bot_price'><span className='price_in_vente'>Prix : </span>{item.prix}€</p>
+                                                        <p>{item.description}</p>
+                                                        {renderDateEvent(item.dateDebut, item.dateFin)}
                                                         <div className="toCenter_post">
                                                             <img src={item.img} />
                                                         </div>
@@ -370,7 +432,7 @@ const Home = () => {
                         </div>
                     </aside>
                 </section>
-            </section>
+            </section >
         </>
     );
 };
