@@ -132,7 +132,7 @@ const Home = () => {
                                                 <div className="container_left_pdp">
                                                     <img src="media/img/1.png" alt="profil" />
                                                     <div className="other_container_pdp">
-                                                        <h1>{dictionnaireUser[item.organisateur]}</h1>
+                                                        <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                         <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                     </div>
                                                 </div>
