@@ -5,8 +5,8 @@ const Ticket = db.ticket;
 // description: req.body.description,
 // published: req.body.published ? req.body.published : false
 
-
-exports.create = (req, res) => {
+// Pour l'utilisateur
+exports.create = (req, res) => { 
     var boolErrorFlag = false;
     var stringErrorMessage = "";
 
@@ -23,7 +23,7 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create User
+    // Create ticket
     const ticketObjet = {
         idUtilisateur: req.body.idUtilisateur,
         titre: req.body.titre,
@@ -32,7 +32,7 @@ exports.create = (req, res) => {
         dateCreation: req.body.dateCreation
     };
 
-    // Save Tutorial in the database adn catch internal error
+    // Save Ticket in the database
     Ticket.create(ticketObjet)
         .then(data => {
             res.send(data);
@@ -45,6 +45,8 @@ exports.create = (req, res) => {
         });
 };
 
+// Trouver un ticket par sont id
+// ADMIN ->  voir le détails du tciket
 exports.find_one = (req, res) => {
     const id = req.params.id;
 
@@ -65,6 +67,7 @@ exports.find_one = (req, res) => {
         });
 };
 
+// ADMIN: peut voir tout les tivket existant
 exports.find_all = (req, res) => {
     Ticket.findAll()
         .then(data => {

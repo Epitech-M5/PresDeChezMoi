@@ -74,6 +74,7 @@ exports.signup = (req, res) => {
         score: data.score,
         photoProfil: data.photoProfil,
         idRole: data.idRole,
+        idVille: data.idVille,
         accessToken: token,
         refreshToken: refreshToken,
         photoProfil: data.photoProfil
@@ -131,6 +132,7 @@ exports.signin = (req, res) => {
           id: user.id,
           pseudo: user.pseudo,
           idRole: user.idRole,
+          idVille: user.idVille,
           accessToken: token,
           refreshToken: refreshToken,
         });

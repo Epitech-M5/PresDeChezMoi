@@ -113,6 +113,22 @@ function ajoutUtilisateur() {
     })
 }
 
+function ajoutStatus() {
+    Statutes.create({
+        id: 1,
+        nom: "Bourgade",
+        codePostal: 12345,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlocale: 5.0
+    })
+}
+
 function ajoutVille() {
     Ville.create({
         id: 1,

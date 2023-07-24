@@ -46,7 +46,8 @@ const LoginPage = () => {
                         pseudo: data.pseudo,
                         idRole: data.idRole,
                         idutilisateur: data.id,
-                        photoProfil: data.photoProfil
+                        idVille: data.idVille,
+                        photoProfil: data.photoProfil,
                     };
                     addMessage('Votre compte a bien été crée ! Attendez quelques instant...', 'success');
                     // Stock dans store
@@ -88,12 +89,13 @@ const LoginPage = () => {
                     console.log(response)
                     // permet de récupérer les info utilisateurs retourné dans la response
                     var data = response.data;
-
+                    console.log("data", data)
                     // Initialisation de l'objet qui va comporter les information de l'utilisateur pour le stocker dans redux(store)
                     var infoUtilisateur = {
                         pseudo: data.pseudo,
                         idRole: data.idRole,
-                        idutilisateur: data.id
+                        idutilisateur: data.id,
+                        idVille: data.idVille,
                     };
                     addMessage('Connexion réussie, attendez quelques instants....', 'success');
                     // Stock dans store
