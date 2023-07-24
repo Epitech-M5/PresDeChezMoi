@@ -24,6 +24,7 @@ const TypeActivite = db.typeActivite;
 const TypeSignalement = db.typeSignalement;
 const Annonce = db.annonce;
 const Utilisateur = db.utilisateur;
+const Statuses = db.status;
 
 db.sequelize.sync({ force: true })
     .then(() => {
@@ -43,6 +44,22 @@ function ajoutRole() {
     Role.create({ id: 2, titre: "moderator" });
     Role.create({ id: 3, titre: "admin" });
     Role.create({ id: 4, titre: "super utilisateur" });
+}
+
+function ajoutVille() {
+    Ville.create({
+        id: 1,
+        nom: "Bourgade",
+        codePostal: 12345,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlocale: 5.0
+    })
 }
 
 function ajoutUtilisateur() {
@@ -114,36 +131,25 @@ function ajoutUtilisateur() {
 }
 
 function ajoutStatus() {
-    Statutes.create({
+    Statuses.create({
         id: 1,
-        nom: "Bourgade",
-        codePostal: 12345,
-        scoreVilleFleurie: 4,
-        noteHygiene: [5, 5, 5, 5],
-        moyenneHygiene: 5.0,
-        noteService: [5, 5, 5, 5],
-        moyenneService: 5.0,
-        noteEvenement: [5, 5, 5, 5],
-        moyenneEvenement: 5.0,
-        scoreGlocale: 5.0
+        titre: "non résolu",
+    })
+    Statuses.create({
+        id: 2,
+        titre: "en cours de traitement",
+    })
+    Statuses.create({
+        id: 3,
+        titre: "résolu",
+    })
+    Statuses.create({
+        id: 4,
+        titre: "inapproprié",
     })
 }
 
-function ajoutVille() {
-    Ville.create({
-        id: 1,
-        nom: "Bourgade",
-        codePostal: 12345,
-        scoreVilleFleurie: 4,
-        noteHygiene: [5, 5, 5, 5],
-        moyenneHygiene: 5.0,
-        noteService: [5, 5, 5, 5],
-        moyenneService: 5.0,
-        noteEvenement: [5, 5, 5, 5],
-        moyenneEvenement: 5.0,
-        scoreGlocale: 5.0
-    })
-}
+
 
 function ajoutTypeActivite() {
     TypeActivite.create({
@@ -358,6 +364,7 @@ function initial() {
     ajoutTypeActivite() // Ajout de Type d'activite
     ajoutTypeSignalement() // Ajout de Type de signalement
     ajoutAnnonce() // Ajout annonce
+    ajoutStatus() // Ajout status des tickets
 }
 
 // // simple route

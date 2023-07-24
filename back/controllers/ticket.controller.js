@@ -1,9 +1,8 @@
 const db = require("../models");
+const { Op } = require('sequelize');
 const Ticket = db.ticket;
-
-// title: req.body.title,
-// description: req.body.description,
-// published: req.body.published ? req.body.published : false
+const Notification = db.notification;
+const Status = db.status;
 
 // Pour l'utilisateur
 exports.create = (req, res) => { 
@@ -44,6 +43,7 @@ exports.create = (req, res) => {
             });
         });
 };
+
 
 // Trouver un ticket par sont id
 // ADMIN ->  voir le détails du tciket
@@ -88,10 +88,31 @@ exports.update = (req, res) => {
         where: { id: id }
     })
         .then(num => {
+            const idStatus = req.body.idStatus
+
             if (num == 1) {
-                res.send({
-                    message: "Type Signalement was updated successfully."
-                });
+                            // Cherche le nom du status en fonction de l'id pour l'envoyer au front
+            Status.findByPk(idStatus)
+            .then(data => {
+                if (data) {
+                    console.log("status data",data)
+                    res.send(data);
+            // quand status est ok j'envoi la notification
+                } else {
+                    res.status(404).send({
+                        message: `Cannot find Status with id=${id}.`
+                    });
+                }
+            })
+            
+                // const NotificationObjet = {
+                //     idUtilisateur: data.idUtilisateur,
+                //     titre: req.body.titre,
+                //     supprimer: false,
+                //     message: req.body.message,
+                //     dateCreation: null
+                // };
+            
             } else {
                 res.send({
                     message: `Cannot update Type Signalement with id=${id}. Maybe Type Signalement was not found or req.body is empty!`
@@ -127,4 +148,51 @@ exports.delete = (req, res) => {
                 message: "Could not delete Type Signalement with id=" + id
             });
         });
+};
+
+// ADMIN: peut voir tout les ticket par rapport à leurs status
+exports.find_all_by_status= (req, res) => {
+    const id = req.params.id;
+
+    Ticket.findAll({
+        where: {
+            idStatus: id
+          }
+    })
+    .then(data => {
+
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while retrieving tutorials."
+        });
+    });
+};
+
+// ADMIN: trier les tickets du plus récent aux ancien
+exports.find_all_by_date= (req, res) => {
+    const order = req.params.order;
+    let value;
+    if(order === "desc") {
+        value = 'DESC';
+    }else {
+        value = 'ASC';
+
+    }
+    Ticket.findAll({
+        // Filtre des datas
+      order: [['createdAt', value]], 
+    })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while retrieving tutorials."
+        });
+    });
+
 };
