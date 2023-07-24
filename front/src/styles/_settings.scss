@@ -15,6 +15,11 @@ $dark-blue: #151729;
 $grey: #e8e8e8;
 $dark-grey: #c5c5c5;
 $blue: #3D9BFF;
+$dark-green: #147500;
+
+$width-navbar-home: 20%;
+$width-feed: 50%;
+$width-pub: 20%;
 
 * {
     padding: 0;
@@ -40,12 +45,13 @@ $blue: #3D9BFF;
     border-radius: 8px;
 }
 
+/*
 @media(max-width:600px) {
     ::-webkit-scrollbar {
         width: 6px;
     }
 }
-
+*/
 @keyframes fadeIn {
     0% {
         opacity: 0;

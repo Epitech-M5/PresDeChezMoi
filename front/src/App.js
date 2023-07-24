@@ -22,6 +22,11 @@ import { store } from "./redux/store";
 import Chat from "./components/MainComponent/Chat/Chat";
 import AdministrationPage from "./pages/AdministrationPage";
 import NavBarAdmin from "./components/Admin/NavBarAdmin";
+import General from "./components/Admin/General";
+import Role from "./components/Admin/Role";
+import Tickets from "./components/Admin/Tickets";
+import Event from "./components/Admin/Event";
+import Post from "./components/Admin/Post";
 
 
 const LandingContainer = () => {
@@ -55,11 +60,12 @@ const HomeContainer = () => {
         <ChatBot />
         <ResearchBar />
         <NavBarHome isAdmin='admin' />
+        {/* <UserMenu /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
           <Route path="/chat" element={<Chat />} />
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
         </Routes>
       </>
     );
@@ -70,10 +76,11 @@ const HomeContainer = () => {
         <ChatBot />
         <ResearchBar />
         <NavBarHome />
+        {/* <UserMenu /> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
         </Routes>
       </>
     );
@@ -93,9 +100,12 @@ const AdminContainer = () => {
       <>
         <NavBarAdmin />
         <Routes>
-          <Route path="/test" element={<Test />} />
-          <Route path="/" element={<AdministrationPage />} />
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="/" element={<General />} />
+          <Route path="*" element={<PageNotFound navigation={"/administration"} />} />
+          <Route path="/role-user" element={<Role />} />
+          <Route path="/tickets" element={<Tickets />} />
+          <Route path="/notif-event" element={<Event />} />
+          <Route path="/post" element={<Post />} />
         </Routes>
       </>
     );
@@ -127,7 +137,6 @@ const App = () => {
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
-
           </Routes>
         </BrowserRouter>
       </Provider>

@@ -18,17 +18,11 @@ const NavBarHome = (props) => {
     const [titre, setTitre] = useState(null);
     const [descriptions, setDescriptions] = useState(null);
     const [image, setImage] = useState(null);
-    const [organisateur, setOrganisateur] = useState(null);
-    const [participants, setParticipants] = useState(null);
     const [dateDebut, setDateDebut] = useState(null);
     const [dateFin, setDateFin] = useState(null);
-    const [estActive, setEstActive] = useState(null);
-    const [moyenne, setMoyenne] = useState(null);
-    const [annonceMairie, setAnnonceMairie] = useState(null);
     const [prix, setPrix] = useState(null);
     const [localisation, setLocalisation] = useState(null);
-    const [idTypeSignalement, setidTypeSignalement] = useState(null);
-    const [idUtilisateurSignalement, setidUtilisateurSignalement] = useState(null);
+    const [typeAct, setTypeAct] = useState(null);
 
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
@@ -54,23 +48,51 @@ const NavBarHome = (props) => {
 
         switch (id) {
             case 1:
+                handleToggle();
                 navigate('/home');
+                break
             case 2:
+                handleToggle();
                 navigate('/home/map');
+                break
             case 3:
+                handleToggle();
                 navigate('/home/notif');
+                break
             case 4:
+                handleToggle();
                 navigate('/home/chat');
+                break
         }
 
     };
 
     const openModal = () => {
+
+        handleToggle();
+
+        setTitre(null);
+        setDescriptions(null);
+        setImage(null);
+        setDateDebut(null);
+        setDateFin(null);
+        setPrix(null);
+        setLocalisation(null);
+        setError(null);
+        setLatitude(null);
+        setLongitude(null);
+
         setIsOpen(true);
     };
 
     const closeModal = () => {
-        setIsOpen(false);
+
+        const toClose = document.querySelector('.modal');
+        toClose.classList.add('closing');
+        setTimeout(() => {
+            setIsOpen(false);
+        }, 300);
+
     };
 
     const handleCheckboxChange = (item) => {
@@ -80,13 +102,8 @@ const NavBarHome = (props) => {
         setTitre(null);
         setDescriptions(null);
         setImage(null);
-        setOrganisateur(null);
-        setParticipants(null);
         setDateDebut(null);
         setDateFin(null);
-        setEstActive(null);
-        setMoyenne(null);
-        setAnnonceMairie(null);
         setPrix(null);
         setLocalisation(null);
         setError(null);
@@ -135,6 +152,7 @@ const NavBarHome = (props) => {
     useEffect(() => {
 
         if (selectedValue === 'Vente') {
+            setTypeAct(5);
             setToAddModal(
                 <>
                     <input type="text" placeholder="Titre de l'annonce" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
@@ -150,11 +168,12 @@ const NavBarHome = (props) => {
             );
         }
 
-        else if (selectedValue === 'Evénement') {
+        else if (selectedValue === 'Evenement') {
+            setTypeAct(4);
             setToAddModal(
                 <>
-                    <input type="text" placeholder="Titre de l'evénement" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
-                    <textarea placeholder="Description de l'evénement" id='simple_textarea_des' onChange={(event) => setDescriptions(event.target.value)}></textarea>
+                    <input type="text" placeholder="Titre de l'evenement" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
+                    <textarea placeholder="Description de l'evenement" id='simple_textarea_des' onChange={(event) => setDescriptions(event.target.value)}></textarea>
                     <label htmlFor="date_debut_popup" id='label_date'>Date début : </label>
                     <input type="date" id='date_debut_popup' onChange={(event) => setDateDebut(event.target.value)} />
                     <label htmlFor="date_debut_popup" id='label_date'>Date fin : </label>
@@ -166,11 +185,12 @@ const NavBarHome = (props) => {
         }
 
         else if (selectedValue === 'Poste à pourvoir') {
+            setTypeAct(3);
             setToAddModal(
                 <>
                     <input type="text" placeholder="Titre du poste" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
                     <textarea placeholder="Description du poste" id='simple_textarea_des' onChange={(event) => setDescriptions(event.target.value)}></textarea>
-                    <input type="number" placeholder="Salaire brut" id='price_popup' onChange={(event) => setPrix(event.target.value)} />
+                    <input type="number" placeholder="Salaire brut mois" id='price_popup' onChange={(event) => setPrix(event.target.value)} />
                     <input id='file' type="file" accept="image/png, image/jpeg" class="inputfile" onChange={(event) => setImage(event.target.value)}></input>
                     <label for="file"><i className="fa-solid fa-image"></i>Ajouter une photo ou vidéo</label>
                 </>
@@ -178,6 +198,7 @@ const NavBarHome = (props) => {
         }
 
         else if (selectedValue === 'Promotion') {
+            setTypeAct(2);
             setToAddModal(
                 <>
                     <input type="text" placeholder="Titre de l'annonce" id='title_popup' onChange={(event) => setTitre(event.target.value)} />
@@ -189,6 +210,7 @@ const NavBarHome = (props) => {
         }
 
         else {
+            setTypeAct(1);
             setToAddModal(
                 <>
                     <textarea placeholder='À quoi pensez-vous @Name ?' id='simple_textarea' onChange={(event) => setTitre(event.target.value)}></textarea>
@@ -229,7 +251,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -246,14 +268,18 @@ const NavBarHome = (props) => {
             }
         }
 
-        else if (selectedValue === 'Evénement') {
-            if (titre === null || dateDebut === null || dateFin === null || dateDebut.length === 0 || dateFin.length === 0 || titre.length === 0 || prix.length === 0) {
+        else if (selectedValue === 'Evenement') {
+
+            if (dateDebut > dateFin) {
+                setError('La date de début ne peut pas être supérieur à la date de fin');
+            }
+            else if (titre === null || dateDebut === null || dateFin === null || dateDebut.length === 0 || dateFin.length === 0 || titre.length === 0) {
                 setError('Les champs titre et et date ne sont pas remplies')
             }
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -277,7 +303,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -301,7 +327,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -325,7 +351,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -349,7 +375,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix }, { "x-access-token": user.token })
+                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -392,7 +418,7 @@ const NavBarHome = (props) => {
                         {toAddModal}
                     </div>
                     <div className="modal_content_right">
-                        <DropDownBtn text="Type de post" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post']} onCheckboxChange={handleCheckboxChange} />
+                        <DropDownBtn text="Type de post" items={['Vente', 'Evenement', 'Poste à pourvoir', 'Promotion', 'Simple post']} onCheckboxChange={handleCheckboxChange} />
                         <input type="button" value="Publier" id='publish' onClick={handleSubmit} />
                         <p className='error_msg'>{error}</p>
                     </div>

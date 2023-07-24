@@ -5,7 +5,6 @@ export const getAPI = async (url, body, header) => {
     return await fetchData(url, 'GET', body, header);
 };
 
-
 export const postAPI = async (url, body, header) => {
     return await fetchData(url, 'POST', body, header);
 };

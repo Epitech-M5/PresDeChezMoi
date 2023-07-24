@@ -8,18 +8,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10000;
+    z-index: 100000;
     opacity: 0;
-    animation: fadeIn 0.3s ease-in forwards;
+    animation: fadeInM 0.3s ease-in forwards;
 }
 
-@keyframes fadeIn {
+.modal.closing {
+    animation: fadeOutM 0.3s ease-out forwards;
+}
+
+@keyframes fadeInM {
     from {
         opacity: 0;
     }
 
     to {
         opacity: 1;
+    }
+}
+
+@keyframes fadeOutM {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
     }
 }
 
@@ -148,6 +162,16 @@ body.modal-open {
     padding: 10px;
     border-radius: 54px;
     margin-bottom: 20px;
+}
+
+.inputfile.admin+label {
+    color: $blue;
+    background-color: transparent;
+    width: 100%;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .error_msg {

@@ -1,0 +1,96 @@
+.container_title_page_admin {
+    width: 100%;
+}
+
+.container_title_page_admin h1 {
+    font-size: 25px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    margin-left: 30px;
+}
+
+.content_admin {
+    background-color: $white;
+    height: 100vh;
+    width: 80%;
+    position: fixed;
+    z-index: 3000;
+    overflow-y: scroll;
+    margin-top: 20px !important;
+    margin-left: 20% !important;
+    border-top-left-radius: 30px;
+}
+
+.content_inside_admin_pages {
+    margin-left: 30px;
+    width: calc(100% - 60px);
+    height: auto;
+    margin-bottom: 60px;
+}
+
+.input_rec_text {
+    width: 50%;
+    border: 1px solid $dark-grey;
+    padding: 10px;
+}
+
+.input_rec_number {
+    width: 50%;
+    border: 1px solid $dark-grey;
+    padding: 10px;
+}
+
+.input_rec_text:focus,
+.input_rec_number:focus {
+    border: 1px solid $violet;
+}
+
+.wrapper_inputs_rec {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.input_rec {
+    padding: 8px 20px 8px 20px;
+    border-radius: 54px;
+    border: none;
+    cursor: pointer;
+    color: $white;
+    background-color: $red-orange;
+}
+
+.space_hr_adm {
+    margin: 50px 0 50px 0;
+}
+
+.wrapper_chat_ville {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+@media(max-width:650px),
+(max-height:450px) {
+
+    .content_admin {
+        position: relative;
+        margin-left: 0 !important;
+        border-top-left-radius: 0;
+        width: 100%;
+        height: auto;
+        z-index: 3000;
+        margin-top: 20px !important;
+        overflow-y: hidden;
+    }
+
+    .container_title_page_admin h1 {
+        margin-top: 30px;
+    }
+
+}
