@@ -5,9 +5,9 @@ module.exports = app => {
 
     router.post("/", [authJwt.verifyToken], annonce.create);
 
-    router.get("/", [authJwt.verifyToken], annonce.find_all);
+    router.get("/", annonce.find_all);
 
-    router.get("/:id", [authJwt.verifyToken], annonce.find_one);
+    router.get("/:id", annonce.find_one);
 
     router.put("/:id", [authJwt.verifyToken], annonce.update);
 

@@ -93,7 +93,9 @@ const LoginPage = () => {
                     var infoUtilisateur = {
                         pseudo: data.pseudo,
                         idRole: data.idRole,
-                        idutilisateur: data.id
+                        idutilisateur: data.id,
+                        idVille: data.idVille,
+                        photoProfil: data.photoProfil,
                     };
                     addMessage('Connexion réussie, attendez quelques instants....', 'success');
                     // Stock dans store

@@ -5,6 +5,7 @@ import Loader from './../components/Loader';
 import DropDownBtn from '../components/MainComponent/DropDownBtn';
 import axios from 'axios';
 import AddressDisplay from '../components/MainComponent/AddressDisplay';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [mapData, setMapData] = useState([]);
@@ -12,13 +13,21 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
     const [typeAct, setTypeAct] = useState(null);
     const [dictionnaireUser, setDictionnaireUser] = useState({});
+    const [idToVerif, setIdToVerif] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAPI('http://127.0.0.1:8081/api/annonce/', {}, { 'x-access-token': user.token })
             .then((response) => {
                 setTimeout(() => {
+
+                    for (var n = 0; n < response.dataAPI.length; n++) {
+                        setIdToVerif(idToVerif => [...idToVerif, response.dataAPI[n].id]);
+                    }
+
                     setMapData(response.dataAPI);
                     setLoading(false);
+
                 }, 2000);
             })
             .catch((error) => {
@@ -107,6 +116,10 @@ const Home = () => {
             );
         }
     };
+
+    const handleShare = (id) => {
+        navigate(`/view-post/${id}`)
+    }
 
     return (
         <>
@@ -197,7 +210,7 @@ const Home = () => {
                                             <div className="container_bottom_post">
                                                 <a href=""><i className="fa-regular fa-heart"></i></a>
                                                 <a href=""><i className="fa-regular fa-comment"></i></a>
-                                                <a href=""><i className="fa-solid fa-share"></i></a>
+                                                <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
                                                 <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                             </div>
                                         </div>
