@@ -11,6 +11,7 @@ const General = () => {
     const [name, setName] = useState('');
     const [numb, setNumb] = useState('');
     const [updateDragAndDrop, setUpdateDragAndDrop] = useState(false);
+    const [updateToggle, setUpdateToggle] = useState(false);
     const [arrayUser, setArrayUser] = useState([]);
 
     const user = useSelector((state) => state.utilisateur);
@@ -22,20 +23,19 @@ const General = () => {
         console.log("user token", user.token)
         console.log("user", user)
 
-        var header = {
-            "x-access-token": user.token
-        }
-        getAPI(`http://127.0.0.1:8081/api/room/ville/${user.idVille}`, null, header).then((response) => {
+        // getAPI(`http://127.0.0.1:8081/api/room/ville/${user.idVille}`, {}, { "x-access-token": user.token }).then((response) => {
 
-            console.log(response)
+        //     console.log(response)
 
-            if (response.dataAPI.length > 0) {
-                // mettre le boutton toggle sur true
-            }
-            else {
-                // sinon le mettre sur false
-            }
-        })
+        //     if (response.dataAPI.length > 0) {
+        //         // mettre le boutton toggle sur true
+        //     }
+        //     else {
+        //         // sinon le mettre sur false
+        //     }
+        // })
+
+        setUpdateToggle(true)
 
     }, []);
 
@@ -79,22 +79,21 @@ const General = () => {
 
     };
 
-    const Toggle = async (state) => {
-        console.log(state);
 
-        // await getAPI(`http://127.0.0.1:8081/api/user/by_ville/${user.idVille}`, null, { 'x-access-token': user.token })
-        //     .then((response) => {
-        //         console.log(response);
-        //         for (var n = 0; n < response.dataAPI.length; n++) {
-        //             setArrayUser(arrayUser => [...arrayUser, response.dataAPI[n].pseudo]);
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
 
-        // console.log(arrayUser);
-    }
+    // await getAPI(`http://127.0.0.1:8081/api/user/by_ville/${user.idVille}`, null, { 'x-access-token': user.token })
+    //     .then((response) => {
+    //         console.log(response);
+    //         for (var n = 0; n < response.dataAPI.length; n++) {
+    //             setArrayUser(arrayUser => [...arrayUser, response.dataAPI[n].pseudo]);
+    //         }
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+
+    // console.log(arrayUser);
+
 
     const handleRec = (event) => {
         setName(event.target.value);
@@ -103,6 +102,11 @@ const General = () => {
     const handlePoint = (event) => {
         setNumb(event.target.value);
     }
+
+    const handleToggle = (state) => {
+        console.log(state);
+        setUpdateToggle(state);
+    };
 
     return (
         <>
@@ -126,7 +130,7 @@ const General = () => {
                     </div>
 
                     <div className="wrapper_chat_ville">
-                        <ToggleBtn toggled={false} onClick={Toggle} />
+                        <ToggleBtn toggled={updateToggle} onToggle={handleToggle} />
                         <h1>Créer un chat de ville</h1>
                     </div>
 

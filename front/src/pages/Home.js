@@ -209,7 +209,6 @@ const Home = () => {
                                             </div>
                                             <div className="container_bottom_post">
                                                 <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                <a href=""><i className="fa-regular fa-comment"></i></a>
                                                 <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
                                                 <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                             </div>
@@ -228,8 +227,8 @@ const Home = () => {
                                                         <div className="container_left_pdp">
                                                             <img src="media/img/1.png" alt="profil" />
                                                             <div className="other_container_pdp">
-                                                                <h1>@UserName</h1>
-                                                                <h4>@lieu • {item.createdAt}</h4>
+                                                                <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                             </div>
                                                         </div>
                                                         <div className="container_right_pdp">
@@ -237,17 +236,14 @@ const Home = () => {
                                                         </div>
                                                     </div>
                                                     <div className="container_content_post">
-                                                        <p>Type 1 Content</p>
-                                                        <p>id type annonce : {item.idTypeActivite}</p>
-                                                        <p>id de l'annonce : {item.id}</p>
+                                                        <p>{item.titre}</p>
                                                         <div className="toCenter_post">
                                                             <img src={item.img} />
                                                         </div>
                                                     </div>
                                                     <div className="container_bottom_post">
                                                         <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                        <a href=""><i className="fa-regular fa-comment"></i></a>
-                                                        <a href=""><i className="fa-solid fa-share"></i></a>
+                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
                                                         <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                     </div>
                                                 </div>
@@ -269,8 +265,8 @@ const Home = () => {
                                                         <div className="container_left_pdp">
                                                             <img src="media/img/1.png" alt="profil" />
                                                             <div className="other_container_pdp">
-                                                                <h1>@UserName</h1>
-                                                                <h4>@lieu • {item.createdAt}</h4>
+                                                                <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                             </div>
                                                         </div>
                                                         <div className="container_right_pdp">
@@ -278,17 +274,15 @@ const Home = () => {
                                                         </div>
                                                     </div>
                                                     <div className="container_content_post">
-                                                        <p>Type 2 Content</p>
-                                                        <p>id type annonce : {item.idTypeActivite}</p>
-                                                        <p>id de l'annonce : {item.id}</p>
+                                                        <p className='title_promo'><span className='type_title promotion'>PROMOTION : </span>{item.titre}</p>
+                                                        <p>{item.description}</p>
                                                         <div className="toCenter_post">
                                                             <img src={item.img} />
                                                         </div>
                                                     </div>
                                                     <div className="container_bottom_post">
                                                         <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                        <a href=""><i className="fa-regular fa-comment"></i></a>
-                                                        <a href=""><i className="fa-solid fa-share"></i></a>
+                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
                                                         <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                     </div>
                                                 </div>
@@ -310,8 +304,8 @@ const Home = () => {
                                                         <div className="container_left_pdp">
                                                             <img src="media/img/1.png" alt="profil" />
                                                             <div className="other_container_pdp">
-                                                                <h1>@UserName</h1>
-                                                                <h4>@lieu • {item.createdAt}</h4>
+                                                                <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                             </div>
                                                         </div>
                                                         <div className="container_right_pdp">
@@ -319,17 +313,16 @@ const Home = () => {
                                                         </div>
                                                     </div>
                                                     <div className="container_content_post">
-                                                        <p>Type 3 Content</p>
-                                                        <p>id type annonce : {item.idTypeActivite}</p>
-                                                        <p>id de l'annonce : {item.id}</p>
+                                                        <p className='title_promo'><span className='type_title poste'>POSTE A POURVOIR : </span>{item.titre}</p>
+                                                        <p>{item.description}</p>
+                                                        <p className='margin_price'>Salaire brut : <span className='price'>{item.prix}€</span>/mois</p>
                                                         <div className="toCenter_post">
                                                             <img src={item.img} />
                                                         </div>
                                                     </div>
                                                     <div className="container_bottom_post">
                                                         <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                        <a href=""><i className="fa-regular fa-comment"></i></a>
-                                                        <a href=""><i className="fa-solid fa-share"></i></a>
+                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
                                                         <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                     </div>
                                                 </div>
@@ -351,8 +344,8 @@ const Home = () => {
                                                         <div className="container_left_pdp">
                                                             <img src="media/img/1.png" alt="profil" />
                                                             <div className="other_container_pdp">
-                                                                <h1>@UserName</h1>
-                                                                <h4>@lieu • {item.createdAt}</h4>
+                                                                <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                             </div>
                                                         </div>
                                                         <div className="container_right_pdp">
@@ -360,17 +353,16 @@ const Home = () => {
                                                         </div>
                                                     </div>
                                                     <div className="container_content_post">
-                                                        <p>Type 4 Content</p>
-                                                        <p>id type annonce : {item.idTypeActivite}</p>
-                                                        <p>id de l'annonce : {item.id}</p>
+                                                        <p className='title_promo'><span className='type_title event'>EVENEMENT : </span>{item.titre}</p>
+                                                        <p>{item.description}</p>
+                                                        {renderDateEvent(item.dateDebut, item.dateFin)}
                                                         <div className="toCenter_post">
                                                             <img src={item.img} />
                                                         </div>
                                                     </div>
                                                     <div className="container_bottom_post">
                                                         <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                        <a href=""><i className="fa-regular fa-comment"></i></a>
-                                                        <a href=""><i className="fa-solid fa-share"></i></a>
+                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
                                                         <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                     </div>
                                                 </div>
@@ -392,8 +384,8 @@ const Home = () => {
                                                         <div className="container_left_pdp">
                                                             <img src="media/img/1.png" alt="profil" />
                                                             <div className="other_container_pdp">
-                                                                <h1>@UserName</h1>
-                                                                <h4>@lieu • {item.createdAt}</h4>
+                                                                <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                             </div>
                                                         </div>
                                                         <div className="container_right_pdp">
@@ -401,17 +393,17 @@ const Home = () => {
                                                         </div>
                                                     </div>
                                                     <div className="container_content_post">
-                                                        <p>Type 5 Content</p>
-                                                        <p>id type annonce : {item.idTypeActivite}</p>
-                                                        <p>id de l'annonce : {item.id}</p>
+                                                        <p className='title_promo'><span className='type_title vente'>VENTE : </span>{item.titre}</p>
+                                                        <p className='margin_bot_price'><span className='price_in_vente'>Prix : </span>{item.prix}€</p>
+                                                        <p>{item.description}</p>
+                                                        {renderDateEvent(item.dateDebut, item.dateFin)}
                                                         <div className="toCenter_post">
                                                             <img src={item.img} />
                                                         </div>
                                                     </div>
                                                     <div className="container_bottom_post">
                                                         <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                        <a href=""><i className="fa-regular fa-comment"></i></a>
-                                                        <a href=""><i className="fa-solid fa-share"></i></a>
+                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
                                                         <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                     </div>
                                                 </div>

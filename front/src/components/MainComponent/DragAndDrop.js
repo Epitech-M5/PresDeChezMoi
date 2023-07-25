@@ -3,8 +3,6 @@ import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js'
 
 const DragAndDrop = ({ onFileDrop, updateDragAndDrop }) => {
 
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@ : " + onFileDrop)
-
     const [isDragging, setIsDragging] = useState(false);
     const [file, setFile] = useState(null);
 
