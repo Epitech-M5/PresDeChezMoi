@@ -67,7 +67,7 @@ exports.find_one = (req, res) => {
         });
 };
 
-// ADMIN: peut voir tout les tivket existant
+// ADMIN: peut voir tout les ticket existant
 exports.find_all = (req, res) => {
     Ticket.findAll()
         .then(data => {
@@ -81,47 +81,37 @@ exports.find_all = (req, res) => {
         });
 };
 
+// ADMIN: modifie le statue du ticket
 exports.update = (req, res) => {
     const id = req.params.id;
-
     Ticket.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             const idStatus = req.body.idStatus
-
             if (num == 1) {
-                            // Cherche le nom du status en fonction de l'id pour l'envoyer au front
-            Status.findByPk(idStatus)
-            .then(data => {
-                if (data) {
-                    console.log("status data",data)
-                    res.send(data);
-            // quand status est ok j'envoi la notification
-                } else {
-                    res.status(404).send({
-                        message: `Cannot find Status with id=${id}.`
-                    });
-                }
-            })
-            
-                // const NotificationObjet = {
-                //     idUtilisateur: data.idUtilisateur,
-                //     titre: req.body.titre,
-                //     supprimer: false,
-                //     message: req.body.message,
-                //     dateCreation: null
-                // };
+                // Cherche le nom du status en fonction de l'id selectionné pour l'envoyer au front
+                Status.findByPk(idStatus)
+                .then(data => {
+                    if (data) {                        
+                        // Le status change dans l'onglet ticket de l'utilisateur et pour l'admin
+                        res.send(data);
+                    } else {
+                        res.status(404).send({
+                            message: `Cannot find Status with id=${id}.`
+                        });
+                    }
+                })
             
             } else {
                 res.send({
-                    message: `Cannot update Type Signalement with id=${id}. Maybe Type Signalement was not found or req.body is empty!`
+                    message: `Impossible de modifier le status du ticket avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Type Signalement with id=" + id + "(" + err + ")"
+                message: "Erreur lors de la modification du status du ticket avec id=" + id + "(" + err + ")"
             });
         });
 };
@@ -135,17 +125,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Type Signalement was deleted successfully!"
+                    message: "Le ticket aa été supprimé avec succès!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Type Signalement with id=${id}. Maybe Type Signalement was not found!`
+                    message: `Impossible de supprimer le ticket avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Type Signalement with id=" + id
+                message: "Impossible de supprimer le ticket avec id=" + id
             });
         });
 };
@@ -166,7 +156,7 @@ exports.find_all_by_status= (req, res) => {
     .catch(err => {
         res.status(500).send({
             message:
-                err.message || "Some error occurred while retrieving tutorials."
+                err.message || "Une erreur est survenu pour retrouver le ticket."
         });
     });
 };
