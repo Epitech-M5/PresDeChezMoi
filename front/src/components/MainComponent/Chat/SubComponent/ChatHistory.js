@@ -1,6 +1,10 @@
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 
 const ChatHistory = ({ history }) => {
+
+  const userInfo = useSelector((state) => state.utilisateur);
   const chatHistoryRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -29,30 +33,37 @@ const ChatHistory = ({ history }) => {
     }
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("Ce code s'exécute toutes les minutes !");
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div ref={chatHistoryRef} className="chat_history">
       {history.map((item, index) =>
-        item.receive ? (
-          <div className="chat_message_containt">
+        item.pseudo !== userInfo.pseudo ? (
+          <div className="chat_message_containt" key={index}>
             <img
               className="chat_image chat_image_receive"
-              src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?cs=srgb&dl=pexels-mohamed-abdelghaffar-771742.jpg&fm=jpg"
+              src={`../../../../media/img/${item.image}.png`}
               alt="imageMessage"
             />
-            <div key={index} className="chat_messages chat_messages_receive">
-              <p>{item.message}</p>
+            <div className="chat_messages chat_messages_receive">
+              <p>{item.pseudo} : {item.message}</p>
               <span>{formatTime(new Date(item.time))}</span>
             </div>
           </div>
         ) : (
-          <div className="chat_message_containt">
-            <div key={index} className="chat_messages chat_messages_send">
+          <div className="chat_message_containt" key={index}>
+            <div className="chat_messages chat_messages_send">
               <p>{item.message}</p>
               <span>{formatTime(new Date(item.time))}</span>
             </div>
             <img
               className="chat_image chat_image_send"
-              src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?cs=srgb&dl=pexels-mohamed-abdelghaffar-771742.jpg&fm=jpg"
+              src={`../../../../media/img/${item.image}.png`}
               alt="imageMessage"
             />
           </div>

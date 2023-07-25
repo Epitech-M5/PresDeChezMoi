@@ -25,14 +25,14 @@ const TypeSignalement = db.typeSignalement;
 const Annonce = db.annonce;
 const Utilisateur = db.utilisateur;
 
-db.sequelize.sync({ force: true })
-    .then(() => {
-        console.log("Drop and re-sync db.");
-        initial() // temporaire pour test
-    })
-    .catch((err) => {
-        console.log("Failed to sync db: " + err.message);
-    });
+// db.sequelize.sync({ force: true })
+//     .then(() => {
+//         console.log("Drop and re-sync db.");
+//         initial() // temporaire pour test
+//     })
+//     .catch((err) => {
+//         console.log("Failed to sync db: " + err.message);
+//     });
 
 
 // =============================================
@@ -239,6 +239,7 @@ function initial() {
 // });
 
 // routes
+require("./messages/chat")(app);
 require("./routes/utilisateur.routes.js")(app);
 require("./routes/roles.routes.js")(app);
 require("./routes/typeUrgence.routes.js")(app);
@@ -258,7 +259,7 @@ require("./routes/room.routes.js")(app);
 require("./routes/chat.routes.js")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 8082;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });

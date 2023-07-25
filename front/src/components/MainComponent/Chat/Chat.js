@@ -4,6 +4,7 @@ import ChatHistory from "./SubComponent/ChatHistory";
 import ChatCommand from "./SubComponent/ChatCommand";
 import ChatHeader from "./SubComponent/ChatHeader";
 import ChatSidebar from "./SubComponent/ChatSidebar";
+import { store } from "../../../redux/store";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import {
   isLogin,
@@ -11,8 +12,7 @@ import {
   fetchRefreshToken,
   fetchToken,
 } from "../../../redux/Utilisateur";
-import { fetchMembers } from "../../../redux/ListUsers";
-import { store } from "../../../redux/store";
+import { fetchConv } from "../../../redux/ListUsers";
 import axios from "axios";
 
 const Chat = () => {
@@ -23,65 +23,38 @@ const Chat = () => {
   const [socketId, setSocketId] = useState(null);
   const [history, setHistory] = useState([]);
   const [image, setImage] = useState(null);
-
+  const [channel, setChannel] = useState(null);
   const dispatch = useDispatch();
-  const socketPort = 8082;
-
-  const ipBDD = "localhost";
   const [refreshTokenValid, setRefreshTokenValid] = useState(true);
-
   const userInfo = useSelector((state) => state.utilisateur);
-  const listUsers = useSelector((state) => state.listUsers);
 
-  //↓↓↓↓↓↓↓↓↓↓↓↓↓↓ A SUPPRIMER ↓↓↓↓↓↓↓↓↓↓↓↓
-
-  useEffect(() => {
-    console.log("USERINFO",userInfo);
-    // const UserInfo = {
-    //   id: 6,
-    //   pseudo: "test",
-    //   isLogin: true,
-    //   score: null,
-    //   photoProfil: "5",
-    //   idRole: 2,
-    //   accessToken:
-    //     "ZeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjg5NTk0MTEwLCJleHAiOjE2ODk1OTc3MTB9.IfaeAKdfe8P_adUond6OxNpbEgDl9AuOI3HwDg90_MA",
-    //   refreshToken: "4fbd580e-5d16-4eb2-bf4c-7d7a433e30a7",
-    // };
-
-  //   dispatch(isLogin());
-  //   dispatch(fetchToken(UserInfo.accessToken));
-  //   dispatch(fetchRefreshToken(UserInfo.refreshToken));
-  //   dispatch(
-  //     fetchUtilisateurData({
-  //       pseudo: UserInfo.pseudo,
-  //       idutilisateur: UserInfo.id,
-  //       idRole: UserInfo.idRole,
-  //       pathImage: UserInfo.photoProfil,
-  //     })
-  //   );
-
-  //   console.log("Variables set");
-  }, []);
-
-  //↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+  const socketPort = 8081;
+  const ipBDD = "localhost";
 
   async function fetchData() {
     // Function pour actualiser les info de la table rooms
     try {
-      const config = {
+      const response = await axios({
+        method: "GET",
         headers: {
           "x-access-token": userInfo.token,
           "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
         },
-      };
-
-      const response = await axios.get(`http://${ipBDD}:8081/api/room/`,config);
-
-      console.log("RESPONSE.DATA",response.data);
-      console.log("USERINFO",userInfo);
-
+        url: `http://${ipBDD}:8082/api/room`,
+      });
+      console.log("RESPONSE.DATA ", response.data);
+      response.data.map((item, index) => {
+        item.membres = item.membres
+          .split("[")
+          .join("")
+          .split("]")
+          .join("")
+          .split('"')
+          .join("");
+      });
+      dispatch(fetchConv(response.data));
       // Effectuez des actions supplémentaires avec les données de la réponse ici
+      console.log("USERINFO ", userInfo);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Erreur 401 - Token d'accès invalide, effectuer la requête de rafraîchissement du token
@@ -134,7 +107,7 @@ const Chat = () => {
   }
 
   useEffect(() => {
-    const newSocket = io(`http://localhost:${socketPort}`);
+    var newSocket = io(`:${socketPort}`);
     setSocket(newSocket);
 
     newSocket.on("connect", () => {
@@ -146,47 +119,53 @@ const Chat = () => {
       console.log(`User Disconnected: ${socketId}`);
       setSocketId(null);
     });
+
     return () => {
       newSocket.disconnect();
     };
   }, []);
 
   useEffect(() => {
-    // fetchData();
-    // Mettre en place l'intervalle pour exécuter fetchData toutes les 10 secondes
-    const interval = setInterval(() => {
-      fetchData();
-    }, 10000);
+    if (socket && channel) {
+      // Join the default channel when connected
+      const callback = (data) => {
+        if (data.channel === channel) {
+          if (history[history.length - 1] === data) return;
+          console.log(data);
+          setHistory((prevHistory) => [...prevHistory, data]);
+        }
+      };
 
-    // Nettoyer l'intervalle lorsque le composant est démonté ou lorsque le tableau de dépendances change
-    return () => {
-      clearInterval(interval);
-    };
-  }, [userInfo]); //cela va refetch autmatiquement si le token ou refresh token change, sinon cela va refetch toutes les 10 secondes
+      socket.on("receive_message", callback);
 
-  // useEffect(() => {
-  //   if (socket) {
-  //     socket.on("receive_message", (data) => {
-  //       console.log(data);
-  //       setHistory((prevHistory) => [...prevHistory, data]);
-  //     });
-  //   }
-  // }, [socket]);
+      return () => {
+        socket.off("receive_message", callback);
+      };
+    }
+  }, [socket, channel]);
 
-  const handleImportImage = (selectedImage) => {
-    setImage(selectedImage);
+  const handleChangeChannel = (channelEntry) => {
+    setHistory([]);
+    setChannel(channelEntry);
   };
 
   const sendMessage = (messageData) => {
     socket.emit("message", messageData);
     setMessage("");
-    setImage(null);
+  };
+
+  const handleImportImage = (selectedImage) => {
+    setImage(selectedImage);
   };
 
   return (
     <>
       <div className="chat_container">
-        <ChatSidebar fetchData={fetchData} />
+        <ChatSidebar
+          fetchData={fetchData}
+          ipBDD={ipBDD}
+          handleChangeChannel={handleChangeChannel}
+        />
 
         <div className="chat_blank" />
 
@@ -200,6 +179,7 @@ const Chat = () => {
             setMessage={setMessage}
             handleImportImage={handleImportImage}
             sendMessage={sendMessage}
+            channel={channel}
           />
         </div>
       </div>

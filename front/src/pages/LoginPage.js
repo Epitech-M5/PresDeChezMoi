@@ -35,7 +35,7 @@ const LoginPage = () => {
         else {
 
             axios
-                .post("http://127.0.0.1:8081/api/user/auth/signup", { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2, "photoProfil": "1" })
+                .post("http://127.0.0.1:8082/api/user/auth/signup", { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2, "photoProfil": "1" })
                 .then(response => {
 
                     // permet de récupérer les info utilisateurs retourné dans la response
@@ -57,7 +57,7 @@ const LoginPage = () => {
 
                     setTimeout(() => {
                         navigate('/home')
-                    }, 3000);
+                    }, 2000);
 
                 }).catch(error => {
                     console.log("error", error);
@@ -82,7 +82,7 @@ const LoginPage = () => {
         else {
 
             axios
-                .post("http://127.0.0.1:8081/api/user/auth/signin", { "pseudo": idLogin, "motDePasse": passwordLogin })
+                .post("http://127.0.0.1:8082/api/user/auth/signin", { "pseudo": idLogin, "motDePasse": passwordLogin })
                 .then(response => {
 
                     console.log(response)
@@ -93,7 +93,8 @@ const LoginPage = () => {
                     var infoUtilisateur = {
                         pseudo: data.pseudo,
                         idRole: data.idRole,
-                        idutilisateur: data.id
+                        idutilisateur: data.id,
+                        photoProfil: data.photoProfil
                     };
                     addMessage('Connexion réussie, attendez quelques instants....', 'success');
                     // Stock dans store
@@ -103,7 +104,7 @@ const LoginPage = () => {
                     dispatch(fetchUtilisateurData(infoUtilisateur));
                     setTimeout(() => {
                         navigate('/home')
-                    }, 3000);
+                    }, 2000);
 
                 }).catch(error => {
                     console.log("error", error);

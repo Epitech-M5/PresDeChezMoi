@@ -8,7 +8,7 @@ export const utilisateurSlice = createSlice({
         isLogin: false,
         pseudo:"",
         score:0,
-        pathImage:"",
+        photoProfil:"",
         idRole:0,
         refreshToken:"",
         idutilisateur:0
@@ -24,12 +24,12 @@ export const utilisateurSlice = createSlice({
             state.refreshToken = action.payload;
         },
         fetchUtilisateurData:(state,action)=> {
-            const {pseudo, idutilisateur, idRole, pathImage} = action.payload
+            const {pseudo, idutilisateur, idRole, photoProfil} = action.payload
             state.pseudo = pseudo
             state.idutilisateur = idutilisateur
             state.idRole = idRole
-            if (pathImage) {
-                state.pathImage = pathImage
+            if (photoProfil) {
+                state.photoProfil = photoProfil
             }
        // score, pathImage
         }

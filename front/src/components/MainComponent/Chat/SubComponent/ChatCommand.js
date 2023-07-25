@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiSend } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const ChatCommand = ({
   message,
   setMessage,
   handleImportImage,
   sendMessage,
+  channel,
 }) => {
+  const userInfo = useSelector((state) => state.utilisateur);
   const [selectedFileName, setSelectedFileName] = useState("");
 
   const handleInputChange = (e) => {
@@ -18,15 +21,18 @@ const ChatCommand = ({
     if (message.trim().length === 0) return;
 
     const messageData = {
-      receive: false,
+      pseudo: userInfo.pseudo,
       message: message,
       time: new Date(),
-      image: null,
+      channel: channel,
+      image: userInfo.photoProfil,
     };
 
     sendMessage(messageData);
     setMessage("");
   };
+
+  useEffect(() => {}, [channel]);
 
   const handleFileChange = (e) => {
     const selectedImage = e.target.files[0];
@@ -52,13 +58,13 @@ const ChatCommand = ({
           onKeyDown={handleKeyDown} // Gestionnaire d'événements pour la touche "Entrée"
         />
         <button type="submit">
-          <FiSend className="chat_btn_send"/>
+          <FiSend className="chat_btn_send" />
         </button>
 
         {/* <div className="chat_input_foot">
           <label htmlFor="imageInput" className="chat_import">
             <span className="chat_import_image">
-              {selectedFileName ? (git puh
+              {selectedFileName ? (
                 selectedFileName
               ) : (
                 <>
@@ -73,7 +79,7 @@ const ChatCommand = ({
               onChange={handleFileChange}
             />
           </label>
-        </div> */}
+        </div>) */}
       </form>
     </div>
   );

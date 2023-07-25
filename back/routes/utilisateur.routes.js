@@ -29,6 +29,8 @@ module.exports = app => {
     // Refresh token: permet de récup un token valide lorsque l'ancien ne l'est plus
     router.post("/auth/refreshtoken", utilisateur.refreshToken);
     
+    router.get("/:pseudo", [authJwt.verifyToken], utilisateur.findByPseudo);
+
     // Liste de tout les utilisateurs
     router.get("/", 
                 [authJwt.verifyToken, authJwt.isAdmin],
@@ -38,7 +40,6 @@ module.exports = app => {
     // Modification d'un utilisateur en utilisant l'id utilisateur depuis le token ou bien par choix de l'administrateur
     router.put("/:id", [authJwt.verifyToken],utilisateur.update);
 
-    // Suppression d'un utilisateur grâce à l'id utilisateur depuis le token ou bien par choix de l'administrateur
     router.delete("/:id", utilisateur.delete);
 
     // Base de la route API pour l'utilisateur 

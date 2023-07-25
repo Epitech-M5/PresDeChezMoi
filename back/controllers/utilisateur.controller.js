@@ -130,6 +130,7 @@ exports.signin = (req, res) => {
           id: user.id,
           pseudo: user.pseudo,
           idRole: user.idRole,
+          photoProfil: user.photoProfil,
           accessToken: token,
           refreshToken: refreshToken,
         });
@@ -137,6 +138,33 @@ exports.signin = (req, res) => {
       })
     })
     .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+exports.findByPseudo = (req, res) => {
+  const pseudo = req.params.pseudo;
+
+  Utilisateur.findOne({
+    where: {
+      pseudo: pseudo,
+    },
+  })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: "Utilisateur non trouvé." });
+      }
+
+      res.status(200).send({
+        id: user.id,
+        pseudo: user.pseudo,
+        score: user.score,
+        photoProfil: user.photoProfil,
+        idRole: user.idRole,
+        // Ajoutez ici d'autres propriétés de l'utilisateur que vous souhaitez renvoyer
+      });
+    })
+    .catch((err) => {
       res.status(500).send({ message: err.message });
     });
 };

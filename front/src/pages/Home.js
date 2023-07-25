@@ -8,7 +8,7 @@ const Home = () => {
     const user = useSelector((state) => state.utilisateur)
 
     useEffect(() => {
-        getAPI("http://127.0.0.1:8081/api/annonce/", {}, { "x-access-token": user.token })
+        getAPI("http://127.0.0.1:8082/api/annonce/", {}, { "x-access-token": user.token })
             .then(response => {
                 console.log('response : ' + JSON.stringify(response))
                 setMapData(response.data)

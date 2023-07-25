@@ -52,7 +52,7 @@ const HomeContainer = () => {
   if (user.isLogin && user.idRole === 3) {
     return (
       <>
-        <ChatBot />
+        {/* <ChatBot /> */}
         <ResearchBar />
         <NavBarHome isAdmin='admin' />
         <Routes>
@@ -67,12 +67,13 @@ const HomeContainer = () => {
   if (user.isLogin) {
     return (
       <>
-        <ChatBot />
+        {/* <ChatBot /> */}
         <ResearchBar />
         <NavBarHome />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </>
