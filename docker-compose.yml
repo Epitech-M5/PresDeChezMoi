@@ -39,6 +39,7 @@ services:
     restart: always
     networks:
       - back-mariadb
+      - front-back
 
   front:
     depends_on:
