@@ -5,7 +5,7 @@
   become_method: sudo
 
   vars:
-    repo_git: "https://github.com/MateoSalvy/DeploimentTest.git"
+    repo_git: "https://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@github.com/EpitechMscProPromo2025/T-YEP-600-MAR-6-1-finalproject-mateo.salvy.git"
 
   tasks:
     - name: Mise à jour du cache APT
@@ -39,13 +39,11 @@
         mode: '+x'
 
     - name: Clone du référentiel Git
-      git:
-        repo: "{{repo_git}}"
-        dest: "./Code"
+      shell: sudo git clone {{repo_git}}
 
     - name: Lancement docker-compose
       become: true
-      shell: cd Code && sudo docker-compose up -d
+      shell: cd T-YEP-600-MAR-6-1-finalproject-mateo.salvy && sudo git checkout dev && sudo docker-compose up -d
 
     - name: Ajout port 3306 MariaDB
       become: true

@@ -17,7 +17,8 @@ services:
   phpmyadmin:
     depends_on:
       - mariadb
-    image: phpmyadmin/phpmyadmin
+    #image: phpmyadmin/phpmyadmin      #Version classic
+    image: arm64v8/phpmyadmin         #Version ARM
     restart: always
     ports:
       - 8080:80
@@ -39,6 +40,7 @@ services:
     restart: always
     networks:
       - back-mariadb
+      - front-back
 
   front:
     depends_on:
