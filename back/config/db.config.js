@@ -8,7 +8,11 @@ module.exports = {
 
     USER: "root",
     PASSWORD: "x9474h7mPwSxAEZt92Nb",
+<<<<<<< HEAD
     DB: "testdb",
+=======
+    DB: "testdb2",
+>>>>>>> landing-page
     dialect: "mysql",
     pool: {
         max: 5,

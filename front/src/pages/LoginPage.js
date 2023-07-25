@@ -96,6 +96,10 @@ const LoginPage = () => {
                         idRole: data.idRole,
                         idutilisateur: data.id,
                         idVille: data.idVille,
+<<<<<<< HEAD
+=======
+                        photoProfil: data.photoProfil,
+>>>>>>> landing-page
                     };
                     addMessage('Connexion réussie, attendez quelques instants....', 'success');
                     // Stock dans store

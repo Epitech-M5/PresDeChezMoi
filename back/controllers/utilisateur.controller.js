@@ -1,7 +1,7 @@
 const db = require("../models");
 const Utilisateur = db.utilisateur;
 // Pour token
-const config = require("../config/auth.config"); 
+const config = require("../config/auth.config");
 const Role = db.roles;
 const { refreshToken: RefreshToken } = db;
 var jwt = require("jsonwebtoken");
@@ -11,7 +11,7 @@ var bcrypt = require("bcryptjs");
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min +1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // Inscription (Code erreur dispo: 200, 400, 500)
@@ -61,7 +61,7 @@ exports.signup = (req, res) => {
     .then(async data => {
       // Définition du token: token = id de l'utilisateur
       const token = jwt.sign({ id: data.id }, config.secret, {
-        expiresIn: config.jwtExpiration 
+        expiresIn: config.jwtExpiration
       });
 
       // Generation du refresh token
@@ -205,16 +205,17 @@ exports.find_all = (req, res) => {
 async function userFindRole(userId) {
   Utilisateur.findOne({
     where: {
-            id: userId
+      id: userId
     }
   }).then((user) => {
     console.log("est admin ? ", user.idRole == 3)
     if (user.idRole == 3) {
       // console.log("je passe ici")
       return true
-  } else {
-    return false
-  }})
+    } else {
+      return false
+    }
+  })
 }
 
 // Modification des données de l'utilisateurs (Code erreur dispo: 200, 400, 500)
@@ -222,15 +223,15 @@ exports.update = (req, res) => {
   const id = req.params.id;
   let flagValidModif = false
 
-  if(id == req.userId){
+  if (id == req.userId) {
     flagValidModif = true
   }
   else {
-    flagValidModif = userFindRole(req.userId) 
+    flagValidModif = userFindRole(req.userId)
   }
 
   // si valid
-  if(flagValidModif){
+  if (flagValidModif) {
     req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8)
     Utilisateur.update(req.body, {
       where: { id: id }
@@ -257,7 +258,7 @@ exports.update = (req, res) => {
     res.status(400).send({
       message: "Vous n'êtes pas autorisé à modifier ce profil"
     });
-  }  
+  }
 };
 
 

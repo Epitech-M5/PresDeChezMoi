@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Test from "./pages/Test";
@@ -27,7 +27,10 @@ import Role from "./components/Admin/Role";
 import Tickets from "./components/Admin/Tickets";
 import Event from "./components/Admin/Event";
 import Post from "./components/Admin/Post";
-
+import ViewPost from "./pages/ViewPost";
+import { useParams } from "react-router-dom";
+import { getAPI } from "./api";
+import Loader from "./components/Loader";
 
 const LandingContainer = () => {
   return (
@@ -116,6 +119,54 @@ const AdminContainer = () => {
   }
 }
 
+const ViewContainer = () => {
+
+  const [idToVerif, setIdToVerif] = useState([]);
+  const [loadingVerif, setLoadingVerif] = useState(true);
+
+
+  useEffect(() => {
+    getAPI('http://127.0.0.1:8081/api/annonce/', {}, {})
+      .then((response) => {
+
+        for (var n = 0; n < response.dataAPI.length; n++) {
+          setIdToVerif(idToVerif => [...idToVerif, response.dataAPI[n].id]);
+        }
+
+        setLoadingVerif(false);
+      })
+      .catch((error) => {
+        console.log('error', error);
+        setLoadingVerif(false)
+      });
+  }, []);
+
+  const { id } = useParams();
+
+  const parsedId = parseInt(id);
+  const isValidId = idToVerif.includes(parsedId);
+
+  if (!isValidId) {
+    return <PageNotFound navigation={'/login'} />;
+  }
+
+  else {
+
+    return (
+      <>
+        {loadingVerif ? (
+          <Loader />
+        ) : (
+          <Routes>
+            <Route path="/" element={<ViewPost postId={id} />} />
+          </Routes>
+        )}
+      </>
+    );
+  }
+
+}
+
 const App = () => {
 
   const [loading, setLoading] = useState(true);
@@ -137,6 +188,7 @@ const App = () => {
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
+            <Route path="/view-post/:id" element={<ViewContainer />} />
           </Routes>
         </BrowserRouter>
       </Provider>

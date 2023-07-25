@@ -90,3 +90,64 @@ a {
     font-size: 1rem;
     cursor: pointer !important;
 }
+
+.title_promo {
+    font-weight: 700 !important;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-weight: 700 !important;
+    font-size: 1rem;
+}
+
+.margin_price {
+    margin-top: 10px;
+}
+
+.margin_bot_price {
+    margin-bottom: 10px;
+}
+
+.container_dates {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.type_title {
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+}
+
+.type_title.promotion {
+    color: $green;
+}
+
+.type_title.poste {
+    color: $blue;
+}
+
+.type_title.event {
+    color: $orange;
+}
+
+.type_title.vente {
+    color: $violet;
+}
+
+.left_date {
+    width: 30%;
+    text-align: center;
+}
+
+.right_date {
+    width: 30%;
+    text-align: center;
+}
+
+.price_in_vente {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+}
