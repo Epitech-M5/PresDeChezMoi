@@ -15,23 +15,11 @@ module.exports = (sequelize, Sequelize) => {
         scoreVilleFleurie: {
             type: Sequelize.INTEGER
         },
-        noteHygiene: {
-            type: Sequelize.JSON,
-            defaultValue: []
-        },
         moyenneHygiene: {
             type: Sequelize.FLOAT
         },
-        noteService: {
-            type: Sequelize.JSON,
-            defaultValue: []
-        },
         moyenneService: {
             type: Sequelize.FLOAT
-        },
-        noteEvenement: {
-            type: Sequelize.JSON,
-            defaultValue: []
         },
         moyenneEvenement: {
             type: Sequelize.FLOAT

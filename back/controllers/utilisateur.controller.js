@@ -52,7 +52,8 @@ exports.signup = (req, res) => {
     nombreSignalement: null,
     estBanni: null,
     idRole: req.body.idRole,
-    listAnnonceEnregistre: null
+    listAnnonceEnregistre: null,
+    noteVille: null // {"hygiene":5, "service":5, "evenement":5}
   };
 
   // Enregistre l'utilisateur dans la bdd
@@ -73,6 +74,7 @@ exports.signup = (req, res) => {
         score: data.score,
         photoProfil: data.photoProfil,
         idRole: data.idRole,
+        idVille: data.idVille,
         accessToken: token,
         refreshToken: refreshToken,
         photoProfil: data.photoProfil
@@ -131,6 +133,7 @@ exports.signin = (req, res) => {
           pseudo: user.pseudo,
           idRole: user.idRole,
           photoProfil: user.photoProfil,
+          idVille: user.idVille,
           accessToken: token,
           refreshToken: refreshToken,
         });

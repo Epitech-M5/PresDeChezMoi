@@ -24,15 +24,16 @@ const TypeActivite = db.typeActivite;
 const TypeSignalement = db.typeSignalement;
 const Annonce = db.annonce;
 const Utilisateur = db.utilisateur;
+const Statuses = db.status;
 
-// db.sequelize.sync({ force: true })
-//     .then(() => {
-//         console.log("Drop and re-sync db.");
-//         initial() // temporaire pour test
-//     })
-//     .catch((err) => {
-//         console.log("Failed to sync db: " + err.message);
-//     });
+db.sequelize.sync({ force: true })
+    .then(() => {
+        console.log("Drop and re-sync db.");
+        initial() // temporaire pour test
+    })
+    .catch((err) => {
+        console.log("Failed to sync db: " + err.message);
+    });
 
 
 // =============================================
@@ -42,6 +43,23 @@ function ajoutRole() {
     Role.create({ id: 1, titre: "user" });
     Role.create({ id: 2, titre: "moderator" });
     Role.create({ id: 3, titre: "admin" });
+    Role.create({ id: 4, titre: "super utilisateur" });
+}
+
+function ajoutVille() {
+    Ville.create({
+        id: 1,
+        nom: "Bourgade",
+        codePostal: 12345,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlocale: 5.0
+    })
 }
 
 function ajoutUtilisateur() {
@@ -112,21 +130,26 @@ function ajoutUtilisateur() {
     })
 }
 
-function ajoutVille() {
-    Ville.create({
+function ajoutStatus() {
+    Statuses.create({
         id: 1,
-        nom: "Bourgade",
-        codePostal: 12345,
-        scoreVilleFleurie: 4,
-        noteHygiene: [5, 5, 5, 5],
-        moyenneHygiene: 5.0,
-        noteService: [5, 5, 5, 5],
-        moyenneService: 5.0,
-        noteEvenement: [5, 5, 5, 5],
-        moyenneEvenement: 5.0,
-        scoreGlocale: 5.0
+        titre: "non résolu",
+    })
+    Statuses.create({
+        id: 2,
+        titre: "en cours de traitement",
+    })
+    Statuses.create({
+        id: 3,
+        titre: "résolu",
+    })
+    Statuses.create({
+        id: 4,
+        titre: "inapproprié",
     })
 }
+
+
 
 function ajoutTypeActivite() {
     TypeActivite.create({
@@ -219,6 +242,116 @@ function ajoutAnnonce() {
         parking: true,
         parkingGratuit: false
     })
+    Annonce.create({
+        id: 3,
+        titre: "Vente de petits pains aux chocolats",
+        description: "Encore tous chauds et sortie du four ! =)",
+        image: "124.png",
+        organisateur: 2,
+        participants: [],
+        dateDebut: "2023-07-20 08:00:00",
+        dateFin: "2023-07-20 09:00:00",
+        estActive: true,
+        reaction: 1,
+        idTypeActivite: 1,
+        annonceMairie: false,
+        idTypeSignalement: null,
+        idUtilisateurSignalement: null,
+        prix: 1.0,
+        longitude: 5.4263808,
+        latitude: 43.3455104,
+        estVerifie: true,
+        parking: true,
+        parkingGratuit: false
+    })
+    Annonce.create({
+        id: 4,
+        titre: "Vente de petits pains aux chocolats",
+        description: "Encore tous chauds et sortie du four ! =)",
+        image: "124.png",
+        organisateur: 2,
+        participants: [],
+        dateDebut: "2023-07-20 08:00:00",
+        dateFin: "2023-07-20 09:00:00",
+        estActive: true,
+        reaction: 1,
+        idTypeActivite: 1,
+        annonceMairie: false,
+        idTypeSignalement: null,
+        idUtilisateurSignalement: null,
+        prix: 1.0,
+        longitude: 5.4263808,
+        latitude: 43.3455104,
+        estVerifie: true,
+        parking: true,
+        parkingGratuit: false
+    })
+    Annonce.create({
+        id: 5,
+        titre: "Vente de petits pains aux chocolats",
+        description: "Encore tous chauds et sortie du four ! =)",
+        image: "124.png",
+        organisateur: 2,
+        participants: [],
+        dateDebut: "2023-07-20 08:00:00",
+        dateFin: "2023-07-20 09:00:00",
+        estActive: true,
+        reaction: 1,
+        idTypeActivite: 1,
+        annonceMairie: false,
+        idTypeSignalement: null,
+        idUtilisateurSignalement: null,
+        prix: 1.0,
+        longitude: 5.4263808,
+        latitude: 43.3455104,
+        estVerifie: true,
+        parking: true,
+        parkingGratuit: false
+    })
+    Annonce.create({
+        id: 6,
+        titre: "Vente de petits pains aux chocolats",
+        description: "Encore tous chauds et sortie du four ! =)",
+        image: "124.png",
+        organisateur: 2,
+        participants: [],
+        dateDebut: "2023-07-20 08:00:00",
+        dateFin: "2023-07-20 09:00:00",
+        estActive: true,
+        reaction: 1,
+        idTypeActivite: 1,
+        annonceMairie: false,
+        idTypeSignalement: null,
+        idUtilisateurSignalement: null,
+        prix: 1.0,
+        longitude: 5.4263808,
+        latitude: 43.3455104,
+        estVerifie: true,
+        parking: true,
+        parkingGratuit: false
+    })
+    Annonce.create({
+        id: 7,
+        titre: "Vente de petits pains aux chocolats",
+        description: "Encore tous chauds et sortie du four ! =)",
+        image: "124.png",
+        organisateur: 2,
+        participants: [],
+        dateDebut: "2023-07-20 08:00:00",
+        dateFin: "2023-07-20 09:00:00",
+        estActive: true,
+        reaction: 1,
+        idTypeActivite: 1,
+        annonceMairie: false,
+        idTypeSignalement: null,
+        idUtilisateurSignalement: null,
+        prix: 1.0,
+        longitude: 5.4263808,
+        latitude: 43.3455104,
+        estVerifie: true,
+        parking: true,
+        parkingGratuit: false
+    })
 }
 // =============================================
 // Fin de données factices
@@ -231,6 +364,7 @@ function initial() {
     ajoutTypeActivite() // Ajout de Type d'activite
     ajoutTypeSignalement() // Ajout de Type de signalement
     ajoutAnnonce() // Ajout annonce
+    ajoutStatus() // Ajout status des tickets
 }
 
 // // simple route
@@ -254,7 +388,7 @@ require("./routes/commentaireAdmin.routes.js")(app);
 require("./routes/annonce.routes.js")(app);
 require("./routes/commentaire.routes.js")(app);
 require("./routes/typeActivite.routes.js")(app);
-// require("./routes/map.routes.js")(app);
+require("./routes/map.routes.js")(app);
 require("./routes/room.routes.js")(app);
 require("./routes/chat.routes.js")(app);
 

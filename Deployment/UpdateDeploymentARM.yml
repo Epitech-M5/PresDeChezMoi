@@ -1,0 +1,42 @@
+- name: UpdateDeployment projet (front + back) version ARM
+  hosts: VM
+  become: true
+  become_method: sudo
+
+  vars:
+    repo_git: "https://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@github.com/EpitechMscProPromo2025/T-YEP-600-MAR-6-1-finalproject-mateo.salvy.git"
+
+  tasks:
+    - name: Mise à jour du cache APT
+      apt:
+        update_cache: yes
+
+    - name: Stop and remove container back
+      docker_container:
+        name: t-yep-600-mar-6-1-finalproject-mateosalvy-back-1
+        state: stopped
+        remove: yes
+
+    - name: Stop and remove container front
+      docker_container:
+        name: t-yep-600-mar-6-1-finalproject-mateosalvy-front-1
+        state: stopped
+        remove: yes
+
+    - name: Delete image back
+      docker_image:
+        name: t-yep-600-mar-6-1-finalproject-mateosalvy-back
+        state: absent
+
+    - name: Delete image front
+      docker_image:
+        name: t-yep-600-mar-6-1-finalproject-mateosalvy-front
+        state: absent
+
+    - name: git pull
+      become: true
+      shell: cd T-YEP-600-MAR-6-1-finalproject-mateo.salvy && sudo git pull
+
+    - name: Lancement docker-compose
+      become: true
+      shell: sudo docker-compose up -d

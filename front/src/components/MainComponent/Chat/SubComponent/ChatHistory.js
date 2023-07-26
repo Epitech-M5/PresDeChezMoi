@@ -33,13 +33,6 @@ const ChatHistory = ({ history }) => {
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      console.log("Ce code s'exécute toutes les minutes !");
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div ref={chatHistoryRef} className="chat_history">
       {history.map((item, index) =>

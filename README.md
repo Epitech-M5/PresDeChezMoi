@@ -1,4 +1,4 @@
-# MSC 1 Final Year-End Project
+# MSC Pro Final Year-End Project
 
 ### Presentation of the project
 Lorem ipsum dolor sit amet. Ut eligendi excepturi eos dolorem molestiae a quia voluptates et architecto iusto quo commodi sequi qui omnis galisum. Et neque nobis ea libero obcaecati aut repellat autem est facilis delectus aut quos laudantium aut nemo facilis. Ut libero dolores eos dolore corrupti ut culpa molestiae quo dicta minus?
@@ -30,10 +30,20 @@ For start the front you need to go here ``` cd front ``` and do ``` npm i ``` ..
 [![My Skills](https://skills.thijs.gg/icons?i=react,css,docker,nodejs,figma,mysql&theme=light)](https://skills.thijs.gg)
 
 ## Unit test with ...
+with junit selenium + jenkins ?  
+@mateo check pour faire des test automatisé via jenkins pour la non regression du projet + test screenshots si possible  
+https://youtu.be/0Aiu5E0rQLw  
+
+objectif creer une pipeline pour -> dès qu'on push sur master, des tests auto s'execute sur jenkins pour tester que tous est OK
 
 ## TEAM
-🔵 [Maxence Bonnici](lien) - **Design • Map • Chat • ChatBot • Annonce**  
-🔴 [Maxence Laporte](lien) - **API • Score • Admin**   
-🟢 [Morgan Navarra](lien) - **Chat • Map**    
-🟣 [Meriem Boussaid](lien) - **API • Admin • Annonce**    
-🟡 [Matéo Salvy](lien) - **Score • Deployment**  
+🔵 [Maxence Bonnici](https://github.com/ImMaxence) - **Design • Map • Annonce**  
+🔴 [Maxence Laporte](https://www.linkedin.com/in/maxence-laporte-391583230/) - **API • Score • Admin**   
+🟢 [Morgan Navarra](https://www.linkedin.com/in/morgan-navarra-b214b9181/) - **Chat • Map**    
+🟣 [Meriem Boussaid](https://www.linkedin.com/in/meriem-boussaid-571194220/) - **API • Admin • Annonce**    
+🟡 [Matéo Salvy](https://www.linkedin.com/in/mat%C3%A9o-salvy-81288a250/) - **Score • Deployment**  
+
+## Project Social Media
+[LINKEDIN](https://www.linkedin.com/in/mfive-presdechezmoi-80aa89282/) • [YOUTUBE](https://www.youtube.com/@PresDeChezMoi) • [INSTAGRAM](https://instagram.com/presdechezmoi?igshid=OGQ5ZDc2ODk2ZA==) • [TWITTER](https://twitter.com/PresDeChezMoi) • [FACEBOOK](https://www.facebook.com/profile.php?id=100094532983584)  
+
+EMAIL : presdechezmoi.email@gmail.com

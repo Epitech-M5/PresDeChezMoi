@@ -14,9 +14,9 @@
 .chat_container {
   display: flex;
   margin-left: 20%;
-  margin-right: 15%;
-  margin-top: 5%;
-  height: 90vh;
+  margin-right: 1%;
+  padding-top: 8%;
+  height: 96vh;
   flex-direction: row;
 }
 
@@ -128,7 +128,7 @@
 //------------------Blank Space--------------//
 
 .chat_blank {
-  width: 3%;
+  width: 2%;
 }
 
 //------------------Contenu------------------//
@@ -376,4 +376,8 @@
 }
 
 
-@media screen and (max-width: 768px) {}
+@media(max-width:1600px) {
+  .chat_container {
+    height: 80vh;
+  }
+}

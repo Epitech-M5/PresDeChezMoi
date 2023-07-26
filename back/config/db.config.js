@@ -1,13 +1,14 @@
 module.exports = {
-    HOST: "129.151.239.123",
+    //HOST: "129.151.239.123",
+    HOST: "127.0.0.1",
     // HOST: "129.151.233.95",
     // HOST: "129.151.239.123",*
     // HOST: "144.24.197.40",
     // HOST: "mariadb",
 
     USER: "root",
-    PASSWORD: "x9474h7mPwSxAEZt92Nb",
-    DB: "testdb2",
+    PASSWORD: "",
+    DB: "testdb",
     dialect: "mysql",
     pool: {
         max: 5,

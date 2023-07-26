@@ -19,12 +19,16 @@ const NavBarLandingPage = () => {
         window.scrollTo({ top: 0 });
         switch (number) {
             case 1:
+                handleToggle();
                 return navigate('/');
             case 2:
+                handleToggle();
                 return navigate('/team');
             case 3:
+                handleToggle();
                 return navigate('/contact')
             default:
+                handleToggle();
                 return navigate('/404')
         }
     }
