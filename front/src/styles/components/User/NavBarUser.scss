@@ -1,0 +1,63 @@
+.container_navbar_user {
+    width: 80%;
+    height: auto;
+    position: relative;
+    left: 20%;
+    margin-top: 100px;
+}
+
+.container_user_infos {
+    margin: 0 50px 0 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.left_user_pdp img {
+    width: 150px;
+    border-radius: 50%;
+}
+
+.left_user_pdp {
+    width: 150px;
+}
+
+.right_name_description {
+    width: 70%;
+    margin-top: 20px;
+}
+
+.right_name_description h1 {
+    font-size: 26px;
+    font-family: $font-LeagueSpartan;
+    width: 100%;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.navbar_to_toggle {
+    padding: 20px;
+}
+
+.navbar_to_toggle hr {
+    margin-top: 20px;
+    width: 90%;
+    margin-left: 5%;
+}
+
+.wrapper_sections_toggle {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 0 50px 0 50px;
+}
+
+.wrapper_sections_toggle h1 {
+    font-family: $font-LeagueSpartan;
+    font-size: 1.2rem;
+    cursor: pointer;
+}

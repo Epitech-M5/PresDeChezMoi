@@ -31,6 +31,11 @@ import ViewPost from "./pages/ViewPost";
 import { useParams } from "react-router-dom";
 import { getAPI } from "./api";
 import Loader from "./components/Loader";
+import NavBarUser from "./components/User/NavBarUser";
+import Settings from "./components/User/Settings";
+import Myposts from "./components/User/Myposts";
+import MySave from "./components/User/MySave";
+import MyLoot from "./components/User/MyLoot";
 
 const LandingContainer = () => {
   return (
@@ -104,7 +109,7 @@ const AdminContainer = () => {
         <NavBarAdmin />
         <Routes>
           <Route path="/" element={<General />} />
-          <Route path="*" element={<PageNotFound navigation={"/administration"} />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
           <Route path="/role-user" element={<Role />} />
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/notif-event" element={<Event />} />
@@ -167,6 +172,26 @@ const ViewContainer = () => {
 
 }
 
+const UserContainer = () => {
+
+  return (
+    <>
+      <ChatBot />
+      <ResearchBar />
+      <NavBarHome />
+      {/* <UserMenu /> */}
+      <NavBarUser />
+      <Routes>
+        <Route path="/settings" element={< Settings />} />
+        <Route path="/my-posts" element={< Myposts />} />
+        <Route path="/my-save" element={< MySave />} />
+        <Route path="/my-loot" element={< MyLoot />} />
+        <Route path="*" element={<PageNotFound navigation={"/home"} />} />
+      </Routes>
+    </>
+  )
+}
+
 const App = () => {
 
   const [loading, setLoading] = useState(true);
@@ -188,6 +213,7 @@ const App = () => {
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
+            <Route path="/user/*" element={<UserContainer />} /> {/* mettre route home apres (/home/user/*) */}
             <Route path="/view-post/:id" element={<ViewContainer />} />
           </Routes>
         </BrowserRouter>
