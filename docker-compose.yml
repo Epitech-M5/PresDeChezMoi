@@ -84,4 +84,6 @@ volumes:
 
 networks:
   back-mariadb:
+    driver: bridge
   front-back:
+    driver: bridge
