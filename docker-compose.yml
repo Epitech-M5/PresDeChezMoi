@@ -65,23 +65,12 @@ services:
       TZ: Europe/Paris
     restart: always
 
-  cadvisor:
-    image: google/cadvisor:latest
-    ports:
-      - 8083:8080
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    environment:
-      TZ: Europe/Paris
-    restart: always
-
 volumes:
   mariadb_data:
   portainer_data:
 
 networks:
   back-mariadb:
+    driver: bridge
   front-back:
+    driver: bridge
