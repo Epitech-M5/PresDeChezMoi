@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Provider, useSelector } from "react-redux";
 
 const NavBarUser = () => {
 
     const [activeId, setActiveId] = useState(null);
+
+    const user = useSelector((state) => state.utilisateur);
 
     const navigate = useNavigate();
 
@@ -16,16 +19,20 @@ const NavBarUser = () => {
 
         switch (id) {
             case 1:
-                navigate('/user/settings');
+                window.scrollTo({ top: 0 });
+                navigate('/home/user/settings');
                 break
             case 2:
-                navigate('/user/my-posts');
+                window.scrollTo({ top: 0 });
+                navigate('/home/user/my-posts');
                 break
             case 3:
-                navigate('/user/my-save');
+                window.scrollTo({ top: 0 });
+                navigate('/home/user/my-save');
                 break
             case 4:
-                navigate('/user/my-loot');
+                window.scrollTo({ top: 0 });
+                navigate('/home/user/my-loot');
                 break
         }
 
@@ -36,14 +43,16 @@ const NavBarUser = () => {
             <div className="container_navbar_user">
                 <div className="container_user_infos">
                     <div className="left_user_pdp">
-                        <img src="../media/img/1.png" alt="profil" />
+                        <div className="container_pdp_user">
+                            <img src="https://img.freepik.com/vecteurs-premium/portrait-profil-belle-fille-illustration-vectorielle_257845-4025.jpg?w=2000" alt="profil" />
+                        </div>
                     </div>
                     <div className="right_name_description">
-                        <h1>@UserName</h1>
+                        <h1>{user.pseudo}</h1>
                         <p>Lorem ipsum dolor sit amet. Est praesentium doloribus eum consequatur voluptatem ab recusandae praesentium aut deserunt reiciendis ea inventore odio ex expedita modi. Qui repellat maxime ea dolor maxime quo doloremque laborum non inventore provident aut voluptatibus nesciunt. Nam veniam consequatur et reiciendis consequatur aut mollitia nulla qui consequatur aperiam rem eveniet consequatur</p>
                     </div>
                 </div>
-                <div className="">
+                <div className="navbar_to_toggle">
                     <div className="wrapper_sections_toggle">
                         <h1 className={`underline-animation ${activeId === 1 ? 'underline' : ''}`}
                             onClick={() => toggleUnderline(1)}>Paramètres</h1>

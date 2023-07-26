@@ -130,6 +130,7 @@ const Home = () => {
                 <section className="container_2_home">
                     <div className="spacing">
                         <DropDownBtn text="Filtre annonce" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post', 'Tout']} onCheckboxChange={handleCheckboxChange} />
+                        <button onClick={() => navigate('/home/user/settings')}>bouton à supp</button>
                     </div>
                     {loading ? (
                         <div className="container_2_home_loader">

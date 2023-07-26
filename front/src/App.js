@@ -174,22 +174,29 @@ const ViewContainer = () => {
 
 const UserContainer = () => {
 
-  return (
-    <>
-      <ChatBot />
-      <ResearchBar />
-      <NavBarHome />
-      {/* <UserMenu /> */}
-      <NavBarUser />
-      <Routes>
-        <Route path="/settings" element={< Settings />} />
-        <Route path="/my-posts" element={< Myposts />} />
-        <Route path="/my-save" element={< MySave />} />
-        <Route path="/my-loot" element={< MyLoot />} />
-        <Route path="*" element={<PageNotFound navigation={"/home"} />} />
-      </Routes>
-    </>
-  )
+  const user = useSelector((state) => state.utilisateur)
+
+  if (user.isLogin) {
+
+    return (
+      <>
+        <ChatBot />
+        <NavBarHome />
+        {/* <UserMenu /> */}
+        <NavBarUser />
+        <Routes>
+          <Route path="/settings" element={< Settings />} />
+          <Route path="/my-posts" element={< Myposts />} />
+          <Route path="/my-save" element={< MySave />} />
+          <Route path="/my-loot" element={< MyLoot />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
+        </Routes>
+      </>
+    )
+  }
+  else {
+    return (<Navigate to="/login" replace />);
+  }
 }
 
 const App = () => {
@@ -213,7 +220,7 @@ const App = () => {
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
-            <Route path="/user/*" element={<UserContainer />} /> {/* mettre route home apres (/home/user/*) */}
+            <Route path="/home/user/*" element={<UserContainer />} /> {/* mettre route home apres (/home/user/*) */}
             <Route path="/view-post/:id" element={<ViewContainer />} />
           </Routes>
         </BrowserRouter>

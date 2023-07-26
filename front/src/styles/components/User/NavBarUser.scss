@@ -3,7 +3,7 @@
     height: auto;
     position: relative;
     left: 20%;
-    margin-top: 100px;
+    margin-top: 60px;
 }
 
 .container_user_infos {
@@ -17,7 +17,8 @@
 }
 
 .left_user_pdp img {
-    width: 150px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
 }
 
@@ -43,7 +44,7 @@
 }
 
 .navbar_to_toggle hr {
-    margin-top: 20px;
+    margin-top: 30px !important;
     width: 90%;
     margin-left: 5%;
 }
@@ -60,4 +61,12 @@
     font-family: $font-LeagueSpartan;
     font-size: 1.2rem;
     cursor: pointer;
+    padding-bottom: 2px;
+}
+
+.container_pdp_user {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid $dark-grey;
 }
