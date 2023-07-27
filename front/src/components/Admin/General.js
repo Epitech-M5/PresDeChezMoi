@@ -10,9 +10,7 @@ const General = () => {
     const [file, setFile] = useState(null);
     const [name, setName] = useState('');
     const [numb, setNumb] = useState('');
-    const [updateDragAndDrop, setUpdateDragAndDrop] = useState(false);
     const [updateToggle, setUpdateToggle] = useState(false);
-    const [arrayUser, setArrayUser] = useState([]);
 
     const user = useSelector((state) => state.utilisateur);
 
@@ -53,10 +51,11 @@ const General = () => {
 
         else {
 
+            console.log(name, file.name, numb)
+
             var body = {
                 "nom": name,
-                "image": file,
-                "idVille": user.idVille,
+                "image": file.name,
                 "scoreNecessaire": numb
             }
 
@@ -71,29 +70,12 @@ const General = () => {
                     addMessage(error, 'error')
                 });
 
-            setFile(null)
-            setNumb('')
-            setName('')
-            setUpdateDragAndDrop(true);
+            setFile(null);
+            setNumb('');
+            setName('');
         }
 
     };
-
-
-
-    // await getAPI(`http://127.0.0.1:8081/api/user/by_ville/${user.idVille}`, null, { 'x-access-token': user.token })
-    //     .then((response) => {
-    //         console.log(response);
-    //         for (var n = 0; n < response.dataAPI.length; n++) {
-    //             setArrayUser(arrayUser => [...arrayUser, response.dataAPI[n].pseudo]);
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-
-    // console.log(arrayUser);
-
 
     const handleRec = (event) => {
         setName(event.target.value);
@@ -122,7 +104,7 @@ const General = () => {
                         <input type="text" placeholder='Nom récompense' className='input_rec_text' value={name} onChange={handleRec} />
                         <input type="number" placeholder='Nombre de point' className='input_rec_number' value={numb} onChange={handlePoint} />
                     </div>
-                    <DragAndDrop onFileDrop={updateFile} updateDragAndDrop={updateDragAndDrop} />
+                    <DragAndDrop onFileDrop={updateFile} up={file} />
                     <input className='input_rec' type="button" value='Envoyer !' onClick={handleSubmit} />
 
                     <div className="space_hr_adm">

@@ -45,7 +45,7 @@ const NavBarHome = (props) => {
 
     const toggleUnderline = (id) => {
         setActiveId(id);
-
+        window.scrollTo({ top: 0 });
         switch (id) {
             case 1:
                 handleToggle();

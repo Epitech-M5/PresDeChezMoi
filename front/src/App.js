@@ -192,9 +192,6 @@ const UserContainer = () => {
 
     return (
       <>
-        <ChatBot />
-        <NavBarHome />
-        {/* <UserMenu /> */}
         <NavBarUser />
         <Routes>
           <Route path="/settings" element={< Settings />} />
@@ -232,7 +229,7 @@ const App = () => {
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
-            <Route path="/home/user/*" element={<UserContainer />} /> {/* mettre route home apres (/home/user/*) */}
+            <Route path="/home/user/*" element={<UserContainer />} />
             <Route path="/view-post/:id" element={<ViewContainer />} />
           </Routes>
         </BrowserRouter>

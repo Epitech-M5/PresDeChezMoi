@@ -128,315 +128,317 @@ const Home = () => {
                 <section className="container_1_home"></section>
 
                 <section className="container_2_home">
-                    <div className="spacing">
-                        <DropDownBtn text="Filtre annonce" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post', 'Tout']} onCheckboxChange={handleCheckboxChange} />
-                        <button onClick={() => navigate('/home/user/settings')}>bouton à supp</button>
-                    </div>
-                    {loading ? (
-                        <div className="container_2_home_loader">
-                            <Loader />
+                    <div className="padding_for_bottom_fix">
+                        <div className="spacing">
+                            <DropDownBtn text="Filtre annonce" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post', 'Tout']} onCheckboxChange={handleCheckboxChange} />
+                            <button onClick={() => navigate('/home/user/settings')}>bouton à supp</button>
                         </div>
-                    ) : (
-                        <>
-                            {typeAct === 0 && (
-                                <ul>
-                                    {reversedData.map((item) => (
-                                        <div key={item.id} className="container_annonce">
-                                            <div className="container_pdp">
-                                                <div className="container_left_pdp">
-                                                    <img src="media/img/1.png" alt="profil" />
-                                                    <div className="other_container_pdp">
-                                                        <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
-                                                        <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                        {loading ? (
+                            <div className="container_2_home_loader">
+                                <Loader />
+                            </div>
+                        ) : (
+                            <>
+                                {typeAct === 0 && (
+                                    <ul>
+                                        {reversedData.map((item) => (
+                                            <div key={item.id} className="container_annonce">
+                                                <div className="container_pdp">
+                                                    <div className="container_left_pdp">
+                                                        <img src="media/img/1.png" alt="profil" />
+                                                        <div className="other_container_pdp">
+                                                            <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                            <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                                        </div>
+                                                    </div>
+                                                    <div className="container_right_pdp">
+                                                        <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
                                                     </div>
                                                 </div>
-                                                <div className="container_right_pdp">
-                                                    <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                <div className="container_content_post">
+                                                    {item.idTypeActivite === 1 && (
+                                                        <>
+                                                            <p>{item.titre}</p>
+                                                            <div className="toCenter_post">
+                                                                <img src={item.img} />
+                                                            </div>
+                                                        </>
+                                                    )}
+
+                                                    {item.idTypeActivite === 2 && (
+                                                        <>
+                                                            <p className='title_promo'><span className='type_title promotion'>PROMOTION : </span>{item.titre}</p>
+                                                            <p>{item.description}</p>
+                                                            <div className="toCenter_post">
+                                                                <img src={item.img} />
+                                                            </div>
+                                                        </>
+                                                    )}
+
+                                                    {item.idTypeActivite === 3 && (
+                                                        <>
+                                                            <p className='title_promo'><span className='type_title poste'>POSTE A POURVOIR : </span>{item.titre}</p>
+                                                            <p>{item.description}</p>
+                                                            <p className='margin_price'>Salaire brut : <span className='price'>{item.prix}€</span>/mois</p>
+                                                            <div className="toCenter_post">
+                                                                <img src={item.img} />
+                                                            </div>
+                                                        </>
+                                                    )}
+
+                                                    {item.idTypeActivite === 4 && (
+                                                        <>
+                                                            <p className='title_promo'><span className='type_title event'>EVENEMENT : </span>{item.titre}</p>
+                                                            <p>{item.description}</p>
+                                                            {renderDateEvent(item.dateDebut, item.dateFin)}
+                                                            <div className="toCenter_post">
+                                                                <img src={item.img} />
+                                                            </div>
+                                                        </>
+                                                    )}
+
+                                                    {item.idTypeActivite === 5 && (
+                                                        <>
+                                                            <p className='title_promo'><span className='type_title vente'>VENTE : </span>{item.titre}</p>
+                                                            <p className='margin_bot_price'><span className='price_in_vente'>Prix : </span>{item.prix}€</p>
+                                                            <p>{item.description}</p>
+                                                            {renderDateEvent(item.dateDebut, item.dateFin)}
+                                                            <div className="toCenter_post">
+                                                                <img src={item.img} />
+                                                            </div>
+                                                        </>
+                                                    )}
+                                                </div>
+                                                <div className="container_bottom_post">
+                                                    <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                    <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
+                                                    <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                 </div>
                                             </div>
-                                            <div className="container_content_post">
-                                                {item.idTypeActivite === 1 && (
-                                                    <>
-                                                        <p>{item.titre}</p>
-                                                        <div className="toCenter_post">
-                                                            <img src={item.img} />
-                                                        </div>
-                                                    </>
-                                                )}
+                                        ))}
+                                    </ul>
+                                )}
 
-                                                {item.idTypeActivite === 2 && (
-                                                    <>
-                                                        <p className='title_promo'><span className='type_title promotion'>PROMOTION : </span>{item.titre}</p>
-                                                        <p>{item.description}</p>
-                                                        <div className="toCenter_post">
-                                                            <img src={item.img} />
-                                                        </div>
-                                                    </>
-                                                )}
-
-                                                {item.idTypeActivite === 3 && (
-                                                    <>
-                                                        <p className='title_promo'><span className='type_title poste'>POSTE A POURVOIR : </span>{item.titre}</p>
-                                                        <p>{item.description}</p>
-                                                        <p className='margin_price'>Salaire brut : <span className='price'>{item.prix}€</span>/mois</p>
-                                                        <div className="toCenter_post">
-                                                            <img src={item.img} />
-                                                        </div>
-                                                    </>
-                                                )}
-
-                                                {item.idTypeActivite === 4 && (
-                                                    <>
-                                                        <p className='title_promo'><span className='type_title event'>EVENEMENT : </span>{item.titre}</p>
-                                                        <p>{item.description}</p>
-                                                        {renderDateEvent(item.dateDebut, item.dateFin)}
-                                                        <div className="toCenter_post">
-                                                            <img src={item.img} />
-                                                        </div>
-                                                    </>
-                                                )}
-
-                                                {item.idTypeActivite === 5 && (
-                                                    <>
-                                                        <p className='title_promo'><span className='type_title vente'>VENTE : </span>{item.titre}</p>
-                                                        <p className='margin_bot_price'><span className='price_in_vente'>Prix : </span>{item.prix}€</p>
-                                                        <p>{item.description}</p>
-                                                        {renderDateEvent(item.dateDebut, item.dateFin)}
-                                                        <div className="toCenter_post">
-                                                            <img src={item.img} />
-                                                        </div>
-                                                    </>
-                                                )}
-                                            </div>
-                                            <div className="container_bottom_post">
-                                                <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                <a href=""><i className="fa-regular fa-bookmark"></i></a>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </ul>
-                            )}
-
-                            {typeAct === 1 && (
-                                <ul>
-                                    {reversedData.map((item) => {
-                                        if (item.idTypeActivite === 1) {
-                                            return (
-                                                <div key={item.id} className="container_annonce">
-                                                    <div className="container_pdp">
-                                                        <div className="container_left_pdp">
-                                                            <img src="media/img/1.png" alt="profil" />
-                                                            <div className="other_container_pdp">
-                                                                <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
-                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                {typeAct === 1 && (
+                                    <ul>
+                                        {reversedData.map((item) => {
+                                            if (item.idTypeActivite === 1) {
+                                                return (
+                                                    <div key={item.id} className="container_annonce">
+                                                        <div className="container_pdp">
+                                                            <div className="container_left_pdp">
+                                                                <img src="media/img/1.png" alt="profil" />
+                                                                <div className="other_container_pdp">
+                                                                    <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div className="container_right_pdp">
+                                                                <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
                                                             </div>
                                                         </div>
-                                                        <div className="container_right_pdp">
-                                                            <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div className="container_content_post">
-                                                        <p>{item.titre}</p>
-                                                        <div className="toCenter_post">
-                                                            <img src={item.img} />
-                                                        </div>
-                                                    </div>
-                                                    <div className="container_bottom_post">
-                                                        <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                        <a href=""><i className="fa-regular fa-bookmark"></i></a>
-                                                    </div>
-                                                </div>
-                                            );
-                                        } else {
-                                            return null;
-                                        }
-                                    })}
-                                </ul>
-                            )}
-
-                            {typeAct === 2 && (
-                                <ul>
-                                    {reversedData.map((item) => {
-                                        if (item.idTypeActivite === 2) {
-                                            return (
-                                                <div key={item.id} className="container_annonce">
-                                                    <div className="container_pdp">
-                                                        <div className="container_left_pdp">
-                                                            <img src="media/img/1.png" alt="profil" />
-                                                            <div className="other_container_pdp">
-                                                                <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
-                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                                        <div className="container_content_post">
+                                                            <p>{item.titre}</p>
+                                                            <div className="toCenter_post">
+                                                                <img src={item.img} />
                                                             </div>
                                                         </div>
-                                                        <div className="container_right_pdp">
-                                                            <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                        <div className="container_bottom_post">
+                                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                            <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
+                                                            <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                         </div>
                                                     </div>
-                                                    <div className="container_content_post">
-                                                        <p className='title_promo'><span className='type_title promotion'>PROMOTION : </span>{item.titre}</p>
-                                                        <p>{item.description}</p>
-                                                        <div className="toCenter_post">
-                                                            <img src={item.img} />
-                                                        </div>
-                                                    </div>
-                                                    <div className="container_bottom_post">
-                                                        <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                        <a href=""><i className="fa-regular fa-bookmark"></i></a>
-                                                    </div>
-                                                </div>
-                                            );
-                                        } else {
-                                            return null;
-                                        }
-                                    })}
-                                </ul>
-                            )}
+                                                );
+                                            } else {
+                                                return null;
+                                            }
+                                        })}
+                                    </ul>
+                                )}
 
-                            {typeAct === 3 && (
-                                <ul>
-                                    {reversedData.map((item) => {
-                                        if (item.idTypeActivite === 3) {
-                                            return (
-                                                <div key={item.id} className="container_annonce">
-                                                    <div className="container_pdp">
-                                                        <div className="container_left_pdp">
-                                                            <img src="media/img/1.png" alt="profil" />
-                                                            <div className="other_container_pdp">
-                                                                <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
-                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                {typeAct === 2 && (
+                                    <ul>
+                                        {reversedData.map((item) => {
+                                            if (item.idTypeActivite === 2) {
+                                                return (
+                                                    <div key={item.id} className="container_annonce">
+                                                        <div className="container_pdp">
+                                                            <div className="container_left_pdp">
+                                                                <img src="media/img/1.png" alt="profil" />
+                                                                <div className="other_container_pdp">
+                                                                    <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div className="container_right_pdp">
+                                                                <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
                                                             </div>
                                                         </div>
-                                                        <div className="container_right_pdp">
-                                                            <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
-                                                        </div>
-                                                    </div>
-                                                    <div className="container_content_post">
-                                                        <p className='title_promo'><span className='type_title poste'>POSTE A POURVOIR : </span>{item.titre}</p>
-                                                        <p>{item.description}</p>
-                                                        <p className='margin_price'>Salaire brut : <span className='price'>{item.prix}€</span>/mois</p>
-                                                        <div className="toCenter_post">
-                                                            <img src={item.img} />
-                                                        </div>
-                                                    </div>
-                                                    <div className="container_bottom_post">
-                                                        <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                        <a href=""><i className="fa-regular fa-bookmark"></i></a>
-                                                    </div>
-                                                </div>
-                                            );
-                                        } else {
-                                            return null;
-                                        }
-                                    })}
-                                </ul>
-                            )}
-
-                            {typeAct === 4 && (
-                                <ul>
-                                    {reversedData.map((item) => {
-                                        if (item.idTypeActivite === 4) {
-                                            return (
-                                                <div key={item.id} className="container_annonce">
-                                                    <div className="container_pdp">
-                                                        <div className="container_left_pdp">
-                                                            <img src="media/img/1.png" alt="profil" />
-                                                            <div className="other_container_pdp">
-                                                                <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
-                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                                        <div className="container_content_post">
+                                                            <p className='title_promo'><span className='type_title promotion'>PROMOTION : </span>{item.titre}</p>
+                                                            <p>{item.description}</p>
+                                                            <div className="toCenter_post">
+                                                                <img src={item.img} />
                                                             </div>
                                                         </div>
-                                                        <div className="container_right_pdp">
-                                                            <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                        <div className="container_bottom_post">
+                                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                            <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
+                                                            <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                         </div>
                                                     </div>
-                                                    <div className="container_content_post">
-                                                        <p className='title_promo'><span className='type_title event'>EVENEMENT : </span>{item.titre}</p>
-                                                        <p>{item.description}</p>
-                                                        {renderDateEvent(item.dateDebut, item.dateFin)}
-                                                        <div className="toCenter_post">
-                                                            <img src={item.img} />
-                                                        </div>
-                                                    </div>
-                                                    <div className="container_bottom_post">
-                                                        <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                        <a href=""><i className="fa-regular fa-bookmark"></i></a>
-                                                    </div>
-                                                </div>
-                                            );
-                                        } else {
-                                            return null;
-                                        }
-                                    })}
-                                </ul>
-                            )}
+                                                );
+                                            } else {
+                                                return null;
+                                            }
+                                        })}
+                                    </ul>
+                                )}
 
-                            {typeAct === 5 && (
-                                <ul>
-                                    {reversedData.map((item) => {
-                                        if (item.idTypeActivite === 5) {
-                                            return (
-                                                <div key={item.id} className="container_annonce">
-                                                    <div className="container_pdp">
-                                                        <div className="container_left_pdp">
-                                                            <img src="media/img/1.png" alt="profil" />
-                                                            <div className="other_container_pdp">
-                                                                <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
-                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                {typeAct === 3 && (
+                                    <ul>
+                                        {reversedData.map((item) => {
+                                            if (item.idTypeActivite === 3) {
+                                                return (
+                                                    <div key={item.id} className="container_annonce">
+                                                        <div className="container_pdp">
+                                                            <div className="container_left_pdp">
+                                                                <img src="media/img/1.png" alt="profil" />
+                                                                <div className="other_container_pdp">
+                                                                    <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div className="container_right_pdp">
+                                                                <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
                                                             </div>
                                                         </div>
-                                                        <div className="container_right_pdp">
-                                                            <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                        <div className="container_content_post">
+                                                            <p className='title_promo'><span className='type_title poste'>POSTE A POURVOIR : </span>{item.titre}</p>
+                                                            <p>{item.description}</p>
+                                                            <p className='margin_price'>Salaire brut : <span className='price'>{item.prix}€</span>/mois</p>
+                                                            <div className="toCenter_post">
+                                                                <img src={item.img} />
+                                                            </div>
+                                                        </div>
+                                                        <div className="container_bottom_post">
+                                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                            <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
+                                                            <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                         </div>
                                                     </div>
-                                                    <div className="container_content_post">
-                                                        <p className='title_promo'><span className='type_title vente'>VENTE : </span>{item.titre}</p>
-                                                        <p className='margin_bot_price'><span className='price_in_vente'>Prix : </span>{item.prix}€</p>
-                                                        <p>{item.description}</p>
-                                                        {renderDateEvent(item.dateDebut, item.dateFin)}
-                                                        <div className="toCenter_post">
-                                                            <img src={item.img} />
+                                                );
+                                            } else {
+                                                return null;
+                                            }
+                                        })}
+                                    </ul>
+                                )}
+
+                                {typeAct === 4 && (
+                                    <ul>
+                                        {reversedData.map((item) => {
+                                            if (item.idTypeActivite === 4) {
+                                                return (
+                                                    <div key={item.id} className="container_annonce">
+                                                        <div className="container_pdp">
+                                                            <div className="container_left_pdp">
+                                                                <img src="media/img/1.png" alt="profil" />
+                                                                <div className="other_container_pdp">
+                                                                    <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div className="container_right_pdp">
+                                                                <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div className="container_content_post">
+                                                            <p className='title_promo'><span className='type_title event'>EVENEMENT : </span>{item.titre}</p>
+                                                            <p>{item.description}</p>
+                                                            {renderDateEvent(item.dateDebut, item.dateFin)}
+                                                            <div className="toCenter_post">
+                                                                <img src={item.img} />
+                                                            </div>
+                                                        </div>
+                                                        <div className="container_bottom_post">
+                                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                            <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
+                                                            <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                         </div>
                                                     </div>
-                                                    <div className="container_bottom_post">
-                                                        <a href=""><i className="fa-regular fa-heart"></i></a>
-                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                        <a href=""><i className="fa-regular fa-bookmark"></i></a>
+                                                );
+                                            } else {
+                                                return null;
+                                            }
+                                        })}
+                                    </ul>
+                                )}
+
+                                {typeAct === 5 && (
+                                    <ul>
+                                        {reversedData.map((item) => {
+                                            if (item.idTypeActivite === 5) {
+                                                return (
+                                                    <div key={item.id} className="container_annonce">
+                                                        <div className="container_pdp">
+                                                            <div className="container_left_pdp">
+                                                                <img src="media/img/1.png" alt="profil" />
+                                                                <div className="other_container_pdp">
+                                                                    <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                                                </div>
+                                                            </div>
+                                                            <div className="container_right_pdp">
+                                                                <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div className="container_content_post">
+                                                            <p className='title_promo'><span className='type_title vente'>VENTE : </span>{item.titre}</p>
+                                                            <p className='margin_bot_price'><span className='price_in_vente'>Prix : </span>{item.prix}€</p>
+                                                            <p>{item.description}</p>
+                                                            {renderDateEvent(item.dateDebut, item.dateFin)}
+                                                            <div className="toCenter_post">
+                                                                <img src={item.img} />
+                                                            </div>
+                                                        </div>
+                                                        <div className="container_bottom_post">
+                                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                            <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
+                                                            <a href=""><i className="fa-regular fa-bookmark"></i></a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            );
-                                        } else {
-                                            return null;
-                                        }
-                                    })}
-                                </ul>
-                            )}
-                        </>
-                    )}
+                                                );
+                                            } else {
+                                                return null;
+                                            }
+                                        })}
+                                    </ul>
+                                )}
+                            </>
+                        )}
+                    </div>
                 </section>
 
                 <section className="container_3_home">
-                    <aside>
-                        <div className="pub1">
-                            <div className="text_pub">
-                                <h1>Invitez vos amis à une fête, un évènement caritatif ou une rencontre </h1>
-                                <button>Créer un évènement</button>
+
+                    <div className="pub1">
+                        <div className="text_pub">
+                            <h1>Invitez vos amis à une fête, un évènement caritatif ou une rencontre </h1>
+                            <button>Créer un évènement</button>
+                        </div>
+                    </div>
+                    <div className="pub2">
+                        <div className="text_pub2">
+                            <img src="media/img/location-mark.png" alt="map" />
+                            <div className="container_bottom_map_ad">
+                                <h1>Découvrez ce qui se passe près de chez vous</h1>
+                                <button class="button-54" role="button">Map</button>
                             </div>
                         </div>
-                        <div className="pub2">
-                            <div className="text_pub2">
-                                <img src="media/img/location-mark.png" alt="map" />
-                                <div className="container_bottom_map_ad">
-                                    <h1>Découvrez ce qui se passe près de chez vous</h1>
-                                    <button class="button-54" role="button">Map</button>
-                                </div>
-                            </div>
-                        </div>
-                    </aside>
+                    </div>
+
                 </section>
             </section >
         </>

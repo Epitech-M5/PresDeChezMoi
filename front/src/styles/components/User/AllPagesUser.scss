@@ -53,8 +53,90 @@
     margin: 0 100px 0 100px;
 }
 
-.container_2_home_loader.formypost {
+.loader_formypost {
     height: 200px !important;
+}
+
+.container_loot {
+    margin: 20px 0 20px 0;
+    height: 300px !important;
+    width: 300px !important;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+    background-color: $white;
+    overflow: hidden;
+}
+
+.container_loot hr {
+    margin: 10px 0 0 0;
+    width: 100%;
+    border: 1px solid $black;
+    border-color: $black;
+}
+
+.wrapper_header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    background-color: $white;
+    z-index: 1;
+}
+
+.wrapper_header h1:nth-child(1) {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.wrapper_header h1 {
+    font-family: $font-LeagueSpartan;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 10px 0 10px 0;
+}
+
+.flex_all_loot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    flex-wrap: wrap;
+}
+
+#score_loot {
+    font-size: 18px !important;
+}
+
+#unlock_loot {
+    font-size: 18px !important;
+    color: $orange;
+}
+
+#unlock_loot i {
+    color: $red-orange;
+    margin-left: 5px;
+    font-size: 16px !important;
+}
+
+.container_img_loot {
+    position: relative;
+    background-color: red;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.container_img_loot img {
+    width: 100%;
+    height: 100%;
+}
+
+.reaction_span {
+    font-size: 1rem !important;
+    font-family: $font-LeagueSpartan !important;
+    margin-right: 2px !important;
 }
 
 @media(max-width:650px),

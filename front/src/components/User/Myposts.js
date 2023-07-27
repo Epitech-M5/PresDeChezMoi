@@ -124,7 +124,7 @@ const Myposts = () => {
             <div className="content_user_profil">
                 <div className="container_mypost_tomap">
                     {loading ? (
-                        <div className="container_2_home_loader formypost">
+                        <div className="loader_formypost">
                             <Loader />
                         </div>
                     ) : (
@@ -200,7 +200,7 @@ const Myposts = () => {
                                             )}
                                         </div>
                                         <div className="container_bottom_post">
-                                            <a href=""><i className="fa-regular fa-heart"></i></a>
+                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
                                             <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
                                             <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                         </div>
