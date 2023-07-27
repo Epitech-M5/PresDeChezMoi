@@ -232,7 +232,7 @@ exports.update = (req, res) => {
 
   // si valid
   if (flagValidModif) {
-    req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8)
+    // req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8)
     Utilisateur.update(req.body, {
       where: { id: id }
     })
@@ -283,6 +283,45 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Impossible de supprimé l'utilisateur avec l'id=" + id
+      });
+    });
+};
+
+exports.get_by_id = (req, res) => {
+  Utilisateur.findOne({ where: { id: req.params.id } })
+    .then(data => {
+      console.log(data.id)
+      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.listAnnonceEnregistre });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+
+exports.get_likes = (req, res) => {
+  Utilisateur.findOne({ where: { id: req.userId } })
+    .then(data => {
+      res.status(200).send({ "likes": data.likes });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+exports.get_saves = (req, res) => {
+  Utilisateur.findOne({ where: { id: req.userId } })
+    .then(data => {
+      res.status(200).send({ "enregistrements": data.listAnnonceEnregistre });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
       });
     });
 };

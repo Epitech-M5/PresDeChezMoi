@@ -36,7 +36,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.JSON,
             defaultValue: []
         },
-        abonnement: {
+        likes: {
             type: Sequelize.JSON,
             defaultValue: []
         },

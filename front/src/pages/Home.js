@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getAPI } from './../api';
+import { getAPI, postAPI, putAPI } from './../api';
 import Loader from './../components/Loader';
 import DropDownBtn from '../components/MainComponent/DropDownBtn';
 import axios from 'axios';
@@ -13,6 +13,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
     const [typeAct, setTypeAct] = useState(null);
     const [dictionnaireUser, setDictionnaireUser] = useState({});
+    const [likedPosts, setLikedPosts] = useState([]);
     const [idToVerif, setIdToVerif] = useState([]);
     const navigate = useNavigate();
 
@@ -53,6 +54,11 @@ const Home = () => {
                 setLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        //je veux recuperer ici les id des posts que le user à like
+        setLikedPosts();
+    }, [likedPosts]);
 
     const reversedData = [...mapData].reverse();
 
@@ -120,6 +126,44 @@ const Home = () => {
     const handleShare = (id) => {
         navigate(`/view-post/${id}`)
     }
+
+    const handleLikes = (id) => {
+        if (likedPosts.includes(id)) {
+
+            const updatedMapData = mapData.map(item => {
+                if (item.id === id && item.reaction > 0) {
+
+                    let x = id + 1;
+                    console.log(id, x);
+
+                    putAPI(`http://127.0.0.1:8081/api/annonce/${id}`, { 'reaction': x }, { 'x-access-token': user.token })
+                        .then((response) => {
+
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+
+                    const updatedItem = { ...item, reaction: item.reaction - 1 };
+                    return updatedItem;
+                }
+                return item;
+            });
+            setMapData(updatedMapData);
+            setLikedPosts(prevLikedPosts => prevLikedPosts.filter(postId => postId !== id));
+        } else {
+
+            const updatedMapData = mapData.map(item => {
+                if (item.id === id) {
+                    const updatedItem = { ...item, reaction: item.reaction + 1 };
+                    return updatedItem;
+                }
+                return item;
+            });
+            setMapData(updatedMapData);
+            setLikedPosts(prevLikedPosts => [...prevLikedPosts, id]);
+        }
+    };
 
     return (
         <>
@@ -210,7 +254,7 @@ const Home = () => {
                                                     )}
                                                 </div>
                                                 <div className="container_bottom_post">
-                                                    <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                    <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
                                                     <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
                                                     <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                 </div>

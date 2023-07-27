@@ -72,7 +72,7 @@ function ajoutUtilisateur() {
         mail: "presdechezmoi.email@gmail.com",
         motDePasse: bcrypt.hashSync("Admin", 8),
         idVille: 1,
-        score: 0,
+        score: 3000,
         participation: null,
         estAdministrateur: true,
         abonnement: null,
