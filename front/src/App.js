@@ -125,51 +125,48 @@ const AdminContainer = () => {
 }
 
 const ViewContainer = () => {
-
   const [idToVerif, setIdToVerif] = useState([]);
-  const [loadingVerif, setLoadingVerif] = useState(true);
-
+  const { id } = useParams();
+  const parsedId = parseInt(id);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getAPI('http://127.0.0.1:8081/api/annonce/', {}, {})
-      .then((response) => {
-
-        for (var n = 0; n < response.dataAPI.length; n++) {
-          setIdToVerif(idToVerif => [...idToVerif, response.dataAPI[n].id]);
-        }
-
-        setLoadingVerif(false);
-      })
-      .catch((error) => {
+    async function fetchData() {
+      try {
+        const response = await getAPI('http://127.0.0.1:8081/api/annonce/', {}, {});
+        const ids = response.dataAPI.map(item => item.id);
+        setIdToVerif(ids);
+        setIsLoading(false);
+      } catch (error) {
         console.log('error', error);
-        setLoadingVerif(false)
-      });
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
   }, []);
 
-  const { id } = useParams();
+  if (isLoading) {
+    return (
+      <div className="to_center_in_appjs">
+        <h1>Chargement ...</h1>
+      </div>
+    )
+  }
 
-  const parsedId = parseInt(id);
   const isValidId = idToVerif.includes(parsedId);
 
-  if (!isValidId) {
-    return <PageNotFound navigation={'/login'} />;
-  }
-
-  else {
-
-    return (
-      <>
-        {loadingVerif ? (
-          <Loader />
-        ) : (
-          <Routes>
-            <Route path="/" element={<ViewPost postId={id} />} />
-          </Routes>
-        )}
-      </>
-    );
-  }
-
+  return (
+    <>
+      {isValidId ? (
+        <Routes>
+          <Route path="/" element={<ViewPost postId={id} />} />
+        </Routes>
+      ) : (
+        <PageNotFound navigation={'/login'} />
+      )}
+    </>
+  );
 }
 
 const UserContainer = () => {
