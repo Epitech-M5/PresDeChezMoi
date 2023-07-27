@@ -40,6 +40,10 @@ const NavBarUser = () => {
 
     return (
         <>
+            <div className="container_arrow_backtohome inprofil" onClick={() => navigate('/home')}>
+                <i className="fa-solid fa-arrow-right fa-rotate-180"></i>
+                <h1>Home</h1>
+            </div>
             <div className="container_navbar_user">
                 <div className="container_user_infos">
                     <div className="left_user_pdp">

@@ -125,6 +125,7 @@ const AdminContainer = () => {
 }
 
 const ViewContainer = () => {
+
   const [idToVerif, setIdToVerif] = useState([]);
   const { id } = useParams();
   const parsedId = parseInt(id);
@@ -176,9 +177,6 @@ const UserContainer = () => {
   if (user.isLogin && user.idRole === 3) {
     return (
       <>
-        <ChatBot />
-        <NavBarHome isAdmin='admin' />
-        {/* <UserMenu /> */}
         <NavBarUser />
         <Routes>
           <Route path="/settings" element={< Settings />} />
