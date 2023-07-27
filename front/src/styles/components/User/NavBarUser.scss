@@ -41,12 +41,13 @@
 
 .navbar_to_toggle {
     padding: 20px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .navbar_to_toggle hr {
     margin-top: 30px !important;
-    width: 90%;
-    margin-left: 5%;
+    width: 100%;
 }
 
 .wrapper_sections_toggle {
