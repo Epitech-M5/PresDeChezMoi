@@ -98,7 +98,7 @@ a {
 
 .price {
     font-weight: 700 !important;
-    font-size: 1rem;
+    font-size: 1rem !important;
 }
 
 .margin_price {
@@ -150,4 +150,8 @@ a {
 .price_in_vente {
     font-size: 1rem !important;
     font-weight: 700 !important;
+}
+
+.fa-solid.fa-heart.color {
+    color: red;
 }

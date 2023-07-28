@@ -78,7 +78,7 @@ const NavBarUser = () => {
                         <h1 className={`underline-animation ${activeId === 3 ? 'underline' : ''}`}
                             onClick={() => toggleUnderline(3)}>Mes Enregistrements</h1>
                         <h1 className={`underline-animation ${activeId === 4 ? 'underline' : ''}`}
-                            onClick={() => toggleUnderline(4)}>Mes récompenses({data.score}<span id='unlock_loot'><i class="fa-solid fa-carrot"></i></span>)</h1>
+                            onClick={() => toggleUnderline(4)}>Mes récompenses({data.score ? <>{data.score}</> : <>0</>}<span id='unlock_loot'><i class="fa-solid fa-carrot"></i></span>)</h1>
                     </div>
                     <hr />
                 </div>

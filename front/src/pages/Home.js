@@ -7,24 +7,21 @@ import axios from 'axios';
 import AddressDisplay from '../components/MainComponent/AddressDisplay';
 import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
+const Home = ({ openModal }) => {
     const [mapData, setMapData] = useState([]);
     const user = useSelector((state) => state.utilisateur);
     const [loading, setLoading] = useState(true);
     const [typeAct, setTypeAct] = useState(null);
     const [dictionnaireUser, setDictionnaireUser] = useState({});
-    const [likedPosts, setLikedPosts] = useState([]);
-    const [idToVerif, setIdToVerif] = useState([]);
+
+    const [likedPosts, setLikedPosts] = useState([]); // stocker les annonces like par le user
+
     const navigate = useNavigate();
 
     useEffect(() => {
         getAPI('http://127.0.0.1:8081/api/annonce/', {}, { 'x-access-token': user.token })
             .then((response) => {
                 setTimeout(() => {
-
-                    for (var n = 0; n < response.dataAPI.length; n++) {
-                        setIdToVerif(idToVerif => [...idToVerif, response.dataAPI[n].id]);
-                    }
 
                     setMapData(response.dataAPI);
                     setLoading(false);
@@ -56,11 +53,32 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        //je veux recuperer ici les id des posts que le user à like
-        setLikedPosts();
-    }, [likedPosts]);
+        // fetch likes du user et les mettre dans l'array
+        getAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
 
-    const reversedData = [...mapData].reverse();
+
+                const parsedLikes = JSON.parse(response.dataAPI.likes); // Convertir la chaîne JSON en array
+                setLikedPosts(parsedLikes);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+    }, []);
+
+    useEffect(() => {
+        console.log("oooooooooooooooooOOOOo", likedPosts)
+        // à chaque fois que likedpost change, stocker sa value en base
+        putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'likes': likedPosts }, { 'x-access-token': user.token })
+            .then((response) => {
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }, [likedPosts]);
 
     const handleCheckboxChange = (item) => {
 
@@ -128,14 +146,16 @@ const Home = () => {
     }
 
     const handleLikes = (id) => {
-        if (likedPosts.includes(id)) {
 
+        if (likedPosts.includes(id)) {
+            // si le user à deja like alors -1
             const updatedMapData = mapData.map(item => {
                 if (item.id === id && item.reaction > 0) {
 
-                    let x = id + 1;
-                    console.log(id, x);
+                    const updatedItem = { ...item, reaction: item.reaction - 1 };
 
+                    // puis on modifie le nombre de like en base
+                    let x = item.reaction - 1
                     putAPI(`http://127.0.0.1:8081/api/annonce/${id}`, { 'reaction': x }, { 'x-access-token': user.token })
                         .then((response) => {
 
@@ -144,26 +164,45 @@ const Home = () => {
                             console.log(error);
                         });
 
-                    const updatedItem = { ...item, reaction: item.reaction - 1 };
                     return updatedItem;
                 }
                 return item;
             });
             setMapData(updatedMapData);
-            setLikedPosts(prevLikedPosts => prevLikedPosts.filter(postId => postId !== id));
-        } else {
 
+            // on enleve l'id de l'annonce de l'array
+            setLikedPosts(prevLikedPosts => prevLikedPosts.filter(postId => postId !== id));
+
+        } else {
+            // si le user à deja like alors +1 et ajoute l'id de l'annonce
             const updatedMapData = mapData.map(item => {
                 if (item.id === id) {
+
                     const updatedItem = { ...item, reaction: item.reaction + 1 };
+
+                    // puis on modifie le nombre de like en base
+                    let x = item.reaction + 1
+                    putAPI(`http://127.0.0.1:8081/api/annonce/${id}`, { 'reaction': x }, { 'x-access-token': user.token })
+                        .then((response) => {
+
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+
                     return updatedItem;
                 }
                 return item;
             });
             setMapData(updatedMapData);
+
+            // on ajoute l'id de l'annonce de l'array
             setLikedPosts(prevLikedPosts => [...prevLikedPosts, id]);
         }
     };
+
+
+    const reversedData = [...mapData].reverse();
 
     return (
         <>
@@ -176,6 +215,7 @@ const Home = () => {
                         <div className="spacing">
                             <DropDownBtn text="Filtre annonce" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post', 'Tout']} onCheckboxChange={handleCheckboxChange} />
                             <button onClick={() => navigate('/home/user/settings')}>bouton à supp</button>
+                            <button onClick={() => navigate('/home/test')}>test</button>
                         </div>
                         {loading ? (
                             <div className="container_2_home_loader">
@@ -254,7 +294,7 @@ const Home = () => {
                                                     )}
                                                 </div>
                                                 <div className="container_bottom_post">
-                                                    <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                    <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
                                                     <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
                                                     <a href=""><i className="fa-regular fa-bookmark"></i></a>
                                                 </div>
@@ -470,7 +510,7 @@ const Home = () => {
                     <div className="pub1">
                         <div className="text_pub">
                             <h1>Invitez vos amis à une fête, un évènement caritatif ou une rencontre </h1>
-                            <button>Créer un évènement</button>
+                            <button onClick={openModal}>Créer un évènement</button>
                         </div>
                     </div>
                     <div className="pub2">
