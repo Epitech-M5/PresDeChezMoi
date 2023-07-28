@@ -19,6 +19,7 @@ const NavBarUser = () => {
             .then((response) => {
 
                 setData(response.dataAPI);
+                console.log(response.dataAPI)
 
             })
             .catch((error) => {
@@ -61,7 +62,7 @@ const NavBarUser = () => {
                 <div className="container_user_infos">
                     <div className="left_user_pdp">
                         <div className="container_pdp_user">
-                            <img src="https://img.freepik.com/vecteurs-premium/portrait-profil-belle-fille-illustration-vectorielle_257845-4025.jpg?w=2000" alt="profil" />
+                            <img src={`../../media/img/${data.photoProfil}.png`} alt="profil" />
                         </div>
                     </div>
                     <div className="right_name_description">
