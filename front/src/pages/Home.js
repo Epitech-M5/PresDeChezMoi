@@ -13,6 +13,7 @@ const Home = ({ openModal }) => {
     const [loading, setLoading] = useState(true);
     const [typeAct, setTypeAct] = useState(null);
     const [dictionnaireUser, setDictionnaireUser] = useState({});
+    const [dictionnairePdp, setDictionnairePdp] = useState({});
 
     const [likedPosts, setLikedPosts] = useState([]); // stocker les annonces like par le user
 
@@ -39,11 +40,19 @@ const Home = ({ openModal }) => {
         getAPI('http://127.0.0.1:8081/api/user/', {}, { 'x-access-token': user.token })
             .then((response) => {
 
+                console.log("@@@@@@@@@@@@@@", response.dataAPI)
+
                 var dictionnaire = {}
                 for (const element of response.dataAPI) {
                     dictionnaire[element.id] = element.pseudo;
                 };
-                setDictionnaireUser(dictionnaire)
+                setDictionnaireUser(dictionnaire);
+
+                var pdp = {}
+                for (const element of response.dataAPI) {
+                    pdp[element.id] = element.photoProfil;
+                };
+                setDictionnairePdp(pdp);
 
             })
             .catch((error) => {
@@ -68,7 +77,7 @@ const Home = ({ openModal }) => {
     }, []);
 
     useEffect(() => {
-        console.log("oooooooooooooooooOOOOo", likedPosts)
+
         // à chaque fois que likedpost change, stocker sa value en base
         putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'likes': likedPosts }, { 'x-access-token': user.token })
             .then((response) => {
@@ -204,6 +213,8 @@ const Home = ({ openModal }) => {
 
     const reversedData = [...mapData].reverse();
 
+    console.log(dictionnairePdp)
+
     return (
         <>
             <div className="container_bye"></div>
@@ -229,7 +240,7 @@ const Home = ({ openModal }) => {
                                             <div key={item.id} className="container_annonce">
                                                 <div className="container_pdp">
                                                     <div className="container_left_pdp">
-                                                        <img src="media/img/1.png" alt="profil" />
+                                                        <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                         <div className="other_container_pdp">
                                                             <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                             <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>

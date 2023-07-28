@@ -122,15 +122,29 @@
 
 .container_img_loot {
     position: relative;
-    background-color: red;
     width: 100%;
-    height: 100%;
+    height: 70%;
     overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container_img_loot img {
     width: 100%;
     height: 100%;
+}
+
+.container_img_loot.lock i {
+    font-size: 60px;
+    z-index: 10;
+    color: $dark-blue !important;
+}
+
+.container_img_loot.lock {
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0.3;
 }
 
 .reaction_span {
