@@ -45,6 +45,8 @@ const MyLoot = () => {
         return userScore > requiredScore;
     };
 
+    const sortedData = data.sort((a, b) => a.scoreNecessaire - b.scoreNecessaire);
+
     return (
         <>
             <div className="content_user_profil">
@@ -57,10 +59,10 @@ const MyLoot = () => {
                     ) : (
                         <>
                             <div className="flex_all_loot">
-                                {data.length === 0 ? (
+                                {sortedData.length === 0 ? (
                                     <h1>Votre mairie n'a pas encore configuré les récompenses, veuillez les contacter via le chatbot</h1>
                                 ) : (
-                                    data.map((item) => (
+                                    sortedData.map((item) => (
                                         <div className="container_loot" key={item.id}>
                                             <div className="wrapper_header">
                                                 <h1>{item.nom}</h1>
