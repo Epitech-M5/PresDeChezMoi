@@ -14,6 +14,7 @@ const Home = ({ openModal }) => {
     const [typeAct, setTypeAct] = useState(null);
     const [dictionnaireUser, setDictionnaireUser] = useState({});
     const [dictionnairePdp, setDictionnairePdp] = useState({});
+    const [isOpenMore, setIsOpenMore] = useState(false);
 
     const [likedPosts, setLikedPosts] = useState([]); // stocker les annonces like par le user
 
@@ -210,6 +211,9 @@ const Home = ({ openModal }) => {
         }
     };
 
+    const handleMore = () => {
+        setIsOpenMore(!isOpenMore);
+    }
 
     const reversedData = [...mapData].reverse();
 
@@ -307,7 +311,12 @@ const Home = ({ openModal }) => {
                                                 <div className="container_bottom_post">
                                                     <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
                                                     <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                    <a href=""><i className="fa-regular fa-bookmark"></i></a>
+                                                    <a OnClick={handleMore}><i className="fa-regular fa-bookmark"></i></a>
+                                                    {isOpenMore && (
+                                                        <div className="container_more">
+                                                            <h1>option 1</h1>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         ))}
