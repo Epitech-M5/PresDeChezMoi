@@ -54,7 +54,6 @@ exports.signup = (req, res) => {
     nombreSignalement: null,
     estBanni: null,
     idRole: req.body.idRole,
-    listAnnonceEnregistre: null,
     noteVille: null // {"hygiene":5, "service":5, "evenement":5}
   };
 
