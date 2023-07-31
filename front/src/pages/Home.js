@@ -23,6 +23,7 @@ const Home = () => {
     const [idSign, setIdSign] = useState(null);
 
     const [likedPosts, setLikedPosts] = useState([]); // stocker les annonces like par le user
+    const [saves, setSaves] = useState([]);
 
     const navigate = useNavigate();
 
@@ -77,9 +78,12 @@ const Home = () => {
         getAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
 
-
                 const parsedLikes = JSON.parse(response.dataAPI.likes); // Convertir la chaîne JSON en array
                 setLikedPosts(parsedLikes);
+
+                const parsedSaves = JSON.parse(response.dataAPI.enregistrements);
+                setSaves(parsedSaves);
+
             })
             .catch((error) => {
                 console.log(error);
@@ -231,6 +235,36 @@ const Home = () => {
         }
     };
 
+    const handleSaves = (id) => {
+
+        console.log('SAVE', saves)
+
+        if (saves.includes(id)) {
+
+            putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'enregistrements': saves }, { 'x-access-token': user.token })
+                .then((response) => {
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            setSaves(prev => prev.filter(postId => postId !== id));
+        }
+
+        else {
+
+            putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'enregistrements': saves }, { 'x-access-token': user.token })
+                .then((response) => {
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            setSaves(prev => [...prev, id]);
+        }
+
+    }
+
     const handleMore = (itemId) => {
         setIsOpenMore(isOpenMore === itemId ? null : itemId);
     };
@@ -298,8 +332,6 @@ const Home = () => {
     }
 
     const reversedData = [...mapData].reverse();
-
-    console.log("oooooooooooooooooo", typeof (dictionnaireRole[user.idutilisateur]))
 
     return (
         <>
@@ -414,7 +446,7 @@ const Home = () => {
                                                 <div className="container_bottom_post">
                                                     <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
                                                     <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                    <a><i className="fa-regular fa-bookmark"></i></a>
+                                                    <a onClick={() => handleSaves(item.id)}>{saves.includes(item.id) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}</a>
                                                 </div>
                                             </div>
                                         ))}

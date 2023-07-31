@@ -207,7 +207,7 @@ exports.get_by_id = (req, res) => {
   Utilisateur.findOne({ where: { id: req.params.id } })
     .then(data => {
       console.log(data.id)
-      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.listAnnonceEnregistre });
+      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements });
     })
     .catch(err => {
       res.status(500).send({
@@ -241,7 +241,7 @@ exports.get_saves = (req, res) => {
     }
   })
     .then(data => {
-      res.status(200).send({ "enregistrements": data.listAnnonceEnregistre });
+      res.status(200).send({ "enregistrements": data.enregistrements });
     })
     .catch(err => {
       console.log("@@@@")
@@ -395,7 +395,7 @@ exports.get_by_id = (req, res) => {
   Utilisateur.findOne({ where: { id: req.params.id } })
     .then(data => {
       console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", data.likes)
-      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.listAnnonceEnregistre });
+      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements });
     })
     .catch(err => {
       res.status(500).send({
@@ -420,7 +420,7 @@ exports.get_likes = (req, res) => {
 exports.get_saves = (req, res) => {
   Utilisateur.findOne({ where: { id: req.userId } })
     .then(data => {
-      res.status(200).send({ "enregistrements": data.listAnnonceEnregistre });
+      res.status(200).send({ "enregistrements": data.enregistrements });
     })
     .catch(err => {
       res.status(500).send({
