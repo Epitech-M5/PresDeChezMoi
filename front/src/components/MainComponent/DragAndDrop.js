@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js';
 
-const DragAndDrop = ({ onFileDrop }) => {
+const DragAndDrop = ({ onFileDrop, fileProps }) => {
 
     const [isDragging, setIsDragging] = useState(false);
     const [file, setFile] = useState(null);
-
     const { addMessage, removeMessage, messages } = useMessageQueue();
+
+    useEffect(() => {
+        setFile(fileProps);
+    }, [fileProps]);
 
     const handleDragEnter = (e) => {
         e.preventDefault();
