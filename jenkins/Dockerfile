@@ -6,6 +6,7 @@ COPY --chown=jenkins:jenkins plugins.txt /var/jenkins_home/plugins.txt
 COPY --chown=jenkins:jenkins my_jenkins.yml /var/jenkins_home/my_jenkins.yml
 COPY --chown=jenkins:jenkins my_job.groovy /var/jenkins_home/my_job.groovy
 COPY --chown=jenkins:jenkins UpdateDeploymentARM.yml /var/jenkins_home/UpdateDeploymentARM.yml
+COPY --chown=jenkins:jenkins hosts /var/jenkins_home/hosts
 
 # Copie de la clé SSH dans le conteneur
 COPY id_rsa /tmp/id_rsa
