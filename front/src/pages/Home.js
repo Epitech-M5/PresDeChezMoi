@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getAPI, postAPI, putAPI } from './../api';
+import { deleteAPI, getAPI, postAPI, putAPI } from './../api';
 import Loader from './../components/Loader';
 import DropDownBtn from '../components/MainComponent/DropDownBtn';
 import axios from 'axios';
 import AddressDisplay from '../components/MainComponent/AddressDisplay';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../components/MainComponent/Modal';
 
-const Home = ({ openModal }) => {
+const Home = () => {
     const [mapData, setMapData] = useState([]);
     const user = useSelector((state) => state.utilisateur);
     const [loading, setLoading] = useState(true);
     const [typeAct, setTypeAct] = useState(null);
     const [dictionnaireUser, setDictionnaireUser] = useState({});
     const [dictionnairePdp, setDictionnairePdp] = useState({});
+    const [dictionnaireRole, setDictionnaireRole] = useState({});
     const [isOpenMore, setIsOpenMore] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    var [toAddModal, setToAddModal] = useState();
+    const [allSignal, setAllSignal] = useState([]);
+    const [idSign, setIdSign] = useState(null);
 
     const [likedPosts, setLikedPosts] = useState([]); // stocker les annonces like par le user
+    const [saves, setSaves] = useState([]);
 
     const navigate = useNavigate();
 
@@ -41,8 +48,6 @@ const Home = ({ openModal }) => {
         getAPI('http://127.0.0.1:8081/api/user/', {}, { 'x-access-token': user.token })
             .then((response) => {
 
-                console.log("@@@@@@@@@@@@@@", response.dataAPI)
-
                 var dictionnaire = {}
                 for (const element of response.dataAPI) {
                     dictionnaire[element.id] = element.pseudo;
@@ -54,6 +59,12 @@ const Home = ({ openModal }) => {
                     pdp[element.id] = element.photoProfil;
                 };
                 setDictionnairePdp(pdp);
+
+                var role = {}
+                for (const element of response.dataAPI) {
+                    role[element.id] = element.idRole;
+                };
+                setDictionnaireRole(role);
 
             })
             .catch((error) => {
@@ -67,9 +78,12 @@ const Home = ({ openModal }) => {
         getAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
 
-
                 const parsedLikes = JSON.parse(response.dataAPI.likes); // Convertir la chaîne JSON en array
                 setLikedPosts(parsedLikes);
+
+                const parsedSaves = JSON.parse(response.dataAPI.enregistrements);
+                setSaves(parsedSaves);
+
             })
             .catch((error) => {
                 console.log(error);
@@ -89,6 +103,16 @@ const Home = ({ openModal }) => {
             });
 
     }, [likedPosts]);
+
+    useEffect(() => {
+        getAPI('http://127.0.0.1:8081/api/typeSignalement/', {}, {})
+            .then((response) => {
+                setAllSignal(response.dataAPI);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [])
 
     const handleCheckboxChange = (item) => {
 
@@ -211,16 +235,115 @@ const Home = ({ openModal }) => {
         }
     };
 
-    const handleMore = () => {
-        setIsOpenMore(!isOpenMore);
+    const handleSaves = (id) => {
+
+        console.log('SAVE', saves)
+
+        if (saves.includes(id)) {
+
+            putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'enregistrements': saves }, { 'x-access-token': user.token })
+                .then((response) => {
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            setSaves(prev => prev.filter(postId => postId !== id));
+        }
+
+        else {
+
+            putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'enregistrements': saves }, { 'x-access-token': user.token })
+                .then((response) => {
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            setSaves(prev => [...prev, id]);
+        }
+
+    }
+
+    const handleMore = (itemId) => {
+        setIsOpenMore(isOpenMore === itemId ? null : itemId);
+    };
+
+    const closeModal = () => {
+
+        const toClose = document.querySelector('.modal');
+        toClose.classList.add('closing');
+        setTimeout(() => {
+            setIsOpen(false);
+        }, 300);
+
+    };
+
+    const handleSup = (id) => {
+
+        // const axiosRequest = deleteAPI(`http://127.0.0.1:8081/api/annonce/${id}`);
+
+        setToAddModal(
+            <>
+                <div className="wrapper_delete_post">
+                    <h1>Êtes-vous sûr(e) ?</h1>
+                    <button onClick={() => {
+                        deleteAPI(`http://127.0.0.1:8081/api/annonce/${id}`, {}, { 'x-access-token': user.token })
+                            .then((response) => {
+                                closeModal()
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    }}>Oui</button>
+                    <button onClick={() => {
+                        closeModal()
+                    }}>Non</button>
+                </div>
+            </>
+        )
+
+        setIsOpen(true);
+    }
+
+    const handleSignal = (id) => {
+
+        setToAddModal(
+            <>
+                {allSignal.map((item) => (
+                    <>
+                        <div key={item.id} className="wrapper_delete_post">
+                            <h1 onClick={() => {
+                                putAPI(`http://127.0.0.1:8081/api/annonce/${id}`, { 'idTypeSignalement': item.id, 'idUtilisateurSignalement': user.idutilisateur }, { 'x-access-token': user.token })
+                                    .then((response) => {
+                                        closeModal()
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                    });
+                            }}>{item.titre}</h1>
+                        </div>
+                    </>
+                ))}
+            </>
+        )
+
+        setIsOpen(true);
     }
 
     const reversedData = [...mapData].reverse();
 
-    console.log(dictionnairePdp)
-
     return (
         <>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <div className="container_x">
+                    <i className="fa-solid fa-xmark" onClick={closeModal}></i>
+                </div>
+                <div className="wrapper_popup">
+                    {toAddModal}
+                </div>
+            </Modal>
+
             <div className="container_bye"></div>
             <section className="main_container_home">
                 <section className="container_1_home"></section>
@@ -239,8 +362,10 @@ const Home = ({ openModal }) => {
                         ) : (
                             <>
                                 {typeAct === 0 && (
+
                                     <ul>
                                         {reversedData.map((item) => (
+
                                             <div key={item.id} className="container_annonce">
                                                 <div className="container_pdp">
                                                     <div className="container_left_pdp">
@@ -251,7 +376,17 @@ const Home = ({ openModal }) => {
                                                         </div>
                                                     </div>
                                                     <div className="container_right_pdp">
-                                                        <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                        <a onClick={() => handleMore(item.id)}><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                        {isOpenMore === item.id && (
+                                                            <div className="container_more">
+
+                                                                {dictionnaireRole[user.idutilisateur] === 3 || item.organisateur === user.idutilisateur ? (
+                                                                    <h1 onClick={() => handleSup(item.id)}>Supprimer</h1>
+                                                                ) : null}
+
+                                                                <h1 onClick={() => handleSignal(item.id)}>Signaler</h1>
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </div>
                                                 <div className="container_content_post">
@@ -311,12 +446,7 @@ const Home = ({ openModal }) => {
                                                 <div className="container_bottom_post">
                                                     <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
                                                     <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                    <a OnClick={handleMore}><i className="fa-regular fa-bookmark"></i></a>
-                                                    {isOpenMore && (
-                                                        <div className="container_more">
-                                                            <h1>option 1</h1>
-                                                        </div>
-                                                    )}
+                                                    <a onClick={() => handleSaves(item.id)}>{saves.includes(item.id) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}</a>
                                                 </div>
                                             </div>
                                         ))}
@@ -530,7 +660,7 @@ const Home = ({ openModal }) => {
                     <div className="pub1">
                         <div className="text_pub">
                             <h1>Invitez vos amis à une fête, un évènement caritatif ou une rencontre </h1>
-                            <button onClick={openModal}>Créer un évènement</button>
+                            <button>Créer un évènement</button>
                         </div>
                     </div>
                     <div className="pub2">

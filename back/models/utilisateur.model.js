@@ -67,7 +67,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        listAnnonceEnregistre: {
+        enregistrements: {
             type: Sequelize.JSON,
             defaultValue: []
         },
