@@ -7,6 +7,8 @@ module.exports = app => {
 
     router.get("/", recompense.find_all);
 
+    // router.get("/:idVille", recompense.find_all_by_ville);
+
     router.get("/:id", recompense.find_one);
 
     router.put("/:id", recompense.update);
