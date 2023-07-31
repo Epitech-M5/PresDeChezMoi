@@ -84,7 +84,7 @@ function ajoutUtilisateur() {
         nombreSignalement: 0,
         estBanni: false,
         idRole: 3,
-        listAnnonceEnregistre: null
+        // listAnnonceEnregistre: null
     })
 
     Utilisateur.create({
@@ -108,7 +108,7 @@ function ajoutUtilisateur() {
         nombreSignalement: 0,
         estBanni: false,
         idRole: 1,
-        listAnnonceEnregistre: null
+        // listAnnonceEnregistre: null
     })
 
     Utilisateur.create({
@@ -132,7 +132,7 @@ function ajoutUtilisateur() {
         nombreSignalement: 0,
         estBanni: false,
         idRole: 1,
-        listAnnonceEnregistre: null
+        // listAnnonceEnregistre: null
     })
 }
 
