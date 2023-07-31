@@ -45,6 +45,8 @@ module.exports = app => {
     utilisateur.find_note_by_ville
   );
 
+  router.put("/edit_password/", [authJwt.verifyToken], utilisateur.edit_password);
+
   // Modification d'un utilisateur en utilisant l'id utilisateur depuis le token ou bien par choix de l'administrateur
   router.put("/:id", [authJwt.verifyToken], utilisateur.update);
 

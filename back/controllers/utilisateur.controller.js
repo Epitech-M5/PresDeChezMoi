@@ -365,6 +365,30 @@ exports.update = (req, res) => {
   }
 };
 
+exports.edit_password = (req, res) => {
+  console.log(" àààààààààààààààààààààààà")
+  console.log(req.body.motDePasse)
+  req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8),
+    Utilisateur.update(req.body, {
+      where: { id: req.userId }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.status(200).send({
+            message: "L'utilisateur a été modifié avec succès."
+          });
+        } else {
+          res.status(400).send({
+            message: `Impossible de modifier l'utilisateurAAAAAAAAAAAAa id=${req.userId}.`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Erreur lors de la modification de l'utilisateur id=" + id + "(" + err + ")"
+        });
+      });
+}
 
 // Suppression de l'utilisateur
 exports.delete = (req, res) => {

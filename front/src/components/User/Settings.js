@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import DropDownBtn from '../../components/MainComponent/DropDownBtn';
 import Modal from '../MainComponent/Modal';
+import { getAPI, postAPI, putAPI, deleteAPI } from '../../api';
+import { useSelector } from 'react-redux';
 
 const Settings = () => {
+    const user = useSelector((state) => state.utilisateur);
 
     const [typeMap, setTypeMap] = useState(null);
     const [content, setContent] = useState();
     const [isOpen, setIsOpen] = useState(false);
+    const [motDePasse, setMotDePasse] = useState('');
+    const [motDePasseConfirm, setMotDePasseConfirm] = useState('');
+
+    // useEffect(() => { }, [motDePasse, motDePasseConfirm])
 
     const handleCheckboxChange = (item) => {
 
@@ -20,7 +27,36 @@ const Settings = () => {
         setTypeMap(value);
     };
 
+
+
+    const handleMotDePasse = () => {
+
+        console.log("@@@@@@@", motDePasse, "===", motDePasseConfirm)
+        if (motDePasse === motDePasseConfirm) {
+            var header = {
+                "x-access-token": user.token
+            }
+            var body = {
+                "motDePasse": motDePasse
+            }
+            putAPI("http://127.0.0.1:8081/api/user/edit_password/", body, header).then(() => {
+                //message success
+                console.log("SUCESSS MDP")
+                setMotDePasse('')
+                setMotDePasseConfirm('')
+            })
+        } else {
+            //error
+            console.log("ERROR MDP PAS BON")
+            setMotDePasse('')
+            setMotDePasseConfirm('')
+        }
+    };
+
     const closeModal = () => {
+
+        setMotDePasse('')
+        setMotDePasseConfirm('')
 
         const toClose = document.querySelector('.modal');
         toClose.classList.add('closing');
@@ -63,11 +99,30 @@ const Settings = () => {
 
         openModal();
     }
+    const handlePassword = (event) => {
+        console.log("AAA", event.target.value)
+        setMotDePasse(event.target.value);
+        console.log("AAA", event.target.value)
 
+    }
+    const handlePasswordConfirm = (event) => {
+        console.log("BBB", event.target.value)
+        setMotDePasseConfirm(event.target.value);
+        console.log("BBB", event.target.value)
+
+    }
     const handlePwd = () => {
         setContent(
             <>
                 <h1>modif mdp</h1>
+                {/* <input placeholder='Nouveau mot de passe' onChange={handlePassword} /> */}
+                <input
+                    placeholder='Nouveau mot de passe'
+                    value={motDePasse}
+                    onChange={(event) => setMotDePasse(event.target.value)}
+                />
+                <input placeholder='Confirmer mot de passe' onChange={handlePasswordConfirm} />
+                <button onClick={handleMotDePasse}>Send</button>
             </>
         );
 
