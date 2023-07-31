@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { getAPI } from '../../api';
+import { deleteAPI, getAPI, putAPI } from '../../api';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../Loader';
 import AddressDisplay from '../MainComponent/AddressDisplay';
+import Modal from '../MainComponent/Modal';
 
 const Myposts = () => {
 
@@ -12,10 +13,36 @@ const Myposts = () => {
     const user = useSelector((state) => state.utilisateur);
     const [loading, setLoading] = useState(true);
     const [dictionnaireUser, setDictionnaireUser] = useState({});
+    const [dictionnairePdp, setDictionnairePdp] = useState({});
+    const [dictionnaireRole, setDictionnaireRole] = useState({});
+    const [isOpenMore, setIsOpenMore] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    var [toAddModal, setToAddModal] = useState();
+    const [allSignal, setAllSignal] = useState([]);
+    const [saves, setSaves] = useState([]);
+    const [likedPosts, setLikedPosts] = useState([]);
 
-    const [idUser, setIdUser] = useState(null); // JE VEUX RECUPERER L'ID DU USER CONNECTE
+    const [idUser, setIdUser] = useState(null);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // fetch likes du user et les mettre dans l'array
+        getAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+
+                const parsedLikes = JSON.parse(response.dataAPI.likes); // Convertir la chaîne JSON en array
+                setLikedPosts(parsedLikes);
+
+                const parsedSaves = JSON.parse(response.dataAPI.enregistrements);
+                setSaves(parsedSaves);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+    }, []);
 
     useEffect(() => {
         getAPI('http://127.0.0.1:8081/api/annonce/', {}, { 'x-access-token': user.token })
@@ -37,16 +64,58 @@ const Myposts = () => {
     }, []);
 
     useEffect(() => {
-        getAPI('http://127.0.0.1:8081/api/user/', {}, { 'x-access-token': user.token })
+
+        // à chaque fois que likedpost change, stocker sa value en base
+        putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'likes': likedPosts }, { 'x-access-token': user.token })
             .then((response) => {
 
-                // ici je recupere tous les users
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }, [likedPosts]);
+
+    useEffect(() => {
+        putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'enregistrements': saves }, { 'x-access-token': user.token })
+            .then((response) => {
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [saves])
+
+    useEffect(() => {
+        getAPI('http://127.0.0.1:8081/api/typeSignalement/', {}, {})
+            .then((response) => {
+                setAllSignal(response.dataAPI);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [])
+
+    useEffect(() => {
+        getAPI('http://127.0.0.1:8081/api/user/', {}, { 'x-access-token': user.token })
+            .then((response) => {
 
                 var dictionnaire = {}
                 for (const element of response.dataAPI) {
                     dictionnaire[element.id] = element.pseudo;
                 };
-                setDictionnaireUser(dictionnaire)
+                setDictionnaireUser(dictionnaire);
+
+                var pdp = {}
+                for (const element of response.dataAPI) {
+                    pdp[element.id] = element.photoProfil;
+                };
+                setDictionnairePdp(pdp);
+
+                var role = {}
+                for (const element of response.dataAPI) {
+                    role[element.id] = element.idRole;
+                };
+                setDictionnaireRole(role);
 
                 const userData = response.dataAPI;
 
@@ -56,12 +125,41 @@ const Myposts = () => {
                     setIdUser(loggedInUserId);
                 }
 
+
             })
             .catch((error) => {
                 console.log('error', error);
                 setLoading(false);
             });
     }, []);
+
+    const handleSaves = (id) => {
+
+        if (saves.includes(id)) {
+
+            setSaves(prev => prev.filter(postId => postId !== id));
+        }
+
+        else {
+
+            setSaves(prev => [...prev, id]);
+        }
+
+    }
+
+    const closeModal = () => {
+
+        const toClose = document.querySelector('.modal');
+        toClose.classList.add('closing');
+        setTimeout(() => {
+            setIsOpen(false);
+        }, 300);
+
+    };
+
+    const handleMore = (itemId) => {
+        setIsOpenMore(isOpenMore === itemId ? null : itemId);
+    };
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -115,11 +213,125 @@ const Myposts = () => {
         navigate(`/view-post/${id}`)
     }
 
+    const handleLikes = (id) => {
+
+        if (likedPosts.includes(id)) {
+            // si le user à deja like alors -1
+            const updatedMapData = mapData.map(item => {
+                if (item.id === id && item.reaction > 0) {
+
+                    const updatedItem = { ...item, reaction: item.reaction - 1 };
+
+                    // puis on modifie le nombre de like en base
+                    let x = item.reaction - 1
+                    putAPI(`http://127.0.0.1:8081/api/annonce/${id}`, { 'reaction': x }, { 'x-access-token': user.token })
+                        .then((response) => {
+
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+
+                    return updatedItem;
+                }
+                return item;
+            });
+            setMapData(updatedMapData);
+
+            // on enleve l'id de l'annonce de l'array
+            setLikedPosts(prevLikedPosts => prevLikedPosts.filter(postId => postId !== id));
+
+        } else {
+            // si le user à deja like alors +1 et ajoute l'id de l'annonce
+            const updatedMapData = mapData.map(item => {
+                if (item.id === id) {
+
+                    const updatedItem = { ...item, reaction: item.reaction + 1 };
+
+                    // puis on modifie le nombre de like en base
+                    let x = item.reaction + 1
+                    putAPI(`http://127.0.0.1:8081/api/annonce/${id}`, { 'reaction': x }, { 'x-access-token': user.token })
+                        .then((response) => {
+
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+
+                    return updatedItem;
+                }
+                return item;
+            });
+            setMapData(updatedMapData);
+
+            // on ajoute l'id de l'annonce de l'array
+            setLikedPosts(prevLikedPosts => [...prevLikedPosts, id]);
+        }
+    };
+
+    const handleSup = (id) => {
+
+        setToAddModal(
+            <>
+                <div className="wrapper_delete_post">
+                    <h1>Êtes-vous sûr(e) ?</h1>
+                    <button onClick={() => {
+                        deleteAPI(`http://127.0.0.1:8081/api/annonce/${id}`, {}, { 'x-access-token': user.token })
+                            .then((response) => {
+                                closeModal()
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    }}>Oui</button>
+                    <button onClick={() => {
+                        closeModal()
+                    }}>Non</button>
+                </div>
+            </>
+        )
+
+        setIsOpen(true);
+    }
+
+    const handleSignal = (id) => {
+
+        setToAddModal(
+            <>
+                {allSignal.map((item) => (
+                    <>
+                        <div key={item.id} className="wrapper_delete_post">
+                            <h1 onClick={() => {
+                                putAPI(`http://127.0.0.1:8081/api/annonce/${id}`, { 'idTypeSignalement': item.id, 'idUtilisateurSignalement': user.idutilisateur }, { 'x-access-token': user.token })
+                                    .then((response) => {
+                                        closeModal()
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                    });
+                            }}>{item.titre}</h1>
+                        </div>
+                    </>
+                ))}
+            </>
+        )
+
+        setIsOpen(true);
+    }
+
     const reversedData = [...mapData].reverse();
     const hasElementsToDisplay = reversedData.some((item) => item.organisateur === idUser);
 
     return (
         <>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <div className="container_x">
+                    <i className="fa-solid fa-xmark" onClick={closeModal}></i>
+                </div>
+                <div className="wrapper_popup">
+                    {toAddModal}
+                </div>
+            </Modal>
             <div className="content_user_profil">
                 <div className="container_mypost_tomap">
                     {loading ? (
@@ -130,19 +342,31 @@ const Myposts = () => {
 
                         <ul>
                             {hasElementsToDisplay ? (
+
                                 reversedData.map((item) => (
                                     item.organisateur === idUser && (
+
                                         <div key={item.id} className="container_annonce">
                                             <div className="container_pdp">
                                                 <div className="container_left_pdp">
-                                                    <img src="https://img.freepik.com/vecteurs-premium/portrait-profil-belle-fille-illustration-vectorielle_257845-4025.jpg?w=2000" alt="profil" />
+                                                    <img src={`../../media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                     <div className="other_container_pdp">
                                                         <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                         <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                     </div>
                                                 </div>
                                                 <div className="container_right_pdp">
-                                                    <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                    <a onClick={() => handleMore(item.id)}><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                    {isOpenMore === item.id && (
+                                                        <div className="container_more">
+
+                                                            {dictionnaireRole[user.idutilisateur] === 3 || item.organisateur === user.idutilisateur ? (
+                                                                <h1 onClick={() => handleSup(item.id)}>Supprimer</h1>
+                                                            ) : null}
+
+                                                            <h1 onClick={() => handleSignal(item.id)}>Signaler</h1>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                             <div className="container_content_post">
@@ -200,9 +424,9 @@ const Myposts = () => {
                                                 )}
                                             </div>
                                             <div className="container_bottom_post">
-                                                <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
                                                 <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                <a href=""><i className="fa-regular fa-bookmark"></i></a>
+                                                <a onClick={() => handleSaves(item.id)}>{saves.includes(item.id) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}</a>
                                             </div>
                                         </div>
                                     )
