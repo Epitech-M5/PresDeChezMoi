@@ -22,6 +22,9 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             unique: true
         },
+        description: {
+            type: Sequelize.TEXT,
+        },
         motDePasse: {
             type: Sequelize.STRING
         },
@@ -36,7 +39,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.JSON,
             defaultValue: []
         },
-        abonnement: {
+        likes: {
             type: Sequelize.JSON,
             defaultValue: []
         },
@@ -55,6 +58,9 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER
         },
         estBanni: {
+            type: Sequelize.BOOLEAN
+        },
+        nouveauUser: {
             type: Sequelize.BOOLEAN
         },
         idRole: {

@@ -31,12 +31,28 @@ module.exports = app => {
 
   // Liste de tout les utilisateurs
   router.get("/",
-    [authJwt.verifyToken],
+    [authJwt.verifyToken, authJwt.isAdmin],
     utilisateur.find_all
+  );
+
+  router.get("/by_ville/:idVille",
+    [authJwt.verifyToken],
+    utilisateur.find_by_ville
+  );
+
+  router.get("/note_by_ville/:idVille",
+    [authJwt.verifyToken],
+    utilisateur.find_note_by_ville
   );
 
   // Modification d'un utilisateur en utilisant l'id utilisateur depuis le token ou bien par choix de l'administrateur
   router.put("/:id", [authJwt.verifyToken], utilisateur.update);
+
+  router.get("/:id", [authJwt.verifyToken], utilisateur.get_by_id);
+
+  router.get("/likes", [authJwt.verifyToken], utilisateur.get_likes);
+
+  router.get("/saves", [authJwt.verifyToken], utilisateur.get_saves);
 
   // Suppression d'un utilisateur grâce à l'id utilisateur depuis le token ou bien par choix de l'administrateur
   router.delete("/:id", utilisateur.delete);

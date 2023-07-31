@@ -41,7 +41,9 @@ exports.signup = (req, res) => {
     photoProfil: getRandomIntInclusive(1, 5), // Choisi aléatoirement une photo de profil par défaut
     mail: req.body.mail,
     motDePasse: bcrypt.hashSync(req.body.motDePasse, 8),
+    nouveauUser: true,
     idVille: null,
+    description: null,
     score: null,
     participation: null,
     estAdministrateur: null,
@@ -201,6 +203,108 @@ exports.find_all = (req, res) => {
       });
     });
 };
+exports.get_by_id = (req, res) => {
+  Utilisateur.findOne({ where: { id: req.params.id } })
+    .then(data => {
+      console.log(data.id)
+      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.listAnnonceEnregistre });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+exports.get_likes = (req, res) => {
+  Utilisateur.findOne({
+    where: {
+      id: req.userId
+    }
+  })
+    .then(data => {
+      res.status(200).send({ "likes": data.likes });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+exports.get_saves = (req, res) => {
+  console.log("AAAAAAAAAAAAAAAAa")
+  console.log("AAAAAAAAAAAAAAAAa", req)
+  Utilisateur.findOne({
+    where: {
+      id: req.userId
+    }
+  })
+    .then(data => {
+      res.status(200).send({ "enregistrements": data.listAnnonceEnregistre });
+    })
+    .catch(err => {
+      console.log("@@@@")
+
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+
+// Récuperer tous les utilisateurs (Code erreur dispo: 200, 500)
+exports.find_by_ville = (req, res) => {
+  console.log("22222222", req.params)
+  console.log("22222222", req.params.idVille)
+  Utilisateur.findAll({
+    include: [
+
+      {
+        model: Role,
+        attributes: ['titre']
+      }
+    ],
+    where: { idVille: req.params.idVille }
+  })
+    .then(data => {
+      res.status(200).send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+
+exports.find_note_by_ville = (req, res) => {
+  console.log("22222222", req.params)
+  console.log("22222222", req.params.idVille)
+  Utilisateur.findAll({
+    include: [
+
+      {
+        model: Role,
+        attributes: ['titre']
+      }
+    ],
+    where: { idVille: req.params.idVille }
+  })
+    .then(data => {
+      var arrayAllNote = []
+      for (var n = 0; n < data.length; n++) {
+        arrayAllNote.push(data[n].noteVille)
+      }
+      res.status(200).send(arrayAllNote);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
 
 async function userFindRole(userId) {
   Utilisateur.findOne({
@@ -232,7 +336,12 @@ exports.update = (req, res) => {
 
   // si valid
   if (flagValidModif) {
-    req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8)
+    // try {
+    //   req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8)
+    // }
+    // catch (error) {
+    //   console.log("No password provided but it's ok")
+    // }
     Utilisateur.update(req.body, {
       where: { id: id }
     })

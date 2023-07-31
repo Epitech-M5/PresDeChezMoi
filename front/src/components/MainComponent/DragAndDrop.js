@@ -5,7 +5,6 @@ const DragAndDrop = ({ onFileDrop, updateDragAndDrop }) => {
 
     const [isDragging, setIsDragging] = useState(false);
     const [file, setFile] = useState(null);
-
     const { addMessage, removeMessage, messages } = useMessageQueue();
 
     useEffect(() => {
