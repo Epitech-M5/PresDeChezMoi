@@ -419,7 +419,7 @@ const NavBarHome = (props) => {
                         {toAddModal}
                     </div>
                     <div className="modal_content_right">
-                        <DropDownBtn text="Type de post" items={['Vente', 'Evenement', 'Poste à pourvoir', 'Promotion', 'Simple post']} onCheckboxChange={handleCheckboxChange} />
+                        <DropDownBtn type='abs' text="Type de post" items={['Vente', 'Evenement', 'Poste à pourvoir', 'Promotion', 'Simple post']} onCheckboxChange={handleCheckboxChange} />
                         <input type="button" value="Publier" id='publish' onClick={handleSubmit} />
                         <p className='error_msg'>{error}</p>
                     </div>

@@ -342,7 +342,7 @@ const Home = () => {
                 <section className="container_2_home">
                     <div className="padding_for_bottom_fix">
                         <div className="spacing">
-                            <DropDownBtn text="Filtre annonce" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post', 'Tout']} onCheckboxChange={handleCheckboxChange} />
+                            <DropDownBtn type='abs' text="Filtre annonce" items={['Vente', 'Evénement', 'Poste à pourvoir', 'Promotion', 'Simple post', 'Tout']} onCheckboxChange={handleCheckboxChange} />
                             <button onClick={() => navigate('/home/user/settings')}>bouton à supp</button>
                             <button onClick={() => navigate('/home/test')}>test</button>
                         </div>

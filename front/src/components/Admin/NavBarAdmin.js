@@ -1,14 +1,31 @@
 import { React, useState, useEffect } from 'react';
 import { Provider, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import { getAPI } from '../../api';
 
 const NavBarAdmin = () => {
 
     const [activeId, setActiveId] = useState(null);
+    const [data, setData] = useState([]);
 
     const navigate = useNavigate();
 
     const user = useSelector((state) => state.utilisateur);
+
+    useEffect(() => {
+
+        getAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+
+                setData(response.dataAPI);
+                console.log(response.dataAPI)
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }, []);
 
     const handleToggle = () => {
 
@@ -64,7 +81,7 @@ const NavBarAdmin = () => {
                         <h1>Page Administration</h1>
                     </div>
                     <div className="container_admin_admin">
-                        <img src="https://img.freepik.com/vecteurs-premium/portrait-profil-belle-fille-illustration-vectorielle_257845-4025.jpg?w=2000" alt="logo" />
+                        <img src={`../../media/img/${data.photoProfil}.png`} alt="logo" />
                         <h4>Bienvenue</h4>
                         <h4>@{user.pseudo}</h4>
                     </div>
@@ -120,7 +137,7 @@ const NavBarAdmin = () => {
             <div className='navbar_toslide_responsive_admin'>
                 <div className="toslide_content_responsive_admin">
                     <div className="container_admin_admin">
-                        <img src="https://img.freepik.com/vecteurs-premium/portrait-profil-belle-fille-illustration-vectorielle_257845-4025.jpg?w=2000" alt="logo" />
+                        <img src={`../../media/img/${data.photoProfil}.png`} alt="logo" />
                         <h4>Bienvenue</h4>
                         <h4> @{user.pseudo}</h4>
                     </div>
