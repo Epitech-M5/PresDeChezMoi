@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         idStatus: {
-            type: Sequelize.BOOLEAN
+            type: Sequelize.INTEGER
         },
         message: {
             type: Sequelize.TEXT
@@ -22,10 +22,6 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
-    Ticket.associate = (models) => {
-        Ticket.belongsTo(models.Utilisateur, { foreignKey: 'idUtilisateur' });
-        Ticket.belongsTo(models.Statut, { foreignKey: 'idStatut' });
-    };
 
     return Ticket;
 };

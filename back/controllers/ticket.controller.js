@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 const Ticket = db.ticket;
 const Notification = db.notification;
 const Status = db.status;
+const Utilisateur = db.utilisateur;
 
 // Pour l'utilisateur
 exports.create = (req, res) => { 
@@ -69,7 +70,16 @@ exports.find_one = (req, res) => {
 
 // ADMIN: peut voir tout les ticket existant
 exports.find_all = (req, res) => {
-    Ticket.findAll()
+    Ticket.findAll({
+        include: [{
+            model: Utilisateur,
+            attributes: ['pseudo']
+        },
+    {
+        model: Status,
+        attributes: ['titre'] 
+    }],
+      })
         .then(data => {
             res.send(data);
         })
@@ -142,18 +152,46 @@ exports.delete = (req, res) => {
 
 // ADMIN: peut voir tout les ticket par rapport à leurs status
 exports.find_all_by_status= (req, res) => {
-    const id = req.params.id;
+    const nameReqStatus = req.params.status;
+    var nameStatus="";
+
+    switch (nameReqStatus) {
+        case "nonResolu":
+            nameStatus="non résolu"
+          break;
+        case "enCours":
+          nameStatus="en cours de traitement"
+          break;
+        case "resolu":
+          nameStatus="résolu"
+          break;
+        case "inapproprie":
+          nameStatus="inapproprié"
+          break;        
+    }
+    console.log("nameStatus", nameStatus)        
 
     Ticket.findAll({
-        where: {
-            idStatus: id
-          }
+        include: [
+            {
+                model: Utilisateur,
+                attributes: ['pseudo']
+            },
+            {
+              model: Status,
+              where: {
+                titre: nameStatus
+              }
+            }
+          ]
+  
     })
     .then(data => {
 
         res.send(data);
     })
     .catch(err => {
+        console.log(err)
         res.status(500).send({
             message:
                 err.message || "Une erreur est survenu pour retrouver le ticket."
@@ -166,12 +204,20 @@ exports.find_all_by_date= (req, res) => {
     const order = req.params.order;
     let value;
     if(order === "desc") {
-        value = 'DESC';
+        value = 'DESC'; // plus récents
     }else {
         value = 'ASC';
 
     }
     Ticket.findAll({
+        include: [{
+            model: Utilisateur,
+            attributes: ['pseudo']
+        },
+    {
+        model: Status,
+        attributes: ['titre'] 
+    }],
         // Filtre des datas
       order: [['createdAt', value]], 
     })
