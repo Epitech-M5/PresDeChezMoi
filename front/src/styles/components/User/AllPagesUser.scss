@@ -1,0 +1,166 @@
+.content_user_profil {
+    width: 100%;
+    position: relative;
+    //left: 20%;
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+.container_btns_settings {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 50px 0 50px;
+}
+
+.container_btns_settings button {
+    width: 200px;
+    padding: 15px;
+    border-radius: 54px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.container_btns_settings button:nth-child(2) {
+    background-color: $green;
+    color: $white;
+}
+
+.container_btns_settings button:nth-child(3) {
+    background-color: $yellow;
+    color: $white;
+}
+
+.container_btns_settings button:nth-child(5) {
+    background-color: $blue;
+    color: $white;
+}
+
+.container_btns_settings button:nth-child(4) {
+    width: 250px !important;
+    background-color: $red-orange;
+    color: $white;
+}
+
+.container_dropdown_for_settings {
+    width: 200px;
+}
+
+.container_mypost_tomap {
+    margin: 0 100px 0 100px;
+}
+
+.loader_formypost {
+    height: 200px !important;
+}
+
+.container_loot {
+    margin: 20px 0 20px 0;
+    height: 300px !important;
+    width: 300px !important;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+    background-color: $white;
+    overflow: hidden;
+}
+
+.container_loot hr {
+    margin: 10px 0 0 0;
+    width: 100%;
+    border: 1px solid $black;
+    border-color: $black;
+}
+
+.wrapper_header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    background-color: $white;
+    z-index: 1;
+}
+
+.wrapper_header h1:nth-child(1) {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.wrapper_header h1 {
+    font-family: $font-LeagueSpartan;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 10px 0 10px 0;
+}
+
+.flex_all_loot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    flex-wrap: wrap;
+}
+
+#score_loot {
+    font-size: 18px !important;
+}
+
+#unlock_loot {
+    font-size: 18px !important;
+    color: $orange;
+}
+
+#unlock_loot i {
+    color: $red-orange;
+    margin-left: 5px;
+    font-size: 16px !important;
+}
+
+.container_img_loot {
+    position: relative;
+    width: 100%;
+    height: 70%;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_img_loot img {
+    width: 100%;
+    height: 100%;
+}
+
+.container_img_loot.lock i {
+    font-size: 60px;
+    z-index: 10;
+    color: $dark-blue !important;
+}
+
+.container_img_loot.lock {
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0.3;
+}
+
+.reaction_span {
+    font-size: 1rem !important;
+    font-family: $font-LeagueSpartan !important;
+    margin-right: 2px !important;
+}
+
+@media(max-width:650px),
+(max-height:450px) {
+    .container_btns_settings {
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0 50px 0 50px;
+    }
+}

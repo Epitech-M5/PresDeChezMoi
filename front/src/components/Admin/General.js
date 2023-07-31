@@ -16,9 +16,7 @@ const General = () => {
     const [file, setFile] = useState(null);
     const [name, setName] = useState("");
     const [numb, setNumb] = useState('');
-    const [updateDragAndDrop, setUpdateDragAndDrop] = useState(false);
     const [updateToggle, setUpdateToggle] = useState(false);
-    const [arrayUser, setArrayUser] = useState([]);
 
     // const user = useSelector((state) => state.utilisateur);
 
@@ -59,10 +57,11 @@ const General = () => {
 
         else {
 
+            console.log(name, file.name, numb)
+
             var body = {
                 "nom": name,
-                "image": file,
-                "idVille": user.idVille,
+                "image": file.name,
                 "scoreNecessaire": numb
             }
 
@@ -77,34 +76,56 @@ const General = () => {
                     addMessage(error, 'error')
                 });
 
-            setFile(null)
-            setNumb('')
-            setName('')
-            setUpdateDragAndDrop(true);
+            setFile(null);
+            setNumb('');
+            setName('');
         }
 
-        var body = {
-            "nom": name,
-            "image": file,
-            "idVille": user.idVille,
-            "scoreNecessaire": numb
-        }
-        console.log(body)
-        var header = {
-            "x-access-token": user.token
-        }
-        postAPI("http://127.0.0.1:8081/api/recompense/", body, header).then((response) => {
-            addMessage('Récompense ajouté en base de donnée', 'success')
-            setFile(null)
-            setNumb('')
-            setName('')
-            console.log()
-            updateFile(file)
-        })
-            .catch((error) => {
-                addMessage(error, 'error')
-            });
+    };
+
+    const handleRec = (event) => {
+        setName(event.target.value);
     }
+
+    const handlePoint = (event) => {
+        setNumb(event.target.value);
+    }
+
+    const handleToggle = (state) => {
+        console.log(state);
+        setUpdateToggle(state);
+    };
+
+    return (
+        <>
+            <MessageQueue messages={messages} removeMessage={removeMessage} />
+            <div className='content_admin'>
+                <div className="container_title_page_admin">
+                    <h1>Réglagle Général</h1>
+                </div>
+                <div className="content_inside_admin_pages">
+
+                    <h1>Ajouter une récompenses (PNG / JPG):</h1>
+                    <div className="wrapper_inputs_rec">
+                        <input type="text" placeholder='Nom récompense' className='input_rec_text' value={name} onChange={handleRec} />
+                        <input type="number" placeholder='Nombre de point' className='input_rec_number' value={numb} onChange={handlePoint} />
+                    </div>
+                    <DragAndDrop onFileDrop={updateFile} up={file} />
+                    <input className='input_rec' type="button" value='Envoyer !' onClick={handleSubmit} />
+
+                    <div className="space_hr_adm">
+                        <hr />
+                    </div>
+
+                    <div className="wrapper_chat_ville">
+                        <ToggleBtn toggled={updateToggle} onToggle={handleToggle} />
+                        <h1>Créer un chat de ville</h1>
+                    </div>
+
+                </div>
+            </div>
+        </>
+    );
 };
 
 

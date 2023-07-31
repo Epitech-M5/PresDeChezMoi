@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js';
 
-const DragAndDrop = ({ onFileDrop, updateDragAndDrop }) => {
+const DragAndDrop = ({ onFileDrop, up }) => {
 
     const [isDragging, setIsDragging] = useState(false);
     const [file, setFile] = useState(null);
     const { addMessage, removeMessage, messages } = useMessageQueue();
-
-    useEffect(() => {
-        if (updateDragAndDrop) {
-            setFile(null);
-            onFileDrop(null);
-        }
-    }, [updateDragAndDrop]);
 
     const handleDragEnter = (e) => {
         e.preventDefault();
@@ -51,6 +44,10 @@ const DragAndDrop = ({ onFileDrop, updateDragAndDrop }) => {
             addMessage('Les fichiers supportés sont .png et .jpg', 'info');
         }
     };
+
+    useEffect(() => {
+        setFile(up)
+    }, [up]);
 
     return (
         <>

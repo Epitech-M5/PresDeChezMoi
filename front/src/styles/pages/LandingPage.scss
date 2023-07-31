@@ -39,7 +39,7 @@
 .btn_title {
     display: flex;
     justify-content: center;
-    padding-top: 5%;
+    padding-top: 50px;
 }
 
 .container_explain {
@@ -48,16 +48,12 @@
     background-color: $white !important;
 }
 
-.title_explain {
-    text-align: center;
-    padding: 10%;
-}
-
 .title_explain h1,
 span {
-    font-size: 3.5vw;
+    font-size: 40px !important;
     font-family: $font-LeagueSpartan;
     font-weight: 700;
+    letter-spacing: 1px;
 }
 
 #offer {
@@ -81,6 +77,7 @@ span {
 .title_explain {
     text-align: center;
     margin: 40px;
+    padding: 40px;
 }
 
 .mytext {
@@ -100,11 +97,11 @@ span {
     justify-content: center;
     gap: 50px;
     flex-wrap: nowrap !important;
-    margin-bottom: 10%;
+    margin-bottom: 250px;
 }
 
 .logo_explain {
-    width: 30%;
+    width: 400px;
     text-align: center;
     align-items: center;
 }
@@ -120,25 +117,26 @@ span {
 .text_explain h1 {
     font-family: $font-LeagueSpartan;
     font-weight: 700;
-    font-size: 3vw;
+    font-size: 32px;
     margin-bottom: 40px;
+    letter-spacing: 1px;
 }
 
 .text_explain p {
     font-weight: 300;
-    font-size: 2vw;
+    font-size: 24px;
 }
 
 .text_explain i {
     color: $red-orange;
     margin-top: 5%;
     padding-right: 20px;
-    font-size: 2vw;
+    font-size: 24px;
 }
 
 .before_footer_btn {
     width: 100%;
-    height: 30vh;
+    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -155,19 +153,53 @@ span {
     cursor: pointer;
 }
 
-@media(max-width:700px) {
+@media(max-width:1000px) {
 
-    .main_title h1 {
-        font-size: 32px;
+    .wrapper_explain {
+        gap: 60px !important;
+        flex-wrap: wrap !important;
     }
 
-    .main_title_2 h3 {
-        font-size: 10px;
+    .text_explain h1 {
+        text-align: center;
+    }
+
+    .text_explain p {
+        text-align: center;
+    }
+
+    .wrapper_explain.reverse {
+        flex-wrap: wrap-reverse !important;
+    }
+}
+
+@media(max-width:550px) {
+
+    .title_explain {
+        margin: 10px;
+        //margin-bottom: 250px;
     }
 
     .title_explain h1,
     span {
-        font-size: 13px;
+        font-size: 30px !important;
     }
 
+    .logo_explain {
+        width: 80%;
+        text-align: center;
+        align-items: center;
+    }
+
+    .text_explain {
+        width: 100%;
+        margin: 0 20px 0 20px;
+    }
+
+    .text_explain h1 {
+        font-family: $font-LeagueSpartan;
+        font-weight: 700;
+        font-size: 32px;
+        margin-bottom: 40px;
+    }
 }

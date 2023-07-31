@@ -31,6 +31,11 @@ import ViewPost from "./pages/ViewPost";
 import { useParams } from "react-router-dom";
 import { getAPI } from "./api";
 import Loader from "./components/Loader";
+import NavBarUser from "./components/User/NavBarUser";
+import Settings from "./components/User/Settings";
+import Myposts from "./components/User/Myposts";
+import MySave from "./components/User/MySave";
+import MyLoot from "./components/User/MyLoot";
 
 const LandingContainer = () => {
   return (
@@ -104,7 +109,7 @@ const AdminContainer = () => {
         <NavBarAdmin />
         <Routes>
           <Route path="/" element={<General />} />
-          <Route path="*" element={<PageNotFound navigation={"/administration"} />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
           <Route path="/role-user" element={<Role />} />
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/notif-event" element={<Event />} />
@@ -122,49 +127,85 @@ const AdminContainer = () => {
 const ViewContainer = () => {
 
   const [idToVerif, setIdToVerif] = useState([]);
-  const [loadingVerif, setLoadingVerif] = useState(true);
-
+  const { id } = useParams();
+  const parsedId = parseInt(id);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getAPI('http://127.0.0.1:8081/api/annonce/', {}, {})
-      .then((response) => {
-
-        for (var n = 0; n < response.dataAPI.length; n++) {
-          setIdToVerif(idToVerif => [...idToVerif, response.dataAPI[n].id]);
-        }
-
-        setLoadingVerif(false);
-      })
-      .catch((error) => {
+    async function fetchData() {
+      try {
+        const response = await getAPI('http://127.0.0.1:8081/api/annonce/', {}, {});
+        const ids = response.dataAPI.map(item => item.id);
+        setIdToVerif(ids);
+        setIsLoading(false);
+      } catch (error) {
         console.log('error', error);
-        setLoadingVerif(false)
-      });
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
   }, []);
 
-  const { id } = useParams();
-
-  const parsedId = parseInt(id);
-  const isValidId = idToVerif.includes(parsedId);
-
-  if (!isValidId) {
-    return <PageNotFound navigation={'/login'} />;
+  if (isLoading) {
+    return (
+      <div className="to_center_in_appjs">
+        <h1>Chargement ...</h1>
+      </div>
+    )
   }
 
-  else {
+  const isValidId = idToVerif.includes(parsedId);
 
+  return (
+    <>
+      {isValidId ? (
+        <Routes>
+          <Route path="/" element={<ViewPost postId={id} />} />
+        </Routes>
+      ) : (
+        <PageNotFound navigation={'/login'} />
+      )}
+    </>
+  );
+}
+
+const UserContainer = () => {
+
+  const user = useSelector((state) => state.utilisateur)
+
+  if (user.isLogin && user.idRole === 3) {
     return (
       <>
-        {loadingVerif ? (
-          <Loader />
-        ) : (
-          <Routes>
-            <Route path="/" element={<ViewPost postId={id} />} />
-          </Routes>
-        )}
+        <NavBarUser />
+        <Routes>
+          <Route path="/settings" element={< Settings />} />
+          <Route path="/my-posts" element={< Myposts />} />
+          <Route path="/my-save" element={< MySave />} />
+          <Route path="/my-loot" element={< MyLoot />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
+        </Routes>
       </>
     );
   }
+  if (user.isLogin) {
 
+    return (
+      <>
+        <NavBarUser />
+        <Routes>
+          <Route path="/settings" element={< Settings />} />
+          <Route path="/my-posts" element={< Myposts />} />
+          <Route path="/my-save" element={< MySave />} />
+          <Route path="/my-loot" element={< MyLoot />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
+        </Routes>
+      </>
+    )
+  }
+  else {
+    return (<Navigate to="/login" replace />);
+  }
 }
 
 const App = () => {
@@ -188,6 +229,7 @@ const App = () => {
             <Route path="/*" element={<LandingContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
+            <Route path="/home/user/*" element={<UserContainer />} />
             <Route path="/view-post/:id" element={<ViewContainer />} />
           </Routes>
         </BrowserRouter>

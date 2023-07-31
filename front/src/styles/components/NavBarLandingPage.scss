@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    height: 8vh;
+    height: 60px !important;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -132,6 +132,10 @@
         width: 2rem;
     }
 
+    .navbar {
+        height: 50px !important;
+    }
+
     .logo_nav {
         gap: 5px;
     }
@@ -142,10 +146,5 @@
     .dropdown_navbar {
         left: 2rem;
         width: unset;
-    }
-
-    .logo_nav a {
-        font-size: 13px;
-        margin-top: 8px;
     }
 }

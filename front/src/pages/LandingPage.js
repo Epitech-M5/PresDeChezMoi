@@ -71,7 +71,7 @@ const LandingPage = () => {
                         <p><i class="fa-regular fa-circle"></i>Renforcement des liens</p>
                     </div>
                 </div>
-                <div className="wrapper_explain">
+                <div className="wrapper_explain reverse">
                     <div className="text_explain mytext">
                         <h1>Soutien aux commerces et services locaux</h1>
                         <p>L'application met en avant les commerces de proximité et facilite l'accès aux services municipaux et aux événements communautaires</p>
