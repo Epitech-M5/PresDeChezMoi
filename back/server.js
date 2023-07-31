@@ -54,6 +54,8 @@ function ajoutUtilisateur() {
         photoProfil: 1,
         mail: "presdechezmoi.email@gmail.com",
         motDePasse: bcrypt.hashSync("Admin", 8),
+        description: "Bienvenue sur le profil officiel de l'administrateur de la Ville de Bourgade ! 🏙️🌳🏛️\nBonjour à tous ! Je suis Jean Dupont, l'administrateur dévoué de notre charmante ville de Bourgade. Passionné par le développement local et engagé pour le bien-être de nos citoyens, j'ai la chance de servir notre communauté depuis plusieurs années.",
+        nouveauUser: false,
         idVille: 1,
         score: 0,
         participation: null,
@@ -76,6 +78,8 @@ function ajoutUtilisateur() {
         photoProfil: 3,
         mail: "dupuis.robert@gmail.com",
         motDePasse: bcrypt.hashSync("JaDoReLaBiErE", 8),
+        description: "Bienvenue sur le profil de Robert l'expert de la bière ! 🤪🍺",
+        nouveauUser: false,
         idVille: 1,
         score: 650,
         participation: null,
@@ -98,6 +102,8 @@ function ajoutUtilisateur() {
         photoProfil: 3,
         mail: "salvadore.nadine@gmail.com",
         motDePasse: bcrypt.hashSync("Sardine123", 8),
+        description: "Bienvenue sur le profil de Nadine, toujours partante pour flairé un gros poisson ! 🐡🎣",
+        nouveauUser: false,
         idVille: 1,
         score: 150,
         participation: null,
@@ -113,21 +119,21 @@ function ajoutUtilisateur() {
     })
 }
 
-function ajoutStatus() {
-    Statutes.create({
-        id: 1,
-        nom: "Bourgade",
-        codePostal: 12345,
-        scoreVilleFleurie: 4,
-        noteHygiene: [5, 5, 5, 5],
-        moyenneHygiene: 5.0,
-        noteService: [5, 5, 5, 5],
-        moyenneService: 5.0,
-        noteEvenement: [5, 5, 5, 5],
-        moyenneEvenement: 5.0,
-        scoreGlocale: 5.0
-    })
-}
+// function ajoutStatus() {
+//     Statutes.create({
+//         id: 1,
+//         nom: "Bourgade",
+//         codePostal: 12345,
+//         scoreVilleFleurie: 4,
+//         noteHygiene: [5, 5, 5, 5],
+//         moyenneHygiene: 5.0,
+//         noteService: [5, 5, 5, 5],
+//         moyenneService: 5.0,
+//         noteEvenement: [5, 5, 5, 5],
+//         moyenneEvenement: 5.0,
+//         scoreGlocale: 5.0
+//     })
+// }
 
 function ajoutVille() {
     Ville.create({

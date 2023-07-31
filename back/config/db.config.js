@@ -8,7 +8,7 @@ module.exports = {
 
     USER: "root",
     PASSWORD: "x9474h7mPwSxAEZt92Nb",
-    DB: "testdb",
+    DB: "testdb3",
     dialect: "mysql",
     pool: {
         max: 5,

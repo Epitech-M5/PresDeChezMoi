@@ -10,6 +10,8 @@ module.exports = app => {
 
     router.get("/members", [authJwt.verifyToken], room.find_all_members);
 
+    router.get("/ville/:idVille", [authJwt.verifyToken], room.find_ville);
+
     router.get("/:id", [authJwt.verifyToken], room.find_one);
 
     router.put("/:id", [authJwt.verifyToken], room.update);

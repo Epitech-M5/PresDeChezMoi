@@ -27,7 +27,8 @@ exports.create = (req, res) => {
 
     // Create User
     const roomObjet = {
-        membres: req.body.membres
+        membres: req.body.membres,
+        idVille: req.body.idVille
     };
 
     // Save Tutorial in the database adn catch internal error
@@ -83,6 +84,25 @@ exports.find_all_members = (req, res) => {
                 [Op.contains]: [req.body.member]
             }
         }
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
+};
+exports.find_ville = (req, res) => {
+    console.log("##", req.params.idVille)
+    console.log("##", req.params)
+    room.findAll({
+        where: {
+            idVille: req.params.idVille           // idVille: req.body.idVille
+        }
+
     })
         .then(data => {
             res.send(data);
