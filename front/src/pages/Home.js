@@ -105,6 +105,15 @@ const Home = () => {
     }, [likedPosts]);
 
     useEffect(() => {
+        putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'enregistrements': saves }, { 'x-access-token': user.token })
+            .then((response) => {
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [saves])
+
+    useEffect(() => {
         getAPI('http://127.0.0.1:8081/api/typeSignalement/', {}, {})
             .then((response) => {
                 setAllSignal(response.dataAPI);
@@ -237,28 +246,12 @@ const Home = () => {
 
     const handleSaves = (id) => {
 
-        console.log('SAVE', saves)
-
         if (saves.includes(id)) {
-
-            putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'enregistrements': saves }, { 'x-access-token': user.token })
-                .then((response) => {
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
 
             setSaves(prev => prev.filter(postId => postId !== id));
         }
 
         else {
-
-            putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'enregistrements': saves }, { 'x-access-token': user.token })
-                .then((response) => {
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
 
             setSaves(prev => [...prev, id]);
         }
@@ -280,8 +273,6 @@ const Home = () => {
     };
 
     const handleSup = (id) => {
-
-        // const axiosRequest = deleteAPI(`http://127.0.0.1:8081/api/annonce/${id}`);
 
         setToAddModal(
             <>
@@ -461,14 +452,24 @@ const Home = () => {
                                                     <div key={item.id} className="container_annonce">
                                                         <div className="container_pdp">
                                                             <div className="container_left_pdp">
-                                                                <img src="media/img/1.png" alt="profil" />
+                                                                <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
                                                                     <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
                                                             <div className="container_right_pdp">
-                                                                <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                                <a onClick={() => handleMore(item.id)}><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                                {isOpenMore === item.id && (
+                                                                    <div className="container_more">
+
+                                                                        {dictionnaireRole[user.idutilisateur] === 3 || item.organisateur === user.idutilisateur ? (
+                                                                            <h1 onClick={() => handleSup(item.id)}>Supprimer</h1>
+                                                                        ) : null}
+
+                                                                        <h1 onClick={() => handleSignal(item.id)}>Signaler</h1>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         </div>
                                                         <div className="container_content_post">
@@ -478,9 +479,9 @@ const Home = () => {
                                                             </div>
                                                         </div>
                                                         <div className="container_bottom_post">
-                                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                            <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
                                                             <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                            <a href=""><i className="fa-regular fa-bookmark"></i></a>
+                                                            <a onClick={() => handleSaves(item.id)}>{saves.includes(item.id) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}</a>
                                                         </div>
                                                     </div>
                                                 );
@@ -499,14 +500,24 @@ const Home = () => {
                                                     <div key={item.id} className="container_annonce">
                                                         <div className="container_pdp">
                                                             <div className="container_left_pdp">
-                                                                <img src="media/img/1.png" alt="profil" />
+                                                                <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
                                                                     <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
                                                             <div className="container_right_pdp">
-                                                                <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                                <a onClick={() => handleMore(item.id)}><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                                {isOpenMore === item.id && (
+                                                                    <div className="container_more">
+
+                                                                        {dictionnaireRole[user.idutilisateur] === 3 || item.organisateur === user.idutilisateur ? (
+                                                                            <h1 onClick={() => handleSup(item.id)}>Supprimer</h1>
+                                                                        ) : null}
+
+                                                                        <h1 onClick={() => handleSignal(item.id)}>Signaler</h1>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         </div>
                                                         <div className="container_content_post">
@@ -517,9 +528,9 @@ const Home = () => {
                                                             </div>
                                                         </div>
                                                         <div className="container_bottom_post">
-                                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                            <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
                                                             <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                            <a href=""><i className="fa-regular fa-bookmark"></i></a>
+                                                            <a onClick={() => handleSaves(item.id)}>{saves.includes(item.id) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}</a>
                                                         </div>
                                                     </div>
                                                 );
@@ -538,14 +549,24 @@ const Home = () => {
                                                     <div key={item.id} className="container_annonce">
                                                         <div className="container_pdp">
                                                             <div className="container_left_pdp">
-                                                                <img src="media/img/1.png" alt="profil" />
+                                                                <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
                                                                     <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
                                                             <div className="container_right_pdp">
-                                                                <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                                <a onClick={() => handleMore(item.id)}><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                                {isOpenMore === item.id && (
+                                                                    <div className="container_more">
+
+                                                                        {dictionnaireRole[user.idutilisateur] === 3 || item.organisateur === user.idutilisateur ? (
+                                                                            <h1 onClick={() => handleSup(item.id)}>Supprimer</h1>
+                                                                        ) : null}
+
+                                                                        <h1 onClick={() => handleSignal(item.id)}>Signaler</h1>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         </div>
                                                         <div className="container_content_post">
@@ -557,9 +578,9 @@ const Home = () => {
                                                             </div>
                                                         </div>
                                                         <div className="container_bottom_post">
-                                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                            <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
                                                             <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                            <a href=""><i className="fa-regular fa-bookmark"></i></a>
+                                                            <a onClick={() => handleSaves(item.id)}>{saves.includes(item.id) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}</a>
                                                         </div>
                                                     </div>
                                                 );
@@ -578,14 +599,24 @@ const Home = () => {
                                                     <div key={item.id} className="container_annonce">
                                                         <div className="container_pdp">
                                                             <div className="container_left_pdp">
-                                                                <img src="media/img/1.png" alt="profil" />
+                                                                <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
                                                                     <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
                                                             <div className="container_right_pdp">
-                                                                <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                                <a onClick={() => handleMore(item.id)}><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                                {isOpenMore === item.id && (
+                                                                    <div className="container_more">
+
+                                                                        {dictionnaireRole[user.idutilisateur] === 3 || item.organisateur === user.idutilisateur ? (
+                                                                            <h1 onClick={() => handleSup(item.id)}>Supprimer</h1>
+                                                                        ) : null}
+
+                                                                        <h1 onClick={() => handleSignal(item.id)}>Signaler</h1>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         </div>
                                                         <div className="container_content_post">
@@ -597,9 +628,9 @@ const Home = () => {
                                                             </div>
                                                         </div>
                                                         <div className="container_bottom_post">
-                                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                            <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
                                                             <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                            <a href=""><i className="fa-regular fa-bookmark"></i></a>
+                                                            <a onClick={() => handleSaves(item.id)}>{saves.includes(item.id) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}</a>
                                                         </div>
                                                     </div>
                                                 );
@@ -618,14 +649,24 @@ const Home = () => {
                                                     <div key={item.id} className="container_annonce">
                                                         <div className="container_pdp">
                                                             <div className="container_left_pdp">
-                                                                <img src="media/img/1.png" alt="profil" />
+                                                                <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
                                                                     <h1>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
                                                             <div className="container_right_pdp">
-                                                                <a href=""><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                                <a onClick={() => handleMore(item.id)}><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                                {isOpenMore === item.id && (
+                                                                    <div className="container_more">
+
+                                                                        {dictionnaireRole[user.idutilisateur] === 3 || item.organisateur === user.idutilisateur ? (
+                                                                            <h1 onClick={() => handleSup(item.id)}>Supprimer</h1>
+                                                                        ) : null}
+
+                                                                        <h1 onClick={() => handleSignal(item.id)}>Signaler</h1>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         </div>
                                                         <div className="container_content_post">
@@ -638,9 +679,9 @@ const Home = () => {
                                                             </div>
                                                         </div>
                                                         <div className="container_bottom_post">
-                                                            <a href=""><span className='reaction_span'>{item.reaction}</span><i className="fa-regular fa-heart"></i></a>
+                                                            <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
                                                             <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                            <a href=""><i className="fa-regular fa-bookmark"></i></a>
+                                                            <a onClick={() => handleSaves(item.id)}>{saves.includes(item.id) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}</a>
                                                         </div>
                                                     </div>
                                                 );
