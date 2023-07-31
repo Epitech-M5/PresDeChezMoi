@@ -54,6 +54,22 @@ db.ville.hasOne(db.utilisateur, {
     foreignKey: 'idVille', targetKey: 'id'
 });
 
+// Foreign key (idUtilisateur -> ticket(table))
+db.ticket.belongsTo(db.utilisateur, {
+    foreignKey: 'idUtilisateur', targetKey: 'id'
+});
+db.utilisateur.hasOne(db.ticket, {
+    foreignKey: 'idTicket', targetKey: 'id'
+});
+
+// Foreign key (idStatus -> ticket(table))
+db.ticket.belongsTo(db.status, {
+    foreignKey: 'idStatus', targetKey: 'id'
+});
+db.status.hasOne(db.ticket, {
+    foreignKey: 'idStatus', targetKey: 'id'
+});
+
 // Foreign key (recompenseId -> user(table))
 db.utilisateur.belongsTo(db.recompense, {
     foreignKey: 'idRecompense', targetKey: 'id'

@@ -77,5 +77,6 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
+
     return Utilisateur;
 };
