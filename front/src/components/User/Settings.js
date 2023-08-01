@@ -24,6 +24,8 @@ const Settings = () => {
     const [psdModif, setPsdModif] = useState('');
     const [description, setDescription] = useState('');
     const [metier, setMetier] = useState('');
+    const [firstname, setFirstName] = useState('');
+    const [lastname, setLastname] = useState('');
 
     const navigate = useNavigate();
 
@@ -63,6 +65,8 @@ const Settings = () => {
                     <input type="text" placeholder='Pseudo' onChange={(event) => setPsdModif(event.target.value)} />
                     <textarea placeholder='Description' onChange={(event) => setDescription(event.target.value)} />
                     <input type="text" placeholder='Occupation/Metier' onChange={(event) => setMetier(event.target.value)} />
+                    <input type="text" placeholder='Prenom' onChange={(event) => setFirstName(event.target.value)} />
+                    <input type="text" placeholder='Nom' onChange={(event) => setLastname(event.target.value)} />
                     <h2>Photo de profil</h2>
                     <h3>Actuel : {pdp}</h3>
                     <div className="container_all_pdp">
@@ -123,7 +127,7 @@ const Settings = () => {
             );
         }
 
-    }, [mdp, id, mdpConfirm, pseudo, pdp, psdModif, description, metier]);
+    }, [mdp, id, mdpConfirm, pseudo, pdp, psdModif, description, metier, lastname, firstname]);
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
@@ -146,27 +150,29 @@ const Settings = () => {
     }, [])
 
     const handleChoice = (ville) => {
-        alert('changement de ville par son id : ' + ville)
-        setError('Bien reçu, attendez...');
-        setTimeout(() => {
-            navigate('/login')
-        }, 1000);
+
+        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'idVille': ville }, { 'x-access-token': user.token })
+            .then((response) => {
+                setError('Bien reçu, attendez...');
+                setTimeout(() => {
+                    navigate('/login')
+                }, 1000)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     const handleModif = () => {
 
-        console.log(psdModif, pdp, description, user.idutilisateur)
-
-        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'pseudo': psdModif, 'photoProfil': pdp, 'description': description }, { 'x-access-token': user.token })
+        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'pseudo': psdModif, 'photoProfil': pdp, 'description': description, 'profession': metier, 'nom': lastname, 'prenom': firstname }, { 'x-access-token': user.token })
             .then((response) => {
-                setError('OK !');
                 setTimeout(() => {
                     closeModal();
                 }, 1000)
             })
             .catch((error) => {
                 console.log(error);
-                setError(error);
             });
     }
 

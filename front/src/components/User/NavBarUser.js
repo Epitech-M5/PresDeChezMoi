@@ -68,6 +68,7 @@ const NavBarUser = () => {
                     </div>
                     <div className="right_name_description">
                         <h1>{data.pseudo}</h1>
+                        <h4>{data.nom} {data.prenom} {data.profession}</h4>
                         <p>{data.description}</p>
                     </div>
                 </div>

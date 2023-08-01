@@ -34,8 +34,15 @@
     font-size: 26px;
     font-family: $font-LeagueSpartan;
     width: 100%;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     font-weight: 700;
+}
+
+.right_name_description h4 {
+    margin-bottom: 20px;
+    color: $dark-grey;
+    margin-top: 5px;
+
 }
 
 .navbar_to_toggle {

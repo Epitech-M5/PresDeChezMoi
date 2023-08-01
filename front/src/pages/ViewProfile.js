@@ -44,6 +44,7 @@ const ViewProfile = ({ postId }) => {
                     </div>
                     <div className="right_name_description">
                         <h1>{data.pseudo}</h1>
+                        <h4>{data.nom} {data.prenom} {data.profession}</h4>
                         <p>{data.description}</p>
                         <p id='container_score_view_profile'><span id='score_view_profile'>SCORE : </span> {data.score}<i class="fa-solid fa-carrot"></i></p>
                     </div>
