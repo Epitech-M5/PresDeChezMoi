@@ -3,6 +3,9 @@ import DropDownBtn from '../../components/MainComponent/DropDownBtn';
 import Modal from '../MainComponent/Modal';
 import { getAPI, postAPI, putAPI, deleteAPI } from '../../api';
 import { useSelector } from 'react-redux';
+// import { Provider, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+
 // const variable_test = process.env.REACT_APP_API_URL
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
@@ -11,8 +14,17 @@ const Settings = () => {
     const [typeMap, setTypeMap] = useState(null);
     const [content, setContent] = useState();
     const [isOpen, setIsOpen] = useState(false);
+    const [supUser, setSupUser] = useState('');
     const [motDePasse, setMotDePasse] = useState('');
     const [motDePasseConfirm, setMotDePasseConfirm] = useState('');
+    const [text, setText] = useState('');
+
+    // Gestionnaire d'événements pour mettre à jour l'état local lorsque l'utilisateur saisit du texte
+    const handleChange = (event) => {
+        setText(event.target.value);
+
+    };
+    const navigate = useNavigate()
 
     // useEffect(() => { }, [motDePasse, motDePasseConfirm])
 
@@ -91,11 +103,33 @@ const Settings = () => {
         openModal();
     };
 
+    const handleSupConfirm = () => {
+        alert(`test :${text}`)
+        if (user.pseudo === text) {
+            alert("SUPP EN COURS")
+            deleteAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { "x-access-token": user.token })
+            navigate('/')
+        }
+        else {
+            alert(`ENTREE NON VALIDE ${text} =/= ${user.pseudo}`)
+        }
+    }
+
     const handleSup = () => {
         // alert(variable_test)
         setContent(
             <>
-                <h1>sup compte</h1>
+                {/* <h1>⚠️ Etes-vous vraiment sûr de vouloir faire ça ? ⚠️</h1>
+                <h1>⚠️ Cette action est irréversible et définitive ! ⚠️</h1>
+                <h1>Afin de bien confirmer votre demande, merci d'écrire votre pseudonyme :</h1> */}
+                {/* <input type="text" placeholder={user.pseudo} onChange={(event) => setSupUser(event.target.value)} /> */}
+                <input
+                    type="text"
+                    placeholder={user.pseudo}
+                    onChange={handleChange}
+                />
+                <h1>text here :{text}</h1>
+                <button onClick={handleSupConfirm}>CONFIRMER</button>
             </>
         );
 

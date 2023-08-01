@@ -50,7 +50,6 @@ exports.signup = (req, res) => {
     abonnement: null,
     profession: null,
     idRecompense: null,
-    listRecompense: null,
     nombreSignalement: null,
     estBanni: null,
     idRole: req.body.idRole,
@@ -206,8 +205,8 @@ exports.find_all = (req, res) => {
 exports.get_by_id = (req, res) => {
   Utilisateur.findOne({ where: { id: req.params.id } })
     .then(data => {
-      console.log(data.id)
-      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements });
+      console.log("###############", data)
+      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements, "listRecompense": data.listRecompense, "listRecompenseEnCoursClaim": data.listRecompenseEnCoursClaim, "idVille": data.idVille });
     })
     .catch(err => {
       res.status(500).send({
@@ -415,19 +414,19 @@ exports.delete = (req, res) => {
     });
 };
 
-exports.get_by_id = (req, res) => {
-  Utilisateur.findOne({ where: { id: req.params.id } })
-    .then(data => {
-      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", data.likes)
-      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements });
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
-      });
-    });
-};
+// exports.get_by_id = (req, res) => {
+//   Utilisateur.findOne({ where: { id: req.params.id } })
+//     .then(data => {
+//       console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", data.likes)
+//       res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements });
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message:
+//           err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+//       });
+//     });
+// };
 
 exports.get_likes = (req, res) => {
   Utilisateur.findOne({ where: { id: req.userId } })

@@ -10,13 +10,17 @@ const MyLoot = () => {
     const user = useSelector((state) => state.utilisateur);
     const [loading, setLoading] = useState(true);
     const [dataScore, setDataScore] = useState([]);
+    const [listRecompense, setListRecompense] = useState([]);
+    const [listRecompenseEnCours, setListRecompenseEnCours] = useState([]);
 
     useEffect(() => {
 
         getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
-
+                console.log("@@@@@@@@@@@@@@@@", response.dataAPI)
                 setDataScore(response.dataAPI);
+                setListRecompense(response.dataAPI.listRecompense)
+                setListRecompenseEnCours(response.dataAPI.listRecompenseEnCoursClaim)
 
             })
             .catch((error) => {
@@ -27,7 +31,7 @@ const MyLoot = () => {
 
     useEffect(() => {
 
-        getAPI(`http://${adresseip}:${port}/api/recompense/`, {}, { 'x-access-token': user.token })
+        getAPI(`http://${adresseip}:${port}/api/recompense/ville/${user.idVille}`, {}, { 'x-access-token': user.token })
             .then((response) => {
                 setTimeout(() => {
                     setData(response.dataAPI);
@@ -40,6 +44,32 @@ const MyLoot = () => {
             });
 
     }, []);
+
+    const traitement = (idRecompense, item) => {
+        console.log(")))))))", listRecompense, '))', listRecompenseEnCours, "))", listRecompense.includes(idRecompense), "))", idRecompense)
+        if (listRecompense.includes(idRecompense)) {
+            return (
+                <>
+                    <i class="fa-solid fa-check"></i>
+                </>
+            )
+        }
+        else if (listRecompenseEnCours.includes(idRecompense)) {
+            return (
+                <>
+                    <i class="fa-regular fa-clock"></i>
+                </>
+            )
+        }
+        else {
+            return (
+                <>
+                    <h1>{item.image}</h1>
+                </>
+            )
+        }
+
+    }
 
     const isLocked = (userScore, requiredScore) => {
         console.log(userScore, requiredScore)
@@ -73,9 +103,16 @@ const MyLoot = () => {
 
                                             {isLocked(dataScore.score, item.scoreNecessaire) ? (
                                                 <div className="container_img_loot">
-                                                    <h1>{item.image}</h1>
+                                                    {traitement(item.id, item)}
+                                                    {/* <h1>{item.image}</h1> */}
+                                                    {/* FAIRE UN HOOK avec plusieurs etats:
+                                                    - Obtenu (valide par admin) (<i class="fa-solid fa-check"></i>)
+                                                    - Obtenu (Pas valide par admin) (<i class="fa-regular fa-clock"></i>)
+                                                    - Pas obtenu (assez de score) (<h1>{item.image}</h1>)
+                                                    */}
                                                 </div>
                                             ) : (
+                                                // - Pas obtenu (Pas assez de score)
                                                 <div className="container_img_loot lock">
                                                     <i className="fa-solid fa-lock"></i>
                                                 </div>

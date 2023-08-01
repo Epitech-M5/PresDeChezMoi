@@ -46,9 +46,9 @@ module.exports = (sequelize, Sequelize) => {
         profession: {
             type: Sequelize.STRING
         },
-        idRecompense: {
-            type: Sequelize.INTEGER,
-            allowNull: true
+        listRecompenseEnCoursClaim: {
+            type: Sequelize.JSON,
+            defaultValue: []
         },
         listRecompense: {
             type: Sequelize.JSON,

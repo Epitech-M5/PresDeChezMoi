@@ -52,16 +52,8 @@ module.exports = app => {
 
   router.get("/:id", [authJwt.verifyToken], utilisateur.get_by_id);
 
-  router.get("/likes", [authJwt.verifyToken], utilisateur.get_likes);
-
-  router.get("/saves", [authJwt.verifyToken], utilisateur.get_saves);
-
   // Suppression d'un utilisateur grâce à l'id utilisateur depuis le token ou bien par choix de l'administrateur
   router.delete("/:id", utilisateur.delete);
-
-  router.get("/likes", [authJwt.verifyToken], utilisateur.get_likes);
-
-  router.get("/saves", [authJwt.verifyToken], utilisateur.get_saves);
 
   // Base de la route API pour l'utilisateur 
   app.use('/api/user', router);
