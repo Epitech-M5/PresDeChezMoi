@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 var bcrypt = require("bcryptjs");
+require('dotenv').config();
+const port = process.env.REACT_APP_BACKEND_PORT
 // ('Access-Control-Allow-Origin', 'http://localhost:8081')
 var corsOptions = {
     origin: '*'
@@ -40,10 +42,10 @@ db.sequelize.sync({ force: true })
 // Création de données factices
 // =============================================
 function ajoutRole() {
-    Role.create({ id: 1, titre: "user" });
-    Role.create({ id: 2, titre: "moderator" });
-    Role.create({ id: 3, titre: "admin" });
-    Role.create({ id: 4, titre: "super utilisateur" });
+    Role.create({ id: 1, titre: "Utilisateur" });
+    Role.create({ id: 2, titre: "Modérateur" });
+    Role.create({ id: 3, titre: "Admin" });
+    Role.create({ id: 4, titre: "Super Administrateur" });
 }
 
 function ajoutVille() {
@@ -353,7 +355,7 @@ require("./routes/room.routes.js")(app);
 require("./routes/chat.routes.js")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8081;
+const PORT = port || 8081;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });

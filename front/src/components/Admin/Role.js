@@ -3,7 +3,8 @@ import { getAPI, postAPI, putAPI, deleteAPI } from '../../api'
 import { useSelector } from "react-redux";
 import DropDownBtn from '../MainComponent/DropDownBtn';
 import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js';
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 
 const Role = () => {
     const { addMessage, removeMessage, messages } = useMessageQueue();
@@ -20,7 +21,7 @@ const Role = () => {
     }, [])
 
     const actualiseData = () => {
-        getAPI(`http://127.0.0.1:8081/api/user/by_ville/${utilisateur.idVille}`, null, { 'x-access-token': utilisateur.token }).then((response) => {
+        getAPI(`http://${adresseip}:${port}/api/user/by_ville/${utilisateur.idVille}`, null, { 'x-access-token': utilisateur.token }).then((response) => {
             // console.log("DATA : ", response.dataAPI)
             var arrayLocalAdmin = []
             var arrayLocalModo = []
@@ -49,7 +50,7 @@ const Role = () => {
 
     const handleSupp = (id) => {
         addMessage(`L'utilisateur à bien été supprimé ${id}`, "success")
-        deleteAPI(`http://127.0.0.1:8081/api/user/${id}`, null, { "x-access-token": utilisateur.token }).then(() => {
+        deleteAPI(`http://${adresseip}:${port}/api/user/${id}`, null, { "x-access-token": utilisateur.token }).then(() => {
             actualiseData()
         })
 
@@ -57,14 +58,14 @@ const Role = () => {
 
     const handleBan = (id) => {
         addMessage("L'utilisateur à bien été banni", "success")
-        putAPI(`http://127.0.0.1:8081/api/user/${id}`, { "estBanni": true }, { "x-access-token": utilisateur.token }).then(() => {
+        putAPI(`http://${adresseip}:${port}/api/user/${id}`, { "estBanni": true }, { "x-access-token": utilisateur.token }).then(() => {
             actualiseData()
         })
     }
 
     const handleUnban = (id) => {
         addMessage("L'utilisateur à bien été débanni", "success")
-        putAPI(`http://127.0.0.1:8081/api/user/${id}`, { "estBanni": false }, { "x-access-token": utilisateur.token }).then(() => {
+        putAPI(`http://${adresseip}:${port}/api/user/${id}`, { "estBanni": false }, { "x-access-token": utilisateur.token }).then(() => {
             actualiseData()
         })
     }
@@ -74,7 +75,7 @@ const Role = () => {
         var role = { "user": 1, "modérateur": 2 }
 
         console.log(`${user.pseudo} doit être ${role[item]}`)
-        putAPI(`http://127.0.0.1:8081/api/user/${user.id}`, { "idRole": role[item] }, { "x-access-token": utilisateur.token }).then((response) => {
+        putAPI(`http://${adresseip}:${port}/api/user/${user.id}`, { "idRole": role[item] }, { "x-access-token": utilisateur.token }).then((response) => {
             console.log(response)
         }).then(() => {
             actualiseData()
@@ -91,126 +92,142 @@ const Role = () => {
                     <h1>Rôles et utilisateurs</h1>
                 </div>
                 <div className="content_inside_admin_pages">
-                    <h1>Administrateur</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th >Nom</th>
-                                <th >Prénom</th>
-                                <th >Pseudo</th>
-                                <th >Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {arrayAdmin.map((item) => {
-                                console.log(item.role.titre)
-                                return (
-                                    <tr key={item.id}>
-                                        <td>{item.nom}</td>
-                                        <td>{item.prenom}</td>
-                                        <td>{item.pseudo}</td>
-                                        <td>{item.role.titre}</td>
 
+                    <div className="container_for_simple_spacing">
+
+                        <div className="wrapper_tab_role">
+                            <h1 id='title_role'>Administrateur</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th >Nom</th>
+                                        <th >Prénom</th>
+                                        <th >Pseudo</th>
+                                        <th >Role</th>
                                     </tr>
-                                )
-                            })}
+                                </thead>
+                                <tbody>
+                                    {arrayAdmin.map((item) => {
+                                        console.log(item.role.titre)
+                                        return (
+                                            <tr key={item.id}>
+                                                <td>{item.nom}</td>
+                                                <td>{item.prenom}</td>
+                                                <td>{item.pseudo}</td>
+                                                <td>{item.role.titre}</td>
 
-                        </tbody>
-                    </table>
-                    <h1>Modérateur</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th >Nom</th>
-                                <th >Prénom</th>
-                                <th >Pseudo</th>
-                                <th >Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {arrayModo.map((item) => {
-                                console.log(item.role.titre)
-                                return (
-                                    <tr key={item.id}>
-                                        <td>{item.nom}</td>
-                                        <td>{item.prenom}</td>
-                                        <td>{item.pseudo}</td>
-                                        <td>{item.role.titre}</td>
-                                        <td>
-                                            <DropDownBtn text={item.role.titre} items={['user', 'modérateur']} onCheckboxChange={(items) => handleCheckboxChange(items, item)} />
-                                        </td>
+                                            </tr>
+                                        )
+                                    })}
 
-                                        {/* <td><i class="fa-solid fa-hammer" onClick={handleBan}> Bannir</i></td>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="wrapper_tab_role">
+                            <h1 id='title_role'>Modérateur</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th >Nom</th>
+                                        <th >Prénom</th>
+                                        <th >Pseudo</th>
+                                        <th >Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {arrayModo.map((item) => {
+                                        console.log(item.role.titre)
+                                        return (
+                                            <tr key={item.id}>
+                                                <td>{item.nom}</td>
+                                                <td>{item.prenom}</td>
+                                                <td>{item.pseudo}</td>
+                                                <td>{item.role.titre}</td>
+                                                <td>
+                                                    <DropDownBtn type='rela' text={item.role.titre} items={['user', 'modérateur']} onCheckboxChange={(items) => handleCheckboxChange(items, item)} />
+                                                </td>
+
+                                                {/* <td><i class="fa-solid fa-hammer" onClick={handleBan}> Bannir</i></td>
                                         <td><i class="fa-solid fa-trash" onClick={handleSupp}> Supprimer</i></td> */}
-                                        <td><button onClick={() => handleBan(item.id)}>Bannir</button></td>
-                                        <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
-                                        {/* <td><i class="fa-solid fa-x" onClick={handleSupp}></i></td> */}
-                                    </tr>
-                                )
-                            })}
+                                                <td><button onClick={() => handleBan(item.id)}>Bannir</button></td>
+                                                <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
+                                                {/* <td><i class="fa-solid fa-x" onClick={handleSupp}></i></td> */}
+                                            </tr>
+                                        )
+                                    })}
 
-                        </tbody>
-                    </table>
-                    <h1>Utilisateur</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th >Nom</th>
-                                <th >Prénom</th>
-                                <th >Pseudo</th>
-                                <th >Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {arrayUser.map((item) => {
-                                console.log(item.role.titre)
-                                return (
-                                    <tr key={item.id}>
-                                        <td>{item.nom}</td>
-                                        <td>{item.prenom}</td>
-                                        <td>{item.pseudo}</td>
-                                        <td>{item.role.titre}</td>
-                                        <td>
-                                            <DropDownBtn text={item.role.titre} items={['user', 'modérateur']} onCheckboxChange={(items) => handleCheckboxChange(items, item)} />
-                                        </td>
-                                        <td><button onClick={() => handleBan(item.id)}>Bannir</button></td>
-                                        <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
-                                    </tr>
-                                )
-                            })}
+                                </tbody>
+                            </table>
+                        </div>
 
-                        </tbody>
-                    </table>
-                    <h1>Banni</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th >Nom</th>
-                                <th >Prénom</th>
-                                <th >Pseudo</th>
-                                <th >Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {arrayBanni.map((item) => {
-                                console.log(item.role.titre)
-                                return (
-                                    <tr key={item.id}>
-                                        <td>{item.nom}</td>
-                                        <td>{item.prenom}</td>
-                                        <td>{item.pseudo}</td>
-                                        <td>{item.role.titre}</td>
-                                        <td><button onClick={() => handleUnban(item.id)}>Débannir</button></td>
-                                        <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
+                        <div className="wrapper_tab_role">
+                            <h1 id='title_role'>Utilisateur</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th >Nom</th>
+                                        <th >Prénom</th>
+                                        <th >Pseudo</th>
+                                        <th >Role</th>
                                     </tr>
-                                )
-                            })}
+                                </thead>
+                                <tbody>
+                                    {arrayUser.map((item) => {
+                                        console.log(item.role.titre)
+                                        return (
+                                            <tr key={item.id}>
+                                                <td>{item.nom}</td>
+                                                <td>{item.prenom}</td>
+                                                <td>{item.pseudo}</td>
+                                                <td>{item.role.titre}</td>
+                                                <td>
+                                                    <DropDownBtn type='rela' text={item.role.titre} items={['user', 'modérateur']} onCheckboxChange={(items) => handleCheckboxChange(items, item)} />
+                                                </td>
+                                                <td><button onClick={() => handleBan(item.id)}>Bannir</button></td>
+                                                <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
+                                            </tr>
+                                        )
+                                    })}
 
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="wrapper_tab_role">
+                            <h1 id='title_role'>Banni</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th >Nom</th>
+                                        <th >Prénom</th>
+                                        <th >Pseudo</th>
+                                        <th >Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {arrayBanni.map((item) => {
+                                        console.log(item.role.titre)
+                                        return (
+                                            <tr key={item.id}>
+                                                <td>{item.nom}</td>
+                                                <td>{item.prenom}</td>
+                                                <td>{item.pseudo}</td>
+                                                <td>{item.role.titre}</td>
+                                                <td><button onClick={() => handleUnban(item.id)}>Débannir</button></td>
+                                                <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
+                                            </tr>
+                                        )
+                                    })}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
 
                 </div>
-            </div>
+            </div >
         </>
     );
 };

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getAPI, putAPI } from '../api';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 const Test = () => {
 
     const [liked, setLiked] = useState([]);
@@ -13,7 +14,7 @@ const Test = () => {
     const handleUser = () => {
         console.log('liked', liked);
 
-        getAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+        getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
                 const parsedLikes = JSON.parse(response.dataAPI.likes); // Convertir la chaîne JSON en array
                 setLiked(parsedLikes);
@@ -28,7 +29,7 @@ const Test = () => {
     useEffect(() => {
         console.log('liked', liked)
 
-        getAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+        getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
                 const parsedLikes = JSON.parse(response.dataAPI.likes); // Convertir la chaîne JSON en array
                 setLiked(parsedLikes);
@@ -44,7 +45,7 @@ const Test = () => {
 
         console.log('liked 2', liked)
 
-        putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'likes': liked }, { 'x-access-token': user.token })
+        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'likes': liked }, { 'x-access-token': user.token })
             .then((response) => {
 
             })

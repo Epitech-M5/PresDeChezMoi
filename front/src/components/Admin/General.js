@@ -4,9 +4,10 @@ import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js'
 import ToggleBtn from '../MainComponent/ToggleBtn';
 import { getAPI, postAPI, putAPI, deleteAPI } from '../../api.js';
 import { useSelector } from 'react-redux';
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 async function getAllPeopleByCity(idVille, token) {
-    var response = await getAPI(`http://127.0.0.1:8081/api/user/by_ville/${idVille}`, {}, { "x-access-token": token })
+    var response = await getAPI(`http://${adresseip}:${port}/api/user/by_ville/${idVille}`, {}, { "x-access-token": token })
     // console.log(response.dataAPI)
     var arrayUser = []
     for (var n = 0; n < response.dataAPI.length; n++) {
@@ -15,7 +16,7 @@ async function getAllPeopleByCity(idVille, token) {
     return arrayUser
 }
 async function getRoomByCity(idVille, token) {
-    var response = await getAPI(`http://127.0.0.1:8081/api/room/ville/${idVille}`, {}, { "x-access-token": token })
+    var response = await getAPI(`http://${adresseip}:${port}/api/room/ville/${idVille}`, {}, { "x-access-token": token })
     // console.log(response, "   |   ", response.dataAPI.length)
     if (response.dataAPI.length == 0) {
         return { isRoomExist: false, id: null }
@@ -26,10 +27,10 @@ async function getRoomByCity(idVille, token) {
     }
 }
 async function createRoomByCity(idVille, token, data) {
-    return await postAPI(`http://127.0.0.1:8081/api/room/`, { "membres": data, "idVille": idVille }, { "x-access-token": token })
+    return await postAPI(`http://${adresseip}:${port}/api/room/`, { "membres": data, "idVille": idVille }, { "x-access-token": token })
 }
 async function deleteRoomById(idRoom, token) {
-    return await deleteAPI(`http://127.0.0.1:8081/api/room/${idRoom}`, {}, { "x-access-token": token })
+    return await deleteAPI(`http://${adresseip}:${port}/api/room/${idRoom}`, {}, { "x-access-token": token })
 }
 
 const General = () => {
@@ -45,13 +46,8 @@ const General = () => {
     const { addMessage, removeMessage, messages } = useMessageQueue();
 
     useEffect(() => {
-        console.log("id ville", user.idVille)
-        console.log("user token", user.token)
-        console.log("user", user)
 
-        getAPI(`http://127.0.0.1:8081/api/room/ville/${user.idVille}`, {}, { "x-access-token": user.token }).then((response) => {
-
-            console.log(response)
+        getAPI(`http://${adresseip}:${port}/api/room/ville/${user.idVille}`, {}, { "x-access-token": user.token }).then((response) => {
 
             if (response.dataAPI.length > 0) {
                 setUpdateToggle(true)
@@ -61,50 +57,48 @@ const General = () => {
             }
         })
 
-
     }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!firstTime) {
-                console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", updateToggle)
-                var data = await getRoomByCity(user.idVille, user.token)
-                var isRoomExist = data.isRoomExist
-                var idRoom = data.id
-                console.log("VALUEE ROOM EXIST :", isRoomExist)
-                console.log("NEED SUP ID :", idRoom)
+    const handleToggle = async (state) => {
 
-                if (updateToggle == true) {
-                    // console.log("AZERTYUIOP", isRoomExist)
-                    if (isRoomExist) {
-                        addMessage("Un groupe existe déjà pour cette ville", "error")
-                    }
-                    else {
-                        addMessage("Création d'un groupe pour la ville en cours", "success")
-                        var data = await getAllPeopleByCity(user.idVille, user.token)
-                        await createRoomByCity(user.idVille, user.token, data)
-                        // console.log("DATAAAAAA : ", data)
-                    }
-                }
-                else if (updateToggle == false) {
-                    if (isRoomExist) {
-                        addMessage("Suppression du groupe de la ville en cours", "success")
-                        deleteRoomById(idRoom, user.token)
-                    }
-                    else {
-                        addMessage("Aucun groupe n'a été trouvé pour cette ville", "error")
-                    }
-                }
-                else {
+        setUpdateToggle(state);
 
-                }
+        console.log("UPDATE TOGGLE BEFORE", updateToggle)
+        // console.log("FIRST TIME BEFORE", firstTime)
+        console.log("STATE", state);
+
+        var data = await getRoomByCity(user.idVille, user.token)
+        var isRoomExist = data.isRoomExist
+        var idRoom = data.id
+        console.log("VALUEE ROOM EXIST :", isRoomExist)
+        console.log("NEED SUP ID :", idRoom)
+
+        if (state === true) {
+            if (isRoomExist) {
+                addMessage("Un groupe existe déjà pour cette ville", "error")
             }
             else {
-                setFirstTime(false)
+                addMessage("Création d'un groupe pour la ville en cours", "success")
+                var data = await getAllPeopleByCity(user.idVille, user.token)
+                await createRoomByCity(user.idVille, user.token, data)
             }
         }
-        fetchData()
-    }, [updateToggle]);
+
+        else if (state === false) {
+
+            if (isRoomExist) {
+                addMessage("Suppression du groupe de la ville en cours", "success")
+                deleteRoomById(idRoom, user.token)
+            }
+            else {
+                addMessage("Aucun groupe n'a été trouvé pour cette ville", "error")
+            }
+        }
+
+        else {
+            addMessage("Erreur technique", "warning")
+        }
+    };
 
     const updateFile = (droppedFile) => {
         if (droppedFile) {
@@ -131,7 +125,7 @@ const General = () => {
             var header = {
                 "x-access-token": user.token
             }
-            postAPI("http://127.0.0.1:8081/api/recompense/", body, header)
+            postAPI(`http://${adresseip}:${port}/api/recompense/`, body, header)
                 .then((response) => {
                     addMessage('Récompense ajouté en base de donnée', 'success');
                 })
@@ -153,11 +147,6 @@ const General = () => {
     const handlePoint = (event) => {
         setNumb(event.target.value);
     }
-
-    const handleToggle = (state) => {
-        console.log(state);
-        setUpdateToggle(state);
-    };
 
     return (
         <>

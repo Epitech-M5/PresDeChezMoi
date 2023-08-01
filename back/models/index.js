@@ -85,4 +85,12 @@ db.utilisateur.belongsTo(db.roles, {
 db.roles.hasOne(db.utilisateur, {
     foreignKey: 'idRole', targetKey: 'id'
 });
+
+// Foreign key (roleId -> user(table))
+db.notification.belongsTo(db.roles, {
+    foreignKey: 'envoyeA', targetKey: 'id'
+});
+db.roles.hasOne(db.notification, {
+    foreignKey: 'envoyeA', targetKey: 'id'
+});
 module.exports = db;

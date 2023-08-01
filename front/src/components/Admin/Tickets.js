@@ -2,7 +2,8 @@ import { getAPI, postAPI, putAPI, deleteAPI } from "../../api.js";
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import DropDownBtn from "../MainComponent/DropDownBtn.js";
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 const Tickets = () => {
   const utilisateur = useSelector((state) => state.utilisateur);
   const [listTicket, setListTicket] = useState([]);
@@ -14,7 +15,7 @@ const Tickets = () => {
   const [isStatus, setisStatus] = useState(false); // Status : En cours, terminé etc
 
   useEffect(() => {
-    getAPI("http://127.0.0.1:8081/api/ticket", null, {
+    getAPI(`http://${adresseip}:${port}/api/ticket`, null, {
       "x-access-token": utilisateur.token,
     })
       .then((response) => {
@@ -48,7 +49,7 @@ const Tickets = () => {
         break;
       case "inapproprié":
         setStatus("inapproprie")
-        break;        
+        break;
     }
     setisStatus(true);
     setIsFiltre(false);
@@ -57,7 +58,7 @@ const Tickets = () => {
   // Trier avec les filtres
   useEffect(() => {
 
-    getAPI("http://127.0.0.1:8081/api/ticket/byDate/" + filtre, null, {
+    getAPI(`http://${adresseip}:${port}/api/ticket/byDate/` + filtre, null, {
       "x-access-token": utilisateur.token,
     })
       .then((response) => {
@@ -70,11 +71,11 @@ const Tickets = () => {
       });
   }, [filtre]);
 
-   // Trier avec les status
-   useEffect(() => {
+  // Trier avec les status
+  useEffect(() => {
     console.log("ON EST DANS LA FONCTION STATUS", status);
 
-    getAPI("http://127.0.0.1:8081/api/ticket/status/" + status, null, {
+    getAPI(`http://${adresseip}:${port}/api/ticket/status/` + status, null, {
       "x-access-token": utilisateur.token,
     })
       .then((response) => {
@@ -85,24 +86,24 @@ const Tickets = () => {
       .catch((error) => {
         console.log("error", error);
       });
-  }, [status]); 
+  }, [status]);
 
   var rendu;
   if (isFiltre) {
     if (listTicketFiltre && listTicketFiltre.length !== 0) {
       rendu = listTicketFiltre;
 
-    }else {
+    } else {
       rendu = listTicket
     }
-  
+
   } else if (isStatus) {
     if (listTicketStatus && listTicketStatus.length !== 0) {
       rendu = listTicketStatus;
 
-    }else {
+    } else {
       rendu = listTicket
-    }  
+    }
   } else {
     rendu = listTicket;
 
@@ -122,7 +123,7 @@ const Tickets = () => {
           />
           <DropDownBtn
             text="Filtre avec les status"
-            items={["non résolu", "en cours de traitement", "résolu","inapproprié"]}
+            items={["non résolu", "en cours de traitement", "résolu", "inapproprié"]}
             onCheckboxChange={handleCheckboxChangeStatus}
           />
           <div className="content_inside_admin_pages">
@@ -152,7 +153,7 @@ const Tickets = () => {
     </>
   );
 
-  
+
 };
 
 export default Tickets;

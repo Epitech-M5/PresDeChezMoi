@@ -40,7 +40,7 @@ isAdmin = (req, res, next) => {
         id: user.idRole
       }
     }).then(roles => {
-        if (roles.titre === "admin") {
+        if (roles.titre === "Admin") {
           next();
           return;
         }
