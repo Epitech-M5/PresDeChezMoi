@@ -1,30 +1,41 @@
 module.exports = (sequelize, Sequelize) => {
-    const Notification = sequelize.define("notification", {
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        idUtilisateur: {
-            type: Sequelize.INTEGER
-        },
-        titre: {
-            type: Sequelize.STRING
-        },
-        supprimer: {
-            type: Sequelize.BOOLEAN
-        },
-        message: {
-            type: Sequelize.TEXT
-        },
-        dateCreation: {
-            type: Sequelize.DATE
-        }
-    });
+  const Notification = sequelize.define("notification", {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    idUtilisateur: {
+      type: Sequelize.INTEGER,
+    },
+    titre: {
+      type: Sequelize.STRING,
+    },
+    supprimer: {
+      type: Sequelize.BOOLEAN,
+    },
+    message: {
+      type: Sequelize.TEXT,
+    },
 
-    Notification.associate = (models) => {
-        Notification.belongsTo(models.Utilisateur, { foreignKey: 'idUtilisateur' });
-    };
+    typeNotif: {
+      type: Sequelize.STRING,
+    },
+    formeNotif: {
+      type: Sequelize.STRING,
+    },
+    dateCreation: {
+      type: Sequelize.DATE,
+    },
+    // idRole qui ont reçu la notification
+    envoyeA: {
+      type: Sequelize.INTEGER,
+    },
+  });
 
-    return Notification;
+  Notification.associate = (models) => {
+    Notification.belongsTo(models.Utilisateur, { foreignKey: "idUtilisateur" });
+  };
+
+  return Notification;
 };
