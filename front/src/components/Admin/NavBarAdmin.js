@@ -2,7 +2,8 @@ import { React, useState, useEffect } from 'react';
 import { Provider, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { getAPI } from '../../api';
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 const NavBarAdmin = () => {
 
     const [activeId, setActiveId] = useState(null);
@@ -14,7 +15,7 @@ const NavBarAdmin = () => {
 
     useEffect(() => {
 
-        getAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+        getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
 
                 setData(response.dataAPI);
