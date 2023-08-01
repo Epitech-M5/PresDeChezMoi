@@ -249,3 +249,22 @@ a {
 .container_more::-webkit-scrollbar {
     display: none;
 }
+
+#hover_name_user:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#container_score_view_profile {
+    margin-top: 30px;
+}
+
+#container_score_view_profile i {
+    margin-left: 5px;
+    color: $red-orange;
+}
+
+#score_view_profile {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+}

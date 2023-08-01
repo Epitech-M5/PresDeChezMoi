@@ -36,6 +36,7 @@ import Settings from "./components/User/Settings";
 import Myposts from "./components/User/Myposts";
 import MySave from "./components/User/MySave";
 import MyLoot from "./components/User/MyLoot";
+import ViewProfile from "./pages/ViewProfile";
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 const LandingContainer = () => {
@@ -123,6 +124,58 @@ const AdminContainer = () => {
   else {
     return (<Navigate to="/login" replace />);
   }
+}
+
+const ViewProContainer = () => {
+
+  const [idToVerif, setIdToVerif] = useState([]);
+  const { id } = useParams();
+  const parsedId = parseInt(id);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const user = useSelector((state) => state.utilisateur);
+
+  console.log("UUUSSSEERRRR", user)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getAPI(`http://${adresseip}:${port}/api/user/`, {}, { "x-access-token": user.token });
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", response)
+        const ids = response.dataAPI.map(item => item.id);
+        setIdToVerif(ids);
+        setIsLoading(false);
+      } catch (error) {
+        console.log('error', error);
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="to_center_in_appjs">
+        <h1>Chargement ...</h1>
+      </div>
+    )
+  }
+
+  const isValidId = idToVerif.includes(parsedId);
+
+  return (
+    <>
+      {isValidId ? (
+        <Routes>
+          <Route path="/" element={<ViewProfile postId={id} />} />
+        </Routes>
+      ) : (
+        <PageNotFound navigation={'/login'} />
+      )}
+    </>
+  );
+
 }
 
 const ViewContainer = () => {
@@ -231,6 +284,7 @@ const App = () => {
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
             <Route path="/home/user/*" element={<UserContainer />} />
+            <Route path="/home/view-profile/:id" element={<ViewProContainer />} />
             <Route path="/view-post/:id" element={<ViewContainer />} />
           </Routes>
         </BrowserRouter>
