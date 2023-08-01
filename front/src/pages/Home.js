@@ -12,6 +12,7 @@ const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 
 const Home = () => {
+
     const [mapData, setMapData] = useState([]);
     const user = useSelector((state) => state.utilisateur);
     const [loading, setLoading] = useState(true);
