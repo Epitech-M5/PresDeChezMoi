@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 
 const DropDownBtn = (props) => {
 
@@ -7,6 +7,7 @@ const DropDownBtn = (props) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleToggle = () => {
+
         setIsOpen(!isOpen);
     }
 

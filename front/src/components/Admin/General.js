@@ -45,13 +45,8 @@ const General = () => {
     const { addMessage, removeMessage, messages } = useMessageQueue();
 
     useEffect(() => {
-        console.log("id ville", user.idVille)
-        console.log("user token", user.token)
-        console.log("user", user)
 
         getAPI(`http://127.0.0.1:8081/api/room/ville/${user.idVille}`, {}, { "x-access-token": user.token }).then((response) => {
-
-            console.log(response)
 
             if (response.dataAPI.length > 0) {
                 setUpdateToggle(true)
@@ -61,8 +56,48 @@ const General = () => {
             }
         })
 
-
     }, []);
+
+    const handleToggle = async (state) => {
+
+        setUpdateToggle(state);
+
+        console.log("UPDATE TOGGLE BEFORE", updateToggle)
+        // console.log("FIRST TIME BEFORE", firstTime)
+        console.log("STATE", state);
+
+        var data = await getRoomByCity(user.idVille, user.token)
+        var isRoomExist = data.isRoomExist
+        var idRoom = data.id
+        console.log("VALUEE ROOM EXIST :", isRoomExist)
+        console.log("NEED SUP ID :", idRoom)
+
+        if (state === true) {
+            if (isRoomExist) {
+                addMessage("Un groupe existe déjà pour cette ville", "error")
+            }
+            else {
+                addMessage("Création d'un groupe pour la ville en cours", "success")
+                var data = await getAllPeopleByCity(user.idVille, user.token)
+                await createRoomByCity(user.idVille, user.token, data)
+            }
+        }
+
+        else if (state === false) {
+
+            if (isRoomExist) {
+                addMessage("Suppression du groupe de la ville en cours", "success")
+                deleteRoomById(idRoom, user.token)
+            }
+            else {
+                addMessage("Aucun groupe n'a été trouvé pour cette ville", "error")
+            }
+        }
+
+        else {
+            addMessage("Erreur technique", "warning")
+        }
+    };
 
     const updateFile = (droppedFile) => {
         if (droppedFile) {
@@ -111,51 +146,6 @@ const General = () => {
     const handlePoint = (event) => {
         setNumb(event.target.value);
     }
-
-    const fetchData = async () => {
-        if (!firstTime) {
-            console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", updateToggle)
-            var data = await getRoomByCity(user.idVille, user.token)
-            var isRoomExist = data.isRoomExist
-            var idRoom = data.id
-            console.log("VALUEE ROOM EXIST :", isRoomExist)
-            console.log("NEED SUP ID :", idRoom)
-
-            if (updateToggle == true) {
-                // console.log("AZERTYUIOP", isRoomExist)
-                if (isRoomExist) {
-                    addMessage("Un groupe existe déjà pour cette ville", "error")
-                }
-                else {
-                    addMessage("Création d'un groupe pour la ville en cours", "success")
-                    var data = await getAllPeopleByCity(user.idVille, user.token)
-                    await createRoomByCity(user.idVille, user.token, data)
-                    // console.log("DATAAAAAA : ", data)
-                }
-            }
-            else if (updateToggle == false) {
-                if (isRoomExist) {
-                    addMessage("Suppression du groupe de la ville en cours", "success")
-                    deleteRoomById(idRoom, user.token)
-                }
-                else {
-                    addMessage("Aucun groupe n'a été trouvé pour cette ville", "error")
-                }
-            }
-            else {
-
-            }
-        }
-        else {
-            setFirstTime(false)
-        }
-    }
-
-    const handleToggle = (state) => {
-        console.log("STATE IN HANDLETOGGLE", state);
-        fetchData();
-        setUpdateToggle(state);
-    };
 
     return (
         <>
