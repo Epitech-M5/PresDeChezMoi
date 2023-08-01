@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Test from "./pages/Test";
 import TeamPage from "./pages/TeamPage";
+import Notification from "./pages/Notification";
 import NavBarLandingPage from "./components/NavBarLandingPage";
 import FooterLandingPage from "./components/FooterLandingPage";
 import ContactPage from "./pages/ContactPage";
@@ -73,6 +74,7 @@ const HomeContainer = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/notif" element={<Notification />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<PageNotFound navigation={"/home"} />} />
         </Routes>
@@ -89,6 +91,7 @@ const HomeContainer = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/notif" element={<Notification />} />
           <Route path="*" element={<PageNotFound navigation={"/home"} />} />
         </Routes>
       </>
