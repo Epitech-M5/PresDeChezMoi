@@ -3,7 +3,8 @@ import { getAPI, postAPI, putAPI, deleteAPI } from '../../api'
 import { useSelector } from "react-redux";
 import DropDownBtn from '../MainComponent/DropDownBtn';
 import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js';
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 
 const Role = () => {
     const { addMessage, removeMessage, messages } = useMessageQueue();
@@ -20,7 +21,7 @@ const Role = () => {
     }, [])
 
     const actualiseData = () => {
-        getAPI(`http://127.0.0.1:8081/api/user/by_ville/${utilisateur.idVille}`, null, { 'x-access-token': utilisateur.token }).then((response) => {
+        getAPI(`http://${adresseip}:${port}/api/user/by_ville/${utilisateur.idVille}`, null, { 'x-access-token': utilisateur.token }).then((response) => {
             // console.log("DATA : ", response.dataAPI)
             var arrayLocalAdmin = []
             var arrayLocalModo = []
@@ -49,7 +50,7 @@ const Role = () => {
 
     const handleSupp = (id) => {
         addMessage(`L'utilisateur à bien été supprimé ${id}`, "success")
-        deleteAPI(`http://127.0.0.1:8081/api/user/${id}`, null, { "x-access-token": utilisateur.token }).then(() => {
+        deleteAPI(`http://${adresseip}:${port}/api/user/${id}`, null, { "x-access-token": utilisateur.token }).then(() => {
             actualiseData()
         })
 
@@ -57,14 +58,14 @@ const Role = () => {
 
     const handleBan = (id) => {
         addMessage("L'utilisateur à bien été banni", "success")
-        putAPI(`http://127.0.0.1:8081/api/user/${id}`, { "estBanni": true }, { "x-access-token": utilisateur.token }).then(() => {
+        putAPI(`http://${adresseip}:${port}/api/user/${id}`, { "estBanni": true }, { "x-access-token": utilisateur.token }).then(() => {
             actualiseData()
         })
     }
 
     const handleUnban = (id) => {
         addMessage("L'utilisateur à bien été débanni", "success")
-        putAPI(`http://127.0.0.1:8081/api/user/${id}`, { "estBanni": false }, { "x-access-token": utilisateur.token }).then(() => {
+        putAPI(`http://${adresseip}:${port}/api/user/${id}`, { "estBanni": false }, { "x-access-token": utilisateur.token }).then(() => {
             actualiseData()
         })
     }
@@ -74,7 +75,7 @@ const Role = () => {
         var role = { "user": 1, "modérateur": 2 }
 
         console.log(`${user.pseudo} doit être ${role[item]}`)
-        putAPI(`http://127.0.0.1:8081/api/user/${user.id}`, { "idRole": role[item] }, { "x-access-token": utilisateur.token }).then((response) => {
+        putAPI(`http://${adresseip}:${port}/api/user/${user.id}`, { "idRole": role[item] }, { "x-access-token": utilisateur.token }).then((response) => {
             console.log(response)
         }).then(() => {
             actualiseData()

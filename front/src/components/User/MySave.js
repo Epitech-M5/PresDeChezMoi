@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../Loader';
 import AddressDisplay from '../MainComponent/AddressDisplay';
 import Modal from '../MainComponent/Modal';
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 const MySave = () => {
 
     const [mapData, setMapData] = useState([]);
@@ -28,7 +29,7 @@ const MySave = () => {
 
     useEffect(() => {
         // fetch likes du user et les mettre dans l'array
-        getAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+        getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
 
                 const parsedLikes = JSON.parse(response.dataAPI.likes); // Convertir la chaîne JSON en array
@@ -45,7 +46,7 @@ const MySave = () => {
     }, []);
 
     useEffect(() => {
-        getAPI('http://127.0.0.1:8081/api/annonce/', {}, { 'x-access-token': user.token })
+        getAPI(`http://${adresseip}:${port}/api/annonce/`, {}, { 'x-access-token': user.token })
             .then((response) => {
 
                 // ici je recupere toutes les annonces
@@ -66,7 +67,7 @@ const MySave = () => {
     useEffect(() => {
 
         // à chaque fois que likedpost change, stocker sa value en base
-        putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'likes': likedPosts }, { 'x-access-token': user.token })
+        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'likes': likedPosts }, { 'x-access-token': user.token })
             .then((response) => {
 
             })
@@ -77,7 +78,7 @@ const MySave = () => {
     }, [likedPosts]);
 
     useEffect(() => {
-        putAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, { 'enregistrements': saves }, { 'x-access-token': user.token })
+        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'enregistrements': saves }, { 'x-access-token': user.token })
             .then((response) => {
             })
             .catch((error) => {
@@ -86,7 +87,7 @@ const MySave = () => {
     }, [saves])
 
     useEffect(() => {
-        getAPI('http://127.0.0.1:8081/api/typeSignalement/', {}, {})
+        getAPI(`http://${adresseip}:${port}/api/typeSignalement/`, {}, {})
             .then((response) => {
                 setAllSignal(response.dataAPI);
             })
@@ -96,7 +97,8 @@ const MySave = () => {
     }, [])
 
     useEffect(() => {
-        getAPI('http://127.0.0.1:8081/api/user/', {}, { 'x-access-token': user.token })
+
+        getAPI(`http://${adresseip}:${port}/api/user/`, {}, { 'x-access-token': user.token })
             .then((response) => {
 
                 var dictionnaire = {}
@@ -216,7 +218,7 @@ const MySave = () => {
 
                     // puis on modifie le nombre de like en base
                     let x = item.reaction - 1
-                    putAPI(`http://127.0.0.1:8081/api/annonce/${id}`, { 'reaction': x }, { 'x-access-token': user.token })
+                    putAPI(`http://${adresseip}:${port}/api/annonce/${id}`, { 'reaction': x }, { 'x-access-token': user.token })
                         .then((response) => {
 
                         })
@@ -242,7 +244,7 @@ const MySave = () => {
 
                     // puis on modifie le nombre de like en base
                     let x = item.reaction + 1
-                    putAPI(`http://127.0.0.1:8081/api/annonce/${id}`, { 'reaction': x }, { 'x-access-token': user.token })
+                    putAPI(`http://${adresseip}:${port}/api/annonce/${id}`, { 'reaction': x }, { 'x-access-token': user.token })
                         .then((response) => {
 
                         })
@@ -268,7 +270,7 @@ const MySave = () => {
                 <div className="wrapper_delete_post">
                     <h1>Êtes-vous sûr(e) ?</h1>
                     <button onClick={() => {
-                        deleteAPI(`http://127.0.0.1:8081/api/annonce/${id}`, {}, { 'x-access-token': user.token })
+                        deleteAPI(`http://${adresseip}:${port}/api/annonce/${id}`, {}, { 'x-access-token': user.token })
                             .then((response) => {
                                 closeModal()
                             })
@@ -294,7 +296,7 @@ const MySave = () => {
                     <>
                         <div key={item.id} className="wrapper_delete_post">
                             <h1 onClick={() => {
-                                putAPI(`http://127.0.0.1:8081/api/annonce/${id}`, { 'idTypeSignalement': item.id, 'idUtilisateurSignalement': user.idutilisateur }, { 'x-access-token': user.token })
+                                putAPI(`http://${adresseip}:${port}/api/annonce/${id}`, { 'idTypeSignalement': item.id, 'idUtilisateurSignalement': user.idutilisateur }, { 'x-access-token': user.token })
                                     .then((response) => {
                                         closeModal()
                                     })

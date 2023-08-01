@@ -36,7 +36,8 @@ import Settings from "./components/User/Settings";
 import Myposts from "./components/User/Myposts";
 import MySave from "./components/User/MySave";
 import MyLoot from "./components/User/MyLoot";
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 const LandingContainer = () => {
   return (
 
@@ -134,7 +135,7 @@ const ViewContainer = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getAPI('http://127.0.0.1:8081/api/annonce/', {}, {});
+        const response = await getAPI(`http://${adresseip}:${port}/api/annonce/`, {}, {});
         const ids = response.dataAPI.map(item => item.id);
         setIdToVerif(ids);
         setIsLoading(false);

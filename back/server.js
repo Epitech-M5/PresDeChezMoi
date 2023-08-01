@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 var bcrypt = require("bcryptjs");
+require('dotenv').config();
+const port = process.env.REACT_APP_BACKEND_PORT
 // ('Access-Control-Allow-Origin', 'http://localhost:8081')
 var corsOptions = {
     origin: '*'
@@ -353,7 +355,7 @@ require("./routes/room.routes.js")(app);
 require("./routes/chat.routes.js")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8081;
+const PORT = port || 8081;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });

@@ -6,7 +6,8 @@ import axios from 'axios';
 import { Provider, useSelector } from "react-redux";
 import { getAPI, postAPI, putAPI, deleteAPI } from "./../../api"
 import { useNavigate } from 'react-router-dom';
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 const NavBarHome = (props) => {
 
     const navigate = useNavigate();
@@ -251,7 +252,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
+                postAPI(`http://${adresseip}:${port}/api/annonce/`, { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -280,7 +281,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
+                postAPI(`http://${adresseip}:${port}/api/annonce/`, { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -304,7 +305,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
+                postAPI(`http://${adresseip}:${port}/api/annonce/`, { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -328,7 +329,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
+                postAPI(`http://${adresseip}:${port}/api/annonce/`, { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -352,7 +353,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
+                postAPI(`http://${adresseip}:${port}/api/annonce/`, { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)
@@ -376,7 +377,7 @@ const NavBarHome = (props) => {
 
             else {
 
-                postAPI("http://127.0.0.1:8081/api/annonce/", { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
+                postAPI(`http://${adresseip}:${port}/api/annonce/`, { "titre": titre, "description": descriptions, 'image': image, 'dateDebut': dateDebut, "dateFin": dateFin, 'prix': prix, 'idTypeActivite': typeAct, 'latitude': latitude, 'longitude': longitude }, { "x-access-token": user.token })
                     .then(response => {
 
                         console.log('response : ' + response)

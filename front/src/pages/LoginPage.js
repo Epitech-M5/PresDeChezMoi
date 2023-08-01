@@ -5,7 +5,8 @@ import axios from 'axios';
 
 import { useDispatch, useSelector } from "react-redux";
 import { isLogin, fetchUtilisateurData, fetchRefreshToken, fetchToken } from "../redux/Utilisateur";
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 const LoginPage = () => {
 
     const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const LoginPage = () => {
         else {
 
             axios
-                .post("http://127.0.0.1:8081/api/user/auth/signup", { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2, "photoProfil": "1" })
+                .post(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2, "photoProfil": "1" })
                 .then(response => {
 
                     // permet de récupérer les info utilisateurs retourné dans la response
@@ -89,7 +90,7 @@ const LoginPage = () => {
 
 
             axios
-                .post("http://127.0.0.1:8081/api/user/auth/signin", { "pseudo": idLogin, "motDePasse": passwordLogin })
+                .post(`http://${adresseip}:${port}/api/user/auth/signin`, { "pseudo": idLogin, "motDePasse": passwordLogin })
                 .then(response => {
 
                     // permet de récupérer les info utilisateurs retourné dans la response

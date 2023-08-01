@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { getAPI } from '../../api';
 import { useSelector } from 'react-redux';
 import Loader from '../Loader';
-
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 const MyLoot = () => {
 
     const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ const MyLoot = () => {
 
     useEffect(() => {
 
-        getAPI(`http://127.0.0.1:8081/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+        getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
 
                 setDataScore(response.dataAPI);
@@ -26,7 +27,7 @@ const MyLoot = () => {
 
     useEffect(() => {
 
-        getAPI('http://127.0.0.1:8081/api/recompense/', {}, { 'x-access-token': user.token })
+        getAPI(`http://${adresseip}:${port}/api/recompense/`, {}, { 'x-access-token': user.token })
             .then((response) => {
                 setTimeout(() => {
                     setData(response.dataAPI);

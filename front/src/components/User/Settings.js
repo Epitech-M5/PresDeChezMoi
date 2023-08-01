@@ -3,10 +3,11 @@ import DropDownBtn from '../../components/MainComponent/DropDownBtn';
 import Modal from '../MainComponent/Modal';
 import { getAPI, postAPI, putAPI, deleteAPI } from '../../api';
 import { useSelector } from 'react-redux';
-
+// const variable_test = process.env.REACT_APP_API_URL
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 const Settings = () => {
     const user = useSelector((state) => state.utilisateur);
-
     const [typeMap, setTypeMap] = useState(null);
     const [content, setContent] = useState();
     const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +40,7 @@ const Settings = () => {
             var body = {
                 "motDePasse": motDePasse
             }
-            putAPI("http://127.0.0.1:8081/api/user/edit_password/", body, header).then(() => {
+            putAPI(`http://${adresseip}:${port}/api/user/edit_password/`, body, header).then(() => {
                 //message success
                 console.log("SUCESSS MDP")
                 setMotDePasse('')
@@ -91,6 +92,7 @@ const Settings = () => {
     };
 
     const handleSup = () => {
+        // alert(variable_test)
         setContent(
             <>
                 <h1>sup compte</h1>
