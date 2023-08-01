@@ -21,8 +21,6 @@ const LoginPage = () => {
     const [passwordRegister, setPasswordRegister] = useState("");
 
     const { addMessage, removeMessage, messages } = useMessageQueue();
-
-
     const handleNavigationRegister = (event) => {
 
         event.preventDefault();
@@ -44,8 +42,6 @@ const LoginPage = () => {
                     // permet de récupérer les info utilisateurs retourné dans la response
                     var data = response.data;
 
-                    console.log(data);
-
                     // Initialisation de l'objet qui va comporter les information de l'utilisateur pour le stocker dans redux(store)
                     var infoUtilisateur = {
                         pseudo: data.pseudo,
@@ -53,7 +49,6 @@ const LoginPage = () => {
                         idutilisateur: data.id,
                         idVille: data.idVille,
                         photoProfil: data.photoProfil,
-                        score: data.score,
                     };
                     addMessage('Votre compte a bien été crée ! Attendez quelques instant...', 'success');
                     // Stock dans store
@@ -88,11 +83,11 @@ const LoginPage = () => {
 
         else {
 
-
             axios
                 .post(`http://${adresseip}:${port}/api/user/auth/signin`, { "pseudo": idLogin, "motDePasse": passwordLogin })
                 .then(response => {
 
+                    console.log(response)
                     // permet de récupérer les info utilisateurs retourné dans la response
                     var data = response.data;
                     console.log("data", data)
@@ -103,7 +98,6 @@ const LoginPage = () => {
                         idutilisateur: data.id,
                         idVille: data.idVille,
                         photoProfil: data.photoProfil,
-                        score: data.score,
                     };
                     addMessage('Connexion réussie, attendez quelques instants....', 'success');
                     // Stock dans store

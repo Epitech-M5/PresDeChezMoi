@@ -42,10 +42,10 @@ db.sequelize.sync({ force: true })
 // Création de données factices
 // =============================================
 function ajoutRole() {
-    Role.create({ id: 1, titre: "user" });
-    Role.create({ id: 2, titre: "moderator" });
-    Role.create({ id: 3, titre: "admin" });
-    Role.create({ id: 4, titre: "super utilisateur" });
+    Role.create({ id: 1, titre: "Utilisateur" });
+    Role.create({ id: 2, titre: "Modérateur" });
+    Role.create({ id: 3, titre: "Admin" });
+    Role.create({ id: 4, titre: "Super Administrateur" });
 }
 
 function ajoutVille() {
@@ -179,8 +179,6 @@ function ajoutUtilisateur() {
         estAdministrateur: true,
         abonnement: null,
         profession: "Administrateur",
-        idRecompense: null,
-        listRecompense: null,
         nombreSignalement: 0,
         estBanni: false,
         idRole: 3,
@@ -203,8 +201,6 @@ function ajoutUtilisateur() {
         estAdministrateur: false,
         abonnement: null,
         profession: "Barman",
-        idRecompense: null,
-        listRecompense: null,
         nombreSignalement: 0,
         estBanni: false,
         idRole: 1,
@@ -227,8 +223,6 @@ function ajoutUtilisateur() {
         estAdministrateur: false,
         abonnement: null,
         profession: "Poissonière",
-        idRecompense: null,
-        listRecompense: null,
         nombreSignalement: 0,
         estBanni: false,
         idRole: 1,
