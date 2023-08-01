@@ -75,6 +75,47 @@
     gap: 30px;
 }
 
+// role
+
+.container_for_simple_spacing {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+
+.wrapper_tab_role {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.wrapper_tab_role table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.wrapper_tab_role td,
+.wrapper_tab_role th {
+    border: 1px solid $dark-grey;
+    text-align: center;
+    padding: 8px;
+}
+
+.wrapper_tab_role tr:nth-child(even) {
+    background-color: $grey;
+}
+
+#title_role {
+    font-size: 20px;
+    font-family: $font-LeagueSpartan;
+    font-style: italic;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
 @media(max-width:650px),
 (max-height:450px) {
 

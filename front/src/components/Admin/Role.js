@@ -92,126 +92,142 @@ const Role = () => {
                     <h1>Rôles et utilisateurs</h1>
                 </div>
                 <div className="content_inside_admin_pages">
-                    <h1>Administrateur</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th >Nom</th>
-                                <th >Prénom</th>
-                                <th >Pseudo</th>
-                                <th >Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {arrayAdmin.map((item) => {
-                                console.log(item.role.titre)
-                                return (
-                                    <tr key={item.id}>
-                                        <td>{item.nom}</td>
-                                        <td>{item.prenom}</td>
-                                        <td>{item.pseudo}</td>
-                                        <td>{item.role.titre}</td>
 
+                    <div className="container_for_simple_spacing">
+
+                        <div className="wrapper_tab_role">
+                            <h1 id='title_role'>Administrateur</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th >Nom</th>
+                                        <th >Prénom</th>
+                                        <th >Pseudo</th>
+                                        <th >Role</th>
                                     </tr>
-                                )
-                            })}
+                                </thead>
+                                <tbody>
+                                    {arrayAdmin.map((item) => {
+                                        console.log(item.role.titre)
+                                        return (
+                                            <tr key={item.id}>
+                                                <td>{item.nom}</td>
+                                                <td>{item.prenom}</td>
+                                                <td>{item.pseudo}</td>
+                                                <td>{item.role.titre}</td>
 
-                        </tbody>
-                    </table>
-                    <h1>Modérateur</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th >Nom</th>
-                                <th >Prénom</th>
-                                <th >Pseudo</th>
-                                <th >Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {arrayModo.map((item) => {
-                                console.log(item.role.titre)
-                                return (
-                                    <tr key={item.id}>
-                                        <td>{item.nom}</td>
-                                        <td>{item.prenom}</td>
-                                        <td>{item.pseudo}</td>
-                                        <td>{item.role.titre}</td>
-                                        <td>
-                                            <DropDownBtn text={item.role.titre} items={['user', 'modérateur']} onCheckboxChange={(items) => handleCheckboxChange(items, item)} />
-                                        </td>
+                                            </tr>
+                                        )
+                                    })}
 
-                                        {/* <td><i class="fa-solid fa-hammer" onClick={handleBan}> Bannir</i></td>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div className="wrapper_tab_role">
+                            <h1 id='title_role'>Modérateur</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th >Nom</th>
+                                        <th >Prénom</th>
+                                        <th >Pseudo</th>
+                                        <th >Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {arrayModo.map((item) => {
+                                        console.log(item.role.titre)
+                                        return (
+                                            <tr key={item.id}>
+                                                <td>{item.nom}</td>
+                                                <td>{item.prenom}</td>
+                                                <td>{item.pseudo}</td>
+                                                <td>{item.role.titre}</td>
+                                                <td>
+                                                    <DropDownBtn type='rela' text={item.role.titre} items={['user', 'modérateur']} onCheckboxChange={(items) => handleCheckboxChange(items, item)} />
+                                                </td>
+
+                                                {/* <td><i class="fa-solid fa-hammer" onClick={handleBan}> Bannir</i></td>
                                         <td><i class="fa-solid fa-trash" onClick={handleSupp}> Supprimer</i></td> */}
-                                        <td><button onClick={() => handleBan(item.id)}>Bannir</button></td>
-                                        <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
-                                        {/* <td><i class="fa-solid fa-x" onClick={handleSupp}></i></td> */}
-                                    </tr>
-                                )
-                            })}
+                                                <td><button onClick={() => handleBan(item.id)}>Bannir</button></td>
+                                                <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
+                                                {/* <td><i class="fa-solid fa-x" onClick={handleSupp}></i></td> */}
+                                            </tr>
+                                        )
+                                    })}
 
-                        </tbody>
-                    </table>
-                    <h1>Utilisateur</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th >Nom</th>
-                                <th >Prénom</th>
-                                <th >Pseudo</th>
-                                <th >Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {arrayUser.map((item) => {
-                                console.log(item.role.titre)
-                                return (
-                                    <tr key={item.id}>
-                                        <td>{item.nom}</td>
-                                        <td>{item.prenom}</td>
-                                        <td>{item.pseudo}</td>
-                                        <td>{item.role.titre}</td>
-                                        <td>
-                                            <DropDownBtn text={item.role.titre} items={['user', 'modérateur']} onCheckboxChange={(items) => handleCheckboxChange(items, item)} />
-                                        </td>
-                                        <td><button onClick={() => handleBan(item.id)}>Bannir</button></td>
-                                        <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
-                                    </tr>
-                                )
-                            })}
+                                </tbody>
+                            </table>
+                        </div>
 
-                        </tbody>
-                    </table>
-                    <h1>Banni</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th >Nom</th>
-                                <th >Prénom</th>
-                                <th >Pseudo</th>
-                                <th >Role</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {arrayBanni.map((item) => {
-                                console.log(item.role.titre)
-                                return (
-                                    <tr key={item.id}>
-                                        <td>{item.nom}</td>
-                                        <td>{item.prenom}</td>
-                                        <td>{item.pseudo}</td>
-                                        <td>{item.role.titre}</td>
-                                        <td><button onClick={() => handleUnban(item.id)}>Débannir</button></td>
-                                        <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
+                        <div className="wrapper_tab_role">
+                            <h1 id='title_role'>Utilisateur</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th >Nom</th>
+                                        <th >Prénom</th>
+                                        <th >Pseudo</th>
+                                        <th >Role</th>
                                     </tr>
-                                )
-                            })}
+                                </thead>
+                                <tbody>
+                                    {arrayUser.map((item) => {
+                                        console.log(item.role.titre)
+                                        return (
+                                            <tr key={item.id}>
+                                                <td>{item.nom}</td>
+                                                <td>{item.prenom}</td>
+                                                <td>{item.pseudo}</td>
+                                                <td>{item.role.titre}</td>
+                                                <td>
+                                                    <DropDownBtn type='rela' text={item.role.titre} items={['user', 'modérateur']} onCheckboxChange={(items) => handleCheckboxChange(items, item)} />
+                                                </td>
+                                                <td><button onClick={() => handleBan(item.id)}>Bannir</button></td>
+                                                <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
+                                            </tr>
+                                        )
+                                    })}
 
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="wrapper_tab_role">
+                            <h1 id='title_role'>Banni</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th >Nom</th>
+                                        <th >Prénom</th>
+                                        <th >Pseudo</th>
+                                        <th >Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {arrayBanni.map((item) => {
+                                        console.log(item.role.titre)
+                                        return (
+                                            <tr key={item.id}>
+                                                <td>{item.nom}</td>
+                                                <td>{item.prenom}</td>
+                                                <td>{item.pseudo}</td>
+                                                <td>{item.role.titre}</td>
+                                                <td><button onClick={() => handleUnban(item.id)}>Débannir</button></td>
+                                                <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
+                                            </tr>
+                                        )
+                                    })}
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
 
                 </div>
-            </div>
+            </div >
         </>
     );
 };
