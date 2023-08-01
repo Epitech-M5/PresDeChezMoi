@@ -1,5 +1,6 @@
 const db = require("../models");
 const Notification = db.notification;
+const Role = db.roles;
 
 // title: req.body.title,
 // description: req.body.description,
@@ -23,17 +24,28 @@ exports.create = (req, res) => {
         });
         return;
     }
-
-    // Create User
+    const nomRole = req.body.envoyeA;
+    Role.findOne({
+        where: {
+          titre: nomRole,
+        },
+      })
+    .then(data => {
+        if (data) {
+    const idRole = data.id;
+    console.log("IDROLE",idRole)
+    // Create notification
     const NotificationObjet = {
-        idUtilisateur: req.body.idUtilisateur,
+        idUtilisateur: req.userId,
         titre: req.body.titre,
         supprimer: false,
         message: req.body.message,
-        dateCreation: null
+        dateCreation: null,
+        envoyeA: idRole,
+        typeNotif: req.body.typeNotif,
+        formeNotif: req.body.formeNotif
     };
 
-    // Save Tutorial in the database adn catch internal error
     Notification.create(NotificationObjet)
         .then(data => {
             res.send(data);
@@ -44,6 +56,15 @@ exports.create = (req, res) => {
                     err.message || "Some error occurred while creating the Tutorial."
             });
         });
+        } else {
+            res.status(404).send({
+                message: `Cannot find Role with id=${id}.`
+            });
+        }
+    })
+
+
+
 };
 
 exports.find_one = (req, res) => {
