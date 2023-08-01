@@ -77,6 +77,18 @@ exports.find_all = (req, res) => {
             });
         });
 };
+exports.find_all_by_ville = (req, res) => {
+    Recompense.findAll({ where: { idVille: req.params.idVille } })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
+};
 
 exports.update = (req, res) => {
     const id = req.params.id;
