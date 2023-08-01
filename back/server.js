@@ -60,7 +60,105 @@ function ajoutVille() {
         moyenneService: 5.0,
         noteEvenement: [5, 5, 5, 5],
         moyenneEvenement: 5.0,
-        scoreGlocale: 5.0
+        scoreGlobale: 5.0
+    })
+
+    Ville.create({
+        id: 2,
+        nom: "Gardanne",
+        codePostal: 13120,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 2.1
+    })
+
+    Ville.create({
+        id: 3,
+        nom: "Meyreuil",
+        codePostal: 14001,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 4.3
+    })
+
+    Ville.create({
+        id: 4,
+        nom: "Greasque",
+        codePostal: 14002,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 4.7
+    })
+
+    Ville.create({
+        id: 5,
+        nom: "Auberge Neuve",
+        codePostal: 14003,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 0.1
+    })
+
+    Ville.create({
+        id: 6,
+        nom: "Biver",
+        codePostal: 14043,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 3.3
+    })
+
+    Ville.create({
+        id: 7,
+        nom: "Saint-Savournin",
+        codePostal: 14743,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 4.3
+    })
+
+    Ville.create({
+        id: 8,
+        nom: "Mimet",
+        codePostal: 14843,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 4.3
     })
 }
 

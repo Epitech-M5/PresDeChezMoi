@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import Modal from '../MainComponent/Modal';
 import DropDownBtn from '../MainComponent/DropDownBtn';
 import { useSelector } from 'react-redux';
-import { deleteAPI, putAPI } from '../../api';
+import { deleteAPI, getAPI, putAPI } from '../../api';
 import { useNavigate } from 'react-router-dom';
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
@@ -19,6 +19,12 @@ const Settings = () => {
     const [id, setId] = useState(null);
     const [error, setError] = useState(null);
     const [pseudo, setPseudo] = useState('');
+    const [dataVille, setDataVille] = useState([]);
+    const [pdp, setPdp] = useState(1);
+    const [psdModif, setPsdModif] = useState('');
+    const [description, setDescription] = useState('');
+    const [metier, setMetier] = useState('');
+
     const navigate = useNavigate();
 
     const closeModal = () => {
@@ -42,6 +48,7 @@ const Settings = () => {
         setMdpConfirm('');
         setPseudo('');
         setError(null);
+        setSelectedValue(null);
 
         setIsOpen(true);
     }
@@ -49,16 +56,39 @@ const Settings = () => {
     useEffect(() => {
 
         if (id === 1) {
+
             setToAddModal(
                 <>
-
+                    <h1>Modifier son profil</h1>
+                    <input type="text" placeholder='Pseudo' onChange={(event) => setPsdModif(event.target.value)} />
+                    <textarea placeholder='Description' onChange={(event) => setDescription(event.target.value)} />
+                    <input type="text" placeholder='Occupation/Metier' onChange={(event) => setMetier(event.target.value)} />
+                    <h2>Photo de profil</h2>
+                    <h3>Actuel : {pdp}</h3>
+                    <div className="container_all_pdp">
+                        <h3 onClick={() => setPdp(1)} className={pdp === 1 ? "selected" : ""}>1</h3>
+                        <h3 onClick={() => setPdp(2)} className={pdp === 2 ? "selected" : ""}>2</h3>
+                        <h3 onClick={() => setPdp(3)} className={pdp === 3 ? "selected" : ""}>3</h3>
+                        <h3 onClick={() => setPdp(4)} className={pdp === 4 ? "selected" : ""}>4</h3>
+                        <h3 onClick={() => setPdp(5)} className={pdp === 5 ? "selected" : ""}>5</h3>
+                    </div>
+                    <button onClick={handleModif}>Modifier</button>
                 </>
             );
         }
 
         else if (id === 2) {
+
             setToAddModal(
                 <>
+                    <h1>Changer de commune</h1>
+                    <div className="container_all_ville">
+                        {dataVille.map((item) => (
+                            <>
+                                <p key={item.id} onClick={() => handleChoice(item.id)}>{item.nom} <span id='score_ville_global'>{item.scoreGlobale}/5</span></p>
+                            </>
+                        ))}
+                    </div>
 
                 </>
             );
@@ -68,7 +98,7 @@ const Settings = () => {
             setToAddModal(
                 <>
                     <h1>Supprimer votre compte</h1>
-                    <input type="text" placeholder={user.pseudo} onChange={(event) => setPseudo(event.target.value)} />
+                    <input type="text" placeholder='Veuillez rentrer votre pseudo' onChange={(event) => setPseudo(event.target.value)} />
                     <button onClick={handleSupConfirm}>CONFIRMER</button>
                 </>
             );
@@ -79,8 +109,8 @@ const Settings = () => {
                 <>
                     <h1>Modifier mot de passe</h1>
                     <input type="text" placeholder='Nouveau mot de passe' onChange={(event) => setMdp(event.target.value)} />
-                    <input type="text" placeholder='Nouveau mot de passe' onChange={(event) => setMdpConfirm(event.target.value)} />
-                    <input type="button" value='Modifier' onClick={handleMotDePasse} />
+                    <input type="text" placeholder='Confirmer votre mot de passe' onChange={(event) => setMdpConfirm(event.target.value)} />
+                    <button onClick={handleMotDePasse} >Modifier</button>
                 </>
             );
         }
@@ -93,8 +123,52 @@ const Settings = () => {
             );
         }
 
-    }, [mdp, id, mdpConfirm, pseudo]);
+    }, [mdp, id, mdpConfirm, pseudo, pdp, psdModif, description, metier]);
 
+    useEffect(() => {
+        getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+                setDataVille(response.dataAPI);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [])
+
+    useEffect(() => {
+        getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+                setPdp(response.dataAPI.photoProfil)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [])
+
+    const handleChoice = (ville) => {
+        alert('changement de ville par son id : ' + ville)
+        setError('Bien reçu, attendez...');
+        setTimeout(() => {
+            navigate('/login')
+        }, 1000);
+    }
+
+    const handleModif = () => {
+
+        console.log(psdModif, pdp, description, user.idutilisateur)
+
+        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'pseudo': psdModif, 'photoProfil': pdp, 'description': description }, { 'x-access-token': user.token })
+            .then((response) => {
+                setError('OK !');
+                setTimeout(() => {
+                    closeModal();
+                }, 1000)
+            })
+            .catch((error) => {
+                console.log(error);
+                setError(error);
+            });
+    }
 
     const handleSupConfirm = () => {
 
@@ -126,6 +200,9 @@ const Settings = () => {
             putAPI(`http://${adresseip}:${port}/api/user/edit_password/`, body, header).then(() => {
                 setError('OK !')
                 closeModal()
+            }).catch((error) => {
+                console.log(error);
+                setError(error);
             })
         } else {
             setError('Les 2 champs ne sont pas les mêmes')
@@ -161,8 +238,14 @@ const Settings = () => {
                     <i className="fa-solid fa-xmark" onClick={closeModal}></i>
                 </div>
                 <div className="wrapper_popup">
-                    {toAddModal}
-                    {error}
+                    <div className="container_contents_user_prof">
+                        {toAddModal}
+                        <span>{error ? (
+                            <>
+                                <i className="fa-solid fa-circle-info"></i> {error}
+                            </>
+                        ) : null}</span>
+                    </div>
                 </div>
             </Modal>
 
