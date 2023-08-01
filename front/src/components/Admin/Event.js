@@ -70,6 +70,7 @@ const Event = () => {
             <label>Titre de la notification:</label>
             <input name="titre" onChange={handleTitre}></input>
             <DropDownBtn
+              type="rela"
               text="Envoyé à"
               items={[
                 "Super Administrateur",
@@ -80,11 +81,13 @@ const Event = () => {
               onCheckboxChange={handleEnvoyeA}
             />
             <DropDownBtn
+            type="rela"
               text="Type d'annonce"
-              items={["Informatif", "Danger"]}
+              items={["Informatif", "Danger","Warning"]}
               onCheckboxChange={handleTypeNotification}
             />
             <DropDownBtn
+            type="rela"
               text="Forme de l'annonce"
               items={["Simple", "Bandereau"]}
               onCheckboxChange={handleFormeNotification}
