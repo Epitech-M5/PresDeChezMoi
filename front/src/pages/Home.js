@@ -39,13 +39,13 @@ const Home = () => {
                     setMapData(response.dataAPI);
                     setLoading(false);
 
-                }, 2000);
+                }, 6000);
             })
             .catch((error) => {
                 console.log('error', error);
                 setLoading(false);
             });
-    }, []);
+    }, [mapData]);
 
     useEffect(() => {
         setTypeAct(0);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Provider, useSelector } from "react-redux";
 import { getAPI } from '../../api';
+import Loader from '../Loader';
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 const NavBarUser = () => {
@@ -14,20 +15,25 @@ const NavBarUser = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setActiveId(1);
 
         getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
 
-                setData(response.dataAPI);
-                console.log(response.dataAPI)
+                setTimeout(() => {
+                    setData(response.dataAPI);
+                    console.log(response.dataAPI)
+                }, 6000)
 
             })
             .catch((error) => {
                 console.log(error);
             });
 
-    }, []);
+    }, [data]);
+
+    useEffect(() => {
+        setActiveId(1);
+    }, [])
 
     const toggleUnderline = (id) => {
         setActiveId(id);
@@ -63,7 +69,12 @@ const NavBarUser = () => {
                 <div className="container_user_infos">
                     <div className="left_user_pdp">
                         <div className="container_pdp_user">
-                            <img src={`../../media/img/${data.photoProfil}.png`} alt="profil" />
+                            {data.photoProfil ? (
+                                <><img src={`../../media/img/${data.photoProfil}.png`} alt="profil" /></>
+                            ) : (
+                                <><Loader /></>
+                            )}
+
                         </div>
                     </div>
                     <div className="right_name_description">
