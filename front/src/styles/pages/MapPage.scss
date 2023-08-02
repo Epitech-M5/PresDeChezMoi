@@ -12,3 +12,26 @@
     border-radius: 8px;
     overflow: hidden;
 }
+
+.container_info_marker_click {
+    width: 100%;
+    padding: 15px 0 15px 0;
+}
+
+.container_info_marker_click h1 {
+    margin: 20px 30px 20px 30px;
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    font-size: 20px;
+    color: $red-orange;
+}
+
+.span_info_marker {
+    font-size: 1.2rem !important;
+    color: $green;
+    font-weight: 700;
+}
+
+.container_info_marker_click h2 {
+    margin: 10px 30px 10px 30px;
+}
