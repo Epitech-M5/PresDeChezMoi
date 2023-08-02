@@ -4,6 +4,8 @@
 
 .container_2_home {
     width: $width-feed;
+    position: relative;
+    z-index: 1;
 }
 
 .container_2_home_loader {
@@ -13,7 +15,7 @@
 
 .spacing {
     width: 100%;
-    margin-top: 80px;
+    margin-top: 90px !important;
     height: auto;
     display: flex;
     justify-content: right;

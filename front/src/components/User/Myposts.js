@@ -51,12 +51,12 @@ const Myposts = () => {
 
                 // ici je recupere toutes les annonces
 
-                setTimeout(() => {
 
+                setTimeout(() => {
                     setMapData(response.dataAPI);
                     setLoading(false);
 
-                }, 2000);
+                }, 6000);
             })
             .catch((error) => {
                 console.log('error', error);
@@ -118,14 +118,19 @@ const Myposts = () => {
                 };
                 setDictionnaireRole(role);
 
-                const userData = response.dataAPI;
+                // const userData = response.dataAPI;
 
-                const loggedInUser = userData.find((user) => userFILTER.pseudo === user.pseudo);
-                if (loggedInUser) {
-                    const loggedInUserId = loggedInUser.id;
-                    setIdUser(loggedInUserId);
+                // const loggedInUser = userData.find((user) => userFILTER.pseudo === user.pseudo);
+                // if (loggedInUser) {
+                //     const loggedInUserId = loggedInUser.id;
+                //     setIdUser(loggedInUserId);
+                // }
+
+                var id = {};
+                for (const element of response.dataAPI) {
+                    id[element.id] = element.id;
                 }
-
+                setIdUser(id);
 
             })
             .catch((error) => {
@@ -321,7 +326,8 @@ const Myposts = () => {
     }
 
     const reversedData = [...mapData].reverse();
-    const hasElementsToDisplay = reversedData.some((item) => item.organisateur === idUser);
+    console.log('@@@@@@@@@@@@@@@@@', idUser)
+    const hasElementsToDisplay = reversedData.some((item) => item.organisateur === user.idutilisateur);
 
     return (
         <>
@@ -345,7 +351,7 @@ const Myposts = () => {
                             {hasElementsToDisplay ? (
 
                                 reversedData.map((item) => (
-                                    item.organisateur === idUser && (
+                                    item.organisateur === user.idutilisateur && (
 
                                         <div key={item.id} className="container_annonce">
                                             <div className="container_pdp">

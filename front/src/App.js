@@ -38,6 +38,7 @@ import Myposts from "./components/User/Myposts";
 import MySave from "./components/User/MySave";
 import MyLoot from "./components/User/MyLoot";
 import ViewProfile from "./pages/ViewProfile";
+import MapPage from "./pages/MapPage";
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 const LandingContainer = () => {
@@ -77,6 +78,7 @@ const HomeContainer = () => {
           <Route path="/test" element={<Test />} />
           <Route path="/notif" element={<Notification />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/map" element={<MapPage />} />
           <Route path="*" element={<PageNotFound navigation={"/home"} />} />
         </Routes>
       </>
@@ -93,6 +95,7 @@ const HomeContainer = () => {
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
           <Route path="/notif" element={<Notification />} />
+          <Route path="/map" element={<MapPage />} />
           <Route path="*" element={<PageNotFound navigation={"/home"} />} />
         </Routes>
       </>
