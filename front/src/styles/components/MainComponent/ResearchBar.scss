@@ -10,6 +10,7 @@
     align-items: center;
     gap: 20px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px;
+    margin-top: 35px;
 }
 
 .container_rebar input {
@@ -67,12 +68,6 @@
 .data_search_result h1:hover {
     cursor: pointer;
     background-color: $grey;
-}
-
-@media(max-width:1600px) {
-    .container_rebar {
-        margin-top: 35px;
-    }
 }
 
 @media(max-width:650px) {

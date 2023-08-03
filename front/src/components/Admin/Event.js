@@ -67,38 +67,65 @@ const Event = () => {
           <h1>Notification évènement</h1>
         </div>
         <div className="content_inside_admin_pages">
+
+
           <form action="post">
-            <label>Titre de la notification:</label>
-            <input name="titre" onChange={handleTitre}></input>
-            <DropDownBtn
-              type="rela"
-              text="Envoyé à"
-              items={[
-                "Super Administrateur",
-                "Admin",
-                "Utilisateur",
-                "Modérateur",
-              ]}
-              onCheckboxChange={handleEnvoyeA}
-            />
-            <DropDownBtn
-              type="rela"
 
-              text="Type d'annonce"
-              items={["Informatif", "Danger", "Warning"]}
-              onCheckboxChange={handleTypeNotification}
-            />
-            <DropDownBtn
-              type="rela"
+            <div className="container_title_event_adm">
 
-              text="Forme de l'annonce"
-              items={["Simple", "Bandereau"]}
-              onCheckboxChange={handleFormeNotification}
-            />
-            <label for="message">Message:</label>
-            <textarea name="message" type="text" onChange={handleMessage}></textarea>
-            <button type="submit" onClick={sendNotification}>Envoyer</button>
+              <label for='titre'>Titre de la notification:</label>
+              <input name="titre" onChange={handleTitre} />
+
+            </div>
+
+            <div className="wrapper_btndropd_event">
+
+              <div className="container_dropd1_event">
+                <DropDownBtn
+                  type="abs"
+
+                  text="Envoyé à"
+                  items={[
+                    "Super Administrateur",
+                    "Admin",
+                    "Utilisateur",
+                    "Modérateur",
+                  ]}
+                  onCheckboxChange={handleEnvoyeA}
+                />
+              </div>
+
+              <div className="container_dropd1_event">
+                <DropDownBtn
+                  type="abs"
+
+                  text="Type d'annonce"
+                  items={["Informatif", "Danger", "Warning"]}
+                  onCheckboxChange={handleTypeNotification}
+                />
+              </div>
+
+              <div className="container_dropd1_event">
+                <DropDownBtn
+                  type="abs"
+
+                  text="Forme de l'annonce"
+                  items={["Simple", "Bandereau"]}
+                  onCheckboxChange={handleFormeNotification}
+                />
+              </div>
+
+            </div>
+
+            <div className="container_title_event_adm">
+              <label for="message">Message:</label>
+              <textarea name="message" type="text" onChange={handleMessage} />
+              <button type="submit" onClick={sendNotification}>Envoyer</button>
+            </div>
+
           </form>
+
+
         </div>
       </div>
     </>

@@ -115,18 +115,28 @@ const Tickets = () => {
         <div className="container_title_page_admin">
           <h1>Tickets via chat</h1>
         </div>
-        <div className="container_menu_page_admin">
-          <DropDownBtn
-            text="Filtre ticket"
-            items={["Le plus récent", "Le plus ancien"]}
-            onCheckboxChange={handleCheckboxChange}
-          />
-          <DropDownBtn
-            text="Filtre avec les status"
-            items={["non résolu", "en cours de traitement", "résolu", "inapproprié"]}
-            onCheckboxChange={handleCheckboxChangeStatus}
-          />
-          <div className="content_inside_admin_pages">
+        <div className="content_inside_admin_pages">
+
+          <div className="wrapper_btndropd">
+            <div className="container_dropd1">
+              <DropDownBtn
+                type='abs'
+                text="Filtre ticket"
+                items={["Le plus récent", "Le plus ancien"]}
+                onCheckboxChange={handleCheckboxChange}
+              />
+            </div>
+            <div className="container_dropd2">
+              <DropDownBtn
+                type='abs'
+                text="Filtre avec les status"
+                items={["non résolu", "en cours de traitement", "résolu", "inapproprié"]}
+                onCheckboxChange={handleCheckboxChangeStatus}
+              />
+            </div>
+          </div>
+
+          <div className="wrapper_tab_role">
             <table>
               <thead>
                 <tr>
@@ -148,8 +158,10 @@ const Tickets = () => {
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
+
     </>
   );
 
