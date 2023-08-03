@@ -257,9 +257,6 @@ const Settings = () => {
 
             <div className="content_user_profil">
                 <div className="container_btns_settings">
-                    <div className="container_dropdown_for_settings">
-                        <DropDownBtn type="abs" text="Thème de la map" items={['Normal', 'Bleu', 'Dark', 'Auto']} onCheckboxChange={handleCheckboxChange} />
-                    </div>
                     <button onClick={handleOpen_1}>Modifier profil</button>
                     <button onClick={handleOpen_2}>Changer de commune</button>
                     <button onClick={handleOpen_3}>Supprimer votre compte</button>

@@ -10,8 +10,21 @@ const MapPage = () => {
 
     const user = useSelector((state) => state.utilisateur);
 
+    const mapStyles = {
+        height: '100%',
+        width: '100%',
+    };
+
+    const defaultCenter = {
+        lat: 43.2965, // ping marseille default
+        lng: 5.3698, //mettre les coordonnées de la ville
+
+    };
+
     const [markers, setMarkers] = useState([]);
     const [selectedPlace, setSelectedPlace] = useState(null);
+    const [mapCenter, setMapCenter] = useState(defaultCenter);
+    const [mapZoom, setMapZoom] = useState(10);
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/annonce/`, {}, { 'x-access-token': user.token })
@@ -31,18 +44,11 @@ const MapPage = () => {
             });
     }, []);
 
-    const mapStyles = {
-        height: '100%',
-        width: '100%',
-    };
-
-    const defaultCenter = {
-        lat: 43.2965, // ping marseille default
-        lng: 5.3698, //mettre les coordonnées de la ville
-    };
-
     const handleMarkerClick = (place) => {
+        setMapZoom(10);
         setSelectedPlace(place);
+        setMapCenter({ lat: place.latitude, lng: place.longitude });
+        setMapZoom(14);
     };
 
     const formatDate = (dateString) => {
@@ -64,6 +70,20 @@ const MapPage = () => {
         );
     };
 
+    const renderCustomMarker = (item) => {
+        return (
+            <Marker
+                key={item.id}
+                position={{ lat: item.latitude, lng: item.longitude }}
+                onClick={() => handleMarkerClick(item)}
+                icon={{
+                    url: '../media/img/carrot_ping2.png',
+                    scaledSize: new window.google.maps.Size(40, 40), // Taille personnalisée de l'icône
+                }}
+            />
+        );
+    };
+
     const filteredMarkers = markers.filter((item) => item.latitude !== null && item.longitude !== null);
 
     return (
@@ -71,11 +91,9 @@ const MapPage = () => {
             <div className="container_map_page">
                 <div className="container_map_gg">
                     <LoadScript googleMapsApiKey="AIzaSyC5OdSI06hgsPRr1wzZgXMvDxBTep2-O7M">
-                        <GoogleMap mapContainerStyle={mapStyles} zoom={10} center={defaultCenter}>
+                        <GoogleMap mapContainerStyle={mapStyles} zoom={mapZoom} center={mapCenter}>
 
-                            {filteredMarkers.map((item) => (
-                                <Marker key={item.id} position={{ lat: item.latitude, lng: item.longitude }} onClick={() => handleMarkerClick(item)} />
-                            ))}
+                            {filteredMarkers.map((item) => renderCustomMarker(item))}
 
                         </GoogleMap>
                     </LoadScript>

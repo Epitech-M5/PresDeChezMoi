@@ -24,22 +24,22 @@
     cursor: pointer;
 }
 
-.container_btns_settings button:nth-child(2) {
+.container_btns_settings button:nth-child(1) {
     background-color: $green;
     color: $white;
 }
 
-.container_btns_settings button:nth-child(3) {
+.container_btns_settings button:nth-child(2) {
     background-color: $yellow;
     color: $white;
 }
 
-.container_btns_settings button:nth-child(5) {
+.container_btns_settings button:nth-child(4) {
     background-color: $blue;
     color: $white;
 }
 
-.container_btns_settings button:nth-child(4) {
+.container_btns_settings button:nth-child(3) {
     width: 250px !important;
     background-color: $red-orange;
     color: $white;
