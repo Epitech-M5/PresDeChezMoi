@@ -64,7 +64,7 @@ const HomeContainer = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
-          <Route path="/chat" element={<Chat />} />
+          {/* <Route path="/chat" element={<Chat />} /> */}
           <Route path="*" element={<PageNotFound navigation={"/home"} />} />
         </Routes>
       </>
@@ -80,7 +80,7 @@ const HomeContainer = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Test />} />
-          <Route path="/chat" element={<Chat />} />
+          {/* <Route path="/chat" element={<Chat />} /> */}
           <Route path="*" element={<PageNotFound navigation={"/home"} />} />=
         </Routes>
       </>

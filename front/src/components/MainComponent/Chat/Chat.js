@@ -28,33 +28,64 @@ const Chat = () => {
   const [refreshTokenValid, setRefreshTokenValid] = useState(true);
   const userInfo = useSelector((state) => state.utilisateur);
 
+  const [convInfo, setConvInfo] = useState({});
+
   const socketPort = 8081;
   const ipBDD = "localhost";
 
+  const supIndexTableau = (tableau, indexASupprimer) => {
+    // Créez une copie du tableau existant à l'aide de la méthode slice() ou spread operator.
+    const nouveauTableau = [...tableau];
+
+    // Supprimez l'élément à l'index spécifié à l'aide de la méthode splice().
+    nouveauTableau.splice(indexASupprimer, 1);
+
+    // Mettez à jour le state avec le nouveau tableau.
+    tableau = nouveauTableau;
+  };
+
   async function fetchData() {
     // Function pour actualiser les info de la table rooms
+    const data = new URLSearchParams();
+    data.append("membres", userInfo.pseudo);
+
     try {
-      const response = await axios({
-        method: "GET",
-        headers: {
-          "x-access-token": userInfo.token,
-          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-        },
-        url: `http://${ipBDD}:8082/api/room`,
-      });
-      console.log("RESPONSE.DATA ", response.data);
-      response.data.map((item, index) => {
-        item.membres = item.membres
+      const response = await axios.post(
+        `http://${ipBDD}:8082/api/room/members`,
+        data,
+        {
+          headers: {
+            "x-access-token": userInfo.token,
+            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+          },
+        }
+      );
+
+      // Supposons que response.data soit le tableau initial et userInfo.pseudo contienne le pseudo de l'utilisateur.
+      const newData = response.data.map((item) => {
+        const membres = item.membres
           .split("[")
           .join("")
           .split("]")
           .join("")
           .split('"')
-          .join("");
+          .join("")
+          .split(",");
+
+        // Filtrer les membres pour exclure le pseudo de l'utilisateur actuel
+        const filteredMembres = membres.filter(
+          (membre) => membre !== userInfo.pseudo
+        );
+
+        return { ...item, membres: filteredMembres };
       });
-      dispatch(fetchConv(response.data));
+
+      // Utilisez maintenant newData dans votre application React.
+
+      console.log("State User ", userInfo);
+      dispatch(fetchConv(newData));
       // Effectuez des actions supplémentaires avec les données de la réponse ici
-      console.log("USERINFO ", userInfo);
+      console.log("Conv ", newData);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Erreur 401 - Token d'accès invalide, effectuer la requête de rafraîchissement du token
@@ -142,7 +173,7 @@ const Chat = () => {
         socket.off("receive_message", callback);
       };
     }
-  }, [socket, channel]);
+  }, [socket, channel, convInfo, history]);
 
   const handleChangeChannel = (channelEntry) => {
     setHistory([]);
@@ -160,17 +191,21 @@ const Chat = () => {
 
   return (
     <>
-      <div className="chat_container">
+      <div className="chat_containers">
         <ChatSidebar
           fetchData={fetchData}
           ipBDD={ipBDD}
           handleChangeChannel={handleChangeChannel}
+          setConvInfo={setConvInfo}
         />
-
         <div className="chat_blank" />
 
         <div className="chat_containt">
-          <ChatHeader userInfo={userInfo} />
+          <ChatHeader
+            userInfo={userInfo}
+            convInfo={convInfo}
+            setConvInfo={setConvInfo}
+          />
 
           <ChatHistory history={history} />
 

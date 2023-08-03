@@ -33,7 +33,7 @@ module.exports = app => {
 
     // Liste de tout les utilisateurs
     router.get("/", 
-                [authJwt.verifyToken, authJwt.isAdmin],
+                authJwt.verifyToken,
                 utilisateur.find_all
               );
 
