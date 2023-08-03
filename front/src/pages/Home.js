@@ -39,7 +39,7 @@ const Home = () => {
                     setMapData(response.dataAPI);
                     setLoading(false);
 
-                }, 6000);
+                }, 4000);
             })
             .catch((error) => {
                 console.log('error', error);
@@ -704,7 +704,7 @@ const Home = () => {
 
                     <div className="pub1">
                         <div className="text_pub">
-                            <h1>Invitez vos amis à une fête, un évènement caritatif ou une rencontre </h1>
+                            <h1>Invitez vos amis à une fête, un évènement caritatif ou une rencontre</h1>
                             <button>Créer un évènement</button>
                         </div>
                     </div>

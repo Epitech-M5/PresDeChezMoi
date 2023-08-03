@@ -173,7 +173,7 @@ const LoginPage = () => {
                             </div>
                             <input type="submit" value="Se connecter" className='btn_login center_submit' />
                             <a href="/forgot-password" target='_blank' id='forgot_password'><h3>Mot de passe oublié ?</h3></a>
-                            <p className='social_text'>Ou avec les réseaux sociaux</p>
+                            <p className='social_text'>Retrouvez nous sur nos réseaux</p>
                             <div className="social_login">
                                 <a onClick={() => window.open("https://instagram.com/presdechezmoi?igshid=OGQ5ZDc2ODk2ZA==", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-instagram"></i>
@@ -205,7 +205,7 @@ const LoginPage = () => {
                                 <input type="password" placeholder='Mot de passe' onChange={handlePassword_register} />
                             </div>
                             <input type="submit" value="S'enregistrer" className='btn_login center_submit' />
-                            <p className='social_text'>Ou avec les réseaux sociaux</p>
+                            <p className='social_text'>Retrouvez nous sur nos réseaux</p>
                             <div className="social_login">
                                 <a onClick={() => window.open("https://instagram.com/presdechezmoi?igshid=OGQ5ZDc2ODk2ZA==", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-instagram"></i>

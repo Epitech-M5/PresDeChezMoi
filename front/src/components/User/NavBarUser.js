@@ -22,7 +22,7 @@ const NavBarUser = () => {
                 setTimeout(() => {
                     setData(response.dataAPI);
                     console.log(response.dataAPI)
-                }, 6000)
+                }, 4000)
 
             })
             .catch((error) => {

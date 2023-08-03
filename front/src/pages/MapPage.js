@@ -29,7 +29,7 @@ const MapPage = () => {
             .catch((error) => {
                 console.log('error', error);
             });
-    }, [markers]);
+    }, []);
 
     const mapStyles = {
         height: '100%',
@@ -39,7 +39,6 @@ const MapPage = () => {
     const defaultCenter = {
         lat: 43.2965, // ping marseille default
         lng: 5.3698, //mettre les coordonnées de la ville
-
     };
 
     const handleMarkerClick = (place) => {
