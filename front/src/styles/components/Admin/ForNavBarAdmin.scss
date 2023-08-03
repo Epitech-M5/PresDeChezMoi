@@ -165,7 +165,11 @@
     border-radius: 18px;
     border: 1px solid $dark-grey;
     background-color: $grey;
-    padding: 5px 10px 5px 10px;
+    padding: 10px;
+}
+
+.container_title_event_adm textarea::-webkit-scrollbar {
+    display: none;
 }
 
 .container_title_event_adm button {
@@ -194,10 +198,10 @@
 .container_toggle_for_posts {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 60px;
+    gap: 200px;
 
     margin: 50px 0 30px 0;
 }
@@ -208,7 +212,13 @@
     font-family: $font-LeagueSpartan;
     cursor: pointer;
 
-    margin: 0 30px 0 30px;
+    //   margin: 0 30px 0 30px;
+}
+
+@media(max-width:810px) {
+    .container_toggle_for_posts {
+        gap: 40px;
+    }
 }
 
 @media(max-width:650px),
@@ -243,11 +253,6 @@
 
     .container_title_event_adm input {
         width: 600px;
-    }
-
-    .container_toggle_for_posts {
-        justify-content: center;
-        gap: 40px;
     }
 
 }
