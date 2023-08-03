@@ -309,7 +309,7 @@ const Home = () => {
                     <>
                         <div key={item.id} className="wrapper_delete_post">
                             <h1 onClick={() => {
-                                putAPI(`http://${adresseip}:${port}/api/annonce/${id}`, { 'idTypeSignalement': item.id, 'idUtilisateurSignalement': user.idutilisateur }, { 'x-access-token': user.token })
+                                putAPI(`http://${adresseip}:${port}/api/annonce/${id}`, { 'idTypeSignalement': item.id, 'idUtilisateurSignalement': user.idutilisateur, 'estSignale': true }, { 'x-access-token': user.token })
                                     .then((response) => {
                                         closeModal()
                                     })

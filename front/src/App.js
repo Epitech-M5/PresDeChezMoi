@@ -63,7 +63,7 @@ const HomeContainer = () => {
 
   const user = useSelector((state) => state.utilisateur)
 
-  if (user.isLogin && user.idRole === 3) {
+  if (user.isLogin && user.idRole === 3 || user.isLogin && user.idRole === 2) {
     return (
       <>
         <ChatBot />
@@ -116,6 +116,20 @@ const AdminContainer = () => {
           <Route path="/" element={<General />} />
           <Route path="*" element={<PageNotFound navigation={"/home"} />} />
           <Route path="/role-user" element={<Role />} />
+          <Route path="/tickets" element={<Tickets />} />
+          <Route path="/notif-event" element={<Event />} />
+          <Route path="/post" element={<Post />} />
+        </Routes>
+      </>
+    );
+  }
+
+  else if (user.isLogin && user.idRole === 2) {
+    return (
+      <>
+        <NavBarAdmin type='modo' />
+        <Routes>
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/notif-event" element={<Event />} />
           <Route path="/post" element={<Post />} />
