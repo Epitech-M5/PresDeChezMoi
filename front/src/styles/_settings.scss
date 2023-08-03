@@ -36,9 +36,12 @@ a {
     text-decoration: none !important;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
-
 }
 
 ::-webkit-scrollbar-track {
