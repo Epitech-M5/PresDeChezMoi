@@ -29,7 +29,7 @@ const NavBarUser = () => {
                 console.log(error);
             });
 
-    }, [data]);
+    }, []);
 
     useEffect(() => {
         setActiveId(1);
