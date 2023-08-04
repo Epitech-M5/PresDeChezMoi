@@ -114,54 +114,68 @@ exports.find_all = (req, res) => {
     });
 };
 
-exports.update = (req, res) => {
-    // id de la notification
+exports.update = async (req, res) => {
   const id = req.params.id;
-  const idUtilisateur = req.body
-  console.log("idUtilisateur",idUtilisateur)
+  const idUtilisateur = req.body.idUtilisateur;;
+  console.log("idUtilisateur", idUtilisateur);
 
-  Notification.findOne({
-    where: {
-      id: id,
-    },
-  }).then((data) => {
-    const tabDestinantaire = data.destinataire
-    console.log("TABDEST AVANT",tabDestinantaire)
+  try {
+    const data = await Notification.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!data) {
+      res.status(404).send({ message: "Notification not found with ID=" + id });
+      return;
+    }
+
+    var tabDestinataire = data.destinataire;
 
     // Trouver l'index de la valeur à supprimer dans le tableau
-    const index = tabDestinantaire.indexOf(idUtilisateur);
+    const index = tabDestinataire.indexOf(idUtilisateur);
+    console.log("index", index);
 
     // Si l'index est trouvé, supprimer la valeur du tableau
-    if (index !== -1) {
-        tabDestinantaire.splice(index, 1);
-    }
-    console.log("TABDEST APRES",tabDestinantaire)
-  })
-  .catch((err) => {
-    res.status(500).send({
-      message: "Error updating Role with id=" + id + "(" + err + ")",
-    })
-})
+    if (index > -1) {
+      var tabSansIdUtilisateur = []
+      for (let i = 0; i < tabDestinataire.length; i++) {
+        if(i !== index) {
+          tabSansIdUtilisateur.push(tabDestinataire[i]);
+        }
+        
+      }
+      console.log("TABDEST AVANT", tabSansIdUtilisateur);
+    // Convertir en tableau si c'est un objet
+    // if (!Array.isArray(tabDestinataire)) {
+    //   tabDestinataire = Object.values(tabDestinataire);
+    // }
+      // var test = tabDestinataire.splice(index, 1);
+      // console.log("SPLICE", JSON.stringify(tabDestinataire));
+      // const tabDestinataireSTR = JSON.stringify(tabDestinataire);
+      // const cleanedTabDestinataireString = tabDestinataireSTR.replace(/\[|]|"|,/g, '');
+      // const tabDestinatairePrs = JSON.parse(tabDestinataireSTR);
+      // Mettre à jour le champ 'destinataire' dans la base de données
+      await Notification.update({ destinataire: tabSansIdUtilisateur }, {
+        where: {
+          id: id,
+        },
+      });
 
-//   Notification.update(req.body, {
-//     where: { id: id },
-//   })
-//     .then((num) => {
-//       if (num == 1) {
-//         res.send({
-//           message: "Role was updated successfully.",
-//         });
-//       } else {
-//         res.send({
-//           message: `Cannot update Role with id=${id}. Maybe Role was not found or req.body is empty!`,
-//         });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: "Error updating Role with id=" + id + "(" + err + ")",
-//       });
-//     });
+      console.log("Mise à jour réussie!");
+      res.status(200).send({ message: "Mise à jour réussie!" });
+    } else {
+      console.log("Valeur non trouvée dans le tableau");
+      res.status(404).send({ message: "Valeur non trouvée dans le tableau" });
+    }
+  } catch (err) {
+    res.status(500).send({
+      message: "Erreur lors de la mise à jour des données dans la base de données: " + err,
+    });
+  
+};
+
 };
 
 exports.delete = (req, res) => {
