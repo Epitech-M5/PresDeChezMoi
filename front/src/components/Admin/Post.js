@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getAPI } from '../../api';
+import { deleteAPI, getAPI, putAPI } from '../../api';
 import Loader from '../Loader';
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
@@ -14,10 +14,8 @@ const Post = () => {
     const [loading, setLoading] = useState(true);
     const user = useSelector((state) => state.utilisateur);
     const [dictionnaireUser, setDictionnaireUser] = useState({});
-    const [dictionnaireSign, setDictionnaireSign] = useState({});
 
     useEffect(() => {
-        setActiveId(1);
 
         getAPI(`http://${adresseip}:${port}/api/annonce/`, {}, { 'x-access-token': user.token })
             .then((response) => {
@@ -32,9 +30,10 @@ const Post = () => {
                 console.log('error', error);
                 setLoading(false);
             });
-    }, []);
+    }, [data]);
 
     useEffect(() => {
+        setActiveId(1);
         getAPI(`http://${adresseip}:${port}/api/user/`, {}, { 'x-access-token': user.token })
             .then((response) => {
 
@@ -69,6 +68,70 @@ const Post = () => {
                 return 'Autre'
         }
     };
+
+    const handleOK = (id, type) => {
+
+        if (type === 'signale') {
+
+            putAPI(`http://${adresseip}:${port}/api/annonce/${id}`, { 'estSignale': false }, { 'x-access-token': user.token })
+                .then((response) => {
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+
+        }
+
+        else if (type === 'valide') {
+
+            putAPI(`http://${adresseip}:${port}/api/annonce/${id}`, { 'estVerifie': true }, { 'x-access-token': user.token })
+                .then((response) => {
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+
+        }
+
+        else {
+            alert('Erreur technique veuillez contacter le service technique');
+        }
+
+    }
+
+    const handleSupp = (id) => {
+
+        deleteAPI(`http://${adresseip}:${port}/api/annonce/${id}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+    }
+
+    const handleINap = (idAnnonce, idUser) => {
+
+        deleteAPI(`http://${adresseip}:${port}/api/annonce/${idAnnonce}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+        putAPI(`http://${adresseip}:${port}/api/user/${idUser}`, { "estBanni": true }, { "x-access-token": user.token })
+            .then((response) => {
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+    }
 
     return (
         <>
@@ -111,9 +174,9 @@ const Post = () => {
                                             </div>
 
                                             <div className="cont_right_sign">
-                                                <i className="fa-solid fa-thumbs-up"></i>
-                                                <i className="fa-solid fa-thumbs-up fa-rotate-180"></i>
-                                                <i className="fa-solid fa-circle-exclamation"></i>
+                                                <i className="fa-solid fa-thumbs-up" onClick={() => handleOK(item.id, 'signale')}></i>
+                                                <i className="fa-solid fa-thumbs-up fa-rotate-180" onClick={() => handleSupp(item.id)}></i>
+                                                <i className="fa-solid fa-circle-exclamation" onClick={() => handleINap(item.id, item.organisateur)}></i>
                                             </div>
 
                                         </div>
@@ -137,9 +200,9 @@ const Post = () => {
                                             </div>
 
                                             <div className="cont_right_sign">
-                                                <i className="fa-solid fa-thumbs-up"></i>
-                                                <i className="fa-solid fa-thumbs-up fa-rotate-180"></i>
-                                                <i className="fa-solid fa-circle-exclamation"></i>
+                                                <i className="fa-solid fa-thumbs-up" onClick={() => handleOK(item.id, 'valide')}></i>
+                                                <i className="fa-solid fa-thumbs-up fa-rotate-180" onClick={() => handleSupp(item.id)}></i>
+                                                <i className="fa-solid fa-circle-exclamation" onClick={() => handleINap(item.id, item.organisateur)}></i>
                                             </div>
 
                                         </div>
