@@ -81,6 +81,7 @@ const NavBarUser = () => {
                         <h1>{data.pseudo}</h1>
                         <h4>{data.nom} {data.prenom} {data.profession}</h4>
                         <p>{data.description}</p>
+                        <p id='force_cursor' onClick={() => navigate(`/home/view-profile/${user.idutilisateur}`)}>Partage ton profil <i className="fa-solid fa-share-from-square"></i></p>
                     </div>
                 </div>
                 <div className="navbar_to_toggle">

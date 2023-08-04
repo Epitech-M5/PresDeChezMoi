@@ -333,9 +333,22 @@ const Home = () => {
         setIsOpen(true);
     }
 
+    const handleValidationTuto = () => {
+
+        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'nouveauUser': false }, { 'x-access-token': user.token })
+            .then((response) => {
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }
+
+
     const reversedData = [...mapData].reverse();
 
-    console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOIIIOOI', dictionnaireNewUser[user.idutilisateur])
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', dictionnaireNewUser[user.idutilisateur])
 
     return (
         <>
@@ -371,23 +384,34 @@ const Home = () => {
                                         <div className="container_tuto_newUser">
                                             <div className="container_title_newUser">
                                                 <h1>Guide nouvelle utilisateur</h1>
+                                                <h3>Bienvenue sur PresDeChezMoi @{user.pseudo} !</h3>
                                             </div>
                                             <div className="container_step_to_newUser">
                                                 <div>
-                                                    <h2>step 1</h2>
-                                                    <button>btn 1</button>
+                                                    <h2>Commencez par compléter votre profil</h2>
+                                                    <img id='fix_img' src="media/img/editor.png" alt="edit" />
+                                                    <button onClick={() => navigate('/home/user/settings')}>Compléter</button>
                                                 </div>
                                                 <div>
-                                                    <h2>step 2</h2>
-                                                    <button>btn 2</button>
+                                                    <h2>Envoyez votre premier message à vos amis</h2>
+                                                    <img src="media/img/communication.png" alt="message" />
+                                                    <button onClick={() => navigate('/home/chat')}>Messagerie</button>
                                                 </div>
                                                 <div>
-                                                    <h2>step 3</h2>
-                                                    <button>btn 3</button>
+                                                    <h2>Découvrez ce qui se passe près de chez vous</h2>
+                                                    <img src="media/img/map-location.png" alt="map" />
+                                                    <button onClick={() => navigate('/home/map')}>Map</button>
                                                 </div>
                                                 <div>
-                                                    <h2>step 4</h2>
-                                                    <button>btn 4</button>
+                                                    <h2>Découvrez par vous-même toutes les fonctionnalités</h2>
+                                                    <img src="media/img/option.png" alt="option" />
+                                                    <h3>Like, enregistre des posts, partage ton profil à tes amis...</h3>
+                                                </div>
+                                                <div>
+                                                    <h2>Ça y est vous savez tout faire ?</h2>
+                                                    <h4>N'hésitez pas à contacter notre assistance en cas de problème via le chatbot en bas à gauche</h4>
+                                                    <h5>Cliqué sur le bouton pour valider le guide</h5>
+                                                    <button id='force_margin' onClick={handleValidationTuto}>Valider</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -403,9 +427,9 @@ const Home = () => {
                                                 <div key={item.id} className="container_annonce">
                                                     <div className="container_pdp">
                                                         <div className="container_left_pdp">
-                                                            <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
+                                                            <img src={`media / img / ${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                             <div className="other_container_pdp">
-                                                                <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                 <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                             </div>
                                                         </div>
@@ -499,9 +523,9 @@ const Home = () => {
                                                     <div key={item.id} className="container_annonce">
                                                         <div className="container_pdp">
                                                             <div className="container_left_pdp">
-                                                                <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
+                                                                <img src={`media / img / ${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
-                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
@@ -547,9 +571,9 @@ const Home = () => {
                                                     <div key={item.id} className="container_annonce">
                                                         <div className="container_pdp">
                                                             <div className="container_left_pdp">
-                                                                <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
+                                                                <img src={`media / img / ${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
-                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
@@ -596,9 +620,9 @@ const Home = () => {
                                                     <div key={item.id} className="container_annonce">
                                                         <div className="container_pdp">
                                                             <div className="container_left_pdp">
-                                                                <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
+                                                                <img src={`media / img / ${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
-                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
@@ -646,9 +670,9 @@ const Home = () => {
                                                     <div key={item.id} className="container_annonce">
                                                         <div className="container_pdp">
                                                             <div className="container_left_pdp">
-                                                                <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
+                                                                <img src={`media / img / ${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
-                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
@@ -696,9 +720,9 @@ const Home = () => {
                                                     <div key={item.id} className="container_annonce">
                                                         <div className="container_pdp">
                                                             <div className="container_left_pdp">
-                                                                <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
+                                                                <img src={`media / img / ${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
-                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
@@ -748,7 +772,7 @@ const Home = () => {
                     <div className="pub1">
                         <div className="text_pub">
                             <h1>Invitez vos amis à une fête, un évènement caritatif ou une rencontre</h1>
-                            <button>Créer un évènement</button>
+                            <button onClick={() => navigate('/home/message')}>Envoyez leur un message</button>
                         </div>
                     </div>
                     <div className="pub2">
@@ -756,7 +780,7 @@ const Home = () => {
                             <img src="media/img/location-mark.png" alt="map" />
                             <div className="container_bottom_map_ad">
                                 <h1>Découvrez ce qui se passe près de chez vous</h1>
-                                <button class="button-54" role="button">Map</button>
+                                <button class="button-54" role="button" onClick={() => navigate('/home/map')}>Map</button>
                             </div>
                         </div>
                     </div>

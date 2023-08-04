@@ -6,11 +6,13 @@ import axios from 'axios';
 import { Provider, useSelector } from "react-redux";
 import { getAPI, postAPI, putAPI, deleteAPI } from "./../../api"
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 const NavBarHome = (props) => {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [activeId, setActiveId] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
@@ -114,6 +116,28 @@ const NavBarHome = (props) => {
         const ScrollToTop = document.querySelector('.modal_content_left');
         ScrollToTop.scrollTop = 0;
     };
+
+    useEffect(() => {
+
+        switch (location.pathname) {
+            case '/home':
+                setActiveId(1);
+                break;
+            case '/home/map':
+                setActiveId(2);
+                break;
+            case '/home/notif':
+                setActiveId(3);
+                break;
+            case '/home/chat':
+                setActiveId(4);
+                break;
+            default:
+                setActiveId(1);
+                break;
+        }
+
+    }, [location])
 
     useEffect(() => {
         setActiveId(1);

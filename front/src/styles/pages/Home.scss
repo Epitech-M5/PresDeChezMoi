@@ -242,12 +242,21 @@
     margin-top: 10px;
 }
 
+.container_title_newUser h3 {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: $font-LeagueSpartan;
+    color: $dark-grey;
+    margin-top: 10px;
+}
+
 .container_step_to_newUser {
     margin: 10px 0 10px 0;
     padding: 10px;
     width: 100%;
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     overflow-x: auto;
     gap: 20px;
 }
@@ -258,6 +267,68 @@
     background-color: $green;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+.container_step_to_newUser img {
+    width: 50%;
+    height: 120px;
+    margin: 20px 0 5px 25%;
+}
+
+#force_cursor {
+    cursor: pointer !important;
+}
+
+#force_margin {
+    margin-top: 45px !important;
+}
+
+.container_step_to_newUser h2 {
+    text-align: center;
+    font-weight: 700;
+    margin: 10px 10px 0 10px;
+    color: $white;
+}
+
+.container_step_to_newUser h3 {
+    text-align: center;
+    font-weight: 700;
+    margin: 0 10px 0 10px;
+    color: $white;
+}
+
+.container_step_to_newUser h4 {
+    text-align: center;
+    font-weight: 700;
+    margin: 0 10px 0 10px;
+    font-size: 14px;
+    margin-top: 20px;
+    color: $black;
+}
+
+.container_step_to_newUser h5 {
+    text-align: center;
+    font-weight: 700;
+    margin: 0 10px 0 10px;
+    font-size: 14px;
+    margin-top: 20px;
+    color: $black;
+}
+
+.container_step_to_newUser button {
+    cursor: pointer;
+    width: 50%;
+    padding: 6px 15px 6px 15px;
+    border-radius: 54px;
+    border: none;
+    color: $black;
+    background-color: $white;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+    margin-left: 25%;
+}
+
+#fix_img {
+    padding-right: 10px !important;
 }
 
 .container_step_to_newUser div:nth-child(2) {
@@ -280,6 +351,14 @@
     width: 250px;
     height: 250px;
     background-color: $red-orange;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+.container_step_to_newUser div:nth-child(5) {
+    width: 250px;
+    height: 250px;
+    background-color: $yellow;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
 }
