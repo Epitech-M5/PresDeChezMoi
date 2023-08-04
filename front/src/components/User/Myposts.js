@@ -350,7 +350,7 @@ const Myposts = () => {
                         <ul>
                             {hasElementsToDisplay ? (
 
-                                reversedData.map((item) => (
+                                reversedData.filter(item => item.estVerifie).map((item) => (
                                     item.organisateur === user.idutilisateur && (
 
                                         <div key={item.id} className="container_annonce">

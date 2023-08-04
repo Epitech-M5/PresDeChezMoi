@@ -359,98 +359,103 @@ const Home = () => {
                                 {typeAct === 0 && (
 
                                     <ul>
-                                        {reversedData.map((item) => (
 
-                                            <div key={item.id} className="container_annonce">
-                                                <div className="container_pdp">
-                                                    <div className="container_left_pdp">
-                                                        <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
-                                                        <div className="other_container_pdp">
-                                                            <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
-                                                            <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                        {reversedData.filter(item => item.estVerifie).map((item) => (
+                                            <>
+                                                <div key={item.id} className="container_annonce">
+                                                    <div className="container_pdp">
+                                                        <div className="container_left_pdp">
+                                                            <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
+                                                            <div className="other_container_pdp">
+                                                                <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
+                                                            </div>
+                                                        </div>
+                                                        <div className="container_right_pdp">
+                                                            <a onClick={() => handleMore(item.id)}><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
+                                                            {isOpenMore === item.id && (
+                                                                <div className="container_more">
+
+                                                                    {dictionnaireRole[user.idutilisateur] === 3 || item.organisateur === user.idutilisateur ? (
+                                                                        <h1 onClick={() => handleSup(item.id)}>Supprimer</h1>
+                                                                    ) : null}
+
+                                                                    <h1 onClick={() => handleSignal(item.id)}>Signaler</h1>
+                                                                </div>
+                                                            )}
                                                         </div>
                                                     </div>
-                                                    <div className="container_right_pdp">
-                                                        <a onClick={() => handleMore(item.id)}><i className="fa-solid fa-ellipsis-vertical fa-rotate-90"></i></a>
-                                                        {isOpenMore === item.id && (
-                                                            <div className="container_more">
+                                                    <div className="container_content_post">
+                                                        {item.idTypeActivite === 1 && (
+                                                            <>
+                                                                <p>{item.titre}</p>
+                                                                <div className="toCenter_post">
+                                                                    <img src={item.img} />
+                                                                </div>
+                                                            </>
+                                                        )}
 
-                                                                {dictionnaireRole[user.idutilisateur] === 3 || item.organisateur === user.idutilisateur ? (
-                                                                    <h1 onClick={() => handleSup(item.id)}>Supprimer</h1>
-                                                                ) : null}
+                                                        {item.idTypeActivite === 2 && (
+                                                            <>
+                                                                <p className='title_promo'><span className='type_title promotion'>PROMOTION : </span>{item.titre}</p>
+                                                                <p>{item.description}</p>
+                                                                <div className="toCenter_post">
+                                                                    <img src={item.img} />
+                                                                </div>
+                                                            </>
+                                                        )}
 
-                                                                <h1 onClick={() => handleSignal(item.id)}>Signaler</h1>
-                                                            </div>
+                                                        {item.idTypeActivite === 3 && (
+                                                            <>
+                                                                <p className='title_promo'><span className='type_title poste'>POSTE A POURVOIR : </span>{item.titre}</p>
+                                                                <p>{item.description}</p>
+                                                                <p className='margin_price'>Salaire brut : <span className='price'>{item.prix}€</span>/mois</p>
+                                                                <div className="toCenter_post">
+                                                                    <img src={item.img} />
+                                                                </div>
+                                                            </>
+                                                        )}
+
+                                                        {item.idTypeActivite === 4 && (
+                                                            <>
+                                                                <p className='title_promo'><span className='type_title event'>EVENEMENT : </span>{item.titre}</p>
+                                                                <p>{item.description}</p>
+                                                                {renderDateEvent(item.dateDebut, item.dateFin)}
+                                                                <div className="toCenter_post">
+                                                                    <img src={item.img} />
+                                                                </div>
+                                                            </>
+                                                        )}
+
+                                                        {item.idTypeActivite === 5 && (
+                                                            <>
+                                                                <p className='title_promo'><span className='type_title vente'>VENTE : </span>{item.titre}</p>
+                                                                <p className='margin_bot_price'><span className='price_in_vente'>Prix : </span>{item.prix}€</p>
+                                                                <p>{item.description}</p>
+                                                                {renderDateEvent(item.dateDebut, item.dateFin)}
+                                                                <div className="toCenter_post">
+                                                                    <img src={item.img} />
+                                                                </div>
+                                                            </>
                                                         )}
                                                     </div>
+                                                    <div className="container_bottom_post">
+                                                        <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
+                                                        <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
+                                                        <a onClick={() => handleSaves(item.id)}>{saves.includes(item.id) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}</a>
+                                                    </div>
                                                 </div>
-                                                <div className="container_content_post">
-                                                    {item.idTypeActivite === 1 && (
-                                                        <>
-                                                            <p>{item.titre}</p>
-                                                            <div className="toCenter_post">
-                                                                <img src={item.img} />
-                                                            </div>
-                                                        </>
-                                                    )}
-
-                                                    {item.idTypeActivite === 2 && (
-                                                        <>
-                                                            <p className='title_promo'><span className='type_title promotion'>PROMOTION : </span>{item.titre}</p>
-                                                            <p>{item.description}</p>
-                                                            <div className="toCenter_post">
-                                                                <img src={item.img} />
-                                                            </div>
-                                                        </>
-                                                    )}
-
-                                                    {item.idTypeActivite === 3 && (
-                                                        <>
-                                                            <p className='title_promo'><span className='type_title poste'>POSTE A POURVOIR : </span>{item.titre}</p>
-                                                            <p>{item.description}</p>
-                                                            <p className='margin_price'>Salaire brut : <span className='price'>{item.prix}€</span>/mois</p>
-                                                            <div className="toCenter_post">
-                                                                <img src={item.img} />
-                                                            </div>
-                                                        </>
-                                                    )}
-
-                                                    {item.idTypeActivite === 4 && (
-                                                        <>
-                                                            <p className='title_promo'><span className='type_title event'>EVENEMENT : </span>{item.titre}</p>
-                                                            <p>{item.description}</p>
-                                                            {renderDateEvent(item.dateDebut, item.dateFin)}
-                                                            <div className="toCenter_post">
-                                                                <img src={item.img} />
-                                                            </div>
-                                                        </>
-                                                    )}
-
-                                                    {item.idTypeActivite === 5 && (
-                                                        <>
-                                                            <p className='title_promo'><span className='type_title vente'>VENTE : </span>{item.titre}</p>
-                                                            <p className='margin_bot_price'><span className='price_in_vente'>Prix : </span>{item.prix}€</p>
-                                                            <p>{item.description}</p>
-                                                            {renderDateEvent(item.dateDebut, item.dateFin)}
-                                                            <div className="toCenter_post">
-                                                                <img src={item.img} />
-                                                            </div>
-                                                        </>
-                                                    )}
-                                                </div>
-                                                <div className="container_bottom_post">
-                                                    <a onClick={() => handleLikes(item.id)}><span className='reaction_span'>{item.reaction}</span>{likedPosts.includes(item.id) ? (<i className="fa-solid fa-heart color"></i>) : (<i className="fa-regular fa-heart"></i>)}</a>
-                                                    <a onClick={() => handleShare(item.id)}><i className="fa-solid fa-share"></i></a>
-                                                    <a onClick={() => handleSaves(item.id)}>{saves.includes(item.id) ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}</a>
-                                                </div>
-                                            </div>
+                                            </>
                                         ))}
+
+
                                     </ul>
                                 )}
 
                                 {typeAct === 1 && (
                                     <ul>
-                                        {reversedData.map((item) => {
+
+                                        {reversedData.filter(item => item.estVerifie).map((item) => {
                                             if (item.idTypeActivite === 1) {
                                                 return (
                                                     <div key={item.id} className="container_annonce">
@@ -498,7 +503,7 @@ const Home = () => {
 
                                 {typeAct === 2 && (
                                     <ul>
-                                        {reversedData.map((item) => {
+                                        {reversedData.filter(item => item.estVerifie).map((item) => {
                                             if (item.idTypeActivite === 2) {
                                                 return (
                                                     <div key={item.id} className="container_annonce">
@@ -547,7 +552,7 @@ const Home = () => {
 
                                 {typeAct === 3 && (
                                     <ul>
-                                        {reversedData.map((item) => {
+                                        {reversedData.filter(item => item.estVerifie).map((item) => {
                                             if (item.idTypeActivite === 3) {
                                                 return (
                                                     <div key={item.id} className="container_annonce">
@@ -597,7 +602,7 @@ const Home = () => {
 
                                 {typeAct === 4 && (
                                     <ul>
-                                        {reversedData.map((item) => {
+                                        {reversedData.filter(item => item.estVerifie).map((item) => {
                                             if (item.idTypeActivite === 4) {
                                                 return (
                                                     <div key={item.id} className="container_annonce">
@@ -647,7 +652,7 @@ const Home = () => {
 
                                 {typeAct === 5 && (
                                     <ul>
-                                        {reversedData.map((item) => {
+                                        {reversedData.filter(item => item.estVerifie).map((item) => {
                                             if (item.idTypeActivite === 5) {
                                                 return (
                                                     <div key={item.id} className="container_annonce">
