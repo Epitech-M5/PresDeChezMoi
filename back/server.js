@@ -228,6 +228,28 @@ function ajoutUtilisateur() {
         idRole: 1,
         // listAnnonceEnregistre: null
     })
+
+    Utilisateur.create({
+        id: 4,
+        pseudo: "Moderateur",
+        nom: "Modo",
+        prenom: "Modo",
+        photoProfil: 5,
+        mail: "modo@gmail.com",
+        motDePasse: bcrypt.hashSync("Modo", 8),
+        description: "Profil Moderateur pour test",
+        nouveauUser: false,
+        idVille: 1,
+        score: 2000,
+        participation: null,
+        estAdministrateur: false,
+        abonnement: null,
+        profession: "Modo",
+        nombreSignalement: 0,
+        estBanni: false,
+        idRole: 2,
+        // listAnnonceEnregistre: null
+    })
 }
 
 

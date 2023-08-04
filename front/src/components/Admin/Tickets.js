@@ -113,7 +113,7 @@ const Tickets = () => {
     <>
       <div className="content_admin">
         <div className="container_title_page_admin">
-          <h1>Tickets via chat</h1>
+          <h1>Tickets</h1>
         </div>
         <div className="content_inside_admin_pages">
 

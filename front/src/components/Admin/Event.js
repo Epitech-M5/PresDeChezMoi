@@ -54,7 +54,6 @@ const Event = () => {
         });
     } else {
       addMessage('Veuillez renseigner tout les champs', 'error')
-
     }
 
   };
