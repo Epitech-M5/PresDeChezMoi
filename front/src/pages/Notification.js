@@ -30,7 +30,7 @@ const Notification = () => {
         { "x-access-token": user.token }
       )
         .then((response) => {
-          setDataNotif(response.dataAPI);
+          // setDataNotif(response.dataAPI);
         })
         .catch((error) => {
           console.log("error", error);
@@ -46,6 +46,7 @@ const Notification = () => {
         console.log("error", error);
       });
   }, []);
+  console.log("dataNotif",dataNotif)
   return (
     <>
       <div className="container_notifpage">
