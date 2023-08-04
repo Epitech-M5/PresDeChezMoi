@@ -45,7 +45,7 @@ const NavBarAdmin = (props) => {
             switch (id) {
                 case 1:
                     handleToggle();
-                    navigate('/home/administration/post')
+                    navigate('/home/administration/')
                     break
                 case 2:
                     handleToggle();
@@ -109,15 +109,15 @@ const NavBarAdmin = (props) => {
                         {props.type === 'modo' ? (
                             <>
                                 <div className="align_wrap">
-                                    <h1 className={`underline-animation ${activeId === 3 ? 'underline' : ''}`}
+                                    <h1 className={`underline-animation ${activeId === 1 ? 'underline' : ''}`}
                                         onClick={() => toggleUnderline(1)}>Filtrage annonces</h1>
                                 </div>
                                 <div className="align_wrap">
-                                    <h1 className={`underline-animation ${activeId === 4 ? 'underline' : ''}`}
+                                    <h1 className={`underline-animation ${activeId === 2 ? 'underline' : ''}`}
                                         onClick={() => toggleUnderline(2)}>Tickets</h1>
                                 </div>
                                 <div className="align_wrap">
-                                    <h1 className={`underline-animation ${activeId === 5 ? 'underline' : ''}`}
+                                    <h1 className={`underline-animation ${activeId === 3 ? 'underline' : ''}`}
                                         onClick={() => toggleUnderline(3)}>Notifications évènements</h1>
                                 </div>
 
@@ -153,15 +153,15 @@ const NavBarAdmin = (props) => {
                         {props.type === 'modo' ? (
                             <>
                                 <div className="align_wrap">
-                                    <i className={`fa-solid fa-signs-post underline-animation_logo ${activeId === 3 ? 'underline logo admin' : ''}`}
+                                    <i className={`fa-solid fa-signs-post underline-animation_logo ${activeId === 1 ? 'underline logo admin' : ''}`}
                                         onClick={() => toggleUnderline(1)}></i>
                                 </div>
                                 <div className="align_wrap">
-                                    <i className={`fa-solid fa-ticket-simple underline-animation_logo ${activeId === 4 ? 'underline logo admin' : ''}`}
+                                    <i className={`fa-solid fa-ticket-simple underline-animation_logo ${activeId === 2 ? 'underline logo admin' : ''}`}
                                         onClick={() => toggleUnderline(2)}></i>
                                 </div>
                                 <div className="align_wrap">
-                                    <i className={`fa-solid fa-calendar-days underline-animation_logo ${activeId === 5 ? 'underline logo admin' : ''}`}
+                                    <i className={`fa-solid fa-calendar-days underline-animation_logo ${activeId === 3 ? 'underline logo admin' : ''}`}
                                         onClick={() => toggleUnderline(3)}></i>
                                 </div>
                             </>
@@ -208,15 +208,15 @@ const NavBarAdmin = (props) => {
                         {props.type === 'modo' ? (
                             <>
                                 <div className="align_wrap">
-                                    <i className={`fa-solid fa-signs-post underline-animation_logo ${activeId === 3 ? 'underline logo admin' : ''}`}
+                                    <i className={`fa-solid fa-signs-post underline-animation_logo ${activeId === 1 ? 'underline logo admin' : ''}`}
                                         onClick={() => toggleUnderline(1)}></i>
                                 </div>
                                 <div className="align_wrap">
-                                    <i className={`fa-solid fa-ticket-simple underline-animation_logo ${activeId === 4 ? 'underline logo admin' : ''}`}
+                                    <i className={`fa-solid fa-ticket-simple underline-animation_logo ${activeId === 2 ? 'underline logo admin' : ''}`}
                                         onClick={() => toggleUnderline(2)}></i>
                                 </div>
                                 <div className="align_wrap">
-                                    <i className={`fa-solid fa-calendar-days underline-animation_logo ${activeId === 5 ? 'underline logo admin' : ''}`}
+                                    <i className={`fa-solid fa-calendar-days underline-animation_logo ${activeId === 3 ? 'underline logo admin' : ''}`}
                                         onClick={() => toggleUnderline(3)}></i>
                                 </div>
                             </>

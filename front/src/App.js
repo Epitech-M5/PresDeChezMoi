@@ -108,6 +108,8 @@ const AdminContainer = () => {
 
   const user = useSelector((state) => state.utilisateur)
 
+  console.log("EEEEEEEEEEEEEEEEEEE", user)
+
   if (user.isLogin && user.idRole === 3) {
     return (
       <>
@@ -132,7 +134,7 @@ const AdminContainer = () => {
           <Route path="*" element={<PageNotFound navigation={"/home"} />} />
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/notif-event" element={<Event />} />
-          <Route path="/post" element={<Post />} />
+          <Route path="/" element={<Post />} />
         </Routes>
       </>
     );
