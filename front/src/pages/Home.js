@@ -20,6 +20,7 @@ const Home = () => {
     const [dictionnaireUser, setDictionnaireUser] = useState({});
     const [dictionnairePdp, setDictionnairePdp] = useState({});
     const [dictionnaireRole, setDictionnaireRole] = useState({});
+    const [dictionnaireNewUser, setDictionnaireNewUser] = useState({});
     const [isOpenMore, setIsOpenMore] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     var [toAddModal, setToAddModal] = useState();
@@ -69,6 +70,12 @@ const Home = () => {
                     role[element.id] = element.idRole;
                 };
                 setDictionnaireRole(role);
+
+                var newUser = {}
+                for (const element of response.dataAPI) {
+                    newUser[element.id] = element.nouveauUser;
+                }
+                setDictionnaireNewUser(newUser);
 
             })
             .catch((error) => {
@@ -328,6 +335,8 @@ const Home = () => {
 
     const reversedData = [...mapData].reverse();
 
+    console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOIIIOOI', dictionnaireNewUser[user.idutilisateur])
+
     return (
         <>
             <Modal isOpen={isOpen} onClose={closeModal}>
@@ -356,6 +365,35 @@ const Home = () => {
                             </div>
                         ) : (
                             <>
+
+                                {dictionnaireNewUser[user.idutilisateur] ? (
+                                    <>
+                                        <div className="container_tuto_newUser">
+                                            <div className="container_title_newUser">
+                                                <h1>Guide nouvelle utilisateur</h1>
+                                            </div>
+                                            <div className="container_step_to_newUser">
+                                                <div>
+                                                    <h2>step 1</h2>
+                                                    <button>btn 1</button>
+                                                </div>
+                                                <div>
+                                                    <h2>step 2</h2>
+                                                    <button>btn 2</button>
+                                                </div>
+                                                <div>
+                                                    <h2>step 3</h2>
+                                                    <button>btn 3</button>
+                                                </div>
+                                                <div>
+                                                    <h2>step 4</h2>
+                                                    <button>btn 4</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : null}
+
                                 {typeAct === 0 && (
 
                                     <ul>

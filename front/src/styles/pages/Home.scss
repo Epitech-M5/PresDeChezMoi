@@ -222,6 +222,68 @@
     padding-bottom: 30px !important;
 }
 
+.container_tuto_newUser {
+    background-color: $white;
+    position: relative;
+    width: 96.5%;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    animation: appear 0.6s ease;
+    padding: 10px;
+    left: 1.8%;
+    margin-top: 20px;
+}
+
+.container_title_newUser h1 {
+    text-align: center;
+    font-size: 22px;
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.container_step_to_newUser {
+    margin: 10px 0 10px 0;
+    padding: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    overflow-x: auto;
+    gap: 20px;
+}
+
+.container_step_to_newUser div:nth-child(1) {
+    width: 250px;
+    height: 250px;
+    background-color: $green;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+.container_step_to_newUser div:nth-child(2) {
+    width: 250px;
+    height: 250px;
+    background-color: $orange;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+.container_step_to_newUser div:nth-child(3) {
+    width: 250px;
+    height: 250px;
+    background-color: $blue;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+.container_step_to_newUser div:nth-child(4) {
+    width: 250px;
+    height: 250px;
+    background-color: $red-orange;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
 @media (max-width: 1250px) {
     .pub1 {
         height: 300px !important;
