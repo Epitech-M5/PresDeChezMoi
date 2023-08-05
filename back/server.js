@@ -183,7 +183,8 @@ function ajoutUtilisateur() {
         estBanni: false,
         idRole: 3,
         // listAnnonceEnregistre: null
-    })
+    })    
+
 
     Utilisateur.create({
         id: 2,

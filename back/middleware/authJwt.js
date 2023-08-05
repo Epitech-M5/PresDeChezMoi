@@ -59,7 +59,7 @@ isModerator = (req, res, next) => {
         id: user.idRole
       }
     }).then(roles => {
-        if (roles.titre === "moderator") {
+        if (roles.titre === "Modérateur") {
           next();
           return;
         }
@@ -71,11 +71,30 @@ isModerator = (req, res, next) => {
   });
 };
 
+const isModeratorOrAdmin = (req, res, next) => {
+  Utilisateur.findByPk(req.userId).then(user => {
+    Role.findOne({
+      where: {
+        id: user.idRole
+      }
+    }).then(roles => {
+      if (roles.titre === "Modérateur" || roles.titre === "Admin") {
+        next();
+        return;
+      }
+      res.status(403).send({
+        message: "Require moderator or Admin Role!"
+      });
+      return;
+    });
+  });
+};
 
 
 const authJwt = {
   verifyToken: verifyToken,
   isAdmin: isAdmin,
   isModerator: isModerator,
+  isModeratorOrAdmin: isModeratorOrAdmin,
 };
 module.exports = authJwt;

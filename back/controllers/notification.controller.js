@@ -32,15 +32,15 @@ exports.create = (req, res) => {
   }).then((data) => {
     if (data) {
       const idRole = data.id;
-        const arrayUser = [];
+      const arrayUser = [];
       //Trouve les idutilisateur qui ont le rôle qui reçoit la notification => destinataire
       Utilisateur.findAll({
         where: {
           idRole: idRole,
         },
       }).then((data) => {
-        data.forEach(user => {
-           arrayUser.push(user.id) 
+        data.forEach((user) => {
+          arrayUser.push(user.id);
         });
         // Create notification
         const NotificationObjet = {
@@ -78,14 +78,14 @@ exports.create = (req, res) => {
 // trouver les notification en fonction des rôles
 exports.find_one = (req, res) => {
   const idRole = req.params.id;
-  console.log("idRole", idRole)
+  console.log("idRole", idRole);
   Notification.findAll({
-    where:{
-      envoyeA : idRole
-    }
+    where: {
+      envoyeA: idRole,
+    },
   })
     .then((data) => {
-      console.log("NORIFICATIOOOOOOON", data)
+      console.log("NORIFICATIOOOOOOON", data);
       if (data) {
         res.send(data);
       } else {
@@ -114,67 +114,65 @@ exports.find_all = (req, res) => {
     });
 };
 
-exports.update = async (req, res) => {
+exports.update = (req, res) => {
   const id = req.params.id;
-  const idUtilisateur = req.body.idUtilisateur;;
+  const idUtilisateur = req.body.idUtilisateur;
   console.log("idUtilisateur", idUtilisateur);
+  console.log("id", id);
 
-  try {
-    const data = await Notification.findOne({
-      where: {
-        id: id,
-      },
-    });
+  Notification.findOne({
+    where: {
+      id: id,
+    },
+  })
+    .then((data) => {
+      if (!data) {
+        res
+          .status(404)
+          .send({ message: "Notification not found with ID=" + id });
+        return;
+      }
 
-    if (!data) {
-      res.status(404).send({ message: "Notification not found with ID=" + id });
-      return;
-    }
+      var tabDestinataire = JSON.parse(data.destinataire);
+      console.log("data.destinataire=", data.destinataire);
+      console.log("ICICIICCIICICICICICICICICIIC")
+      console.log( tabDestinataire[0]);
 
-    var tabDestinataire = data.destinataire;
+        var tabSansIdUtilisateur = [];
 
-    // Trouver l'index de la valeur à supprimer dans le tableau
-    const index = tabDestinataire.indexOf(idUtilisateur);
-    console.log("index", index);
 
-    // Si l'index est trouvé, supprimer la valeur du tableau
-    if (index > -1) {
-      var tabSansIdUtilisateur = []
-      for (let i = 0; i < tabDestinataire.length; i++) {
-        if(i !== index) {
-          tabSansIdUtilisateur.push(tabDestinataire[i]);
+        // console.log("tabDestinataire", tabDestinataire);
+        for (var i = 0; i < tabDestinataire.length; i++) {
+          // console.log("i", i);
+          // console.log(tabDestinataire[i]);
+        
+            if (tabDestinataire[i] != idUtilisateur) {
+              tabSansIdUtilisateur.push(tabDestinataire[i]);
         }
         
-      }
-      console.log("TABDEST AVANT", tabSansIdUtilisateur);
-    // Convertir en tableau si c'est un objet
-    // if (!Array.isArray(tabDestinataire)) {
-    //   tabDestinataire = Object.values(tabDestinataire);
-    // }
-      // var test = tabDestinataire.splice(index, 1);
-      // console.log("SPLICE", JSON.stringify(tabDestinataire));
-      // const tabDestinataireSTR = JSON.stringify(tabDestinataire);
-      // const cleanedTabDestinataireString = tabDestinataireSTR.replace(/\[|]|"|,/g, '');
-      // const tabDestinatairePrs = JSON.parse(tabDestinataireSTR);
-      // Mettre à jour le champ 'destinataire' dans la base de données
-      await Notification.update({ destinataire: tabSansIdUtilisateur }, {
+        }
+        console.log("TABDEST AVANT")
+        console.log(tabSansIdUtilisateur);
+
+            // Mettre à jour le champ 'destinataire' dans la base de données
+        Notification.update({ destinataire: tabSansIdUtilisateur }, {
         where: {
           id: id,
         },
-      });
-
-      console.log("Mise à jour réussie!");
-      res.status(200).send({ message: "Mise à jour réussie!" });
-    } else {
-      console.log("Valeur non trouvée dans le tableau");
-      res.status(404).send({ message: "Valeur non trouvée dans le tableau" });
-    }
-  } catch (err) {
-    res.status(500).send({
-      message: "Erreur lors de la mise à jour des données dans la base de données: " + err,
+      })
+      .then((data)=>{
+        console.log("Modification réussi !")
+      })
+      .catch((err)=>{
+        console.log("une erreur est survenu: ")
+        console.log(err);
+      })
+    })
+    .catch((err) => {
+      console.log("ERRORORORO", err);
     });
-  
-};
+
+
 
 };
 
