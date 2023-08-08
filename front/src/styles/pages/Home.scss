@@ -277,6 +277,13 @@
 
 #force_cursor {
     cursor: pointer !important;
+    margin-top: 15px !important;
+    font-weight: 700 !important;
+    font-style: italic !important;
+}
+
+#force_cursor:hover {
+    text-decoration: underline;
 }
 
 #force_margin {

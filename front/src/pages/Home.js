@@ -772,7 +772,7 @@ const Home = () => {
                     <div className="pub1">
                         <div className="text_pub">
                             <h1>Invitez vos amis à une fête, un évènement caritatif ou une rencontre</h1>
-                            <button onClick={() => navigate('/home/message')}>Envoyez leur un message</button>
+                            <button onClick={() => navigate('/home/chat')}>Envoyez leur un message</button>
                         </div>
                     </div>
                     <div className="pub2">
