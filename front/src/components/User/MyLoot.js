@@ -78,6 +78,8 @@ const MyLoot = () => {
 
     const sortedData = data.sort((a, b) => a.scoreNecessaire - b.scoreNecessaire);
 
+    console.log('sorted data', sortedData, data)
+
     return (
         <>
             <div className="content_user_profil">
