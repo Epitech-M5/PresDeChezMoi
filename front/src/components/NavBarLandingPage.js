@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import ButtonLandingPage from '../components/ButtonLandingPage';
 import { useNavigate } from 'react-router-dom';
+import DangerBanner from './MainComponent/BannerDanger';
 
 const NavBarLandingPage = () => {
 
@@ -43,6 +44,7 @@ const NavBarLandingPage = () => {
                         <img src='media/img/carotte.png' alt='logo' onClick={() => handleNavigate(4)} />
                     </div>
                     <a onClick={() => handleNavigate(4)}>PresDeChezMoi</a>
+                    
                 </div>
                 <ul className='links'>
                     <li><a onClick={() => handleNavigate(1)}>Accueil</a></li>
