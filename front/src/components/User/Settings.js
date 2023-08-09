@@ -187,6 +187,7 @@ const Settings = () => {
             });
     }
 
+
     const handleSupConfirm = () => {
 
         if (user.pseudo === pseudo) {
