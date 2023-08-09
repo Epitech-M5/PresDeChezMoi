@@ -1,0 +1,283 @@
+.container_nabar_home {
+    width: 20%;
+    height: 100vh;
+    min-width: 100px;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    background-color: $white;
+    z-index: 2000;
+    padding-top: 20px;
+}
+
+.container_logo_home {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    z-index: 7000;
+}
+
+.container_logo_home img {
+    width: 60px;
+}
+
+.container_logo_home h1 {
+    font-family: $font-LeagueSpartan;
+    font-size: 2rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    margin-top: 15px;
+}
+
+.container_logo_home h1:hover {
+    color: $green;
+    cursor: pointer;
+}
+
+.container_logo_home img:hover {
+    cursor: pointer;
+}
+
+.container_navigation_home {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    gap: 20px !important;
+}
+
+.container_homenav_left {
+    width: 15%;
+    min-width: 60px !important;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container_homenav_left i {
+    width: 100% !important;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 10px;
+    transition: all 0.2s;
+}
+
+.container_homenav_right {
+    width: 50%;
+    max-width: 150px;
+}
+
+.container_homenav_right h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 10px;
+}
+
+.container_homenav_right h1:hover,
+.container_homenav_left i:hover {
+    cursor: pointer;
+}
+
+.container_homenav_left i:hover {
+    color: $orange;
+}
+
+.container_buttons_home {
+    display: flex;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.container_buttons_home .btn_home {
+    padding: 15px;
+    min-width: 220px;
+    border-radius: 54px;
+    border: none;
+    background-color: $green;
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.container_buttons_home .btn_home.admin {
+    background-color: $violet;
+}
+
+.container_buttons_home .btn_home::before {
+    content: '+ Publier';
+}
+
+.container_buttons_home .btn_home.admin::before {
+    content: 'Administration';
+    color: $white;
+}
+
+.container_buttons_home .btn_home:hover {
+    background-color: $red-orange;
+    color: $white;
+    cursor: pointer;
+}
+
+.container_forphone_navbar {
+    display: none;
+}
+
+.navbar_toslide {
+    display: none;
+    background-color: $dark-blue;
+    position: fixed;
+    top: 80px;
+    width: 0px;
+    height: 60vh;
+    overflow: hidden;
+    transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    z-index: 800000;
+}
+
+.navbar_toslide h1 {
+    color: $white;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.toAlign {
+    width: 100%;
+}
+
+.navbar_toslide h1:hover {
+    cursor: pointer;
+}
+
+.navbar_toslide.open {
+    width: 80%;
+}
+
+.toslide_content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.underline-animation {
+    position: relative;
+    display: inline-block;
+}
+
+.underline-animation::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background-color: $orange;
+    transition: width 0.3s ease-in-out;
+}
+
+.underline-animation.underline::after {
+    width: 100%;
+}
+
+.underline-animation:hover::after {
+    width: 100%;
+}
+
+.underline-animation_logo.underline.logo {
+    color: $orange;
+    width: 0;
+}
+
+@media(max-width:1600px) {
+    .container_logo_home h1 {
+        font-size: 1.5rem;
+    }
+
+    .container_logo_home img {
+        width: 40px;
+    }
+}
+
+@media(max-width:1250px) {
+    .container_buttons_home .btn_home {
+        min-width: 100px;
+        font-size: 1rem;
+    }
+
+    .container_logo_home h1 {
+        display: none;
+    }
+
+    .container_homenav_right h1 {
+        display: none;
+    }
+
+    .container_homenav_left i {
+        width: 100% !important;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        padding: 10px;
+
+    }
+
+    .container_navigation_home {
+        gap: 0px !important;
+    }
+
+    .container_homenav_left {
+        min-width: 100% !important;
+    }
+
+    .container_buttons_home .btn_home::before {
+        content: '+';
+    }
+
+    .container_buttons_home .btn_home.admin::before {
+        content: 'Adm';
+    }
+
+}
+
+@media(max-width:650px),
+(max-height:450px) {
+    .container_nabar_home {
+        display: none;
+    }
+
+    .container_forphone_navbar {
+        display: block;
+        position: fixed;
+        background-color: $dark-blue;
+        width: 60px;
+        text-align: center;
+        top: 20px;
+        padding: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        z-index: 999997;
+    }
+
+    .container_forphone_navbar i {
+        color: $white;
+        font-size: 1.2rem;
+    }
+
+    .navbar_toslide {
+        display: block;
+    }
+
+}

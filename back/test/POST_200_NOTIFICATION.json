@@ -1,0 +1,9 @@
+{
+    "url": "http://127.0.0.1:8081/api/notification/",
+    "body": {
+        "idUtilisateur": 1,
+        "titre": "Distribution de boutelle d'eau",
+        "message": "Aujoourd'hui, vous avez de l'eau"
+    },
+    "header": {}
+}

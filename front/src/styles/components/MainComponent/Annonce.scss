@@ -1,0 +1,270 @@
+.container_annonce {
+    background-color: $white;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    animation: appear 0.6s ease;
+}
+
+@keyframes appear {
+    from {
+        scale: 0;
+    }
+
+    to {
+        scale: 1;
+    }
+}
+
+.container_pdp {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.container_left_pdp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.container_right_pdp {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_right_pdp i {
+    color: $black;
+}
+
+.container_left_pdp img {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.container_left_pdp h1 {
+    font-weight: 700;
+}
+
+.container_left_pdp h4 {
+    color: $dark-grey;
+    font-size: 12px;
+}
+
+.container_content_post {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.container_content_post .toCenter_post img {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+.toCenter_post {
+    width: 100%;
+    text-align: center;
+}
+
+.container_content_post p {
+    font-weight: 300;
+}
+
+.container_bottom_post {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+}
+
+.container_bottom_post i,
+a {
+    color: $black;
+    font-size: 1rem;
+    cursor: pointer !important;
+}
+
+.title_promo {
+    font-weight: 700 !important;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+}
+
+.margin_price {
+    margin-top: 10px;
+}
+
+.margin_bot_price {
+    margin-bottom: 10px;
+}
+
+.container_dates {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.type_title {
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+}
+
+.type_title.promotion {
+    color: $green;
+}
+
+.type_title.poste {
+    color: $blue;
+}
+
+.type_title.event {
+    color: $orange;
+}
+
+.type_title.vente {
+    color: $violet;
+}
+
+.left_date {
+    width: 30%;
+    text-align: center;
+}
+
+.right_date {
+    width: 30%;
+    text-align: center;
+}
+
+.price_in_vente {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+}
+
+.fa-solid.fa-heart.color {
+    color: red;
+}
+
+.container_more {
+    padding: 10px;
+    position: absolute;
+    z-index: 10000;
+    width: 200px;
+    height: 150px;
+    margin-top: 85px;
+    margin-right: 230px;
+    border-radius: 8px;
+    overflow-y: scroll;
+    background-color: $white;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    animation: app 0.3s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.container_more h1 {
+    width: 100%;
+    text-align: center;
+    color: $red-orange;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+@keyframes app {
+    0% {
+        scale: 0;
+    }
+
+    100% {
+        scale: 1;
+    }
+}
+
+.wrapper_delete_post {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap !important;
+    //background-color: violet;
+    width: 100%;
+    gap: 60px;
+}
+
+.wrapper_delete_post h1 {
+    // background-color: red;
+    position: relative;
+    width: 100% !important;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 5px 0 5px 0;
+    transition: all 0.2s;
+}
+
+.wrapper_delete_post h1:hover {
+    color: $red-orange;
+}
+
+.wrapper_delete_post button {
+    padding: 10px 20px 10px 20px;
+    border-radius: 54px;
+    border: none;
+    cursor: pointer;
+    color: $white;
+}
+
+.wrapper_delete_post button:nth-child(2) {
+    background-color: $red-orange;
+}
+
+.wrapper_delete_post button:nth-child(3) {
+    background-color: $blue;
+}
+
+@keyframes appReverse {
+    0% {
+        scale: 1;
+    }
+
+    100% {
+        scale: 0;
+    }
+}
+
+.container_more::-webkit-scrollbar {
+    display: none;
+}
+
+#hover_name_user:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#container_score_view_profile {
+    margin-top: 30px;
+}
+
+#container_score_view_profile i {
+    margin-left: 5px;
+    color: $red-orange;
+}
+
+#score_view_profile {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+}

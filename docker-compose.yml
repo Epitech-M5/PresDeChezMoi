@@ -1,0 +1,76 @@
+version: '3'
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: x9474h7mPwSxAEZt92Nb
+      MYSQL_DATABASE: testdb
+      TZ: Europe/Paris
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - back-mariadb
+
+  phpmyadmin:
+    depends_on:
+      - mariadb
+    #image: phpmyadmin/phpmyadmin      #Version classic
+    image: arm64v8/phpmyadmin         #Version ARM
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: mariadb
+      MYSQL_ROOT_PASSWORD: x9474h7mPwSxAEZt92Nb
+      TZ: Europe/Paris
+    networks:
+      - back-mariadb
+
+  back:
+    depends_on:
+      - mariadb
+    build: ./back/
+    ports:
+      - "8081:8081"
+    environment:
+      TZ: Europe/Paris
+    restart: always
+    networks:
+      - back-mariadb
+      - front-back
+
+  front:
+    depends_on:
+      - back
+    build: ./front/
+    ports:
+      - "3001:3000"
+    environment:
+      TZ: Europe/Paris
+    restart: always
+    networks:
+      - front-back
+
+  portainer:
+    image: portainer/portainer-ce
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    environment:
+      TZ: Europe/Paris
+    restart: always
+
+volumes:
+  mariadb_data:
+  portainer_data:
+
+networks:
+  back-mariadb:
+    driver: bridge
+  front-back:
+    driver: bridge

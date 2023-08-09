@@ -1,0 +1,36 @@
+.container_notifpage {
+    position: relative;
+    width: 80%;
+    left: 20%;
+    margin-top: 120px;
+}
+.notif_urgent {
+    background-color: #FA8072;
+}
+
+.notif_warning {
+    background-color: #FFFF66;
+}
+
+.notif_basic {
+    background-color: #B0E0E6;
+}
+
+.notif_barre {
+    width: 70%;
+    padding: 12px;
+    display: flex;
+    justify-content:space-between;
+    border-radius: 2px;
+    margin-bottom: 15px;  
+}
+
+.contein_text{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.message {
+    font-weight: lighter;
+}

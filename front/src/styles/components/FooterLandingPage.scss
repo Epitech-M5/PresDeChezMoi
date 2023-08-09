@@ -1,0 +1,129 @@
+.container_footer {
+    width: 100%;
+    height: auto;
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 5%;
+}
+
+.links_footer {
+    display: flex;
+    gap: 4rem;
+    width: 45%;
+    text-align: left;
+}
+
+.links_footer li {
+    list-style: none;
+}
+
+.links_footer a {
+    text-decoration: none;
+    transition: all 0.3s;
+    color: $black;
+}
+
+.links_footer a:hover {
+    color: $green;
+    cursor: pointer;
+}
+
+.social {
+    display: flex;
+    width: 50%;
+    justify-content: right;
+    gap: 2rem;
+}
+
+.social i {
+    font-size: 1.5rem;
+    transition: all 0.4s;
+}
+
+.social i:hover {
+    color: $green;
+    cursor: pointer;
+}
+
+.line_footer hr {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.line_footer {
+    width: 100%;
+}
+
+.end_footer {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-bottom: 5%;
+}
+
+.end_footer_right {
+    width: 70%;
+    display: flex;
+    gap: 4rem;
+    justify-content: right;
+    margin-top: 5px;
+    flex-wrap: nowrap;
+}
+
+.end_footer_right h1 {
+    transition: all 0.4s;
+}
+
+.end_footer_right h1:hover {
+    color: $green;
+    cursor: pointer;
+}
+
+#footer_title {
+    color: $black !important;
+}
+
+@media(max-width:800px) {
+
+    .end_footer_right,
+    .links_footer {
+        gap: 1rem;
+    }
+
+    .end_footer_right h1,
+    .links_footer a,
+    .social i {
+        font-size: 14px;
+    }
+
+    .social i {
+        margin-top: 5px;
+    }
+
+}
+
+@media(max-width:450px) {
+
+    #m5_team {
+        display: none;
+    }
+}
+
+@media(max-width:400px) {
+
+    .end_footer_right,
+    .links_footer {
+        gap: 0.5rem;
+    }
+
+    #footer_title {
+        display: none;
+    }
+
+}

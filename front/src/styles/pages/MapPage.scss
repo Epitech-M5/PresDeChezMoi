@@ -1,0 +1,49 @@
+.container_map_page {
+    position: absolute;
+    width: 80%;
+    left: 20%;
+    margin-top: 90px;
+}
+
+.container_map_gg {
+    width: 95%;
+    margin-left: 2.5%;
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.container_info_marker_click {
+    width: 100%;
+    padding: 15px 0 15px 0;
+}
+
+.container_info_marker_click h1 {
+    margin: 20px 30px 20px 30px;
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    font-size: 20px;
+    color: $red-orange;
+}
+
+.span_info_marker {
+    font-size: 1.2rem !important;
+    color: $green;
+    font-weight: 700;
+}
+
+.container_info_marker_click h2 {
+    margin: 10px 30px 10px 30px;
+}
+
+@media(max-width:650px),
+(max-height:450px) {
+
+    .container_map_page {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        margin-top: 90px;
+    }
+
+}

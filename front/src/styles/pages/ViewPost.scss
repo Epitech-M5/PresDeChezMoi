@@ -1,0 +1,132 @@
+.container_view_post {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.copy_and_share {
+    background: linear-gradient(0deg, $blue, $blue 40%, #0045AD);
+    width: 100%;
+    height: 20vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.container_header_share {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 15vh;
+    position: absolute;
+    width: 100%;
+    margin-top: 16vh !important;
+}
+
+.wave {
+    display: block;
+    position: relative;
+    height: 40px;
+    width: 100%;
+    background: $blue;
+    transform: scale(1, 1);
+}
+
+.wave:before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 100%;
+    width: 100%;
+    height: 300px;
+    background-color: white;
+    right: -25%;
+    top: 20px
+}
+
+.wave:after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 100%;
+    width: 100%;
+    height: 300px;
+    background-color: $blue;
+    left: -25%;
+    top: -240px;
+    clip-path: ellipse(100% 15% at -15% 100%);
+}
+
+.copy_and_share h1 {
+    font-size: 26px;
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    color: $white;
+    text-align: center;
+}
+
+.copy_and_share img {
+    width: 50px;
+}
+
+.copy_and_share img:nth-child(1) {
+    transform: scaleX(-1);
+}
+
+.for_scroll_share {
+    width: 400px;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_annonce.scroll {
+    position: relative;
+    z-index: 40000;
+}
+
+.register_you {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register_you button {
+    padding: 15px;
+    border-radius: 54px;
+    border: none;
+    background-color: $orange;
+    color: $white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+}
+
+@media(max-width:650px),
+(max-height:600px) {
+
+    .copy_and_share img {
+        display: none;
+    }
+
+    .copy_and_share h1 {
+        margin: 0 10px 0 10px;
+        font-size: 20px;
+    }
+
+
+}
