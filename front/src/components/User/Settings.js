@@ -26,6 +26,7 @@ const Settings = () => {
     const [metier, setMetier] = useState('');
     const [firstname, setFirstName] = useState('');
     const [lastname, setLastname] = useState('');
+    const [email, setEmail] = useState('');
 
     const navigate = useNavigate();
 
@@ -114,9 +115,19 @@ const Settings = () => {
                     <h1>Modifier mot de passe</h1>
                     <input type="text" placeholder='Nouveau mot de passe' onChange={(event) => setMdp(event.target.value)} />
                     <input type="text" placeholder='Confirmer votre mot de passe' onChange={(event) => setMdpConfirm(event.target.value)} />
-                    <button onClick={handleMotDePasse} >Modifier</button>
+                    <button onClick={handleMotDePasse}>Modifier</button>
                 </>
             );
+        }
+
+        else if (id === 5) {
+            setToAddModal(
+                <>
+                    <h1>Modifier Email</h1>
+                    <input type="email" placeholder='Votre Email' onChange={(event => setEmail(event.target.value))} />
+                    <button onClick={handleEmail}>Modifier</button>
+                </>
+            )
         }
 
         else {
@@ -167,9 +178,9 @@ const Settings = () => {
 
         putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'pseudo': psdModif, 'photoProfil': pdp, 'description': description, 'profession': metier, 'nom': lastname, 'prenom': firstname }, { 'x-access-token': user.token })
             .then((response) => {
-                setTimeout(() => {
-                    closeModal();
-                }, 1000)
+
+                closeModal();
+
             })
             .catch((error) => {
                 console.log(error);
@@ -215,6 +226,21 @@ const Settings = () => {
         }
     };
 
+    const handleEmail = () => {
+
+        console.log("email value = = = = = ", email);
+
+        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'email': email }, { 'x-access-token': user.token })
+            .then((response) => {
+
+                closeModal();
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     const handleOpen_1 = () => {
         setId(1);
         openModal();
@@ -232,6 +258,11 @@ const Settings = () => {
 
     const handleOpen_4 = () => {
         setId(4);
+        openModal();
+    }
+
+    const handleOpen_5 = () => {
+        setId(5);
         openModal();
     }
 
@@ -261,6 +292,7 @@ const Settings = () => {
                     <button onClick={handleOpen_2}>Changer de commune</button>
                     <button onClick={handleOpen_3}>Supprimer votre compte</button>
                     <button onClick={handleOpen_4}>Modifier mot de passe</button>
+                    <button onClick={handleOpen_5}>Modifier Email</button>
                 </div>
             </div>
         </>
