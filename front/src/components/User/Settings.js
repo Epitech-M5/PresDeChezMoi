@@ -154,6 +154,7 @@ const Settings = () => {
         getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
                 setPdp(response.dataAPI.photoProfil)
+                console.log(response.dataAPI)
             })
             .catch((error) => {
                 console.log(error);

@@ -452,7 +452,7 @@ const NavBarHome = (props) => {
             </Modal>
 
             <div className="container_nabar_home">
-                <div className="container_logo_home">
+                <div className="container_logo_home" onClick={() => navigate('/home')}>
                     <img src="../media/img/carotte.png" alt="logo" />
                     <h1>PresDeChezMoi</h1>
                 </div>

@@ -205,7 +205,7 @@ exports.find_all = (req, res) => {
 exports.get_by_id = (req, res) => {
   Utilisateur.findOne({ where: { id: req.params.id } })
     .then(data => {
-      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements, "listRecompense": data.listRecompense, "listRecompenseEnCoursClaim": data.listRecompenseEnCoursClaim, "idVille": data.idVille, "nom": data.nom, "prenom": data.prenom, "profession": data.profession });
+      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements, "listRecompense": data.listRecompense, "listRecompenseEnCoursClaim": data.listRecompenseEnCoursClaim, "idVille": data.idVille, "nom": data.nom, "prenom": data.prenom, "profession": data.profession, "email": data.mail });
     })
     .catch(err => {
       res.status(500).send({

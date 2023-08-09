@@ -429,7 +429,7 @@ const Home = () => {
                                                         <div className="container_left_pdp">
                                                             <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                             <div className="other_container_pdp">
-                                                                <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                 <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                             </div>
                                                         </div>
@@ -525,7 +525,7 @@ const Home = () => {
                                                             <div className="container_left_pdp">
                                                                 <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
-                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
@@ -573,7 +573,7 @@ const Home = () => {
                                                             <div className="container_left_pdp">
                                                                 <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
-                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
@@ -622,7 +622,7 @@ const Home = () => {
                                                             <div className="container_left_pdp">
                                                                 <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
-                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
@@ -672,7 +672,7 @@ const Home = () => {
                                                             <div className="container_left_pdp">
                                                                 <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
-                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
@@ -722,7 +722,7 @@ const Home = () => {
                                                             <div className="container_left_pdp">
                                                                 <img src={`media/img/${dictionnairePdp[item.organisateur]}.png`} alt="profil" />
                                                                 <div className="other_container_pdp">
-                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/ home / view - profile / ${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
+                                                                    <h1 id='hover_name_user' onClick={() => navigate(`/home/view-profile/${item.organisateur}`)}>{dictionnaireUser[item.organisateur]} {item.annonceMairie ? <i className="fa-solid fa-crown"></i> : null}</h1>
                                                                     <h4><AddressDisplay longitude={item.longitude} latitude={item.latitude} /> {renderDateCreate(item.createdAt)}</h4>
                                                                 </div>
                                                             </div>
