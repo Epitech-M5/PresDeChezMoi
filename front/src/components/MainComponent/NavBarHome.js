@@ -7,6 +7,7 @@ import { Provider, useSelector } from "react-redux";
 import { getAPI, postAPI, putAPI, deleteAPI } from "./../../api"
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import DangerBanner from './BannerDanger';
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 const NavBarHome = (props) => {
@@ -455,6 +456,7 @@ const NavBarHome = (props) => {
                 <div className="container_logo_home" onClick={() => navigate('/home')}>
                     <img src="../media/img/carotte.png" alt="logo" />
                     <h1>PresDeChezMoi</h1>
+                    <DangerBanner></DangerBanner>
                 </div>
                 <div className="container_navigation_home">
                     <div className="container_homenav_left">

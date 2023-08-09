@@ -9,7 +9,7 @@ module.exports = app => {
 
     router.get("/", [authJwt.verifyToken, authJwt.isModeratorOrAdmin],Ticket.find_all);
 
-    router.get("/:id", [authJwt.verifyToken, authJwt.isModeratorOrAdmin],Ticket.find_one); // pour admin pour l'instant
+    router.get("/:id", [authJwt.verifyToken, authJwt.isModeratorOrAdmin],Ticket.find_one); 
 
     router.get("/status/:status", [authJwt.verifyToken, authJwt.isModeratorOrAdmin],Ticket.find_all_by_status);
 
