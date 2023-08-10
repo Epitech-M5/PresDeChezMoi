@@ -171,7 +171,7 @@ const Tickets = () => {
                     <td>{tickets.titre}</td>
                     <td>{tickets.status.titre}</td>
                     <td>
-                      <button className="btn_home" onClick={() => openModal(tickets.message)}>Voir lien</button>
+                      <button className="btn_detail" onClick={() => openModal(tickets.message)}>Voir lien</button>
                     </td>
                   </tr>
                 ))}

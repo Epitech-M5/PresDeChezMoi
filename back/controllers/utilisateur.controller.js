@@ -205,7 +205,7 @@ exports.find_all = (req, res) => {
 exports.get_by_id = (req, res) => {
   Utilisateur.findOne({ where: { id: req.params.id } })
     .then(data => {
-      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements, "listRecompense": data.listRecompense, "listRecompenseEnCoursClaim": data.listRecompenseEnCoursClaim, "idVille": data.idVille, "nom": data.nom, "prenom": data.prenom, "profession": data.profession, "email": data.mail });
+      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements, "listRecompense": data.listRecompense, "listRecompenseEnCoursClaim": data.listRecompenseEnCoursClaim, "idVille": data.idVille, "nom": data.nom, "prenom": data.prenom, "profession": data.profession, "email": data.mail,"estNotif":data.estNotif });
     })
     .catch(err => {
       res.status(500).send({
@@ -231,8 +231,6 @@ exports.get_likes = (req, res) => {
     });
 };
 exports.get_saves = (req, res) => {
-  console.log("AAAAAAAAAAAAAAAAa")
-  console.log("AAAAAAAAAAAAAAAAa", req)
   Utilisateur.findOne({
     where: {
       id: req.userId
@@ -253,8 +251,7 @@ exports.get_saves = (req, res) => {
 
 // Récuperer tous les utilisateurs (Code erreur dispo: 200, 500)
 exports.find_by_ville = (req, res) => {
-  console.log("22222222", req.params)
-  console.log("22222222", req.params.idVille)
+
   Utilisateur.findAll({
     include: [
 
@@ -277,8 +274,7 @@ exports.find_by_ville = (req, res) => {
 };
 
 exports.find_note_by_ville = (req, res) => {
-  console.log("22222222", req.params)
-  console.log("22222222", req.params.idVille)
+
   Utilisateur.findAll({
     include: [
 
