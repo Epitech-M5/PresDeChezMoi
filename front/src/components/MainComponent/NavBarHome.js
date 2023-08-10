@@ -643,18 +643,18 @@ const NavBarHome = (props) => {
   }, []);
 
   const notifVue = () => {
-    putAPI(`http://${adresseip}:${port}/api/user/` + user.idutilisateur, {'estNotif':0}, {
-        "x-access-token": user.token,
+    putAPI(`http://${adresseip}:${port}/api/user/` + user.idutilisateur, { 'estNotif': 0 }, {
+      "x-access-token": user.token,
+    })
+      .then((response) => {
+        console.log("responseUPDATE", response);
       })
-        .then((response) => {
-          console.log("responseUPDATE", response);
-        })
-        .catch((error) => {
-          console.log("error", error);
-        });
+      .catch((error) => {
+        console.log("error", error);
+      });
   };
 
-  
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={closeModal}>
@@ -691,75 +691,66 @@ const NavBarHome = (props) => {
         <div className="container_logo_home" onClick={() => navigate("/home")}>
           <img src="../media/img/carotte.png" alt="logo" />
           <h1>PresDeChezMoi</h1>
-          <DangerBanner></DangerBanner>
         </div>
         <div className="container_navigation_home">
           <div className="container_homenav_left">
             <i
-              className={`fa fa-home underline-animation_logo ${
-                activeId === 1 ? "underline logo" : ""
-              }`}
+              className={`fa fa-home underline-animation_logo ${activeId === 1 ? "underline logo" : ""
+                }`}
               onClick={() => toggleUnderline(1)}
             ></i>
             <i
-              className={`fa-solid fa-location-dot underline-animation_logo ${
-                activeId === 2 ? "underline logo" : ""
-              }`}
+              className={`fa-solid fa-location-dot underline-animation_logo ${activeId === 2 ? "underline logo" : ""
+                }`}
               onClick={() => toggleUnderline(2)}
             ></i>
             <i
-              className={`fa-solid fa-bell underline-animation_logo ${
-                activeId === 3 ? "underline logo" : ""
-              }`}
+              className={`fa-solid fa-bell underline-animation_logo ${activeId === 3 ? "underline logo" : ""
+                }`}
               onClick={() => toggleUnderline(3)}
             ></i>
             <i
-              className={`fa-solid fa-envelope underline-animation_logo ${
-                activeId === 4 ? "underline logo" : ""
-              }`}
+              className={`fa-solid fa-envelope underline-animation_logo ${activeId === 4 ? "underline logo" : ""
+                }`}
               onClick={() => toggleUnderline(4)}
             ></i>
           </div>
           <div className="container_homenav_right">
             <h1
-              className={`underline-animation ${
-                activeId === 1 ? "underline" : ""
-              }`}
+              className={`underline-animation ${activeId === 1 ? "underline" : ""
+                }`}
               onClick={() => toggleUnderline(1)}
             >
               Acceuil
             </h1>
             <h1
-              className={`underline-animation ${
-                activeId === 2 ? "underline" : ""
-              }`}
+              className={`underline-animation ${activeId === 2 ? "underline" : ""
+                }`}
               onClick={() => toggleUnderline(2)}
             >
               Découvrir
             </h1>
+
             {estNotif ? (
               <h1
-                className={`underline-animation ${
-                  activeId === 3 ? "underline" : ""
-                }`}
-                onClick={() => {toggleUnderline(3);notifVue()}}
+                className={`underline-animation ${activeId === 3 ? "underline" : ""
+                  }`}
+                onClick={() => { toggleUnderline(3); notifVue() }}
               >
-                Notificationsssss
+                Alertes <span id="notif_present"><i class="fa-solid fa-circle"></i></span>
               </h1>
             ) : (
               <h1
-                className={`underline-animation ${
-                  activeId === 3 ? "underline" : ""
-                }`}
-                onClick={() => {toggleUnderline(3);notifVue()}}
+                className={`underline-animation ${activeId === 3 ? "underline" : ""
+                  }`}
+                onClick={() => { toggleUnderline(3); notifVue() }}
               >
-                Notifications
+                Alertes
               </h1>
             )}
             <h1
-              className={`underline-animation ${
-                activeId === 4 ? "underline" : ""
-              }`}
+              className={`underline-animation ${activeId === 4 ? "underline" : ""
+                }`}
               onClick={() => toggleUnderline(4)}
             >
               Messages
@@ -775,9 +766,8 @@ const NavBarHome = (props) => {
         <div className="toslide_content">
           <div className="toAlign">
             <h1
-              className={`underline-animation ${
-                activeId === 1 ? "underline" : ""
-              }`}
+              className={`underline-animation ${activeId === 1 ? "underline" : ""
+                }`}
               onClick={() => toggleUnderline(1)}
             >
               Acceuil
@@ -785,43 +775,40 @@ const NavBarHome = (props) => {
           </div>
           <div className="toAlign">
             <h1
-              className={`underline-animation ${
-                activeId === 2 ? "underline" : ""
-              }`}
+              className={`underline-animation ${activeId === 2 ? "underline" : ""
+                }`}
               onClick={() => toggleUnderline(2)}
             >
               Découvrir
             </h1>
           </div>
+
           {estNotif ? (
             <div className="toAlign">
               <h1
-                className={`underline-animation ${
-                  activeId === 3 ? "underline" : ""
-                }`}
-                onClick={() => {toggleUnderline(3);notifVue()}}
+                className={`underline-animation ${activeId === 3 ? "underline" : ""
+                  }`}
+                onClick={() => { toggleUnderline(3); notifVue() }}
               >
-                Notificationsssssss
+                Alertes <span id="notif_present"><i class="fa-solid fa-circle"></i></span>
               </h1>
             </div>
           ) : (
             <div className="toAlign">
               <h1
-                className={`underline-animation ${
-                  activeId === 3 ? "underline" : ""
-                }`}
-                onClick={() => {toggleUnderline(3);notifVue()}}
+                className={`underline-animation ${activeId === 3 ? "underline" : ""
+                  }`}
+                onClick={() => { toggleUnderline(3); notifVue() }}
               >
-                Notifications
+                Alertes
               </h1>
             </div>
           )}
 
           <div className="toAlign">
             <h1
-              className={`underline-animation ${
-                activeId === 4 ? "underline" : ""
-              }`}
+              className={`underline-animation ${activeId === 4 ? "underline" : ""
+                }`}
               onClick={() => toggleUnderline(4)}
             >
               Messages

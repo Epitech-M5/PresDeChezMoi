@@ -7,6 +7,7 @@ import axios from 'axios';
 import AddressDisplay from '../components/MainComponent/AddressDisplay';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../components/MainComponent/Modal';
+import DangerBanner from '../components/MainComponent/BannerDanger';
 
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
@@ -366,6 +367,7 @@ const Home = () => {
                             <button onClick={() => navigate('/home/user/settings')}>bouton à supp</button>
                             <button onClick={() => navigate('/home/test')}>test</button>
                         </div>
+                        <DangerBanner />
                         {loading ? (
                             <div className="container_2_home_loader">
                                 <Loader />
