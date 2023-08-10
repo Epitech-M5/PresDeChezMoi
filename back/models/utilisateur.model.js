@@ -74,6 +74,11 @@ module.exports = (sequelize, Sequelize) => {
         noteVille: {
             type: Sequelize.JSON,
             defaultValue: []
+        },
+        estNotif: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false,
+            
         }
     });
 

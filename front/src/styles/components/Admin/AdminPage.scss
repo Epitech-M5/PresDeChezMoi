@@ -1,0 +1,16 @@
+.btn_detail {
+    background: $orange;
+    border: none;
+    font-family: $font-Roboto;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px 15px;
+}
+
+.btn_detail:hover {
+    background: $red-orange;
+    border-radius: 8px;
+}
