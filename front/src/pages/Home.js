@@ -274,13 +274,7 @@ const Home = () => {
     };
 
     const closeModal = () => {
-
-        const toClose = document.querySelector('.modal');
-        toClose.classList.add('closing');
-        setTimeout(() => {
-            setIsOpen(false);
-        }, 300);
-
+        setIsOpen(false);
     };
 
     const handleSup = (id) => {
