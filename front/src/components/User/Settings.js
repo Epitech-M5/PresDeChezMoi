@@ -50,6 +50,7 @@ const Settings = () => {
         setMdp('');
         setMdpConfirm('');
         setPseudo('');
+        setEmail('');
         setError(null);
         setSelectedValue(null);
 
@@ -124,7 +125,7 @@ const Settings = () => {
             setToAddModal(
                 <>
                     <h1>Modifier Email</h1>
-                    <input type="email" placeholder='Votre Email' onChange={(event => setEmail(event.target.value))} />
+                    <input type="email" placeholder='Votre email' onChange={(event) => setEmail(event.target.value)} />
                     <button onClick={handleEmail}>Modifier</button>
                 </>
             )
@@ -138,7 +139,7 @@ const Settings = () => {
             );
         }
 
-    }, [mdp, id, mdpConfirm, pseudo, pdp, psdModif, description, metier, lastname, firstname]);
+    }, [mdp, id, mdpConfirm, pseudo, pdp, psdModif, description, metier, lastname, firstname, email]);
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
@@ -231,7 +232,7 @@ const Settings = () => {
 
         console.log("email value = = = = = ", email);
 
-        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'email': email }, { 'x-access-token': user.token })
+        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'mail': email }, { 'x-access-token': user.token })
             .then((response) => {
 
                 closeModal();
