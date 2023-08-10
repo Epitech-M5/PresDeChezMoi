@@ -31,7 +31,8 @@ const MapPage = () => {
             .then((response) => {
 
                 setTimeout(() => {
-                    setMarkers(response.dataAPI.map(item => ({
+                    const verifiedItems = response.dataAPI.filter(item => item.estVerifie === true);
+                    setMarkers(verifiedItems.map(item => ({
                         ...item,
                         latitude: item.latitude !== null ? Number(item.latitude) : null,
                         longitude: item.longitude !== null ? Number(item.longitude) : null,
@@ -90,13 +91,9 @@ const MapPage = () => {
         <>
             <div className="container_map_page">
                 <div className="container_map_gg">
-                    <LoadScript googleMapsApiKey="AIzaSyC5OdSI06hgsPRr1wzZgXMvDxBTep2-O7M">
-                        <GoogleMap mapContainerStyle={mapStyles} zoom={mapZoom} center={mapCenter}>
-
-                            {filteredMarkers.map((item) => renderCustomMarker(item))}
-
-                        </GoogleMap>
-                    </LoadScript>
+                    <GoogleMap mapContainerStyle={mapStyles} zoom={mapZoom} center={mapCenter}>
+                        {filteredMarkers.map((item) => renderCustomMarker(item))}
+                    </GoogleMap>
                 </div>
                 {selectedPlace ? (
                     <div className='container_info_marker_click'>

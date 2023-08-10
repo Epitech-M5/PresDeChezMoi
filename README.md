@@ -1,18 +1,31 @@
-# MSC Pro Final Year-End Project
+# MSC Pro Final Year-End Project - EPITECH
 
 ### Presentation of the project
-Lorem ipsum dolor sit amet. Ut eligendi excepturi eos dolorem molestiae a quia voluptates et architecto iusto quo commodi sequi qui omnis galisum. Et neque nobis ea libero obcaecati aut repellat autem est facilis delectus aut quos laudantium aut nemo facilis. Ut libero dolores eos dolore corrupti ut culpa molestiae quo dicta minus?
+🇫🇷 "PrèsDeChezMoi" est un réseau social pour la Commune, favorisant l'entraide et le développement local. Il promeut les services locaux, soutient les petites entreprises et renforce les liens entre les habitants et leur environnement local  
 
-Sed amet quia sed ratione consequatur aut cupiditate eveniet et molestias deleniti eos odit pariatur. Ut dolores placeat est autem molestiae sed quam maiores ut repellendus mollitia sed inventore exercitationem. Sit omnis tempora nam earum veritatis ut quas labore a excepturi autem ea eius natus et veritatis aspernatur.
+L'application met en avant les commerces de proximité et facilite l'accès aux services municipaux et aux événements communautaires  
 
-Ea blanditiis officia ut suscipit dignissimos ut aperiam voluptatem. Eum enim dignissimos id reiciendis itaque id asperiores dolorem cum quia facilis et nulla quod sit aspernatur aliquid est autem saepe! Non modi nihil ut officiis quia aut voluptatibus soluta. A nostrum iste ad omnis ipsa ut quisquam quia At accusantium delectus est quasi labore?
+Elle crée une communauté en favorisant les échanges d'informations et les collaborations entre les résidents, renforçant le sentiment d'appartenance à la Commune
 
 ## What do we have in this project?
-You have a front folder for front lol .... etc  
+- **Deployment folder**  
+`You will find all the necessary resources to deploy the application on Oracle`  
+- **Documentation folder**  
+`You will find all documentation about the project, like organisation, mockups...`    
+- **back folder**   
+`You will find all the code about backend (NodeJs + Express + socket.io)`  
+- **bdd folder**  
+`You will find a file for host database on docker container and Postman collection`  
+- **front folder**  
+`You will find all the code about frontend (ReactJs)`    
+- **jenkins folder**  
+`You will find all files for automatised the deployment when dev is merge on master`  
 
 ## How start the project ?
-You need to install NodeJS for the front ...... etc  
-For start the front you need to go here ``` cd front ``` and do ``` npm i ``` .... etc
+Firts you need install some application like : **NodeJs** and **Docker Desktop**  
+Once this is done, you need to install node_modules lib :  
+- ``` cd front ``` and do ``` npm i ```
+- ``` cd back ``` and do ``` npm i ```
 
 ## Some preview
 
@@ -29,12 +42,9 @@ For start the front you need to go here ``` cd front ``` and do ``` npm i ``` ..
 ## Techno and Tools
 [![My Skills](https://skills.thijs.gg/icons?i=react,css,docker,nodejs,figma,mysql&theme=light)](https://skills.thijs.gg)
 
-## Unit test with ...
-with junit selenium + jenkins ?  
-@mateo check pour faire des test automatisé via jenkins pour la non regression du projet + test screenshots si possible  
-https://youtu.be/0Aiu5E0rQLw  
-
-objectif creer une pipeline pour -> dès qu'on push sur master, des tests auto s'execute sur jenkins pour tester que tous est OK
+## Unit test API
+Some unit tests present in `back/test` folder  
+Unit tests are automatically launched every morning on Jenkins to see if there is a problem or not
 
 ## TEAM
 🔵 [Maxence Bonnici](https://github.com/ImMaxence) - **Design • Map • Annonce**  
