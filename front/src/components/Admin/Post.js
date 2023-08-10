@@ -182,7 +182,11 @@ const Post = () => {
                                         </div>
                                     </>
                                 ))
-                            ) : null}
+                            ) : (
+                                <>
+                                    <h1>Aucune annonce signalée</h1>
+                                </>
+                            )}
 
                             {activeId === 2 ? (
                                 data.filter(item => !item.estVerifie).map((item) => (
@@ -208,7 +212,11 @@ const Post = () => {
                                         </div>
                                     </>
                                 ))
-                            ) : null}
+                            ) : (
+                                <>
+                                    <h1>Aucune annonce à valider</h1>
+                                </>
+                            )}
                         </>
                     )}
 
