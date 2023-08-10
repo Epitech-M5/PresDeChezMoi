@@ -184,7 +184,7 @@ const Post = () => {
                                 ))
                             ) : (
                                 <>
-                                    <h1>Aucune annonce signalée</h1>
+                                    <h1>Aucune annonce à valider</h1>
                                 </>
                             )}
 
@@ -214,7 +214,7 @@ const Post = () => {
                                 ))
                             ) : (
                                 <>
-                                    <h1>Aucune annonce à valider</h1>
+                                    <h1>Aucune annonce signalée</h1>
                                 </>
                             )}
                         </>
