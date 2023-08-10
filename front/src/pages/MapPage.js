@@ -91,13 +91,9 @@ const MapPage = () => {
         <>
             <div className="container_map_page">
                 <div className="container_map_gg">
-                    <LoadScript googleMapsApiKey="AIzaSyC5OdSI06hgsPRr1wzZgXMvDxBTep2-O7M">
-                        <GoogleMap mapContainerStyle={mapStyles} zoom={mapZoom} center={mapCenter}>
-
-                            {filteredMarkers.map((item) => renderCustomMarker(item))}
-
-                        </GoogleMap>
-                    </LoadScript>
+                    <GoogleMap mapContainerStyle={mapStyles} zoom={mapZoom} center={mapCenter}>
+                        {filteredMarkers.map((item) => renderCustomMarker(item))}
+                    </GoogleMap>
                 </div>
                 {selectedPlace ? (
                     <div className='container_info_marker_click'>
