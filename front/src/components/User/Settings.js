@@ -31,14 +31,9 @@ const Settings = () => {
     const navigate = useNavigate();
 
     const closeModal = () => {
-
-        const toClose = document.querySelector('.modal');
-        toClose.classList.add('closing');
-        setTimeout(() => {
-            setIsOpen(false);
-        }, 300);
-
+        setIsOpen(false);
     };
+
     const handleCheckboxChange = (item) => {
 
         setSelectedValue(item);
