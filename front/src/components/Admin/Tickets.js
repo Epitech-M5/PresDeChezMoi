@@ -2,8 +2,11 @@ import { getAPI, postAPI, putAPI, deleteAPI } from "../../api.js";
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import DropDownBtn from "../MainComponent/DropDownBtn.js";
-const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
-const port = process.env.REACT_APP_BACKEND_PORT
+import Modal from "../MainComponent/Modal.js";
+
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP;
+const port = process.env.REACT_APP_BACKEND_PORT;
+
 const Tickets = () => {
   const utilisateur = useSelector((state) => state.utilisateur);
   const [listTicket, setListTicket] = useState([]);
@@ -11,8 +14,10 @@ const Tickets = () => {
   const [listTicketStatus, setListTicketStatus] = useState([]);
   const [filtre, setFiltre] = useState("");
   const [status, setStatus] = useState("");
+  const [message, setMessage] = useState("");
   const [isFiltre, setIsFiltre] = useState(false); // Filtre : + récent, - récent
   const [isStatus, setisStatus] = useState(false); // Status : En cours, terminé etc
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     getAPI(`http://${adresseip}:${port}/api/ticket`, null, {
@@ -36,19 +41,20 @@ const Tickets = () => {
     setIsFiltre(true);
   };
 
-  const handleCheckboxChangeStatus = (item) => { //["non résolu", "en cours de traitement", "résolu","inapproprié"]
+  const handleCheckboxChangeStatus = (item) => {
+    //["non résolu", "en cours de traitement", "résolu","inapproprié"]
     switch (item) {
       case "non résolu":
-        setStatus("nonResolu")
+        setStatus("nonResolu");
         break;
       case "en cours de traitement":
-        setStatus("enCours")
+        setStatus("enCours");
         break;
       case "résolu":
-        setStatus("resolu")
+        setStatus("resolu");
         break;
       case "inapproprié":
-        setStatus("inapproprie")
+        setStatus("inapproprie");
         break;
     }
     setisStatus(true);
@@ -57,13 +63,12 @@ const Tickets = () => {
 
   // Trier avec les filtres
   useEffect(() => {
-
     getAPI(`http://${adresseip}:${port}/api/ticket/byDate/` + filtre, null, {
       "x-access-token": utilisateur.token,
     })
       .then((response) => {
         console.log("liste des tickets FILTRE", response);
-        setListTicketStatus([])
+        setListTicketStatus([]);
         setListTicketFiltre(response.dataAPI);
       })
       .catch((error) => {
@@ -80,7 +85,7 @@ const Tickets = () => {
     })
       .then((response) => {
         console.log("liste des tickets FILTRE", response);
-        setListTicketFiltre([])
+        setListTicketFiltre([]);
         setListTicketStatus(response.dataAPI);
       })
       .catch((error) => {
@@ -92,23 +97,32 @@ const Tickets = () => {
   if (isFiltre) {
     if (listTicketFiltre && listTicketFiltre.length !== 0) {
       rendu = listTicketFiltre;
-
     } else {
-      rendu = listTicket
+      rendu = listTicket;
     }
-
   } else if (isStatus) {
     if (listTicketStatus && listTicketStatus.length !== 0) {
       rendu = listTicketStatus;
-
     } else {
-      rendu = listTicket
+      rendu = listTicket;
     }
   } else {
     rendu = listTicket;
-
   }
-
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+  
+  /**
+   * 
+   * @param {string} messageTicket Permet de récupérer le message du ticket choisis
+   * Fonction qui permet d'ouvrir Modal et
+   * Récupère le message du ticket à afficher dans Modal
+   */
+  const openModal = (messageTicket) => {
+    setMessage(messageTicket)
+    setIsOpen(true);
+};
   return (
     <>
       <div className="content_admin">
@@ -116,11 +130,10 @@ const Tickets = () => {
           <h1>Tickets</h1>
         </div>
         <div className="content_inside_admin_pages">
-
           <div className="wrapper_btndropd">
             <div className="container_dropd1">
               <DropDownBtn
-                type='abs'
+                type="abs"
                 text="Filtre ticket"
                 items={["Le plus récent", "Le plus ancien"]}
                 onCheckboxChange={handleCheckboxChange}
@@ -128,9 +141,14 @@ const Tickets = () => {
             </div>
             <div className="container_dropd2">
               <DropDownBtn
-                type='abs'
+                type="abs"
                 text="Filtre avec les status"
-                items={["non résolu", "en cours de traitement", "résolu", "inapproprié"]}
+                items={[
+                  "non résolu",
+                  "en cours de traitement",
+                  "résolu",
+                  "inapproprié",
+                ]}
                 onCheckboxChange={handleCheckboxChangeStatus}
               />
             </div>
@@ -152,20 +170,26 @@ const Tickets = () => {
                     <td>{tickets.utilisateur.pseudo}</td>
                     <td>{tickets.titre}</td>
                     <td>{tickets.status.titre}</td>
-                    <td>Voir lien</td>
+                    <td>
+                      <button className="btn_home" onClick={() => openModal(tickets.message)}>Voir lien</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
         </div>
       </div>
-
+      <Modal isOpen={isOpen} onClose={closeModal}>
+        <div className="container_x">
+          <i className="fa-solid fa-xmark" onClick={closeModal}></i>
+        </div>
+        <div className="wrapper_popup">
+          {message}
+        </div>
+      </Modal>
     </>
   );
-
-
 };
 
 export default Tickets;
