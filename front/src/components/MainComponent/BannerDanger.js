@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { getAPI, postAPI, putAPI, deleteAPI } from "../../api.js";
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
+
+
 const DangerBanner = () => {
   const [showDangerBanner, setShowDangerBanner] = useState([]);
 
@@ -12,13 +14,13 @@ const DangerBanner = () => {
       getAPI(`http://${adresseip}:${port}/api/notification`, null, {})
         .then((response) => {
 
-           setShowDangerBanner(response.dataAPI)
-          
+          setShowDangerBanner(response.dataAPI)
+
         })
         .catch((error) => {
           console.log("error", error);
         });
-    }, 10000); // 900000 ms = 15 minutes
+    }, 4000); // 900000 ms = 15 minutes on va mettre un timeout de 4s pour etre synchro avec les autres timeout
 
     // Nettoyage de l'intervalle lorsque le composant est démonté pour éviter les fuites de mémoire
     return () => clearInterval(interval);
@@ -29,15 +31,23 @@ const DangerBanner = () => {
     <div className='contain_alert'>
       {Array.isArray(showDangerBanner) &&
         showDangerBanner.map((banner) => (
-          // console.log("BANNNERRRRR",banner)
-          <div key={banner.id} className='contain_message'>
+
+          <div key={banner.id} className='contain_message_banner'>
+
             {banner.formeNotif === "Bandereau" && (
-              <div className="danger-banner">{banner.message}</div>
+              <>
+                <div className="danger_banner_left">
+                  <img src="media/img/danger_ban.png" alt="danger" />
+                </div>
+                <div className="danger_banner_right">
+                  <h1>{banner.message}</h1>
+                </div>
+              </>
             )}
-            {/* Le reste du contenu de votre composant */}
+
           </div>
         ))
-        }
+      }
     </div>
   );
 };

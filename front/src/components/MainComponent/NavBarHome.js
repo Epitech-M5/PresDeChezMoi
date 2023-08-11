@@ -636,7 +636,7 @@ const NavBarHome = (props) => {
         .catch((error) => {
           console.log("error", error);
         });
-    }, 10000); // 900000 ms = 15 minutes
+    }, 4000); // 900000 ms = 15 minutes pareil que dans dangerbanner, 4s pour etre synchro avec tout
 
     // Nettoyage de l'intervalle lorsque le composant est démonté pour éviter les fuites de mémoire
     return () => clearInterval(interval);

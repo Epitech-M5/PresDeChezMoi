@@ -1,15 +1,41 @@
-.danger-banner {
-    background-color: red;
-    padding: 10px 0;
-    display: flex;
-    justify-content: center;
-    border-radius: 15px;
+.danger_banner_left {
+    width: 200px;
+    padding: 10px;
 }
 
-.contain_alert {
+.danger_banner_left img {
     width: 100%;
 }
 
-.contain_message {
-    margin-bottom: 8px;
+.danger_banner_right {
+    width: 65%;
+    padding: 10px
+}
+
+.danger_banner_right h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: $white;
+}
+
+.contain_alert {
+    margin: 10px;
+}
+
+.contain_message_banner {
+    width: 100%;
+    background-color: #FF5E5E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    border-radius: 12px;
+    padding: 10px;
+
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    animation: appear 0.6s ease;
+
+    margin-top: 10px;
 }
