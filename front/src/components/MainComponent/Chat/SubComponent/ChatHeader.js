@@ -14,7 +14,7 @@ const ChatHeader = (props) => {
         <>
           <img
             className="chat_picture"
-            src={`../../../../media/img/${conv.photoProfil[conv.pseudo]}.png`}
+            src={`../../../../media/img/${conv.photoProfil}.png`}
             alt="profile"
           />
           <p className="chat_personne">{conv.pseudo}</p>

@@ -12,7 +12,6 @@ const ChatSidebar = (props) => {
   const [users, setUsers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true); // Ajout de l'état de chargement
 
   async function fetchPhoto(entry) {
     try {
@@ -32,7 +31,6 @@ const ChatSidebar = (props) => {
     } catch (error) {
       console.log(error);
     }
-    
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,12 +92,16 @@ const ChatSidebar = (props) => {
         }
         pseudo += `${conversation.membres[i]}`;
       }
-      const photoProfilHeader = photoProfil[conversation.membres[0]];
-      console.log("iuhyhiuhguyihiughiugyhugiyuyhgugyuyg  ", pseudo);
+      let photoProfilHeader
+      if (conversation.membres.length > 1) {
+        photoProfilHeader = "group";
+      } else {
+        photoProfilHeader = photoProfil[conversation.membres[0]];
+      }
       dispatch(
         fetchHeader({
           pseudo: pseudo,
-          photoProfil: photoProfil,
+          photoProfil: photoProfilHeader,
         })
       );
     }
@@ -196,10 +198,8 @@ const ChatSidebar = (props) => {
   }, []); // Exécuté une seule fois au montage du composant
 
   useEffect(() => {
-    
     if (conv.rooms.length > 0) {
       fetchPhotosForMembers(); // Appelé chaque fois que conv.rooms change, mais seulement si non vide
-      
     }
   }, [conv.rooms]); // Dépendances ajustées
 
@@ -222,22 +222,38 @@ const ChatSidebar = (props) => {
   return (
     <div className="chat_sidebar">
       <div className="chat_list_users">
-        {conv.rooms.map((item, index) => (
-          <button
-            key={index}
-            className="chat_users"
-            onClick={() => handleClick(item.id, item.membres)}
-          >
-            <img
-              className="chat_users_image"
-              src={`../../../../media/img/${
-                item.membres.length > 1 ? "group" : photoProfil[item.membres[0]]
-              }.png`}
-              alt={item.id}
-            />
-            <h2 className="chat_users_pseudo">{item.membres}</h2>
-          </button>
-        ))}
+        {conv.rooms.map((item, index) => {
+          let pseudo = "";
+          if (item.membres.length > 1) {
+            for (let i = 0; i < item.membres.length; i++) {
+              if (i !== 0) {
+                pseudo += ", ";
+              }
+              pseudo += `${item.membres[i]}`; // Ici, vous pouvez remplacer `item.membres[i]` par la valeur appropriée pour le pseudonyme
+            }
+          } else {
+            pseudo = item.membres[0];
+          }
+
+          return (
+            <button
+              key={index}
+              className="chat_users"
+              onClick={() => handleClick(item.id, item.membres)}
+            >
+              <img
+                className="chat_users_image"
+                src={`../../../../media/img/${
+                  item.membres.length > 1
+                    ? "group"
+                    : photoProfil[item.membres[0]]
+                }.png`}
+                alt={item.id}
+              />
+              <h2 className="chat_users_pseudo">{pseudo}</h2>
+            </button>
+          );
+        })}
       </div>
       <button onClick={openModal} className="chat_add_button">
         <p>+</p>
