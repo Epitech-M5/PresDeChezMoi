@@ -1,21 +1,23 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const ChatHeader = (props) => {
-  const profileImageDefault = "../../../../media/img/1.png";
+  const conv = useSelector((state) => state.listUsers);
 
   useEffect(() => {
-  }, [props]);
+    console.log("listUsers State du HEADER ",conv)
+  }, [conv]);
 
   return (
     <div className="chat_header">
-      {props.convInfo ? (
+      {conv.pseudo ? (
         <>
           <img
             className="chat_picture"
-            src={"../../../../media/img/" + props.convInfo.photoProfil + ".png"}
+            src={`../../../../media/img/${conv.photoProfil[conv.pseudo]}.png`}
             alt="profile"
           />
-          <p className="chat_personne">{props.convInfo.pseudo}</p>
+          <p className="chat_personne">{conv.pseudo}</p>
         </>
       ) : (null)}
     </div>

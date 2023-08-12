@@ -1,35 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchHeader } from "../../../../redux/ListUsers";
 
 const ChatSidebar = (props) => {
   const userInfo = useSelector((state) => state.utilisateur);
   const conv = useSelector((state) => state.listUsers);
+  const dispatch = useDispatch();
 
   const [photoProfil, setPhotoProfil] = useState({});
   const [users, setUsers] = useState([]);
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-
-  const fetchDataAndHandleClick = async (id) => {
-    await props.fetchData();
-    props.handleChangeChannel(id);
-  };
-
-  const handleClick = (id, membres) => {
-    fetchDataAndHandleClick(id);
-
-    console.log("membres   ", membres);
-
-    const conversation = conv.rooms.find((room) => room.id === id);
-    if (conversation) {
-      const convInfoData = {
-        pseudo: conversation.membres[0],
-        photoProfil: conversation.photoProfil,
-      };
-      props.setConvInfo(convInfoData);
-    }
-  };
+  const [loading, setLoading] = useState(true); // Ajout de l'état de chargement
 
   async function fetchPhoto(entry) {
     try {
@@ -42,11 +25,6 @@ const ChatSidebar = (props) => {
         url: `http://${props.ipBDD}:8082/api/user/${entry}`,
       });
 
-      props.setConvInfo({
-        pseudo: response.data.pseudo,
-        photoProfil: response.data.photoProfil,
-      });
-
       setPhotoProfil((prevState) => ({
         ...prevState,
         [entry]: response.data.photoProfil,
@@ -54,17 +32,20 @@ const ChatSidebar = (props) => {
     } catch (error) {
       console.log(error);
     }
+    
   }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   async function fetchPhotosForMembers() {
+    const promises = [];
     conv.rooms.forEach((item) => {
       item.membres.forEach((member) => {
         if (!photoProfil[member]) {
-          fetchPhoto(member);
+          promises.push(fetchPhoto(member));
         }
       });
     });
+    await Promise.all(promises);
   }
 
   async function fetchUsers() {
@@ -82,15 +63,6 @@ const ChatSidebar = (props) => {
     }
   }
 
-  useEffect(() => {
-    fetchUsers(); // Fetch User for listing users to add to a conv
-  }, []);
-
-  useEffect(() => {
-    fetchPhotosForMembers();
-    props.fetchData();
-  }, [props]);
-
   const handleCheckboxChange = (e, pseudo) => {
     const isChecked = e.target.checked;
     if (isChecked) {
@@ -98,6 +70,37 @@ const ChatSidebar = (props) => {
     } else {
       setSelectedMembers((prevSelected) =>
         prevSelected.filter((memberId) => memberId !== pseudo)
+      );
+    }
+  };
+
+  const changeChannel = async (id) => {
+    await props.fetchData();
+    props.handleChangeChannel(id);
+  };
+
+  const handleClick = (id, membres) => {
+    changeChannel(id);
+
+    console.log("membres   ", membres);
+
+    const conversation = conv.rooms.find((room) => room.id === id);
+
+    if (conversation) {
+      let pseudo = "";
+      for (let i = 0; i < conversation.membres.length; i++) {
+        if (i !== 0) {
+          pseudo += ", ";
+        }
+        pseudo += `${conversation.membres[i]}`;
+      }
+      const photoProfilHeader = photoProfil[conversation.membres[0]];
+      console.log("iuhyhiuhguyihiughiugyhugiyuyhgugyuyg  ", pseudo);
+      dispatch(
+        fetchHeader({
+          pseudo: pseudo,
+          photoProfil: photoProfil,
+        })
       );
     }
   };
@@ -152,27 +155,32 @@ const ChatSidebar = (props) => {
       const filteredSelectedMembers = selectedMembers.filter(
         (member) => member !== userInfo.pseudo
       );
-  
+
       // Vérifier si une conversation avec les membres sélectionnés existe déjà
       const conversationExists = conv.rooms.some((room) => {
         const sortedRoomMembers = room.membres.sort();
         const sortedSelectedMembers = filteredSelectedMembers.sort();
-        return JSON.stringify(sortedRoomMembers) === JSON.stringify(sortedSelectedMembers);
+        return (
+          JSON.stringify(sortedRoomMembers) ===
+          JSON.stringify(sortedSelectedMembers)
+        );
       });
-  
+
       if (conversationExists) {
         alert("La conversation avec ces membres existe déjà.");
         // Afficher un message à l'utilisateur ou prendre une autre action appropriée
         return;
       }
-  
+
       // Appeler createRoomWithPromise avec les membres sélectionnés
-      await createRoomWithPromise([...filteredSelectedMembers, userInfo.pseudo]);
+      await createRoomWithPromise([
+        ...filteredSelectedMembers,
+        userInfo.pseudo,
+      ]);
     } catch (error) {
       console.error(error);
     }
   };
-  
 
   const handleRootClick = (event) => {
     // Vérifier si l'élément sur lequel l'utilisateur a cliqué est l'arrière-plan obscur (la modal elle-même).
@@ -181,6 +189,19 @@ const ChatSidebar = (props) => {
       closeModal();
     }
   };
+
+  useEffect(() => {
+    fetchUsers();
+    props.fetchData();
+  }, []); // Exécuté une seule fois au montage du composant
+
+  useEffect(() => {
+    
+    if (conv.rooms.length > 0) {
+      fetchPhotosForMembers(); // Appelé chaque fois que conv.rooms change, mais seulement si non vide
+      
+    }
+  }, [conv.rooms]); // Dépendances ajustées
 
   useEffect(() => {
     // Ajouter l'écouteur d'événement pour la fermeture de la modal lors du clic en dehors de celle-ci.
@@ -210,7 +231,7 @@ const ChatSidebar = (props) => {
             <img
               className="chat_users_image"
               src={`../../../../media/img/${
-                photoProfil[item.membres[0]] || "group"
+                item.membres.length > 1 ? "group" : photoProfil[item.membres[0]]
               }.png`}
               alt={item.id}
             />

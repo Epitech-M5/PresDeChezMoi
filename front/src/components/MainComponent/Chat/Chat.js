@@ -27,8 +27,7 @@ const Chat = () => {
   const dispatch = useDispatch();
   const [refreshTokenValid, setRefreshTokenValid] = useState(true);
   const userInfo = useSelector((state) => state.utilisateur);
-
-  const [convInfo, setConvInfo] = useState({});
+  const conv = useSelector((state) => state.listUsers);
 
   const socketPort = 8081;
   const ipBDD = "localhost";
@@ -82,10 +81,10 @@ const Chat = () => {
 
       // Utilisez maintenant newData dans votre application React.
 
-      console.log("State User ", userInfo);
-      dispatch(fetchConv(newData));
+      console.log("BEFORE FETCH DATA ============ State User ", userInfo);
+      await dispatch(fetchConv(newData));
       // Effectuez des actions supplémentaires avec les données de la réponse ici
-      console.log("Conv ", newData);
+      console.log("AFTER FETCH DATA ============= Conv ", newData);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Erreur 401 - Token d'accès invalide, effectuer la requête de rafraîchissement du token
@@ -173,7 +172,7 @@ const Chat = () => {
         socket.off("receive_message", callback);
       };
     }
-  }, [socket, channel, convInfo, history]);
+  }, [socket, channel, history]);
 
   const handleChangeChannel = (channelEntry) => {
     setHistory([]);
@@ -196,15 +195,12 @@ const Chat = () => {
           fetchData={fetchData}
           ipBDD={ipBDD}
           handleChangeChannel={handleChangeChannel}
-          setConvInfo={setConvInfo}
         />
         <div className="chat_blank" />
 
         <div className="chat_containt">
           <ChatHeader
             userInfo={userInfo}
-            convInfo={convInfo}
-            setConvInfo={setConvInfo}
           />
 
           <ChatHistory history={history} />

@@ -75,6 +75,7 @@ exports.find_all = (req, res) => {
             });
         });
 };
+
 exports.find_all_members = (req, res) => {
     // const members = [req.body.membres]; // Convertir en tableau
     const members = req.body.membres; // Convertir en tableau
