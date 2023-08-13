@@ -24,7 +24,6 @@ function chat() {
 
     socket.on("message", (data) => {
       const { channel, message, pseudo, image, idUtilisateur } = data;
-      console.log(`New message received in channel ${channel}: ${message}`);
 
       // Broadcast the message to all users in the channel
       io.emit("receive_message", {
@@ -39,6 +38,7 @@ function chat() {
         idRoom: channel, // ou autre valeur appropriée
         texte: message,
         idUtilisateur: idUtilisateur, // ou autre valeur appropriée
+        image: image,
       };
 
       // Enregistrement du message dans la base de données

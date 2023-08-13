@@ -22,10 +22,8 @@ const Chat = () => {
   const [socket, setSocket] = useState(null);
   const [socketId, setSocketId] = useState(null);
   const [history, setHistory] = useState([]);
-  const [image, setImage] = useState(null);
   const [channel, setChannel] = useState(null);
   const dispatch = useDispatch();
-  const [refreshTokenValid, setRefreshTokenValid] = useState(true);
   const userInfo = useSelector((state) => state.utilisateur);
   const conv = useSelector((state) => state.listUsers);
 
@@ -81,56 +79,12 @@ const Chat = () => {
 
       // Utilisez maintenant newData dans votre application React.
 
-      console.log("BEFORE FETCH DATA ============ State User ", userInfo);
       await dispatch(fetchConv(newData));
-      // Effectuez des actions supplémentaires avec les données de la réponse ici
-      console.log("AFTER FETCH DATA ============= Conv ", newData);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Erreur 401 - Token d'accès invalide, effectuer la requête de rafraîchissement du token
-        if (refreshTokenValid) {
-          console.log(
-            "Access token expired or invalid, trying to refresh it..."
-          );
-          await refreshToken();
-        } else {
-          console.log("Refresh token expired or invalid");
-          // Effectuez l'action appropriée lorsque le refreshToken n'est pas valide
-        }
+        console.log("Erreur 401 - Token d'accès invalide");
       } else {
-        console.error(error);
-      }
-    }
-  }
-
-  async function refreshToken() {
-    try {
-      const body = {
-        refreshToken: userInfo.refreshToken,
-      };
-
-      const response = await axios({
-        method: "POST",
-        url: `http://${ipBDD}:8081/api/user/auth/refreshtoken`,
-        data: body,
-      });
-
-      const { accessToken, refreshToken: newRefreshToken } = response.data;
-
-      // Mise à jour du token d'accès (accessToken) et du token de rafraîchissement (refreshToken) dans les informations de l'utilisateur
-
-      dispatch(fetchToken(accessToken));
-      dispatch(fetchRefreshToken(newRefreshToken));
-
-      console.log("Refresh token & access token successfully update");
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        // Erreur 401 - Token de rafraîchissement invalide
-        setRefreshTokenValid(false);
-        console.log("Refresh token expired or invalid");
-        // Effectuez l'action appropriée, par exemple déconnecter l'utilisateur ou rediriger vers une page de connexion
-      } else {
-        setRefreshTokenValid(false);
         console.error(error);
       }
     }
@@ -161,7 +115,6 @@ const Chat = () => {
       const callback = (data) => {
         if (data.channel === channel) {
           if (history[history.length - 1] === data) return;
-          console.log(data);
           setHistory((prevHistory) => [...prevHistory, data]);
         }
       };
@@ -174,18 +127,37 @@ const Chat = () => {
     }
   }, [socket, channel, history]);
 
-  const handleChangeChannel = (channelEntry) => {
-    setHistory([]);
-    setChannel(channelEntry);
-  };
+  async function handleChangeChannel(channel) {
+    setChannel(channel);
+    try {
+      const response = await axios.get(
+        `http://${ipBDD}:8082/api/chat/user/${userInfo.idutilisateur}`
+      );
+      //response.data est un objet json, fait un tri de toute les reponses qui ont idRoom = channel
+      const messagesByChannel = response.data.filter(
+        (message) => message.idRoom === channel
+      );
+
+      console.log("---------la réponse envoyé--------------", response.data);
+
+      console.log(
+        "---------normalement ce sont les messages par channel qui sont reçu--------------",
+        messagesByChannel
+      );
+      if (response.data !== null) {
+        setHistory(messagesByChannel);
+      } else {
+        setHistory([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const sendMessage = (messageData) => {
     socket.emit("message", messageData);
+    console.log("messageData            ", messageData);
     setMessage("");
-  };
-
-  const handleImportImage = (selectedImage) => {
-    setImage(selectedImage);
   };
 
   return (
@@ -199,16 +171,13 @@ const Chat = () => {
         <div className="chat_blank" />
 
         <div className="chat_containt">
-          <ChatHeader
-            userInfo={userInfo}
-          />
+          <ChatHeader userInfo={userInfo} />
 
           <ChatHistory history={history} />
 
           <ChatCommand
             message={message}
             setMessage={setMessage}
-            handleImportImage={handleImportImage}
             sendMessage={sendMessage}
             channel={channel}
           />

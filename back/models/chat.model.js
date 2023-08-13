@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         idUtilisateur: {
             type: Sequelize.INTEGER
+        },
+        image: {
+            type: Sequelize.INTEGER
         }
     });
 

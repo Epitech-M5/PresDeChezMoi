@@ -80,7 +80,7 @@ const ChatSidebar = (props) => {
   const handleClick = (id, membres) => {
     changeChannel(id);
 
-    console.log("membres   ", membres);
+    console.log("changement de channel membres   ", membres);
 
     const conversation = conv.rooms.find((room) => room.id === id);
 
@@ -104,6 +104,7 @@ const ChatSidebar = (props) => {
           photoProfil: photoProfilHeader,
         })
       );
+      //executé la maj de l'historique ici
     }
   };
 

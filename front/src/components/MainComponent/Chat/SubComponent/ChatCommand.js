@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 const ChatCommand = ({
   message,
   setMessage,
-  handleImportImage,
   sendMessage,
   channel,
 }) => {

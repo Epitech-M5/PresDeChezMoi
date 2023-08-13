@@ -10,6 +10,8 @@ module.exports = app => {
     router.get("/", chat.find_all);
 
     router.get("/:id", chat.find_one);
+    
+    router.get("/user/:idUtilisateur", chat.find_by_user);
 
     router.put("/:id", chat.update);
 

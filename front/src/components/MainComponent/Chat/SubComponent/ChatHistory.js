@@ -3,11 +3,10 @@ import { useSelector } from "react-redux";
 
 
 const ChatHistory = ({ history }) => {
-
   const userInfo = useSelector((state) => state.utilisateur);
   const chatHistoryRef = useRef(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     scrollToBottom();
   }, [history]);
 
@@ -36,29 +35,21 @@ const ChatHistory = ({ history }) => {
   return (
     <div ref={chatHistoryRef} className="chat_history">
       {history.map((item, index) =>
-        item.pseudo !== userInfo.pseudo ? (
+        item.idUtilisateur !== userInfo.idutilisateur ? (
           <div className="chat_message_containt" key={index}>
-            <img
-              className="chat_image chat_image_receive"
-              src={`../../../../media/img/${item.image}.png`}
-              alt="imageMessage"
-            />
+            <img className="chat_image chat_image_receive" src={`../../../../media/img/${item.photoProfil}.png`} alt="imageMessage" />
             <div className="chat_messages chat_messages_receive">
-              <p>{item.pseudo} : {item.message}</p>
-              <span>{formatTime(new Date(item.time))}</span>
+              <p>{item.pseudo}: {item.texte}</p>
+              <span>{formatTime(new Date(item.createdAt))}</span>
             </div>
           </div>
         ) : (
           <div className="chat_message_containt" key={index}>
             <div className="chat_messages chat_messages_send">
-              <p>{item.message}</p>
-              <span>{formatTime(new Date(item.time))}</span>
+              <p>{item.texte}</p>
+              <span>{formatTime(new Date(item.createdAt))}</span>
             </div>
-            <img
-              className="chat_image chat_image_send"
-              src={`../../../../media/img/${item.image}.png`}
-              alt="imageMessage"
-            />
+            <img className="chat_image chat_image_send" src={`../../../../media/img/${item.image}.png`} alt="imageMessage" />
           </div>
         )
       )}
