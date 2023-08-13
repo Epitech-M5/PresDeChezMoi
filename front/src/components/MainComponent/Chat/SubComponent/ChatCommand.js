@@ -10,7 +10,6 @@ const ChatCommand = ({
   channel,
 }) => {
   const userInfo = useSelector((state) => state.utilisateur);
-  const [selectedFileName, setSelectedFileName] = useState("");
 
   const handleInputChange = (e) => {
     setMessage(e.target.value);
@@ -21,6 +20,7 @@ const ChatCommand = ({
     if (message.trim().length === 0) return;
 
     const messageData = {
+      idUtilisateur: userInfo.idutilisateur,
       pseudo: userInfo.pseudo,
       message: message,
       time: new Date(),
@@ -33,12 +33,6 @@ const ChatCommand = ({
   };
 
   useEffect(() => {}, [channel]);
-
-  const handleFileChange = (e) => {
-    const selectedImage = e.target.files[0];
-    handleImportImage(selectedImage);
-    setSelectedFileName(selectedImage.name);
-  };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -60,26 +54,6 @@ const ChatCommand = ({
         <button type="submit">
           <FiSend className="chat_btn_send" />
         </button>
-
-        {/* <div className="chat_input_foot">
-          <label htmlFor="imageInput" className="chat_import">
-            <span className="chat_import_image">
-              {selectedFileName ? (
-                selectedFileName
-              ) : (
-                <>
-                  <AiFillFileImage />
-                </>
-              )}
-            </span>
-            <input
-              id="imageInput"
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-            />
-          </label>
-        </div>) */}
       </form>
     </div>
   );

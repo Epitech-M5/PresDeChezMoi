@@ -373,7 +373,6 @@ function initial() {
 // });
 
 // routes
-require("./messages/chat")(app);
 require("./routes/utilisateur.routes.js")(app);
 require("./routes/roles.routes.js")(app);
 require("./routes/typeUrgence.routes.js")(app);
@@ -391,6 +390,7 @@ require("./routes/typeActivite.routes.js")(app);
 require("./routes/map.routes.js")(app);
 require("./routes/room.routes.js")(app);
 require("./routes/chat.routes.js")(app);
+require("./messages/chat")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8082;

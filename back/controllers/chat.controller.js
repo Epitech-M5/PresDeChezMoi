@@ -24,14 +24,13 @@ exports.create = (req, res) => {
         });
         return;
     }
-    const userId = req.userId;
-    console.log("userId", userId)
     // Create User
     const chatObjet = {
         idRoom: req.body.idRoom,
         texte: req.body.texte,
-        idUtilisateur: userId
+        idUtilisateur: req.body.idUtilisateur // Utilisez req.body.idUtilisateur ici
     };
+    
     console.log("~~~~~~~~~~", chatObjet)
     // Save Tutorial in the database adn catch internal error
     chat.create(chatObjet)
