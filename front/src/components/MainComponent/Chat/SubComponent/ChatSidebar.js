@@ -102,6 +102,8 @@ const ChatSidebar = (props) => {
         fetchHeader({
           pseudo: pseudo,
           photoProfil: photoProfilHeader,
+          idRoom: id,
+          idUtilisateur: userInfo.idutilisateur,
         })
       );
       //executé la maj de l'historique ici

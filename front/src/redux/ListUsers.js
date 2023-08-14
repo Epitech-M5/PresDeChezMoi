@@ -7,6 +7,8 @@ export const listUsersSlice = createSlice({
     rooms: [],
     pseudo: "",
     photoProfil: "",
+    idRoom: "",
+    idUtilisateur: "",
   },
   reducers: {
     fetchConv: (state, action) => {
@@ -15,6 +17,8 @@ export const listUsersSlice = createSlice({
     fetchHeader: (state, action) => {
       state.pseudo = action.payload.pseudo;
       state.photoProfil= action.payload.photoProfil;
+      state.idRoom = action.payload.idRoom;
+      state.idUtilisateur = action.payload.idUtilisateur;
     },
   },
 });

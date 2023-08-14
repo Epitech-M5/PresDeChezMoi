@@ -94,6 +94,10 @@ const Chat = () => {
     var newSocket = io(`:${socketPort}`);
     setSocket(newSocket);
 
+    if (conv.idRoom !== null) {
+      handleChangeChannel(conv.idRoom);
+    }
+
     newSocket.on("connect", () => {
       setSocketId(newSocket.id);
       console.log(`User Connected: ${newSocket.id}`);
@@ -138,12 +142,6 @@ const Chat = () => {
         (message) => message.idRoom === channel
       );
 
-      console.log("---------la réponse envoyé--------------", response.data);
-
-      console.log(
-        "---------normalement ce sont les messages par channel qui sont reçu--------------",
-        messagesByChannel
-      );
       if (response.data !== null) {
         setHistory(messagesByChannel);
       } else {
