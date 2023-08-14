@@ -8,6 +8,7 @@ const ChatHistory = ({ history }) => {
 
   useEffect(() => {
     scrollToBottom();
+    console.log("================voici l'historique=============== ", history);
   }, [history]);
 
   const scrollToBottom = () => {
@@ -37,16 +38,16 @@ const ChatHistory = ({ history }) => {
       {history.map((item, index) =>
         item.idUtilisateur !== userInfo.idutilisateur ? (
           <div className="chat_message_containt" key={index}>
-            <img className="chat_image chat_image_receive" src={`../../../../media/img/${item.photoProfil}.png`} alt="imageMessage" />
+            <img className="chat_image chat_image_receive" src={`../../../../media/img/${item.image}.png`} alt="imageMessage" />
             <div className="chat_messages chat_messages_receive">
-              <p>{item.pseudo}: {item.texte}</p>
+              <p>{item.pseudo}: {item.message}</p>
               <span>{formatTime(new Date(item.createdAt))}</span>
             </div>
           </div>
         ) : (
           <div className="chat_message_containt" key={index}>
             <div className="chat_messages chat_messages_send">
-              <p>{item.texte}</p>
+              <p>{item.message}</p>
               <span>{formatTime(new Date(item.createdAt))}</span>
             </div>
             <img className="chat_image chat_image_send" src={`../../../../media/img/${item.image}.png`} alt="imageMessage" />

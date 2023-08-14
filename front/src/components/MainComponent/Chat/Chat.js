@@ -113,7 +113,7 @@ const Chat = () => {
     if (socket && channel) {
       // Join the default channel when connected
       const callback = (data) => {
-        if (data.channel === channel) {
+        if (data.idRoom === channel) {
           if (history[history.length - 1] === data) return;
           setHistory((prevHistory) => [...prevHistory, data]);
         }

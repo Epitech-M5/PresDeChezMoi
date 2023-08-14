@@ -8,7 +8,10 @@ module.exports = (sequelize, Sequelize) => {
         idRoom: {
             type: Sequelize.INTEGER
         },
-        texte: {
+        pseudo: {
+            type: Sequelize.TEXT
+        },
+        message: {
             type: Sequelize.TEXT
         },
         idUtilisateur: {

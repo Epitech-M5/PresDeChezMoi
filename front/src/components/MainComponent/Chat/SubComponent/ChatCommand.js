@@ -22,9 +22,9 @@ const ChatCommand = ({
       idUtilisateur: userInfo.idutilisateur,
       pseudo: userInfo.pseudo,
       message: message,
-      time: new Date(),
-      channel: channel,
+      idRoom: channel,
       image: userInfo.photoProfil,
+      createdAt: new Date(),
     };
 
     sendMessage(messageData);

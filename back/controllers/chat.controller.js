@@ -11,9 +11,24 @@ exports.create = (req, res) => {
   var stringErrorMessage = "";
 
   // Champ nécessaire pour la requete
+  if (!req.body.message) {
+    boolErrorFlag = true;
+    stringErrorMessage = "Content can not be empty !";
+  }
+
   if (!req.body.idRoom) {
     boolErrorFlag = true;
-    stringErrorMessage = "Content can not be empty!";
+    stringErrorMessage = "it must be a idRoom !";
+  }
+
+  if (!req.body.idUtilisateur) {
+    boolErrorFlag = true;
+    stringErrorMessage = "it must be a idUtilisateur !";
+  }
+
+  if (!req.body.pseudo) {
+    boolErrorFlag = true;
+    stringErrorMessage = "it must be a pseudo !";
   }
 
   // Validate request
@@ -26,7 +41,8 @@ exports.create = (req, res) => {
   // Create User
   const chatObjet = {
     idRoom: req.body.idRoom,
-    texte: req.body.texte,
+    message: req.body.message,
+    pseudo: req.body.pseudo,
     idUtilisateur: req.body.idUtilisateur, // Utilisez req.body.idUtilisateur ici
     image: req.body.image,
   };
@@ -92,7 +108,7 @@ exports.find_by_user = (req, res) => {
       if (data.length > 0) {
         res.send(data);
       } else {
-        res.send(null);
+        res.send([]);
       }
     })
     .catch((err) => {

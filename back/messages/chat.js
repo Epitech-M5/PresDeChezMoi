@@ -23,23 +23,17 @@ function chat() {
     console.log(`User Connected: ${socket.id}`);
 
     socket.on("message", (data) => {
-      const { channel, message, pseudo, image, idUtilisateur } = data;
-
-      // Broadcast the message to all users in the channel
-      io.emit("receive_message", {
+      const { idRoom, message, pseudo, image, idUtilisateur, createdAt } = data;
+      const chatObjet = {
         pseudo: pseudo,
         message: message,
-        channel: channel,
+        idRoom: idRoom,
+        idUtilisateur: idUtilisateur,
         image: image,
-        time: new Date(),
-      });
-
-      const chatObjet = {
-        idRoom: channel, // ou autre valeur appropriée
-        texte: message,
-        idUtilisateur: idUtilisateur, // ou autre valeur appropriée
-        image: image,
+        createdAt: createdAt,
       };
+      // Broadcast the message to all users in the channel
+      io.emit("receive_message", chatObjet);
 
       // Enregistrement du message dans la base de données
       chatController.create(
