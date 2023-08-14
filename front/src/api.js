@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const getAPI = async (url, body, header) => {
+    console.log('===================', body)
+    console.log('===================', header)
     return await fetchData(url, 'GET', body, header);
 };
 
@@ -10,6 +12,7 @@ export const postAPI = async (url, body, header) => {
 };
 
 export const putAPI = async (url, body, header) => {
+    console.log("BODYY : ", body)
     return await fetchData(url, 'PUT', body, header);
 };
 
@@ -23,10 +26,14 @@ async function fetchData(url, method, body, header) {
     var errorAPI = null;
     try {
         console.log("URL de l'API : ", url); // Ajout de la console de débogage
+        console.log("BODYYYYYYY : ", body)
+        // console.log('===================22222', body)
+        // console.log("3333333", body)
         const response = await axios({
             method: method,
             url: url,
             data: body,
+            // data: body,
             headers: header
         });
         dataAPI = response.data;

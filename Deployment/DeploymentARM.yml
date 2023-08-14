@@ -53,11 +53,14 @@
       become: true
       shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 8080 -j ACCEPT && netfilter-persistent save
 
-    - name: Ajout port 3001 react
+    - name: Ajout port 3001 react (front)
       become: true
       shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 3001 -j ACCEPT && netfilter-persistent save
+
+    - name: Ajout port 8081 back
+      become: true
+      shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 8081 -j ACCEPT && netfilter-persistent save
 
     - name: Ajout port 9000 portainer
       become: true
       shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 9000 -j ACCEPT && netfilter-persistent save
-

@@ -118,8 +118,8 @@
 }
 
 .toast .column span {
-    font-size: 1.07rem;
-    margin-left: 12px;
+    font-size: 1.07rem !important;
+    margin-left: 12px !important;
 }
 
 .toast i:last-child {
@@ -152,7 +152,7 @@
     }
 
     .toast .column span {
-        font-size: 0.8rem;
+        font-size: 0.8rem !important;
         margin-left: 12px;
     }
 

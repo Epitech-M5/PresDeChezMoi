@@ -1,14 +1,14 @@
-module.exports = {
-    //HOST: "129.151.239.123",
-    HOST: "127.0.0.1",
-    // HOST: "129.151.233.95",
-    // HOST: "129.151.239.123",*
-    // HOST: "144.24.197.40",
-    // HOST: "mariadb",
+require('dotenv').config();
+const host = process.env.REACT_APP_BDD_HOST
+const user = process.env.REACT_APP_BDD_USER
+const password = process.env.REACT_APP_BDD_PASSWORD
+const db = process.env.REACT_APP_BDD_DB
 
-    USER: "root",
-    PASSWORD: "",
-    DB: "testdb",
+module.exports = {
+    HOST: host,
+    USER: user,
+    PASSWORD: password,
+    DB: db,
     dialect: "mysql",
     pool: {
         max: 5,

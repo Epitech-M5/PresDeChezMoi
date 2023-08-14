@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 var bcrypt = require("bcryptjs");
+require('dotenv').config();
+const port = process.env.REACT_APP_BACKEND_PORT
 // ('Access-Control-Allow-Origin', 'http://localhost:8081')
 var corsOptions = {
     origin: '*'
@@ -40,10 +42,10 @@ const Statuses = db.status;
 // Création de données factices
 // =============================================
 function ajoutRole() {
-    Role.create({ id: 1, titre: "user" });
-    Role.create({ id: 2, titre: "moderator" });
-    Role.create({ id: 3, titre: "admin" });
-    Role.create({ id: 4, titre: "super utilisateur" });
+    Role.create({ id: 1, titre: "Utilisateur" });
+    Role.create({ id: 2, titre: "Modérateur" });
+    Role.create({ id: 3, titre: "Admin" });
+    Role.create({ id: 4, titre: "Super Administrateur" });
 }
 
 function ajoutVille() {
@@ -58,7 +60,105 @@ function ajoutVille() {
         moyenneService: 5.0,
         noteEvenement: [5, 5, 5, 5],
         moyenneEvenement: 5.0,
-        scoreGlocale: 5.0
+        scoreGlobale: 5.0
+    })
+
+    Ville.create({
+        id: 2,
+        nom: "Gardanne",
+        codePostal: 13120,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 2.1
+    })
+
+    Ville.create({
+        id: 3,
+        nom: "Meyreuil",
+        codePostal: 14001,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 4.3
+    })
+
+    Ville.create({
+        id: 4,
+        nom: "Greasque",
+        codePostal: 14002,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 4.7
+    })
+
+    Ville.create({
+        id: 5,
+        nom: "Auberge Neuve",
+        codePostal: 14003,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 0.1
+    })
+
+    Ville.create({
+        id: 6,
+        nom: "Biver",
+        codePostal: 14043,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 3.3
+    })
+
+    Ville.create({
+        id: 7,
+        nom: "Saint-Savournin",
+        codePostal: 14743,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 4.3
+    })
+
+    Ville.create({
+        id: 8,
+        nom: "Mimet",
+        codePostal: 14843,
+        scoreVilleFleurie: 4,
+        noteHygiene: [5, 5, 5, 5],
+        moyenneHygiene: 5.0,
+        noteService: [5, 5, 5, 5],
+        moyenneService: 5.0,
+        noteEvenement: [5, 5, 5, 5],
+        moyenneEvenement: 5.0,
+        scoreGlobale: 4.3
     })
 }
 
@@ -71,40 +171,41 @@ function ajoutUtilisateur() {
         photoProfil: 1,
         mail: "presdechezmoi.email@gmail.com",
         motDePasse: bcrypt.hashSync("Admin", 8),
+        description: "Bienvenue sur le profil officiel de l'administrateur de la Ville de Bourgade ! 🏙️🌳🏛️\nBonjour à tous ! Je suis Jean Dupont, l'administrateur dévoué de notre charmante ville de Bourgade. Passionné par le développement local et engagé pour le bien-être de nos citoyens, j'ai la chance de servir notre communauté depuis plusieurs années.",
+        nouveauUser: false,
         idVille: 1,
-        score: 0,
+        score: 3000,
         participation: null,
         estAdministrateur: true,
         abonnement: null,
         profession: "Administrateur",
-        idRecompense: null,
-        listRecompense: null,
         nombreSignalement: 0,
         estBanni: false,
         idRole: 3,
-        listAnnonceEnregistre: null
-    })
+        // listAnnonceEnregistre: null
+    })    
+
 
     Utilisateur.create({
         id: 2,
         pseudo: "robert_mla_biere",
         nom: "Dupuis",
         prenom: "Robert",
-        photoProfil: 3,
+        photoProfil: 2,
         mail: "dupuis.robert@gmail.com",
         motDePasse: bcrypt.hashSync("JaDoReLaBiErE", 8),
+        description: "Bienvenue sur le profil de Robert l'expert de la bière ! 🤪🍺",
+        nouveauUser: false,
         idVille: 1,
         score: 650,
         participation: null,
         estAdministrateur: false,
         abonnement: null,
         profession: "Barman",
-        idRecompense: null,
-        listRecompense: null,
         nombreSignalement: 0,
         estBanni: false,
         idRole: 1,
-        listAnnonceEnregistre: null
+        // listAnnonceEnregistre: null
     })
 
     Utilisateur.create({
@@ -115,20 +216,43 @@ function ajoutUtilisateur() {
         photoProfil: 3,
         mail: "salvadore.nadine@gmail.com",
         motDePasse: bcrypt.hashSync("Sardine123", 8),
+        description: "Bienvenue sur le profil de Nadine, toujours partante pour flairé un gros poisson ! 🐡🎣",
+        nouveauUser: false,
         idVille: 1,
         score: 150,
         participation: null,
         estAdministrateur: false,
         abonnement: null,
         profession: "Poissonière",
-        idRecompense: null,
-        listRecompense: null,
         nombreSignalement: 0,
         estBanni: false,
         idRole: 1,
-        listAnnonceEnregistre: null
+        // listAnnonceEnregistre: null
+    })
+
+    Utilisateur.create({
+        id: 4,
+        pseudo: "Moderateur",
+        nom: "Modo",
+        prenom: "Modo",
+        photoProfil: 5,
+        mail: "modo@gmail.com",
+        motDePasse: bcrypt.hashSync("Modo", 8),
+        description: "Profil Moderateur pour test",
+        nouveauUser: false,
+        idVille: 1,
+        score: 2000,
+        participation: null,
+        estAdministrateur: false,
+        abonnement: null,
+        profession: "Modo",
+        nombreSignalement: 0,
+        estBanni: false,
+        idRole: 2,
+        // listAnnonceEnregistre: null
     })
 }
+
 
 function ajoutStatus() {
     Statuses.create({
@@ -149,29 +273,27 @@ function ajoutStatus() {
     })
 }
 
-
-
 function ajoutTypeActivite() {
-    TypeActivite.create({
-        id: 1,
-        type: "Vente",
-        description: "Permet la vente d'un bien"
-    })
-    TypeActivite.create({
-        id: 2,
-        type: "Poste à pourvoir",
-        description: "Permet de promouvoir des postes"
-    })
-    TypeActivite.create({
-        id: 3,
-        type: "Publication",
-        description: "Permet de partager une humeur, une idée, ..."
-    })
-    TypeActivite.create({
-        id: 4,
-        type: "Évènement",
-        description: "Permet de créer un évènement pour la commune et ses habitants (Modérateur et Administrateur seulement)"
-    })
+    // TypeActivite.create({
+    //     id: 1,
+    //     type: "Vente",
+    //     description: "Permet la vente d'un bien"
+    // })
+    // TypeActivite.create({
+    //     id: 2,
+    //     type: "Poste à pourvoir",
+    //     description: "Permet de promouvoir des postes"
+    // })
+    // TypeActivite.create({
+    //     id: 3,
+    //     type: "Publication",
+    //     description: "Permet de partager une humeur, une idée, ..."
+    // })
+    // TypeActivite.create({
+    //     id: 4,
+    //     type: "Évènement",
+    //     description: "Permet de créer un évènement pour la commune et ses habitants (Modérateur et Administrateur seulement)"
+    // })
 }
 
 function ajoutTypeSignalement() {
@@ -222,52 +344,52 @@ function ajoutAnnonce() {
     })
     Annonce.create({
         id: 2,
-        titre: "Vente de petits pains aux chocolats",
-        description: "Encore tous chauds et sortie du four ! =)",
+        titre: "Vend Macbook",
+        description: "Je vends un macbook que j'ai trouvé sur le bureau d'un ami, il est en très bon état, prix ferme",
         image: "124.png",
-        organisateur: 2,
+        organisateur: 3,
         participants: [],
-        dateDebut: "2023-07-20 08:00:00",
-        dateFin: "2023-07-20 09:00:00",
+        dateDebut: "2023-07-31 08:00:00",
+        dateFin: "2023-08-28 09:00:00",
         estActive: true,
-        reaction: 1,
-        idTypeActivite: 1,
+        reaction: 928,
+        idTypeActivite: 5,
         annonceMairie: false,
         idTypeSignalement: null,
         idUtilisateurSignalement: null,
-        prix: 1.0,
+        prix: 1200.0,
         longitude: 5.4263808,
-        latitude: 43.3455104,
+        latitude: 41.3455104,
         estVerifie: true,
         parking: true,
         parkingGratuit: false
     })
     Annonce.create({
         id: 3,
-        titre: "Vente de petits pains aux chocolats",
-        description: "Encore tous chauds et sortie du four ! =)",
+        titre: "Recherche étudiant pour alternance",
+        description: "Bonjour, suite à une évolution de notre IHM, nous réalison une migration vers Angular et nous avons besoin d'une personne qualifié !",
         image: "124.png",
-        organisateur: 2,
+        organisateur: 1,
         participants: [],
-        dateDebut: "2023-07-20 08:00:00",
-        dateFin: "2023-07-20 09:00:00",
+        dateDebut: null,
+        dateFin: null,
         estActive: true,
-        reaction: 1,
-        idTypeActivite: 1,
-        annonceMairie: false,
+        reaction: 78,
+        idTypeActivite: 3,
+        annonceMairie: true,
         idTypeSignalement: null,
         idUtilisateurSignalement: null,
-        prix: 1.0,
-        longitude: 5.4263808,
-        latitude: 43.3455104,
+        prix: 800.0,
+        longitude: null,
+        latitude: null,
         estVerifie: true,
         parking: true,
         parkingGratuit: false
     })
     Annonce.create({
         id: 4,
-        titre: "Vente de petits pains aux chocolats",
-        description: "Encore tous chauds et sortie du four ! =)",
+        titre: "-50% sur les fruits et légumes",
+        description: "Venez nombreux, il y en a pour tous le monde !",
         image: "124.png",
         organisateur: 2,
         participants: [],
@@ -275,7 +397,7 @@ function ajoutAnnonce() {
         dateFin: "2023-07-20 09:00:00",
         estActive: true,
         reaction: 1,
-        idTypeActivite: 1,
+        idTypeActivite: 2,
         annonceMairie: false,
         idTypeSignalement: null,
         idUtilisateurSignalement: null,
@@ -288,51 +410,7 @@ function ajoutAnnonce() {
     })
     Annonce.create({
         id: 5,
-        titre: "Vente de petits pains aux chocolats",
-        description: "Encore tous chauds et sortie du four ! =)",
-        image: "124.png",
-        organisateur: 2,
-        participants: [],
-        dateDebut: "2023-07-20 08:00:00",
-        dateFin: "2023-07-20 09:00:00",
-        estActive: true,
-        reaction: 1,
-        idTypeActivite: 1,
-        annonceMairie: false,
-        idTypeSignalement: null,
-        idUtilisateurSignalement: null,
-        prix: 1.0,
-        longitude: 5.4263808,
-        latitude: 43.3455104,
-        estVerifie: true,
-        parking: true,
-        parkingGratuit: false
-    })
-    Annonce.create({
-        id: 6,
-        titre: "Vente de petits pains aux chocolats",
-        description: "Encore tous chauds et sortie du four ! =)",
-        image: "124.png",
-        organisateur: 2,
-        participants: [],
-        dateDebut: "2023-07-20 08:00:00",
-        dateFin: "2023-07-20 09:00:00",
-        estActive: true,
-        reaction: 1,
-        idTypeActivite: 1,
-        annonceMairie: false,
-        idTypeSignalement: null,
-        idUtilisateurSignalement: null,
-        prix: 1.0,
-        longitude: 5.4263808,
-        latitude: 43.3455104,
-        estVerifie: true,
-        parking: true,
-        parkingGratuit: false
-    })
-    Annonce.create({
-        id: 7,
-        titre: "Vente de petits pains aux chocolats",
+        titre: "Il y a eu un accident de voiture dans le centre, attention",
         description: "Encore tous chauds et sortie du four ! =)",
         image: "124.png",
         organisateur: 2,
@@ -393,7 +471,7 @@ require("./routes/chat.routes.js")(app);
 require("./messages/chat")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8082;
+const PORT = port || 8082;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });

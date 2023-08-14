@@ -45,6 +45,10 @@ module.exports = (sequelize, Sequelize) => {
         idUtilisateurSignalement: {
             type: Sequelize.INTEGER
         },
+        estSignale: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
+        },
         prix: {
             type: Sequelize.FLOAT
         },

@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import ButtonLandingPage from '../components/ButtonLandingPage';
 import { useNavigate } from 'react-router-dom';
+import DangerBanner from './MainComponent/BannerDanger';
 
 const NavBarLandingPage = () => {
 
@@ -27,6 +28,8 @@ const NavBarLandingPage = () => {
             case 3:
                 handleToggle();
                 return navigate('/contact')
+            case 4:
+                return navigate('/')
             default:
                 handleToggle();
                 return navigate('/404')
@@ -37,10 +40,11 @@ const NavBarLandingPage = () => {
         <>
             <div className='navbar'>
                 <div className='logo_nav'>
-                    <div onClick={() => handleNavigate(1)}>
-                        <img src='media/img/carotte.png' alt='logo' onClick={() => handleNavigate(1)} />
+                    <div onClick={() => handleNavigate(4)}>
+                        <img src='media/img/carotte.png' alt='logo' onClick={() => handleNavigate(4)} />
                     </div>
-                    <a onClick={() => handleNavigate(1)}>PresDeChezMoi</a>
+                    <a onClick={() => handleNavigate(4)}>PresDeChezMoi</a>
+                    
                 </div>
                 <ul className='links'>
                     <li><a onClick={() => handleNavigate(1)}>Accueil</a></li>

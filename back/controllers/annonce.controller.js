@@ -129,44 +129,45 @@ exports.find_all = (req, res) => {
 
 async function userFindRole(userId) {
     Utilisateur.findOne({
-      where: {
-              id: userId
-      }
+        where: {
+            id: userId
+        }
     }).then((user) => {
-      console.log("est admin ? ", user.idRole == 3)
-      if (user.idRole == 3) {
-        // console.log("je passe ici")
-        return true
-    } else {
-      return false
-    }})
-  }
+        console.log("est admin ? ", user.idRole == 3)
+        if (user.idRole == 3) {
+            // console.log("je passe ici")
+            return true
+        } else {
+            return false
+        }
+    })
+}
 
 // A TESTER
 exports.update = (req, res) => {
     const id = req.params.id;
     let flagValidModif = false
 
-    if(id == req.userId){
-      flagValidModif = true
+    if (id == req.userId) {
+        flagValidModif = true
     }
     else {
-      flagValidModif = userFindRole(req.userId) 
+        flagValidModif = userFindRole(req.userId)
     }
 
-    if(flagValidModif){
+    if (flagValidModif) {
         Utilisateur.findOne({
             where: {
                 id: req.userId
             }
         })
-        .then(async user => {
-            if (user.idRole == 3 || user.idRole == 2) {
-                editAnnonce(req, res, id, true)
-            } else {
-                editAnnonce(req, res, id, false)
-            }
-        })
+            .then(async user => {
+                if (user.idRole == 3 || user.idRole == 2) {
+                    editAnnonce(req, res, id, true)
+                } else {
+                    editAnnonce(req, res, id, false)
+                }
+            })
     }
 };
 
@@ -243,17 +244,17 @@ function deleteAnnonce(req, res, id, isAdmin) {
                         .then(num => {
                             if (num == 1) {
                                 res.send({
-                                    message: "Role was deleted successfully!"
+                                    message: "Annonce was deleted successfully!"
                                 });
                             } else {
                                 res.send({
-                                    message: `Cannot delete Role with id=${id}. Maybe Role was not found!`
+                                    message: `Cannot delete Annonce with id=${id}. Maybe Annonce was not found!`
                                 });
                             }
                         })
                         .catch(err => {
                             res.status(500).send({
-                                message: "Could not delete Role with id=" + id
+                                message: "Could not delete Annonce with id=" + id
                             });
                         });
                 } else {

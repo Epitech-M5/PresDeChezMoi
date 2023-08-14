@@ -4,7 +4,8 @@
 
 .container_2_home {
     width: $width-feed;
-    padding-bottom: 30px;
+    position: relative;
+    z-index: 1;
 }
 
 .container_2_home_loader {
@@ -14,7 +15,7 @@
 
 .spacing {
     width: 100%;
-    margin-top: 80px;
+    margin-top: 90px !important;
     height: auto;
     display: flex;
     justify-content: right;
@@ -27,9 +28,11 @@
     position: sticky;
     top: 0;
     bottom: 0;
+    z-index: 700;
 }
 
 .main_container_home {
+    position: relative;
     width: 100%;
     height: 100vh;
     display: flex;
@@ -40,7 +43,7 @@
 .container_bye {
     position: fixed;
     width: 100%;
-    height: 7vh;
+    height: 50px;
     top: 0;
     left: 0;
     background: linear-gradient(to bottom, $white, transparent);
@@ -50,9 +53,9 @@
 .pub1 {
     position: relative;
     border-radius: 18px;
-    width: 90%;
-    height: 50vh;
-    margin-left: 5%;
+    width: 100%;
+    height: 500px;
+    // margin-left: 5%;
     margin-top: 120px;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
@@ -114,17 +117,18 @@
 }
 
 .text_pub2 img {
-    width: 55%;
+    width: 200px;
     max-width: 300px;
 }
 
 .text_pub h1 {
     font-family: $font-LeagueSpartan;
     font-weight: 700;
-    font-size: 2.2vw;
+    font-size: 35px;
     color: $dark-blue;
     text-align: center;
     width: 100%;
+    margin: 0 10px 0 10px;
 }
 
 .text_pub button {
@@ -134,7 +138,7 @@
     background-color: $green;
     color: $dark-green;
     font-weight: 700;
-    font-size: 1.1vw;
+    font-size: 18px;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.7) 0px 4px 12px;
     margin: 0 5px 0 5px;
@@ -144,9 +148,8 @@
 .pub2 {
     position: relative;
     border-radius: 18px;
-    width: 90%;
-    height: 50vh;
-    margin-left: 5%;
+    width: 100%;
+    height: 500px;
     margin-top: 10px;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
@@ -185,7 +188,7 @@
     letter-spacing: 2px;
     text-decoration: none;
     text-transform: uppercase;
-    color: #000;
+    color: $black;
     cursor: pointer;
     border: 3px solid;
     padding: 0.25em 0.5em;
@@ -204,6 +207,7 @@
 
 .container_bottom_map_ad {
     text-align: center;
+    margin: 0 10px 0 10px;
 }
 
 .container_bottom_map_ad h1 {
@@ -211,8 +215,188 @@
     width: 100%;
     font-family: $font-LeagueSpartan;
     font-weight: 700;
-    font-size: 1.2vw;
+    font-size: 30px;
 }
+
+.padding_for_bottom_fix {
+    padding-bottom: 30px !important;
+}
+
+.container_tuto_newUser {
+    background-color: $white;
+    position: relative;
+    width: 97.1%;
+    left: 1.4%;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    animation: appear 0.6s ease;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.container_title_newUser h1 {
+    text-align: center;
+    font-size: 22px;
+    font-family: $font-LeagueSpartan;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.container_title_newUser h3 {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: $font-LeagueSpartan;
+    color: $dark-grey;
+    margin-top: 10px;
+}
+
+.container_step_to_newUser {
+    margin: 10px 0 10px 0;
+    padding: 10px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    overflow-x: auto;
+    gap: 20px;
+}
+
+.container_step_to_newUser div:nth-child(1) {
+    width: 250px;
+    height: 250px;
+    background-color: $green;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+.container_step_to_newUser img {
+    width: 50%;
+    height: 120px;
+    margin: 20px 0 5px 25%;
+}
+
+#force_cursor {
+    cursor: pointer !important;
+    margin-top: 15px !important;
+    font-weight: 700 !important;
+    font-style: italic !important;
+}
+
+#force_cursor:hover {
+    text-decoration: underline;
+}
+
+#force_margin {
+    margin-top: 45px !important;
+}
+
+.container_step_to_newUser h2 {
+    text-align: center;
+    font-weight: 700;
+    margin: 10px 10px 0 10px;
+    color: $white;
+}
+
+.container_step_to_newUser h3 {
+    text-align: center;
+    font-weight: 700;
+    margin: 0 10px 0 10px;
+    color: $white;
+}
+
+.container_step_to_newUser h4 {
+    text-align: center;
+    font-weight: 700;
+    margin: 0 10px 0 10px;
+    font-size: 14px;
+    margin-top: 20px;
+    color: $black;
+}
+
+.container_step_to_newUser h5 {
+    text-align: center;
+    font-weight: 700;
+    margin: 0 10px 0 10px;
+    font-size: 14px;
+    margin-top: 20px;
+    color: $black;
+}
+
+.container_step_to_newUser button {
+    cursor: pointer;
+    width: 50%;
+    padding: 6px 15px 6px 15px;
+    border-radius: 54px;
+    border: none;
+    color: $black;
+    background-color: $white;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+    margin-left: 25%;
+}
+
+#fix_img {
+    padding-right: 10px !important;
+}
+
+.container_step_to_newUser div:nth-child(2) {
+    width: 250px;
+    height: 250px;
+    background-color: $orange;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+.container_step_to_newUser div:nth-child(3) {
+    width: 250px;
+    height: 250px;
+    background-color: $blue;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+.container_step_to_newUser div:nth-child(4) {
+    width: 250px;
+    height: 250px;
+    background-color: $red-orange;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+.container_step_to_newUser div:nth-child(5) {
+    width: 250px;
+    height: 250px;
+    background-color: $yellow;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+@media (max-width: 1250px) {
+    .pub1 {
+        height: 300px !important;
+    }
+
+    .pub2 {
+        height: 300px !important;
+    }
+
+    .text_pub h1 {
+        font-size: 24px;
+    }
+
+    .container_bottom_map_ad h1 {
+        font-size: 24px;
+    }
+
+    .text_pub2 img {
+        width: 110px;
+    }
+
+    .text_pub button {
+        font-size: 14px;
+        margin: 0 10px 0 10px;
+    }
+}
+
 
 @media (min-width: 768px) {
     .button-54 {
@@ -233,7 +417,7 @@
     }
 
     .container_bye {
-        height: 3vh;
+        height: 30px;
     }
 
 }

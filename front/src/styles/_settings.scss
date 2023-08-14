@@ -32,6 +32,14 @@ $width-pub: 20%;
     font-size: 1rem;
 }
 
+a {
+    text-decoration: none !important;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
 }

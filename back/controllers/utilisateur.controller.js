@@ -1,7 +1,7 @@
 const db = require("../models");
 const Utilisateur = db.utilisateur;
 // Pour token
-const config = require("../config/auth.config"); 
+const config = require("../config/auth.config");
 const Role = db.roles;
 const { refreshToken: RefreshToken } = db;
 var jwt = require("jsonwebtoken");
@@ -11,7 +11,7 @@ var bcrypt = require("bcryptjs");
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min +1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // Inscription (Code erreur dispo: 200, 400, 500)
@@ -41,18 +41,19 @@ exports.signup = (req, res) => {
     photoProfil: getRandomIntInclusive(1, 5), // Choisi aléatoirement une photo de profil par défaut
     mail: req.body.mail,
     motDePasse: bcrypt.hashSync(req.body.motDePasse, 8),
+    nouveauUser: true,
     idVille: null,
+    description: null,
     score: null,
     participation: null,
     estAdministrateur: null,
     abonnement: null,
     profession: null,
     idRecompense: null,
-    listRecompense: null,
     nombreSignalement: null,
     estBanni: null,
     idRole: req.body.idRole,
-    listAnnonceEnregistre: null,
+    // listAnnonceEnregistre: null,
     noteVille: null // {"hygiene":5, "service":5, "evenement":5}
   };
 
@@ -61,7 +62,7 @@ exports.signup = (req, res) => {
     .then(async data => {
       // Définition du token: token = id de l'utilisateur
       const token = jwt.sign({ id: data.id }, config.secret, {
-        expiresIn: config.jwtExpiration 
+        expiresIn: config.jwtExpiration
       });
 
       // Generation du refresh token
@@ -229,20 +230,118 @@ exports.find_all = (req, res) => {
       });
     });
 };
+exports.get_by_id = (req, res) => {
+  Utilisateur.findOne({ where: { id: req.params.id } })
+    .then(data => {
+      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements, "listRecompense": data.listRecompense, "listRecompenseEnCoursClaim": data.listRecompenseEnCoursClaim, "idVille": data.idVille, "nom": data.nom, "prenom": data.prenom, "profession": data.profession, "email": data.mail,"estNotif":data.estNotif });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+exports.get_likes = (req, res) => {
+  Utilisateur.findOne({
+    where: {
+      id: req.userId
+    }
+  })
+    .then(data => {
+      res.status(200).send({ "likes": data.likes });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+exports.get_saves = (req, res) => {
+  Utilisateur.findOne({
+    where: {
+      id: req.userId
+    }
+  })
+    .then(data => {
+      res.status(200).send({ "enregistrements": data.enregistrements });
+    })
+    .catch(err => {
+      console.log("@@@@")
+
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+
+// Récuperer tous les utilisateurs (Code erreur dispo: 200, 500)
+exports.find_by_ville = (req, res) => {
+
+  Utilisateur.findAll({
+    include: [
+
+      {
+        model: Role,
+        attributes: ['titre']
+      }
+    ],
+    where: { idVille: req.params.idVille }
+  })
+    .then(data => {
+      res.status(200).send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+
+exports.find_note_by_ville = (req, res) => {
+
+  Utilisateur.findAll({
+    include: [
+
+      {
+        model: Role,
+        attributes: ['titre']
+      }
+    ],
+    where: { idVille: req.params.idVille }
+  })
+    .then(data => {
+      var arrayAllNote = []
+      for (var n = 0; n < data.length; n++) {
+        arrayAllNote.push(data[n].noteVille)
+      }
+      res.status(200).send(arrayAllNote);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
 
 async function userFindRole(userId) {
   Utilisateur.findOne({
     where: {
-            id: userId
+      id: userId
     }
   }).then((user) => {
     console.log("est admin ? ", user.idRole == 3)
     if (user.idRole == 3) {
       // console.log("je passe ici")
       return true
-  } else {
-    return false
-  }})
+    } else {
+      return false
+    }
+  })
 }
 
 // Modification des données de l'utilisateurs (Code erreur dispo: 200, 400, 500)
@@ -250,16 +349,16 @@ exports.update = (req, res) => {
   const id = req.params.id;
   let flagValidModif = false
 
-  if(id == req.userId){
+  if (id == req.userId) {
     flagValidModif = true
   }
   else {
-    flagValidModif = userFindRole(req.userId) 
+    flagValidModif = userFindRole(req.userId)
   }
 
   // si valid
-  if(flagValidModif){
-    req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8)
+  if (flagValidModif) {
+    // req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8)
     Utilisateur.update(req.body, {
       where: { id: id }
     })
@@ -285,9 +384,33 @@ exports.update = (req, res) => {
     res.status(400).send({
       message: "Vous n'êtes pas autorisé à modifier ce profil"
     });
-  }  
+  }
 };
 
+exports.edit_password = (req, res) => {
+  console.log(" àààààààààààààààààààààààà")
+  console.log(req.body.motDePasse)
+  req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8),
+    Utilisateur.update(req.body, {
+      where: { id: req.userId }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.status(200).send({
+            message: "L'utilisateur a été modifié avec succès."
+          });
+        } else {
+          res.status(400).send({
+            message: `Impossible de modifier l'utilisateurAAAAAAAAAAAAa id=${req.userId}.`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Erreur lors de la modification de l'utilisateur id=" + id + "(" + err + ")"
+        });
+      });
+}
 
 // Suppression de l'utilisateur
 exports.delete = (req, res) => {
@@ -310,6 +433,45 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Impossible de supprimé l'utilisateur avec l'id=" + id
+      });
+    });
+};
+
+// exports.get_by_id = (req, res) => {
+//   Utilisateur.findOne({ where: { id: req.params.id } })
+//     .then(data => {
+//       console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", data.likes)
+//       res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements });
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message:
+//           err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+//       });
+//     });
+// };
+
+exports.get_likes = (req, res) => {
+  Utilisateur.findOne({ where: { id: req.userId } })
+    .then(data => {
+      res.status(200).send({ "likes": data.likes });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
+      });
+    });
+};
+exports.get_saves = (req, res) => {
+  Utilisateur.findOne({ where: { id: req.userId } })
+    .then(data => {
+      res.status(200).send({ "enregistrements": data.enregistrements });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Une erreur est survenue lors de la récupération des utilisateur."
       });
     });
 };

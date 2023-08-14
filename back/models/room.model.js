@@ -8,6 +8,9 @@ module.exports = (sequelize, Sequelize) => {
         membres: {
             type: Sequelize.JSON,
             defaultValue: []
+        },
+        idVille: {
+            type: Sequelize.INTEGER
         }
     });
 

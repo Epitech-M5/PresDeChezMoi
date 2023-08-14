@@ -1,12 +1,18 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useRef } from 'react';
+
 import { useNavigate } from "react-router-dom";
 import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
 import axios from 'axios';
 
 import { useDispatch, useSelector } from "react-redux";
 import { isLogin, fetchUtilisateurData, fetchRefreshToken, fetchToken } from "../redux/Utilisateur";
+import Modal from '../components/MainComponent/Modal.js';
+import emailjs from 'emailjs-com';
 
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 const LoginPage = () => {
+    const form = useRef();
 
     const dispatch = useDispatch();
 
@@ -18,6 +24,9 @@ const LoginPage = () => {
     const [idRegister, setIdRegister] = useState("");
     const [email, setEmail] = useState("");
     const [passwordRegister, setPasswordRegister] = useState("");
+    const [mailPassword, setMailPassword] = useState("");
+    const [link, setLink] = useState("http://127.0.0.1:3000/forgot-password");
+    const [isOpen, setIsOpen] = useState(false);
 
     const { addMessage, removeMessage, messages } = useMessageQueue();
     const handleNavigationRegister = (event) => {
@@ -35,7 +44,7 @@ const LoginPage = () => {
         else {
 
             axios
-                .post("http://127.0.0.1:8082/api/user/auth/signup", { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2, "photoProfil": "1" })
+                .post(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2, "photoProfil": "1" })
                 .then(response => {
 
                     // permet de récupérer les info utilisateurs retourné dans la response
@@ -83,7 +92,7 @@ const LoginPage = () => {
         else {
 
             axios
-                .post("http://127.0.0.1:8082/api/user/auth/signin", { "pseudo": idLogin, "motDePasse": passwordLogin })
+                .post(`http://${adresseip}:${port}/api/user/auth/signin`, { "pseudo": idLogin, "motDePasse": passwordLogin })
                 .then(response => {
 
                     console.log(response)
@@ -97,6 +106,7 @@ const LoginPage = () => {
                         idutilisateur: data.id,
                         photoProfil: data.photoProfil,
                         idVille: data.idVille,
+                        photoProfil: data.photoProfil,
                     };
                     addMessage('Connexion réussie, attendez quelques instants....', 'success');
                     // Stock dans store
@@ -120,6 +130,10 @@ const LoginPage = () => {
     const handleId_login = (event) => {
         setIdLogin(event.target.value);
     }
+    const handleForgotPasswordButton = (event) => {
+        alert(mailPassword)
+
+    }
 
     const handlePassword_login = (event) => {
         setPasswordLogin(event.target.value);
@@ -129,12 +143,57 @@ const LoginPage = () => {
         setIdRegister(event.target.value);
     }
 
+    const handleForgotPassword = (event) => {
+        setIsOpen(true)
+    }
+
+    const closeModal = () => {
+
+        const toClose = document.querySelector('.modal');
+        toClose.classList.add('closing');
+        setTimeout(() => {
+            setIsOpen(false);
+        }, 300);
+
+    };
+
     const handlePassword_register = (event) => {
         setPasswordRegister(event.target.value);
     }
 
     const handleEmail = (event) => {
         setEmail(event.target.value);
+    }
+
+    const handleSubmitEmail = (e) => {
+
+        e.preventDefault();
+        alert(mailPassword)
+        if (mailPassword.length <= 0) {
+            addMessage('Tous les champs doivent être remplis', 'info');
+        }
+
+        else {
+            addMessage('Votre message à bien été envoyé', 'success');
+            const emailParams = {
+                to_email: mailPassword,
+                from_name: "PrèsDeChezMoi",
+                message: `Voici un lien pour réinitialiser votre mot de passe pour notre site.\nSi vous n'étes pas à l'origine de cette demande, merci de l'ignorer \n${link}`
+            };
+            emailjs.init('AHMnZTYTrMKEh55qV');
+
+            // 200 email par mois, id : presdechezmoi.email@gmail.com mdp : 123Azerty# 
+            emailjs.send('service_49ij8lf', 'template_mlkaalj', emailParams)
+                .then((result) => {
+                    console.log(result.text);
+                }, (error) => {
+                    console.log(error.text);
+                });
+
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 3000)
+        }
     }
 
     useEffect(() => {
@@ -155,6 +214,18 @@ const LoginPage = () => {
 
     return (
         <>
+            <Modal isOpen={isOpen} onClose={closeModal}>
+                <div className="container_x">
+                    <i className="fa-solid fa-xmark" onClick={closeModal}></i>
+                </div>
+                <div className="wrapper_popup">
+                    <form action="" ref={form} onSubmit={handleSubmitEmail}>
+                        <input placeholder='exemple@gmail.com' name='email' onChange={(event) => setMailPassword(event.target.value)} />
+                        {/* <button onClick={handleForgotPasswordButton}>VALIDE</button> */}
+                        <input type='submit' value="Envoyer" onSubmit={handleForgotPasswordButton} />
+                    </form>
+                </div>
+            </Modal>
             <MessageQueue messages={messages} removeMessage={removeMessage} />
             <div className="container_loginpage">
                 <div className="forms_container">
@@ -171,8 +242,9 @@ const LoginPage = () => {
                                 <input type="password" placeholder='Mot de passe' onChange={handlePassword_login} />
                             </div>
                             <input type="submit" value="Se connecter" className='btn_login center_submit' />
-                            <a href="/forgot-password" target='_blank' id='forgot_password'><h3>Mot de passe oublié ?</h3></a>
-                            <p className='social_text'>Ou avec les réseaux sociaux</p>
+                            {/* <a href="/forgot-password" target='_blank' id='forgot_password'><h3>Mot de passe oublié ?</h3></a> */}
+                            <a onClick={handleForgotPassword} target='_blank' id='forgot_password'><h3>Mot de passe oublié ?</h3></a>
+                            <p className='social_text'>Retrouvez nous sur nos réseaux</p>
                             <div className="social_login">
                                 <a onClick={() => window.open("https://instagram.com/presdechezmoi?igshid=OGQ5ZDc2ODk2ZA==", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-instagram"></i>
@@ -204,7 +276,7 @@ const LoginPage = () => {
                                 <input type="password" placeholder='Mot de passe' onChange={handlePassword_register} />
                             </div>
                             <input type="submit" value="S'enregistrer" className='btn_login center_submit' />
-                            <p className='social_text'>Ou avec les réseaux sociaux</p>
+                            <p className='social_text'>Retrouvez nous sur nos réseaux</p>
                             <div className="social_login">
                                 <a onClick={() => window.open("https://instagram.com/presdechezmoi?igshid=OGQ5ZDc2ODk2ZA==", "_blank")} className='social_login_icon'>
                                     <i class="fa-brands fa-instagram"></i>

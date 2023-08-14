@@ -1,12 +1,16 @@
 .container_rebar {
-    width: 100%;
-    background-color: $grey;
+    position: relative;
+    width: 40%;
+    left: 30%;
+    background-color: $white;
     border-radius: 54px;
     height: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px;
+    margin-top: 35px;
 }
 
 .container_rebar input {
@@ -30,27 +34,54 @@
 
 .toHideFeed {
     position: fixed;
-    left: 25%;
-    width: 50%;
+    //left: 25%;
+    width: 100%;
     background-color: $white;
-    z-index: 99900;
+    z-index: 500;
     padding-bottom: 10px;
 }
 
-@media(max-width:1600px) {
-    .container_rebar {
-        margin-top: 35px;
-    }
+.data_search_result {
+    background-color: $white;
+    position: absolute;
+    left: 25%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 18px;
+    width: 300px;
+    height: 200px;
+    overflow-y: scroll;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 15px;
+}
+
+.data_search_result::-webkit-scrollbar {
+    display: none;
+}
+
+.data_search_result h1 {
+    border-bottom: 1px solid $dark-grey;
+    padding: 10px 0 10px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.data_search_result h1:hover {
+    cursor: pointer;
+    background-color: $grey;
 }
 
 @media(max-width:650px) {
     .container_rebar {
         width: 70%;
-        margin-left: 15%;
+        left: 15%;
     }
 
     .toHideFeed {
         width: 100%;
         left: 0;
+    }
+
+    .data_search_result {
+        left: 10%;
     }
 }

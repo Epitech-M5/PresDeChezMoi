@@ -22,6 +22,9 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             unique: true
         },
+        description: {
+            type: Sequelize.TEXT,
+        },
         motDePasse: {
             type: Sequelize.STRING
         },
@@ -36,16 +39,16 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.JSON,
             defaultValue: []
         },
-        abonnement: {
+        likes: {
             type: Sequelize.JSON,
             defaultValue: []
         },
         profession: {
             type: Sequelize.STRING
         },
-        idRecompense: {
-            type: Sequelize.INTEGER,
-            allowNull: true
+        listRecompenseEnCoursClaim: {
+            type: Sequelize.JSON,
+            defaultValue: []
         },
         listRecompense: {
             type: Sequelize.JSON,
@@ -57,19 +60,28 @@ module.exports = (sequelize, Sequelize) => {
         estBanni: {
             type: Sequelize.BOOLEAN
         },
+        nouveauUser: {
+            type: Sequelize.BOOLEAN
+        },
         idRole: {
             type: Sequelize.INTEGER,
             allowNull: true
         },
-        listAnnonceEnregistre: {
+        enregistrements: {
             type: Sequelize.JSON,
             defaultValue: []
         },
         noteVille: {
             type: Sequelize.JSON,
             defaultValue: []
+        },
+        estNotif: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false,
+            
         }
     });
+
 
     return Utilisateur;
 };
