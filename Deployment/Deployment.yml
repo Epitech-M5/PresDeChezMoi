@@ -5,7 +5,7 @@
   become_method: sudo
 
   vars:
-    repo_git: "https://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@github.com/EpitechMscProPromo2025/T-YEP-600-MAR-6-1-finalproject-mateo.salvy.git"
+    repo_git: "https://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@github.com/EpitechMscProPromo2025/T-YEP-600-MAR-6-1-finalproject-mateo.salvy.git"
 
   tasks:
     - name: Mise à jour du cache APT
