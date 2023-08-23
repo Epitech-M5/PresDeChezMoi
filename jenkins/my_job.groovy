@@ -21,8 +21,7 @@ pipelineJob('Update_Deployment') {
                                     sh "ssh ${remoteUser}@${remoteServer} sudo docker stop t-yep-600-mar-6-1-finalproject-mateosalvy-front-1 && sudo docker rm t-yep-600-mar-6-1-finalproject-mateosalvy-front-1"
                                     sh "ssh ${remoteUser}@${remoteServer} sudo docker rmi t-yep-600-mar-6-1-finalproject-mateosalvy-back"
                                     sh "ssh ${remoteUser}@${remoteServer} sudo docker rmi t-yep-600-mar-6-1-finalproject-mateosalvy-front"
-                                    sh "ssh ${remoteUser}@${remoteServer} sudo git clone https://github.com/EpitechMscProPromo2025/T-YEP-600-MAR-6-1-finalproject-mateo.salvy.git /path/to/destination"
-                                    sh "ssh ${remoteUser}@${remoteServer} cd /path/to/destination && sudo docker-compose up -d"
+                                    sh "ssh ${remoteUser}@${remoteServer} cd T-YEP-600-MAR-6-1-finalproject-mateo.salvy && sudo git pull && sudo docker-compose up -d"
                                 }
                             }
                         }
