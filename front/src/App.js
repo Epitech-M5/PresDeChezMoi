@@ -28,7 +28,7 @@ import Event from "./components/Admin/Event";
 import Post from "./components/Admin/Post";
 import ViewPost from "./pages/ViewPost";
 import { useParams } from "react-router-dom";
-import { getAPI } from "./api";
+import { getAPI, putAPI } from "./api";
 import NavBarUser from "./components/User/NavBarUser";
 import Settings from "./components/User/Settings";
 import Myposts from "./components/User/Myposts";
@@ -38,6 +38,8 @@ import ViewProfile from "./pages/ViewProfile";
 import MapPage from "./pages/MapPage";
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
+
+
 const LandingContainer = () => {
   return (
 
@@ -62,44 +64,133 @@ const LandingContainer = () => {
 const HomeContainer = () => {
 
   const user = useSelector((state) => state.utilisateur)
+  const [idVille, setIdVille] = useState([])
+  const [dataVille, setDataVille] = useState([]);
 
-  if (user.isLogin && user.idRole === 3 || user.isLogin && user.idRole === 2) {
-    return (
-      <>
-        <ChatBot />
-        <ResearchBar />
-        <NavBarHome isAdmin='admin' />
-        {/* <UserMenu /> */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="/notif" element={<Notification />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
-        </Routes>
-      </>
-    );
+  const [isLoading, setIsLoading] = useState(true);
+
+  console.log('IN HOME CONTAINER LOG :', idVille, user, dataVille)
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+        setIdVille(response.dataAPI.idVille);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000)
+      } catch (error) {
+        console.log('error', error);
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
+      .then((response) => {
+        setDataVille(response.dataAPI);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [])
+
+  const handleChoice = (ville) => {
+
+    putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'idVille': ville }, { 'x-access-token': user.token })
+      .then((response) => {
+        setIdVille(ville);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
-  if (user.isLogin) {
+
+  if (isLoading) {
     return (
-      <>
-        <ChatBot />
-        <ResearchBar />
-        <NavBarHome />
-        {/* <UserMenu /> */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="/notif" element={<Notification />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
-        </Routes>
-      </>
-    );
+      <div className="to_center_in_appjs">
+        <h1>Chargement ...</h1>
+      </div>
+    )
   }
+
   else {
-    return (<Navigate to="/login" replace />);
+    if (user.isLogin && user.idRole === 3 || user.isLogin && user.idRole === 2) {
+      return (
+        <>
+          {idVille === null ? (
+            <>
+              <div className="container_titles_beforeLogin">
+                <h1>Avant de commencer</h1>
+                <h1>Veuillez choisir la commune dans laquelle vous habitez</h1>
+                <h1>Vous pourrez la modifier à tout moment</h1>
+              </div>
+              <div className="container_all_ville">
+                {dataVille.map((item) => (
+                  <>
+                    <p key={item.id} onClick={() => handleChoice(item.id)}>{item.nom}</p>
+                  </>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <ChatBot />
+              <ResearchBar />
+              <NavBarHome isAdmin='admin' />
+              {/* <UserMenu /> */}
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/test" element={<Test />} />
+                <Route path="/notif" element={<Notification />} />
+                <Route path="/chat" element={<Chat />} />
+                <Route path="/map" element={<MapPage />} />
+                <Route path="*" element={<PageNotFound navigation={"/home"} />} />
+              </Routes>
+            </>
+          )}
+        </>
+      );
+    }
+
+    if (user.isLogin) {
+      return (
+        <>
+          {idVille === null ? (
+            <>
+              <div className="container_all_ville">
+                {dataVille.map((item) => (
+                  <>
+                    <p key={item.id} onClick={() => handleChoice(item.id)}>{item.nom}</p>
+                  </>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <ChatBot />
+              <ResearchBar />
+              <NavBarHome />
+              {/* <UserMenu /> */}
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/test" element={<Test />} />
+                <Route path="/notif" element={<Notification />} />
+                <Route path="/map" element={<MapPage />} />
+                <Route path="*" element={<PageNotFound navigation={"/home"} />} />
+              </Routes>
+            </>
+          )}
+
+        </>
+      );
+    }
+    else {
+      return (<Navigate to="/login" replace />);
+    }
   }
 
 };

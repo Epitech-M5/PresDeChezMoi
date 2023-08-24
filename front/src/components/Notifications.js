@@ -17,6 +17,9 @@ const Notifications = ({ message, removeMessage }) => {
             case 'error':
                 document.querySelector('.toast').classList.add('error');
                 return setNotif(<i class="fa-sharp fa-solid fa-ban"></i>);
+            default:
+                document.querySelector('.toast').classList.add('info');
+                return setNotif(<i class="fa-solid fa-circle-info"></i>);
         }
 
 
