@@ -128,7 +128,7 @@ const HomeContainer = () => {
                 <h1>Veuillez choisir la commune dans laquelle vous habitez</h1>
                 <h1>Vous pourrez la modifier à tout moment</h1>
               </div>
-              <div className="container_all_ville">
+              <div className="container_all_ville forAppjs">
                 {dataVille.map((item) => (
                   <>
                     <p key={item.id} onClick={() => handleChoice(item.id)}>{item.nom}</p>

@@ -30,6 +30,8 @@ const MapPage = () => {
         getAPI(`http://${adresseip}:${port}/api/annonce/`, {}, { 'x-access-token': user.token })
             .then((response) => {
 
+                console.log(response.dataAPI)
+
                 setTimeout(() => {
                     const verifiedItems = response.dataAPI.filter(item => item.estVerifie === true);
                     setMarkers(verifiedItems.map(item => ({
