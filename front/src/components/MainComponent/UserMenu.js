@@ -22,8 +22,8 @@ const UserMenu = () => {
   };
 
   return (
-    <div className="ms-nav-container" onClick={console.log('c inssuportableeee')}>
-      <ul className="ms-nav" onClick={console.log('soucis de zindex maybe ?')}>
+    <div className="ms-nav-container">
+      <ul className="ms-nav">
         <input
           type="checkbox"
           id="ms-menu"
@@ -51,12 +51,12 @@ const UserMenu = () => {
         <div className="ms-nav-point"> </div>
 
         <li className="ms-li ms-li1 ms-li-first">
-          <a onClick={console.log('morgan ca bug')}>
+          <a onClick={console.log('bouton 1')}>
             <span className="fa-solid fa-gear"></span>
           </a>
         </li>
         <li className="ms-li ms-li2">
-          <a onClick={console.log('fffff')}>
+          <a onClick={console.log('bouton 2')}>
             <span className="fa-solid fa-right-from-bracket"></span>
           </a>
         </li>

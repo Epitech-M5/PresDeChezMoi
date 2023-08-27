@@ -8,7 +8,7 @@ const ChatHistory = ({ history }) => {
 
   useEffect(() => {
     scrollToBottom();
-    console.log("============Historique=============== ", history);
+    console.log("============ Historique =============== ", history);
   }, [history]);
 
   const scrollToBottom = () => {

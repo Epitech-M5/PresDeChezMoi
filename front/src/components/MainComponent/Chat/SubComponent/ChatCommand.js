@@ -26,7 +26,6 @@ const ChatCommand = ({
       image: userInfo.photoProfil,
       createdAt: new Date(),
     };
-
     sendMessage(messageData);
     setMessage("");
   };

@@ -21,7 +21,7 @@ const ChatSidebar = (props) => {
           "x-access-token": userInfo.token,
           "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
         },
-        url: `http://${props.ipBDD}:8082/api/user/${entry}`,
+        url: `http://${props.ipBDD}:8082/api/user/pseudo/${entry}`,
       });
 
       setPhotoProfil((prevState) => ({
@@ -80,7 +80,7 @@ const ChatSidebar = (props) => {
   const handleClick = (id, membres) => {
     changeChannel(id);
 
-    console.log("changement de channel membres   ", membres);
+    console.log("changement de channel membres   ", membres, " id  ", id);
 
     const conversation = conv.rooms.find((room) => room.id === id);
 
