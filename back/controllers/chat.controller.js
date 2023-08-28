@@ -97,12 +97,12 @@ exports.find_all = (req, res) => {
     });
 };
 
-exports.find_by_user = (req, res) => {
-  const idUtilisateur = req.params.idUtilisateur;
+exports.find_by_idRoom = (req, res) => {
+  const idRoom = req.params.idRoom; // Remplacé idUtilisateur par idRoom
 
   chat
     .findAll({
-      where: { idUtilisateur: idUtilisateur },
+      where: { idRoom: idRoom }, // Remplacé idUtilisateur par idRoom
     })
     .then((data) => {
       if (data.length > 0) {
@@ -114,7 +114,7 @@ exports.find_by_user = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message:
-          "Error retrieving messages with idUtilisateur=" + idUtilisateur,
+          "Error retrieving messages with idRoom=" + idRoom, // Remplacé idUtilisateur par idRoom
       });
     });
 };

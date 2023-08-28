@@ -135,12 +135,14 @@ const Chat = () => {
     setChannel(channel);
     try {
       const response = await axios.get(
-        `http://${ipBDD}:8082/api/chat/user/${userInfo.idutilisateur}`
+        `http://${ipBDD}:8082/api/chat/user/${channel}`
       );
       //response.data est un objet json, fait un tri de toute les reponses qui ont idRoom = channel
       const messagesByChannel = response.data.filter(
         (message) => message.idRoom === channel
       );
+
+      console.log(response.data);
 
       if (response.data !== null) {
         setHistory(messagesByChannel);

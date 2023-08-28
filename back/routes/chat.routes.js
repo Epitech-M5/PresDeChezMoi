@@ -11,7 +11,7 @@ module.exports = app => {
 
     router.get("/:id", chat.find_one);
     
-    router.get("/user/:idUtilisateur", chat.find_by_user);
+    router.get("/user/:idRoom", chat.find_by_idRoom);
 
     router.put("/:id", chat.update);
 
