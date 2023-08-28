@@ -228,7 +228,7 @@
     width: 97.1%;
     left: 1.4%;
     border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     animation: appear 0.6s ease;
     padding: 10px;
     margin-top: 10px;
@@ -368,6 +368,18 @@
     background-color: $yellow;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px;
+}
+
+.container_titles_beforeLogin {
+    background-color: $white;
+    padding: 60px 20px 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid $dark-grey;
+}
+
+.container_all_ville.forAppjs {
+    height: 100% !important;
+    overflow-y: auto !important;
 }
 
 @media (max-width: 1250px) {

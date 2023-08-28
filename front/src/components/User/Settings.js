@@ -35,12 +35,11 @@ const Settings = () => {
     };
 
     const handleCheckboxChange = (item) => {
-
         setSelectedValue(item);
-
         const ScrollToTop = document.querySelector('.modal_content_left');
         ScrollToTop.scrollTop = 0;
     };
+
     const openModal = () => {
         setMdp('');
         setMdpConfirm('');
@@ -90,7 +89,6 @@ const Settings = () => {
                             </>
                         ))}
                     </div>
-
                 </>
             );
         }

@@ -8,6 +8,7 @@ import AddressDisplay from '../components/MainComponent/AddressDisplay';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../components/MainComponent/Modal';
 import DangerBanner from '../components/MainComponent/BannerDanger';
+import MessageQueue, { useMessageQueue } from '../components/MessageQueue.js';
 
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
@@ -26,7 +27,7 @@ const Home = () => {
     const [isOpen, setIsOpen] = useState(false);
     var [toAddModal, setToAddModal] = useState();
     const [allSignal, setAllSignal] = useState([]);
-    const [idSign, setIdSign] = useState(null);
+    const [idVille, setIdVille] = useState([])
 
     const [likedPosts, setLikedPosts] = useState([]); // stocker les annonces like par le user
     const [saves, setSaves] = useState([]);
@@ -95,6 +96,8 @@ const Home = () => {
 
                 const parsedSaves = JSON.parse(response.dataAPI.enregistrements);
                 setSaves(parsedSaves);
+
+                setIdVille(response.dataAPI.idVille);
 
             })
             .catch((error) => {
@@ -332,10 +335,11 @@ const Home = () => {
 
         putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'nouveauUser': false }, { 'x-access-token': user.token })
             .then((response) => {
-
+                addMessage('Le guide partira lors de votre prochaine connexion !', 'success')
             })
             .catch((error) => {
                 console.log(error);
+                addMessage('Le guide partira lors de votre prochaine connexion !', 'error')
             });
 
     }
@@ -343,10 +347,13 @@ const Home = () => {
 
     const reversedData = [...mapData].reverse();
 
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', dictionnaireNewUser[user.idutilisateur])
+    const { addMessage, removeMessage, messages } = useMessageQueue();
 
     return (
+
+
         <>
+            <MessageQueue messages={messages} removeMessage={removeMessage} />
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <div className="container_x">
                     <i className="fa-solid fa-xmark" onClick={closeModal}></i>
@@ -355,7 +362,6 @@ const Home = () => {
                     {toAddModal}
                 </div>
             </Modal>
-
             <div className="container_bye"></div>
             <section className="main_container_home">
                 <section className="container_1_home"></section>
@@ -372,47 +378,54 @@ const Home = () => {
                             <div className="container_2_home_loader">
                                 <Loader />
                             </div>
+                        ) : idVille === null ? (
+                            <>
+                                <h1>Bonjour/Bonsoir @{user.pseudo},</h1>
+                                <h1>Il semblerai que vous n'appartenais à aucune ville, vueillez choisir une ville dans vos paramètres d'utilisateur</h1>
+                                <h1>Cordialement, M5 Team</h1>
+                            </>
                         ) : (
                             <>
 
-                                {dictionnaireNewUser[user.idutilisateur] ? (
-                                    <>
-                                        <div className="container_tuto_newUser">
-                                            <div className="container_title_newUser">
-                                                <h1>Guide nouvelle utilisateur</h1>
-                                                <h3>Bienvenue sur PresDeChezMoi @{user.pseudo} !</h3>
+                                {
+                                    dictionnaireNewUser[user.idutilisateur] ? (
+                                        <>
+                                            <div className="container_tuto_newUser">
+                                                <div className="container_title_newUser">
+                                                    <h1>Guide nouvelle utilisateur</h1>
+                                                    <h3>Bienvenue sur PresDeChezMoi @{user.pseudo} !</h3>
+                                                </div>
+                                                <div className="container_step_to_newUser">
+                                                    <div>
+                                                        <h2>Commencez par compléter votre profil</h2>
+                                                        <img id='fix_img' src="media/img/editor.png" alt="edit" />
+                                                        <button onClick={() => navigate('/home/user/settings')}>Compléter</button>
+                                                    </div>
+                                                    <div>
+                                                        <h2>Envoyez votre premier message à vos amis</h2>
+                                                        <img src="media/img/communication.png" alt="message" />
+                                                        <button onClick={() => navigate('/home/chat')}>Messagerie</button>
+                                                    </div>
+                                                    <div>
+                                                        <h2>Découvrez ce qui se passe près de chez vous</h2>
+                                                        <img src="media/img/map-location.png" alt="map" />
+                                                        <button onClick={() => navigate('/home/map')}>Map</button>
+                                                    </div>
+                                                    <div>
+                                                        <h2>Découvrez par vous-même toutes les fonctionnalités</h2>
+                                                        <img src="media/img/option.png" alt="option" />
+                                                        <h3>Like, enregistre des posts, partage ton profil à tes amis...</h3>
+                                                    </div>
+                                                    <div>
+                                                        <h2>Ça y est vous savez tout faire ?</h2>
+                                                        <h4>N'hésitez pas à contacter notre assistance en cas de problème via le chatbot en bas à gauche</h4>
+                                                        <h5>Cliqué sur le bouton pour valider le guide</h5>
+                                                        <button id='force_margin' onClick={handleValidationTuto}>Valider</button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="container_step_to_newUser">
-                                                <div>
-                                                    <h2>Commencez par compléter votre profil</h2>
-                                                    <img id='fix_img' src="media/img/editor.png" alt="edit" />
-                                                    <button onClick={() => navigate('/home/user/settings')}>Compléter</button>
-                                                </div>
-                                                <div>
-                                                    <h2>Envoyez votre premier message à vos amis</h2>
-                                                    <img src="media/img/communication.png" alt="message" />
-                                                    <button onClick={() => navigate('/home/chat')}>Messagerie</button>
-                                                </div>
-                                                <div>
-                                                    <h2>Découvrez ce qui se passe près de chez vous</h2>
-                                                    <img src="media/img/map-location.png" alt="map" />
-                                                    <button onClick={() => navigate('/home/map')}>Map</button>
-                                                </div>
-                                                <div>
-                                                    <h2>Découvrez par vous-même toutes les fonctionnalités</h2>
-                                                    <img src="media/img/option.png" alt="option" />
-                                                    <h3>Like, enregistre des posts, partage ton profil à tes amis...</h3>
-                                                </div>
-                                                <div>
-                                                    <h2>Ça y est vous savez tout faire ?</h2>
-                                                    <h4>N'hésitez pas à contacter notre assistance en cas de problème via le chatbot en bas à gauche</h4>
-                                                    <h5>Cliqué sur le bouton pour valider le guide</h5>
-                                                    <button id='force_margin' onClick={handleValidationTuto}>Valider</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </>
-                                ) : null}
+                                        </>
+                                    ) : null}
 
                                 {typeAct === 0 && (
 
