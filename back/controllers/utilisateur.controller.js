@@ -44,7 +44,7 @@ exports.signup = (req, res) => {
     nouveauUser: true,
     idVille: null,
     description: null,
-    score: null,
+    score: 0,
     participation: null,
     estAdministrateur: null,
     abonnement: null,
@@ -52,7 +52,7 @@ exports.signup = (req, res) => {
     idRecompense: null,
     nombreSignalement: null,
     estBanni: null,
-    idRole: req.body.idRole,
+    idRole: 1,
     // listAnnonceEnregistre: null,
     noteVille: null // {"hygiene":5, "service":5, "evenement":5}
   };
@@ -233,7 +233,7 @@ exports.find_all = (req, res) => {
 exports.get_by_id = (req, res) => {
   Utilisateur.findOne({ where: { id: req.params.id } })
     .then(data => {
-      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements, "listRecompense": data.listRecompense, "listRecompenseEnCoursClaim": data.listRecompenseEnCoursClaim, "idVille": data.idVille, "nom": data.nom, "prenom": data.prenom, "profession": data.profession, "email": data.mail,"estNotif":data.estNotif });
+      res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements, "listRecompense": data.listRecompense, "listRecompenseEnCoursClaim": data.listRecompenseEnCoursClaim, "idVille": data.idVille, "nom": data.nom, "prenom": data.prenom, "profession": data.profession, "email": data.mail, "estNotif": data.estNotif });
     })
     .catch(err => {
       res.status(500).send({

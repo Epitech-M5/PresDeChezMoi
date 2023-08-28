@@ -28,9 +28,8 @@ exports.create = (req, res) => {
         }
     })
         .then(async user => {
+            console.log("@@@@@@@@@@@@@@@@@@@@@@@@", user)
             var annonceObjet
-            console.log('USER : ' + user)
-            console.log(user.idRole)
             // Si c'est un administrateur
             if (user.idRole == 3) {
                 annonceObjet = {
