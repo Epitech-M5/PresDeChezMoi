@@ -419,8 +419,8 @@ exports.update = (req, res) => {
 };
 
 exports.edit_password = (req, res) => {
-  console.log(" àààààààààààààààààààààààà")
-  console.log(req.body.motDePasse)
+  console.log("mot de passe", req.body.motDePasse)
+  console.log("mot de passe", req.userId)
   req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8),
     Utilisateur.update(req.body, {
       where: { id: req.userId }

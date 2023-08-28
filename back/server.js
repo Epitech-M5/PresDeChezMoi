@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./models");
-// db.sequelize.sync({ force: true })
+db.sequelize.sync({ force: true })
 const Role = db.roles;
 const Ville = db.ville;
 const TypeActivite = db.typeActivite;
