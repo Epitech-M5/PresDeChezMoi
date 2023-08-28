@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserMenu = (liDiffPosition, liFirstPosition) => {
   // l'image de profil de l'utilisateur est stocké dans le redux, celle-ci est automatiquement chargé
+  // au cas ou la position du menu c'est les param de .ms-nav impossible de le mettre en relative avec les autres balise (z-index 40000, container bye, ...)
 
   liFirstPosition = "140%"; // Première bulle
   liDiffPosition = "105%"; // diff entre les bulles
@@ -12,12 +13,13 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
 
   const navigate = useNavigate();
 
-  const handleNavigate = (goTo) => {
+  function handleNavigate(goTo){
+    // eslint-disable-next-line default-case
     switch (goTo) {
       case 1:
-        return navigate("/home/user-settings");
+        return navigate("/home/user/settings");
       case 2:
-        return console.log("se deconnecter");
+        return navigate("/login");
     }
   };
 
@@ -63,12 +65,12 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
         <div className="ms-nav-point"> </div>
 
         <li className="ms-li ms-li1 ms-li-first">
-          <a onClick={() => console.log("1111111111111")}>
+          <a onClick={() => handleNavigate(1)}>
             <span className="fa-solid fa-gear"></span>
           </a>
         </li>
         <li className="ms-li ms-li2">
-          <a onClick={() => console.log("2222222222222")}>
+          <a onClick={() => handleNavigate(2)}>
             <span className="fa-solid fa-right-from-bracket"></span>
           </a>
         </li>

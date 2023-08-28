@@ -27,8 +27,9 @@ a {
   position: absolute;
   width: 60px;
   height: 60px;
-  top: 30%;
-  right: 0%;
+  top: 15%;
+  right: 2%;
+  z-index: 101;
 }
 
 .ms-nav > .ms-main {
@@ -46,6 +47,8 @@ a {
 .ms-menu-toggle-lbl {
   overflow: hidden;
   cursor: pointer;
+  border: 3px solid transparent; /* Épaisseur et couleur de la bordure */
+  border-radius: 50%;
 }
 
 .ms-menu-toggle-lbl > img {
@@ -57,7 +60,7 @@ a {
   opacity: 0;
   position: absolute;
   border-radius: 100%;
-  background-color: orange;
+  background-color: $orange;
   top: 0px;
   right: 30%;
   width: 8px;
@@ -73,7 +76,7 @@ a {
 .ms-nav > li a {
   font-size: 30px;
   color: #ffffff;
-  background: linear-gradient(90deg, orange, red);
+  background: linear-gradient(90deg, $orange, red);
   width: 75px;
   height: 75px;
   display: block;
@@ -86,7 +89,7 @@ a {
 .ms-nav > .ms-li2 > a,
 .ms-nav > .ms-li3 > a {
   border-radius: 100%;
-  background: linear-gradient(to right, orange, red);
+  background: linear-gradient(to right, $orange, red);
   background-size: 200% 100%;
   transition: background-position 0.5s;
 
@@ -106,7 +109,7 @@ a {
   position: relative;
   text-align: center;
   z-index: 19;
-  background: linear-gradient(to right, orange red);
+  background: linear-gradient(to right, $orange red);
   background-size: 200% 100%;
   transition: background-position 0.5s;
 
@@ -333,35 +336,73 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
 /* Styles pour les écrans de taille comprise entre 992px et 1199px */
 @media (min-width: 992px) and (max-width: 1199px) {
   .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
-    transform: scale(0.8);
-    /* Rétrécissement à 80% de la taille originale */
+    transform: scale(0.7);
+    /* Rétrécissement à 70% de la taille originale */
   }
 
   .ms-nav > li a {
-    font-size: 20px;
+    font-size: 15px;
     width: 40px;
     height: 40px;
   }
 
   .ms-nav > .ms-main a,
   .ms-nav > .ms-main > a > label {
-    font-size: 30px;
+    font-size: 25px;
     width: 50px;
     height: 50px;
   }
 
   .ms-nav > .ms-main > h3 {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .ms-nav .ms-menu-toggle ~ .ms-li a span {
-    left: 13%;
-    top: 15%;
+    left: 4px;
+    top: 6px;
+  }
+
+  .fa-solid {
+    font-size: 30px !important;
   }
 }
 
 /* Styles pour les écrans de taille comprise entre 768px et 991px */
 @media (min-width: 768px) and (max-width: 991px) {
+  .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
+    transform: scale(0.7);
+    /* Rétrécissement à 70% de la taille originale */
+  }
+
+  .ms-nav > li a {
+    font-size: 15px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .ms-nav > .ms-main a,
+  .ms-nav > .ms-main > a > label {
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .ms-nav > .ms-main > h3 {
+    font-size: 18px;
+  }
+
+  .ms-nav .ms-menu-toggle ~ .ms-li a span {
+    left: 4px;
+    top: 6px;
+  }
+
+  .fa-solid {
+    font-size: 30px !important;
+  }
+}
+
+/* Styles pour les écrans de taille inférieure à 767px */
+@media (max-width: 767px) {
   .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
     transform: scale(0.7);
     /* Rétrécissement à 70% de la taille originale */
@@ -383,35 +424,13 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   .ms-nav > .ms-main > h3 {
     font-size: 18px;
   }
-}
-
-/* Styles pour les écrans de taille inférieure à 767px */
-@media (max-width: 767px) {
-  .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
-    transform: scale(0.6);
-    /* Rétrécissement à 60% de la taille originale */
-  }
-
-  .ms-nav > li a {
-    font-size: 12px;
-    width: 25px;
-    height: 25px;
-  }
-
-  .ms-nav > .ms-main a,
-  .ms-nav > .ms-main > a > label {
-    font-size: 20px;
-    width: 35px;
-    height: 35px;
-  }
-
-  .ms-nav > .ms-main > h3 {
-    font-size: 14px;
-  }
 
   .ms-nav .ms-menu-toggle ~ .ms-li a span {
-    left: -13%;
-    top: 15%;
+    left: 1px;
+  }
+
+  .fa-solid {
+    font-size: 25px !important;
   }
 }
 
