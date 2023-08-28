@@ -80,6 +80,7 @@ exports.find_all = (req, res) => {
 exports.find_all_by_ville = (req, res) => {
     Recompense.findAll({ where: { idVille: req.params.idVille } })
         .then(data => {
+            console.log("pour idville :", req.params.idVille, "  ", data)
             res.send(data);
         })
         .catch(err => {

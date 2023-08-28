@@ -14,6 +14,7 @@ const Post = () => {
     const [loading, setLoading] = useState(true);
     const user = useSelector((state) => state.utilisateur);
     const [dictionnaireUser, setDictionnaireUser] = useState({});
+    const [scoreValue, setScoreValue] = useState(0);
 
     useEffect(() => {
 
@@ -30,7 +31,7 @@ const Post = () => {
                 console.log('error', error);
                 setLoading(false);
             });
-    }, [data]);
+    }, []);
 
     useEffect(() => {
         setActiveId(1);
@@ -48,6 +49,11 @@ const Post = () => {
                 console.log('error', error);
             });
     }, []);
+
+
+    const handleInputChange = (event) => {
+        setScoreValue(event.target.value);
+    };
 
     const toggleUnderline = (id) => {
         setActiveId(id);
@@ -69,8 +75,31 @@ const Post = () => {
         }
     };
 
-    const handleOK = (id, type) => {
+    const handleEditScore = (idUser) => {
+        console.log("USERID POST : ", idUser)
+        getAPI(`http://${adresseip}:${port}/api/user/${idUser}`, {}, { "x-access-token": user.token })
+            .then((response) => {
+                var newScore = parseInt(scoreValue) + response.dataAPI.score
+                putAPI(`http://${adresseip}:${port}/api/user/${idUser}`, { "score": newScore }, { "x-access-token": user.token })
+                    .then((response) => {
+                        console.log(response)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
 
+        setScoreValue(0)
+    }
+
+
+    const handleOK = (id, type, idUser) => {
+        console.log("USERID POST OK : ", idUser)
+
+        handleEditScore(idUser)
         if (type === 'signale') {
 
             putAPI(`http://${adresseip}:${port}/api/annonce/${id}`, { 'estSignale': false }, { 'x-access-token': user.token })
@@ -101,7 +130,8 @@ const Post = () => {
 
     }
 
-    const handleSupp = (id) => {
+    const handleSupp = (id, idUser) => {
+        handleEditScore(idUser)
 
         deleteAPI(`http://${adresseip}:${port}/api/annonce/${id}`, {}, { 'x-access-token': user.token })
             .then((response) => {
@@ -114,6 +144,7 @@ const Post = () => {
     }
 
     const handleINap = (idAnnonce, idUser) => {
+        handleEditScore(idUser)
 
         deleteAPI(`http://${adresseip}:${port}/api/annonce/${idAnnonce}`, {}, { 'x-access-token': user.token })
             .then((response) => {
@@ -174,8 +205,8 @@ const Post = () => {
                                             </div>
 
                                             <div className="cont_right_sign">
-                                                <i className="fa-solid fa-thumbs-up" onClick={() => handleOK(item.id, 'signale')}></i>
-                                                <i className="fa-solid fa-thumbs-up fa-rotate-180" onClick={() => handleSupp(item.id)}></i>
+                                                <i className="fa-solid fa-thumbs-up" onClick={() => handleOK(item.id, 'signale', item.organisateur)}></i>
+                                                <i className="fa-solid fa-thumbs-up fa-rotate-180" onClick={() => handleSupp(item.id, item.organisateur)}></i>
                                                 <i className="fa-solid fa-circle-exclamation" onClick={() => handleINap(item.id, item.organisateur)}></i>
                                             </div>
 
@@ -204,9 +235,15 @@ const Post = () => {
                                             </div>
 
                                             <div className="cont_right_sign">
-                                                <i className="fa-solid fa-thumbs-up" onClick={() => handleOK(item.id, 'valide')}></i>
-                                                <i className="fa-solid fa-thumbs-up fa-rotate-180" onClick={() => handleSupp(item.id)}></i>
-                                                <i className="fa-solid fa-circle-exclamation" onClick={() => handleINap(item.id, item.organisateur)}></i>
+                                                <i className="fa-solid fa-thumbs-up" onClick={() => handleOK(item.id, 'valide', item.organisateur)}></i>
+                                                <i className="fa-solid fa-thumbs-up fa-rotate-180" onClick={() => handleSupp(item.id, item.organisateur)}></i>
+                                                <i className="fa-solid fa-circle-exclamation" onClick={() => handleINap(item.id, item.organisateur, item.organisateur)}></i>
+                                                <input
+                                                    type="number"
+                                                    value={scoreValue}
+                                                    onChange={handleInputChange}
+                                                    step={50}
+                                                />
                                             </div>
 
                                         </div>
