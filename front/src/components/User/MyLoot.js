@@ -17,7 +17,7 @@ const MyLoot = () => {
 
         getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
-                console.log("@@@@@@@@@@@@@@@@", response.dataAPI)
+
                 setDataScore(response.dataAPI);
                 setListRecompense(response.dataAPI.listRecompense)
                 setListRecompenseEnCours(response.dataAPI.listRecompenseEnCoursClaim)
@@ -34,6 +34,7 @@ const MyLoot = () => {
         getAPI(`http://${adresseip}:${port}/api/recompense/ville/${user.idVille}`, {}, { 'x-access-token': user.token })
             .then((response) => {
                 setTimeout(() => {
+                    console.log("@@@@@@@@@@@@@@@@LOOOOOOOOOOOOOOOOOOOT:", response.dataAPI)
                     setData(response.dataAPI);
                     setLoading(false);
                 }, 2000);

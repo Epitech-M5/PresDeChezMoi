@@ -119,6 +119,7 @@ const General = () => {
             var body = {
                 "nom": name,
                 "image": file.name,
+                "idVille": user.idVille,
                 "scoreNecessaire": numb
             }
 
