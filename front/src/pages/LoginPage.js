@@ -14,6 +14,7 @@ const port = process.env.REACT_APP_BACKEND_PORT
 
 
 const LoginPage = () => {
+
     const form = useRef();
 
     const dispatch = useDispatch();
@@ -31,6 +32,9 @@ const LoginPage = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const { addMessage, removeMessage, messages } = useMessageQueue();
+
+
+
     const handleNavigationRegister = (event) => {
 
         event.preventDefault();
@@ -46,7 +50,7 @@ const LoginPage = () => {
         else {
 
             axios
-                .post(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 2, "photoProfil": "1" })
+                .post(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 1, "photoProfil": "1" })
                 .then(response => {
 
                     // permet de récupérer les info utilisateurs retourné dans la response
@@ -115,9 +119,18 @@ const LoginPage = () => {
                     dispatch(fetchToken(data.accessToken));
                     dispatch(fetchRefreshToken(data.refreshToken));
                     dispatch(fetchUtilisateurData(infoUtilisateur));
-                    setTimeout(() => {
-                        navigate('/home')
-                    }, 3000);
+
+                    if (data.idRole === 4) {
+                        setTimeout(() => {
+                            navigate('/home/super-admin')
+                        }, 3000);
+                    }
+
+                    else {
+                        setTimeout(() => {
+                            navigate('/home')
+                        }, 3000);
+                    }
 
                 }).catch(error => {
                     console.log("error", error);
@@ -149,13 +162,7 @@ const LoginPage = () => {
     }
 
     const closeModal = () => {
-
-        const toClose = document.querySelector('.modal');
-        toClose.classList.add('closing');
-        setTimeout(() => {
-            setIsOpen(false);
-        }, 300);
-
+        setIsOpen(false);
     };
 
     const handlePassword_register = (event) => {
