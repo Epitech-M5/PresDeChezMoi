@@ -28,14 +28,14 @@ const Annonce = db.annonce;
 const Utilisateur = db.utilisateur;
 const Statuses = db.status;
 
-// db.sequelize.sync({ force: true })
-//     .then(() => {
-//         console.log("Drop and re-sync db.");
-//         initial() // temporaire pour test
-//     })
-//     .catch((err) => {
-//         console.log("Failed to sync db: " + err.message);
-//     });
+db.sequelize.sync({ force: true })
+    .then(() => {
+        console.log("Drop and re-sync db.");
+        initial() // temporaire pour test
+    })
+    .catch((err) => {
+        console.log("Failed to sync db: " + err.message);
+    });
 
 
 // =============================================
@@ -183,7 +183,7 @@ function ajoutUtilisateur() {
         estBanni: false,
         idRole: 3,
         // listAnnonceEnregistre: null
-    })    
+    })
 
 
     Utilisateur.create({
