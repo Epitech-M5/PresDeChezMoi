@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../Loader';
 import { getAPI } from '../../api';
 import UserMenu from './UserMenu';
-
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 
@@ -75,7 +74,7 @@ const ResearchBar = () => {
                         ))}
                     </div>
                 )}
-                < UserMenu />
+                <UserMenu />
             </div>
         </>
     );

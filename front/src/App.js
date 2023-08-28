@@ -52,6 +52,7 @@ const LandingContainer = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<PageNotFound navigation={"/"} />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/usermenu" element={<UserMenu />} />
       </Routes>
       <FooterLandingPage />
     </>

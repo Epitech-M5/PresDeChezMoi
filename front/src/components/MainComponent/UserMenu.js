@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const UserMenu = () => {
-  // a faire :
-  // - faire une props pour le logo
-  // - mettre le background des rond gradient avec le orange de la charte graphique
-  // - faire une props pour le spacing des rond
+const UserMenu = (liDiffPosition, liFirstPosition) => {
+  // l'image de profil de l'utilisateur est stocké dans le redux, celle-ci est automatiquement chargé
+
+  liFirstPosition = "140%"; // Première bulle
+  liDiffPosition = "105%"; // diff entre les bulles
 
   const user = useSelector((state) => state.utilisateur);
 
@@ -15,28 +15,40 @@ const UserMenu = () => {
   const handleNavigate = (goTo) => {
     switch (goTo) {
       case 1:
-        return navigate('/home/user-settings');
+        return navigate("/home/user-settings");
       case 2:
-        return console.log('se deconnecter')
+        return console.log("se deconnecter");
     }
   };
 
   return (
     <div className="ms-nav-container">
-      <ul className="ms-nav">
+      <ul
+        className="ms-nav"
+        style={{
+          "--liFirstPosition": liFirstPosition,
+          "--liDiffPosition": liDiffPosition,
+        }}
+      >
         <input
           type="checkbox"
           id="ms-menu"
           className="ms-menu-toggle"
           name="ms-menu-toggle"
-          onClick={console.log('logo clicked')}
+          onClick={console.log("logo clicked")}
         />
         <li className="ms-main">
-          <a>
+          <a onClick={() => console.log("00000")}>
+            {/* <a onClick={console.log('morgan ca bug')}> */}
+            {/* un console.log onClick c'est comme ça : onClick={() => console.log('morgan ca bug')} */}
             <label className="ms-menu-toggle-lbl" for="ms-menu">
-              <img src={`${user.pathImage}`} alt="logo" className="userProfile" />
-              <h3>{user.pseudo}</h3>
+              <img
+                src={`../../media/img/${user.photoProfil}.png`}
+                alt="logo"
+                className="userProfile"
+              />
             </label>
+            <h3>{user.pseudo}</h3>
           </a>
         </li>
         <div className="ms-nav-point"> </div>
@@ -51,18 +63,17 @@ const UserMenu = () => {
         <div className="ms-nav-point"> </div>
 
         <li className="ms-li ms-li1 ms-li-first">
-          <a onClick={console.log('bouton 1')}>
+          <a onClick={() => console.log("1111111111111")}>
             <span className="fa-solid fa-gear"></span>
           </a>
         </li>
         <li className="ms-li ms-li2">
-          <a onClick={console.log('bouton 2')}>
+          <a onClick={() => console.log("2222222222222")}>
             <span className="fa-solid fa-right-from-bracket"></span>
           </a>
         </li>
-
       </ul>
-    </div >
+    </div>
   );
 };
 
