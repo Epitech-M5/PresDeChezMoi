@@ -242,6 +242,37 @@ exports.get_by_id = (req, res) => {
       });
     });
 };
+
+exports.find_by_email = (req, res) => {
+  const email = req.params.email; // Récupérez l'e-mail à partir des paramètres de la requête
+
+  Utilisateur.findOne({ where: { mail: email } }) // Recherchez l'utilisateur par e-mail
+    .then(user => {
+      if (!user) {
+        return res.status(404).send({ message: 'Utilisateur introuvable' });
+      }
+      console.log("USERRRRRRRRRR",user)
+      // CREATION TOKEN
+      // Création du token à la connexion
+      var token = jwt.sign({ id: user.id }, config.secret, {
+        expiresIn: config.jwtExpirationMdpOublie
+      });
+      // Retournez les détails de l'utilisateur
+      res.status(200).json({ token: token });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Une erreur est survenue lors de la récupération de l'utilisateur par e-mail."
+      });
+    });
+};
+
+exports.check_token_mdp_oublie = (req, res) => {
+  console.log("check_token")
+  res.status(200).send({ message: "ok" });
+
+};
+
 exports.get_likes = (req, res) => {
   Utilisateur.findOne({
     where: {

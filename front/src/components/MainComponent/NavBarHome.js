@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "./Modal";
 import DropDownBtn from "./DropDownBtn";
+import ButtonDisconnect from "./Disconnect";
 import MessageQueue, {
   useMessageQueue,
 } from "../../components/MessageQueue.js";
@@ -653,6 +654,7 @@ const NavBarHome = (props) => {
 
   return (
     <>
+    
       <Modal isOpen={isOpen} onClose={closeModal}>
         <div className="container_x">
           <i className="fa-solid fa-xmark" onClick={closeModal}></i>
@@ -717,7 +719,7 @@ const NavBarHome = (props) => {
                 }`}
               onClick={() => toggleUnderline(1)}
             >
-              Acceuil
+              Accueil
             </h1>
             <h1
               className={`underline-animation ${activeId === 2 ? "underline" : ""
@@ -752,8 +754,10 @@ const NavBarHome = (props) => {
               Messages
             </h1>
           </div>
+
         </div>
         {allButtons}
+                <ButtonDisconnect></ButtonDisconnect>
       </div>
       <div className="container_forphone_navbar" onClick={handleToggle}>
         <i class="fa-solid fa-greater-than"></i>
@@ -766,7 +770,7 @@ const NavBarHome = (props) => {
                 }`}
               onClick={() => toggleUnderline(1)}
             >
-              Acceuil
+              Accueil
             </h1>
           </div>
           <div className="toAlign">
@@ -811,6 +815,7 @@ const NavBarHome = (props) => {
             </h1>
           </div>
           {allButtons}
+          <button  >Déconnexion</button>
         </div>
       </div>
     </>

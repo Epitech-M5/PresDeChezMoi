@@ -45,6 +45,16 @@ module.exports = app => {
     utilisateur.find_note_by_ville
   );
 
+  router.get("/user_by_email/:email",
+    utilisateur.find_by_email
+  );
+
+  router.get("/check_token_mdp_oublie",
+  [authJwt.verifyToken],
+  utilisateur.check_token_mdp_oublie
+);
+
+
   router.put("/edit_password/", [authJwt.verifyToken], utilisateur.edit_password);
 
   // Modification d'un utilisateur en utilisant l'id utilisateur depuis le token ou bien par choix de l'administrateur
