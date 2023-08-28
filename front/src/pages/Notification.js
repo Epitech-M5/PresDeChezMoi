@@ -7,7 +7,6 @@ const port = process.env.REACT_APP_BACKEND_PORT;
 
 const Notification = () => {
   const [dataNotif, setDataNotif] = useState([]);
-  console.log("ICICICIICIC",dataNotif)
   const user = useSelector((state) => state.utilisateur);
 
   const deleteNotif = (e) => {
