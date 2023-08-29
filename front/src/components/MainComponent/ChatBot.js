@@ -76,7 +76,7 @@ const ChatBot = () => {
           </div>
         </div>
         <div className="container_send_msg_chatbot">
-          <div className="center_forchatbot">
+          <div className="center_forchatbot v2">
             <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
             <i class="fa-solid fa-paper-plane" onClick={sendMessage}></i>
           </div>

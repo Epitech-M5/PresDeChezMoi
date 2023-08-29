@@ -33,6 +33,8 @@ const LoginPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { addMessage, removeMessage, messages } = useMessageQueue();
+
+
   const handleNavigationRegister = (event) => {
     event.preventDefault();
 
@@ -148,6 +150,8 @@ const LoginPage = () => {
           dispatch(fetchToken(data.accessToken));
           dispatch(fetchRefreshToken(data.refreshToken));
           dispatch(fetchUtilisateurData(infoUtilisateur));
+
+          alert(data.idRole)
 
           if (data.idRole === 4) {
             setTimeout(() => {

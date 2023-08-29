@@ -2,6 +2,12 @@
     width: $width-navbar-home;
 }
 
+.other_container_pdp i,
+.container_right_pdp i,
+.container_bottom_post i {
+    font-size: 1rem !important;
+}
+
 .container_2_home {
     width: $width-feed;
     position: relative;
@@ -14,7 +20,7 @@
 }
 
 .spacing {
-    width: 100%;
+    width: 95%;
     margin-top: 90px !important;
     height: auto;
     display: flex;
