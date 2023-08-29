@@ -104,6 +104,41 @@
     border: 1px solid $green;
 }
 
+.container_allcitysuperamd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.map_city_superadm {
+    width: 80%;
+    height: 400px;
+    overflow-y: scroll;
+    text-align: center;
+    background-color: $white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+}
+
+.map_city_superadm p {
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid $dark-grey;
+}
+
+.map_city_superadm p:hover {
+    background-color: $grey;
+    cursor: pointer;
+}
+
+.container_title_superadm span {
+    font-size: 24px !important;
+    color: $green;
+    letter-spacing: 2px;
+}
+
+
 @media(max-width:570px) {
 
     .container_inputs_create input {

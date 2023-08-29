@@ -7,7 +7,7 @@ import Loader from '../Loader.js';
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 
-const AddAdmin = () => {
+const ModifAdm = () => {
 
     const navigate = useNavigate();
 
@@ -19,10 +19,6 @@ const AddAdmin = () => {
     const [loading, setLoading] = useState(true);
     const [idVille, setIdVille] = useState();
     const [nameVille, setNameVille] = useState("");
-    const [nameAdm, setNameAdm] = useState("");
-    const [mailAdm, setMailAdm] = useState("");
-    const [mdpAdm, setMdpAdm] = useState("");
-    const [idAdm, setIdAdm] = useState();
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
@@ -42,30 +38,6 @@ const AddAdmin = () => {
         setNameVille(nameVille);
     }
 
-    const handleCreateAdmin = () => {
-
-        if (nameAdm.length <= 0 || mailAdm.length <= 0 || mailAdm.length <= 0) {
-            addMessage('Tous les champs doivent être remplies', 'info');
-        }
-        else {
-            postAPI(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": nameAdm, "mail": mailAdm, "motDePasse": mdpAdm, "idRole": 3, "photoProfil": "1" }, {})
-                .then((response) => {
-                    addMessage('Admin pour ' + nameVille + ' à été crée avec succès !', 'success');
-                    setIdAdm(response.dataAPI.id);
-                })
-                .catch((error) => {
-                    addMessage(`Erreur : + ${error}`, 'error');
-                })
-
-            putAPI(`http://${adresseip}:${port}/api/user/${idAdm}`, { 'idVille': idVille }, { "x-access-token": user.token })
-                .then((response) => {
-                })
-                .catch((error) => {
-                    addMessage(`Erreur : + ${error}`, 'error');
-                })
-        }
-    }
-
     return (
         <>
             <MessageQueue messages={messages} removeMessage={removeMessage} />
@@ -73,7 +45,7 @@ const AddAdmin = () => {
                 <div className="container_title_superadm">
                     {idVille ? (
                         <>
-                            <h1>Ajouter un administrateur à la ville de : <span>{nameVille}</span></h1>
+                            <h1>Modifer un administrateur de la ville de : <span>{nameVille}</span></h1>
                         </>
                     ) : (
                         <>
@@ -85,14 +57,7 @@ const AddAdmin = () => {
 
                 {idVille ? (
                     <>
-                        <div className="container_inputs_create">
-                            <div className="wrapper_inputs_createcity">
-                                <input type="text" placeholder='Nom admin' onChange={(event) => setNameAdm(event.target.value)} />
-                                <input type="password" placeholder='Mot de passe' onChange={(event) => setMdpAdm(event.target.value)} />
-                                <input type="email" placeholder='Email' onChange={(event) => setMailAdm(event.target.value)} />
-                                <button onClick={handleCreateAdmin}>Créer</button>
-                            </div>
-                        </div>
+                        <h1>map tous les admins de la ville</h1>
                     </>
                 ) : (
                     <>
@@ -132,4 +97,4 @@ const AddAdmin = () => {
     );
 };
 
-export default AddAdmin;
+export default ModifAdm;

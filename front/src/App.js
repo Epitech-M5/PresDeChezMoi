@@ -41,6 +41,7 @@ import SuperAdm from "./components/Admin/SuperAdm";
 import { useNavigate } from "react-router-dom";
 import AddAdmin from "./components/Admin/AddAdmin";
 import AddCity from "./components/Admin/AddCity";
+import ModifAdm from "./components/Admin/ModifAdm";
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 
@@ -402,16 +403,28 @@ const UserContainer = () => {
 }
 
 const SuperAdminContainer = () => {
-  return (
-    <>
-      <Routes>
-        <Route path="*" element={<PageNotFound navigation={"/login"} />} />
-        <Route path="/" element={<SuperAdm />} />
-        <Route path="/add-admin" element={<AddAdmin />} />
-        <Route path="/add-city" element={<AddCity />} />
-      </Routes>
-    </>
-  )
+
+  const user = useSelector((state) => state.utilisateur)
+
+  if (user.isLogin && user.idRole === 4) {
+
+    return (
+      <>
+        <Routes>
+          <Route path="*" element={<PageNotFound navigation={"/login"} />} />
+          <Route path="/" element={<SuperAdm />} />
+          <Route path="/add-admin" element={<AddAdmin />} />
+          <Route path="/add-city" element={<AddCity />} />
+          <Route path="/modif-admin" element={<ModifAdm />} />
+          <Route path="/modif-city" element={<ModifCity />} />
+        </Routes>
+      </>
+    )
+  }
+
+  else {
+    return (<Navigate to="/login" replace />);
+  }
 }
 
 const App = () => {
