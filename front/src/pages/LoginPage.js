@@ -66,7 +66,7 @@ const LoginPage = () => {
             pseudo: data.pseudo,
             idRole: data.idRole,
             idutilisateur: data.id,
-            idVille: data.idVille,
+            // idVille: data.idVille,
             photoProfil: data.photoProfil,
           };
           addMessage(
@@ -183,11 +183,11 @@ const LoginPage = () => {
     } else {
       // Check si l'user existe
       getAPI(
-        `http://${adresseip}:${port}/api/user/user_by_email/${mailPassword}`,{}
+        `http://${adresseip}:${port}/api/user/user_by_email/${mailPassword}`, {}
       )
         .then((response) => {
           if (response.dataAPI) {
-            console.log("ICICICICICICICICICICICICIIICIC",`http://127.0.0.1:3000/forgot-password?key=${response.dataAPI.token}`)
+            console.log("ICICICICICICICICICICICICIIICIC", `http://127.0.0.1:3000/forgot-password?key=${response.dataAPI.token}`)
             setLink(`http://127.0.0.1:3000/forgot-password?key=${response.dataAPI.token}`);
 
             addMessage("Votre message à bien été envoyé", "success");
@@ -209,7 +209,7 @@ const LoginPage = () => {
                   console.log(error.text);
                 }
               );
-          }else {
+          } else {
             alert("Le mail n'éxiste pas");
 
           }
