@@ -19,7 +19,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./models");
-db.sequelize.sync({ force: true })
 const Role = db.roles;
 const Ville = db.ville;
 const TypeActivite = db.typeActivite;
@@ -28,14 +27,14 @@ const Annonce = db.annonce;
 const Utilisateur = db.utilisateur;
 const Statuses = db.status;
 
-db.sequelize.sync({ force: true })
-    .then(() => {
-        console.log("Drop and re-sync db.");
-        initial() // temporaire pour test
-    })
-    .catch((err) => {
-        console.log("Failed to sync db: " + err.message);
-    });
+// db.sequelize.sync({ force: true })
+//     .then(() => {
+//         console.log("Drop and re-sync db.");
+//         initial() // temporaire pour test
+//     })
+//     .catch((err) => {
+//         console.log("Failed to sync db: " + err.message);
+//     });
 
 
 // =============================================

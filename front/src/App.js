@@ -12,7 +12,7 @@ import AnimateBackground from "./components/AnimateBackground";
 import PageNotFound from "./pages/PageNotFound";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
-import ChatBot from "./components/MainComponent/ChatBot";
+import ChatBot from "./components/MainComponent/ChatBot/ChatBot";
 import NavBarHome from "./components/MainComponent/NavBarHome";
 import UserMenu from "./components/MainComponent/UserMenu";
 import ResearchBar from "./components/MainComponent/ResearchBar";
@@ -51,6 +51,7 @@ const LandingContainer = () => {
         <Route path="/team" element={<TeamPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/chat" element={<Chat />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<PageNotFound navigation={"/"} />} />
         <Route path="/test" element={<Test />} />
@@ -180,6 +181,7 @@ const HomeContainer = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/test" element={<Test />} />
                 <Route path="/notif" element={<Notification />} />
+                <Route path="/chat" element={<Chat />} />
                 <Route path="/map" element={<MapPage />} />
                 <Route path="*" element={<PageNotFound navigation={"/home"} />} />
               </Routes>
