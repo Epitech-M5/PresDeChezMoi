@@ -124,20 +124,6 @@ const HomeContainer = () => {
     )
   }
 
-  else if (user.isLogin && user.idRole === 4) {
-
-    return (
-      <>
-        <Routes>
-          {/* <Route path="*" element={<PageNotFound navigation={"/login"} />} /> */}
-          <Route path="super-admin" element={<SuperAdm />} />
-          <Route path="super-admin/add-admin" element={<AddAdmin />} />
-          <Route path="super-admin/add-city" element={<AddCity />} />
-        </Routes>
-      </>
-    )
-  }
-
   else {
     if (user.isLogin && user.idRole === 3 || user.isLogin && user.idRole === 2) {
       return (
@@ -413,6 +399,19 @@ const UserContainer = () => {
   }
 }
 
+const SuperAdminContainer = () => {
+  return (
+    <>
+      <Routes>
+        <Route path="*" element={<PageNotFound navigation={"/login"} />} />
+        <Route path="/" element={<SuperAdm />} />
+        <Route path="/add-admin" element={<AddAdmin />} />
+        <Route path="/add-city" element={<AddCity />} />
+      </Routes>
+    </>
+  )
+}
+
 const App = () => {
 
   const [loading, setLoading] = useState(true);
@@ -432,6 +431,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/*" element={<LandingContainer />} />
+            <Route path="/super-admin/*" element={<SuperAdminContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
             <Route path="/home/user/*" element={<UserContainer />} />
