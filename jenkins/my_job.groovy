@@ -14,11 +14,13 @@ pipelineJob('Update_Deployment') {
                         stage('Déploiement') {
                             steps {
                                 script {
-                                    def remoteServer = '129.151.234.208'
+                                    def remoteServer = '129.151.239.123'
                                     def remoteUser = 'ubuntu'
 
-                                    sh "ssh ${remoteUser}@${remoteServer} sudo docker stop t-yep-600-mar-6-1-finalproject-mateosalvy-back-1 && sudo docker rm t-yep-600-mar-6-1-finalproject-mateosalvy-back-1"
-                                    sh "ssh ${remoteUser}@${remoteServer} sudo docker stop t-yep-600-mar-6-1-finalproject-mateosalvy-front-1 && sudo docker rm t-yep-600-mar-6-1-finalproject-mateosalvy-front-1"
+                                    sh "ssh ${remoteUser}@${remoteServer} sudo docker stop t-yep-600-mar-6-1-finalproject-mateosalvy-back-1"
+                                    sh "ssh ${remoteUser}@${remoteServer} sudo docker rm t-yep-600-mar-6-1-finalproject-mateosalvy-back-1"
+                                    sh "ssh ${remoteUser}@${remoteServer} sudo docker stop t-yep-600-mar-6-1-finalproject-mateosalvy-front-1"
+                                    sh "ssh ${remoteUser}@${remoteServer} sudo docker rm t-yep-600-mar-6-1-finalproject-mateosalvy-front-1"
                                     sh "ssh ${remoteUser}@${remoteServer} sudo docker rmi t-yep-600-mar-6-1-finalproject-mateosalvy-back"
                                     sh "ssh ${remoteUser}@${remoteServer} sudo docker rmi t-yep-600-mar-6-1-finalproject-mateosalvy-front"
                                     sh "ssh ${remoteUser}@${remoteServer} cd T-YEP-600-MAR-6-1-finalproject-mateo.salvy && sudo git pull && sudo docker-compose up -d"
