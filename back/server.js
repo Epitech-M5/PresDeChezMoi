@@ -250,6 +250,28 @@ function ajoutUtilisateur() {
         idRole: 2,
         // listAnnonceEnregistre: null
     })
+
+    Utilisateur.create({
+        id: 5,
+        pseudo: "SuperAdmin",
+        nom: "SuperAdmin",
+        prenom: "SuperAdmin",
+        photoProfil: 5,
+        mail: "superadmin@gmail.com",
+        motDePasse: bcrypt.hashSync("superAdmin", 8),
+        description: "Profil SuperAdmin pour test",
+        nouveauUser: false,
+        idVille: 1,
+        score: 20000,
+        participation: null,
+        estAdministrateur: false,
+        abonnement: null,
+        profession: "SPM",
+        nombreSignalement: 0,
+        estBanni: false,
+        idRole: 4,
+        // listAnnonceEnregistre: null
+    })
 }
 
 

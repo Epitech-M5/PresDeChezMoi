@@ -34,7 +34,7 @@ services:
       - mariadb
     build: ./back/
     ports:
-      - "8081:8081"
+      - "8082:8082"
     environment:
       TZ: Europe/Paris
     restart: always
