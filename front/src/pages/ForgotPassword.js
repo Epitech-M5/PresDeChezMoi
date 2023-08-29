@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP;
 const port = process.env.REACT_APP_BACKEND_PORT;
+
+
 const ForgotPassword = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [eye1, setEye1] = useState(false);
   const [eye2, setEye2] = useState(false);
   const [status, setStatus] = useState(false);
@@ -43,10 +45,10 @@ const ForgotPassword = () => {
             { "x-access-token": tokenUser }
           )
             .then((response) => {
-                addMessage("La modification du mot de passe a bien été prise en compte", "info");
-                setTimeout(() => {
-                    navigate("/");
-                }, 5000);
+              addMessage("La modification du mot de passe a bien été prise en compte", "info");
+              setTimeout(() => {
+                navigate("/");
+              }, 5000);
             })
             .catch((error) => {
               console.log("error response mdp oublie", error);

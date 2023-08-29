@@ -19,6 +19,8 @@ const ModifAdm = () => {
     const [loading, setLoading] = useState(true);
     const [idVille, setIdVille] = useState();
     const [nameVille, setNameVille] = useState("");
+    const [allUser, setAllUser] = useState([]);
+    const [adminSelected, setAdminSelected] = useState();
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
@@ -33,9 +35,26 @@ const ModifAdm = () => {
             });
     }, [])
 
-    const handleChoiceCity = (idVille, nameVille) => {
+    const handleChoiceCity = async (idVille, nameVille) => {
         setIdVille(idVille);
         setNameVille(nameVille);
+        setLoading(true);
+
+        await getAPI(`http://${adresseip}:${port}/api/user/by_ville/${idVille}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+                console.log('EEEEEEEEEEEEEEEEEE', response.dataAPI)
+                setAllUser(response.dataAPI)
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const handleChoiceUserToModif = (idAdmin) => {
+        setAdminSelected(idAdmin);
     }
 
     return (
@@ -57,7 +76,32 @@ const ModifAdm = () => {
 
                 {idVille ? (
                     <>
-                        <h1>map tous les admins de la ville</h1>
+                        <div className="container_allcitysuperamd">
+                            <div className="map_city_superadm">
+                                {loading ? (
+                                    <Loader />
+                                ) : adminSelected ? (
+                                    <>
+                                        <h1>you selected {adminSelected} </h1>
+                                        <input type="text" placeholder='Nom' />
+                                        <input type="text" placeholder='Email' />
+                                        <input type="text" placeholder='Mot de passe' />
+                                        <button>Supprimer le compte</button>
+                                        <button>Modifier sa ville</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        {
+                                            allUser.filter(item => item.idRole === 3).map((item) => (
+                                                <>
+                                                    <p key={item.key} onClick={() => handleChoiceUserToModif(item.id)}>{item.nom}</p>
+                                                </>
+                                            ))
+                                        }
+                                    </>
+                                )}
+                            </div>
+                        </div>
                     </>
                 ) : (
                     <>
