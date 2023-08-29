@@ -62,7 +62,7 @@ const LoginPage = () => {
             pseudo: data.pseudo,
             idRole: data.idRole,
             idutilisateur: data.id,
-            idVille: data.idVille,
+            // idVille: data.idVille,
             photoProfil: data.photoProfil,
           };
           addMessage('Votre compte a bien été crée ! Attendez quelques instant...', 'success');

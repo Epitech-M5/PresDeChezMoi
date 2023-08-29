@@ -6,13 +6,13 @@ export const utilisateurSlice = createSlice({
     initialState: {
         token: "",
         isLogin: false,
-        pseudo:"",
-        score:0,
-        photoProfil:"",
-        idRole:0,
-        idVille:0,
-        refreshToken:"",
-        idutilisateur:0
+        pseudo: "",
+        score: 0,
+        photoProfil: "",
+        idRole: 0,
+        idVille: 0,
+        refreshToken: "",
+        idutilisateur: 0
     },
     reducers: {
         isLogin: (state, action) => {
@@ -24,12 +24,14 @@ export const utilisateurSlice = createSlice({
         fetchRefreshToken: (state, action) => {
             state.refreshToken = action.payload;
         },
-        fetchUtilisateurData:(state,action)=> {
-            const {pseudo, idutilisateur, idRole, photoProfil, idVille} = action.payload
+        fetchVille: (state, action) => {
+            state.idVille = action.payload;
+        },
+        fetchUtilisateurData: (state, action) => {
+            const { pseudo, idutilisateur, idRole, photoProfil, idVille } = action.payload
             state.pseudo = pseudo
             state.idutilisateur = idutilisateur
             state.idRole = idRole
-            state.idVille = idVille
             if (photoProfil) {
                 state.photoProfil = photoProfil
             }
@@ -40,4 +42,4 @@ export const utilisateurSlice = createSlice({
 
 
 // En définissant mes reducer (plus haut) redux m'a crée mes action (creator action) ! ! !
-export const { isLogin, fetchUtilisateurData, fetchToken, fetchRefreshToken } = utilisateurSlice.actions;
+export const { isLogin, fetchUtilisateurData, fetchToken, fetchRefreshToken, fetchVille } = utilisateurSlice.actions;

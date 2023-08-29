@@ -36,16 +36,23 @@ import MySave from "./components/User/MySave";
 import MyLoot from "./components/User/MyLoot";
 import ViewProfile from "./pages/ViewProfile";
 import MapPage from "./pages/MapPage";
+
 import ModifCity from "./components/Admin/ModifCity";
 import SuperAdm from "./components/Admin/SuperAdm";
 import { useNavigate } from "react-router-dom";
 import AddAdmin from "./components/Admin/AddAdmin";
 import AddCity from "./components/Admin/AddCity";
+
+import { useDispatch } from "react-redux";
+import { fetchVille } from "./redux/Utilisateur";
+
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 
 
 const LandingContainer = () => {
+
+
   return (
 
     <>
@@ -69,7 +76,7 @@ const LandingContainer = () => {
 };
 
 const HomeContainer = () => {
-
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.utilisateur)
   const [idVille, setIdVille] = useState([])
   const [dataVille, setDataVille] = useState([]);
@@ -107,10 +114,12 @@ const HomeContainer = () => {
   }, [])
 
   const handleChoice = (ville) => {
-
+    console.log('IDVILLE :', ville)
     putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'idVille': ville }, { 'x-access-token': user.token })
       .then((response) => {
         setIdVille(ville);
+        dispatch(fetchVille(ville));
+
       })
       .catch((error) => {
         console.log(error);
