@@ -117,15 +117,12 @@ const LoginPage = () => {
           dispatch(fetchUtilisateurData(infoUtilisateur));
 
           if (data.idRole === 4) {
-
-            alert('in if')
             setTimeout(() => {
               navigate('/super-admin')
             }, 3000);
           }
 
           else {
-            alert('in else')
             setTimeout(() => {
               navigate('/home')
             }, 3000);
