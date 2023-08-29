@@ -14,13 +14,13 @@ const SuperAdm = () => {
                 <div className="wrapper_superadm">
                     <div className="container_left_superadm">
                         <h1>Administrateur</h1>
-                        <button onClick={() => navigate('/home/super-admin/add-admin')}>Nommer administrateur</button>
-                        <button onClick={() => navigate('/home/super-admin/add-admin')}>Modifier administrateur</button>
+                        <button onClick={() => navigate('/super-admin/add-admin')}>Nommer administrateur</button>
+                        <button onClick={() => navigate('/super-admin/modif-admin')}>Modifier administrateur</button>
                     </div>
                     <div className="container_right_superadm">
                         <h1>Ville</h1>
-                        <button onClick={() => navigate('/home/super-admin/add-city')}>Créer ville</button>
-                        <button onClick={() => navigate('/home/super-admin/add-city')}>Modifier ville</button>
+                        <button onClick={() => navigate('/super-admin/add-city')}>Créer ville</button>
+                        <button onClick={() => navigate('/super-admin/modif-city')}>Modifier ville</button>
                     </div>
                     <div className="container_right_superadm deco">
                         <h1>Déconnexion</h1>
