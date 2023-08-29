@@ -1,5 +1,5 @@
 ---
-- name: Deployment projet (BDD + front + back) version ARM
+- name: Deployment projet (BDD + front + back) version ARM avec bascule sur la branche de dev
   hosts: VM
   become: true
   become_method: sudo
@@ -41,9 +41,9 @@
     - name: Clone du référentiel Git
       shell: sudo git clone {{repo_git}}
 
-    - name: Lancement docker-compose
+    - name: Bascule sur la branche de dev && Lancement docker-compose
       become: true
-      shell: cd T-YEP-600-MAR-6-1-finalproject-mateo.salvy && sudo git checkout dev && sudo docker-compose up -d
+      shell: cd T-YEP-600-MAR-6-1-finalproject-mateo.salvy && sudo docker-compose up -d
 
     - name: Ajout port 3306 MariaDB
       become: true
