@@ -255,7 +255,6 @@ const LoginPage = () => {
       )
         .then((response) => {
           if (response.dataAPI) {
-            console.log("ICICICICICICICICICICICICIIICIC", `http://127.0.0.1:3000/forgot-password?key=${response.dataAPI.token}`)
             setLink(`http://127.0.0.1:3000/forgot-password?key=${response.dataAPI.token}`);
 
             addMessage("Votre message à bien été envoyé", "success");

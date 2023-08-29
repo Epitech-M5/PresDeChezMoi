@@ -59,7 +59,7 @@ db.ticket.belongsTo(db.utilisateur, {
     foreignKey: 'idUtilisateur', targetKey: 'id'
 });
 db.utilisateur.hasOne(db.ticket, {
-    foreignKey: 'idTicket', targetKey: 'id'
+    foreignKey: 'idUtilisateur', targetKey: 'id'
 });
 
 // Foreign key (idStatus -> ticket(table))
