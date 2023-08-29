@@ -25,7 +25,7 @@ exports.create = (req, res) => {
 
     // Create ticket
     const ticketObjet = {
-        idUtilisateur: req.body.idUtilisateur,
+        idUtilisateur: req.userId,
         titre: req.body.titre,
         idStatus: req.body.idStatus,
         message: req.body.message,
@@ -231,4 +231,29 @@ exports.find_all_by_date= (req, res) => {
         });
     });
 
+};
+
+exports.find_one_by_user= (req, res) => {
+    const id = req.params.id;
+
+    Ticket.findAll({
+            
+    where: {
+        idUtilisateur: id
+    },
+    include: [{
+        model: Status,
+        attributes: ['titre']
+    }]
+    })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).send({
+            message:
+                err.message || "Une erreur est survenu pour retrouver le ticket."
+        });
+    });
 };
