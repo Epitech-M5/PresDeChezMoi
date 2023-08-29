@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAPI } from '../../api';
+import { getAPI, putAPI, postAPI } from '../../api';
 import { useSelector } from 'react-redux';
 import Loader from '../Loader';
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
@@ -12,39 +12,6 @@ const MyLoot = () => {
     const [dataScore, setDataScore] = useState([]);
     const [listRecompense, setListRecompense] = useState([]);
     const [listRecompenseEnCours, setListRecompenseEnCours] = useState([]);
-
-    useEffect(() => {
-
-        getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
-            .then((response) => {
-
-                setDataScore(response.dataAPI);
-                setListRecompense(response.dataAPI.listRecompense)
-                setListRecompenseEnCours(response.dataAPI.listRecompenseEnCoursClaim)
-
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-    }, []);
-
-    useEffect(() => {
-
-        getAPI(`http://${adresseip}:${port}/api/recompense/ville/${user.idVille}`, {}, { 'x-access-token': user.token })
-            .then((response) => {
-                setTimeout(() => {
-                    console.log("@@@@@@@@@@@@@@@@LOOOOOOOOOOOOOOOOOOOT:", response.dataAPI)
-                    setData(response.dataAPI);
-                    setLoading(false);
-                }, 2000);
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            });
-
-    }, []);
 
     const traitement = (idRecompense, item) => {
         console.log(")))))))", listRecompense, '))', listRecompenseEnCours, "))", listRecompense.includes(idRecompense), "))", idRecompense)
@@ -66,15 +33,93 @@ const MyLoot = () => {
             return (
                 <>
                     <h1>{item.image}</h1>
+                    <button onClick={() => handleClaimAward(idRecompense, item)}>Cliquez-moi</button>
                 </>
             )
         }
 
     }
 
+    useEffect(() => {
+
+        getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+
+                setDataScore(response.dataAPI);
+                setListRecompense(response.dataAPI.listRecompense)
+                setListRecompenseEnCours(response.dataAPI.listRecompenseEnCoursClaim)
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }, [data]);
+
+    useEffect(() => {
+
+        getAPI(`http://${adresseip}:${port}/api/recompense/ville/${user.idVille}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+                setTimeout(() => {
+                    console.log("@@@@@@@@@@@@@@@@LOOOOOOOOOOOOOOOOOOOT:", response.dataAPI)
+                    setData(response.dataAPI);
+                    setLoading(false);
+                }, 2000);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+
+    }, []);
+
+
     const isLocked = (userScore, requiredScore) => {
         console.log(userScore, requiredScore)
         return userScore > requiredScore;
+    };
+    const handleClaimAward = (idItem, item) => {
+        // Créer un ticket
+        getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+                console.log("CLLLLLLLLAAAAAIIIIIIIMMMMM :", response.dataAPI.listRecompenseEnCoursClaim)
+                var arrayClaimEnCours = JSON.parse(response.dataAPI.listRecompenseEnCoursClaim)
+                arrayClaimEnCours.push(idItem)
+                console.log("CLLLLLLLLAAAAAIIIIIIIMMMMM2 :", arrayClaimEnCours)
+
+                putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'listRecompenseEnCoursClaim': arrayClaimEnCours }, { 'x-access-token': user.token })
+                    .then((response) => {
+                        postAPI(
+                            `http://${adresseip}:${port}/api/ticket/`,
+                            {
+                                idUtilisateur: user.idutilisateur,
+                                titre: `J'ai obtenu la récompense "${item.nom}", merci de me l'envoyer`,
+                                idStatus: 1,
+                                message: `Demande automatique`,
+                                dateCreation: new Date
+                            },
+                            { "x-access-token": user.token }
+                        )
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        // getAPI(`http://${adresseip}:${port}/api/recompense/ville/${user.idVille}`, {}, { 'x-access-token': user.token })
+        //     .then((response) => {
+        //         setTimeout(() => {
+        //             console.log("@@@@@@@@@@@@@@@@LOOOOOOOOOOOOOOOOOOOT:", response.dataAPI)
+        //             setData(response.dataAPI);
+        //         }, 2000);
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
     };
 
     const sortedData = data.sort((a, b) => a.scoreNecessaire - b.scoreNecessaire);
