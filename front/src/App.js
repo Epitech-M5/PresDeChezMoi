@@ -36,6 +36,11 @@ import MySave from "./components/User/MySave";
 import MyLoot from "./components/User/MyLoot";
 import ViewProfile from "./pages/ViewProfile";
 import MapPage from "./pages/MapPage";
+import ModifCity from "./components/Admin/ModifCity";
+import SuperAdm from "./components/Admin/SuperAdm";
+import { useNavigate } from "react-router-dom";
+import AddAdmin from "./components/Admin/AddAdmin";
+import AddCity from "./components/Admin/AddCity";
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 
@@ -67,6 +72,7 @@ const HomeContainer = () => {
   const user = useSelector((state) => state.utilisateur)
   const [idVille, setIdVille] = useState([])
   const [dataVille, setDataVille] = useState([]);
+  // const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -115,6 +121,20 @@ const HomeContainer = () => {
       <div className="to_center_in_appjs">
         <h1>Chargement ...</h1>
       </div>
+    )
+  }
+
+  else if (user.isLogin && user.idRole === 4) {
+
+    return (
+      <>
+        <Routes>
+          <Route path="*" element={<PageNotFound navigation={"/login"} />} />
+          <Route path="super-admin" element={<SuperAdm />} />
+          <Route path="super-admin/add-admin" element={<AddAdmin />} />
+          <Route path="super-admin/add-city" element={<AddCity />} />
+        </Routes>
+      </>
     )
   }
 
@@ -200,8 +220,6 @@ const AdminContainer = () => {
 
   const user = useSelector((state) => state.utilisateur)
 
-  console.log("EEEEEEEEEEEEEEEEEEE", user)
-
   if (user.isLogin && user.idRole === 3) {
     return (
       <>
@@ -227,6 +245,23 @@ const AdminContainer = () => {
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/notif-event" element={<Event />} />
           <Route path="/" element={<Post />} />
+        </Routes>
+      </>
+    );
+  }
+
+  else if (user.isLogin && user.idRole === 4) {
+    return (
+      <>
+        <NavBarAdmin type='superAdmin' />
+        <Routes>
+          <Route path="/" element={<General />} />
+          <Route path="*" element={<PageNotFound navigation={"/home"} />} />
+          <Route path="/role-user" element={<Role />} />
+          <Route path="/tickets" element={<Tickets />} />
+          <Route path="/notif-event" element={<Event />} />
+          <Route path="/post" element={<Post />} />
+          <Route path="/modif-city" element={<ModifCity />} />
         </Routes>
       </>
     );

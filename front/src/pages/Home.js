@@ -28,11 +28,10 @@ const Home = () => {
     var [toAddModal, setToAddModal] = useState();
     const [allSignal, setAllSignal] = useState([]);
     const [idVille, setIdVille] = useState([])
+    const navigate = useNavigate()
 
     const [likedPosts, setLikedPosts] = useState([]); // stocker les annonces like par le user
     const [saves, setSaves] = useState([]);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/annonce/`, {}, { 'x-access-token': user.token })
