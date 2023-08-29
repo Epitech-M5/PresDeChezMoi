@@ -33,12 +33,10 @@ const LoginPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { addMessage, removeMessage, messages } = useMessageQueue();
-  const handleNavigationRegister = (event) => {
-    event.preventDefault();
 
-    console.log("input id : " + idRegister);
-    console.log("input pwd : " + passwordRegister);
-    console.log("input email : " + email);
+  const handleNavigationRegister = (event) => {
+
+    event.preventDefault();
 
     if (
       idRegister.length <= 0 ||
@@ -50,75 +48,44 @@ const LoginPage = () => {
         "info"
       );
     } else {
+
+
       axios
-        .post(`http://${adresseip}:${port}/api/user/auth/signup`, {
-          pseudo: idRegister,
-          mail: email,
-          motDePasse: passwordRegister,
-          idRole: 2,
-          photoProfil: "1",
-        })
-        .then((response) => {
+        .post(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 1, "photoProfil": "1" })
+        .then(response => {
+
           // permet de récupérer les info utilisateurs retourné dans la response
           var data = response.data;
 
-          if (idRegister.length <= 0 || passwordRegister.length <= 0 || email.length <= 0) {
-            addMessage('Les champs "Identifiant", "Mot de passe" et "Email" ne sont pas remplis', 'info');
-          }
-
-          else {
-
-            axios
-              .post(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": idRegister, "mail": email, "motDePasse": passwordRegister, "idRole": 1, "photoProfil": "1" })
-              .then(response => {
-
-                // permet de récupérer les info utilisateurs retourné dans la response
-                var data = response.data;
-
-                // Initialisation de l'objet qui va comporter les information de l'utilisateur pour le stocker dans redux(store)
-                var infoUtilisateur = {
-                  pseudo: data.pseudo,
-                  idRole: data.idRole,
-                  idutilisateur: data.id,
-                  idVille: data.idVille,
-                  photoProfil: data.photoProfil,
-                };
-                addMessage('Votre compte a bien été crée ! Attendez quelques instant...', 'success');
-                // Stock dans store
-                dispatch(isLogin());
-                dispatch(fetchToken(data.accessToken));
-                dispatch(fetchRefreshToken(data.refreshToken));
-                dispatch(fetchUtilisateurData(infoUtilisateur));
-
-                setTimeout(() => {
-                  navigate('/home')
-                }, 3000);
-
-              }).catch(error => {
-                console.log("error", error);
-                addMessage(`${error}`, 'error');
-              })
-
-          }
+          // Initialisation de l'objet qui va comporter les information de l'utilisateur pour le stocker dans redux(store)
+          var infoUtilisateur = {
+            pseudo: data.pseudo,
+            idRole: data.idRole,
+            idutilisateur: data.id,
+            idVille: data.idVille,
+            photoProfil: data.photoProfil,
+          };
+          addMessage('Votre compte a bien été crée ! Attendez quelques instant...', 'success');
+          // Stock dans store
+          dispatch(isLogin());
+          dispatch(fetchToken(data.accessToken));
+          dispatch(fetchRefreshToken(data.refreshToken));
+          dispatch(fetchUtilisateurData(infoUtilisateur));
 
           setTimeout(() => {
-            navigate("/home");
+            navigate('/home')
           }, 3000);
-        })
-        .catch((error) => {
+
+        }).catch(error => {
           console.log("error", error);
-          addMessage(`${error}`, "error");
-        });
+          addMessage(`${error}`, 'error');
+        })
+
     }
   };
 
   const handleNavigationLogin = (event) => {
     event.preventDefault();
-
-    event.preventDefault();
-
-    console.log("input id : " + idLogin);
-    console.log("input pwd : " + passwordLogin);
 
     if (idLogin.length <= 0 || passwordLogin.length <= 0) {
       addMessage('Les champs "Identifiant" et "Mot de passe" ne sont pas remplis', 'info');
@@ -151,7 +118,7 @@ const LoginPage = () => {
 
           if (data.idRole === 4) {
             setTimeout(() => {
-              navigate('/home/super-admin')
+              navigate('/super-admin')
             }, 3000);
           }
 
@@ -166,49 +133,6 @@ const LoginPage = () => {
           addMessage(`${error}`, 'error');
         })
 
-    }
-
-    if (idLogin.length <= 0 || passwordLogin.length <= 0) {
-      addMessage(
-        'Les champs "Identifiant" et "Mot de passe" ne sont pas remplis',
-        "info"
-      );
-    } else {
-      axios
-        .post(`http://${adresseip}:${port}/api/user/auth/signin`, {
-          pseudo: idLogin,
-          motDePasse: passwordLogin,
-        })
-        .then((response) => {
-          console.log(response);
-          // permet de récupérer les info utilisateurs retourné dans la response
-          var data = response.data;
-          console.log("data", data);
-          // Initialisation de l'objet qui va comporter les information de l'utilisateur pour le stocker dans redux(store)
-          var infoUtilisateur = {
-            pseudo: data.pseudo,
-            idRole: data.idRole,
-            idutilisateur: data.id,
-            idVille: data.idVille,
-            photoProfil: data.photoProfil,
-          };
-          addMessage(
-            "Connexion réussie, attendez quelques instants....",
-            "success"
-          );
-          // Stock dans store
-          dispatch(isLogin());
-          dispatch(fetchToken(data.accessToken));
-          dispatch(fetchRefreshToken(data.refreshToken));
-          dispatch(fetchUtilisateurData(infoUtilisateur));
-          setTimeout(() => {
-            navigate("/home");
-          }, 3000);
-        })
-        .catch((error) => {
-          console.log("error", error);
-          addMessage(`${error}`, "error");
-        });
     }
   };
 

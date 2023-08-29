@@ -5,15 +5,15 @@ import ButtonDisconnect from "./Disconnect";
 import MessageQueue, {
   useMessageQueue,
 } from "../../components/MessageQueue.js";
-import axios from "axios";
 import { Provider, useSelector } from "react-redux";
 import { getAPI, postAPI, putAPI, deleteAPI } from "./../../api";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import DangerBanner from "./BannerDanger";
 
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP;
 const port = process.env.REACT_APP_BACKEND_PORT;
+
+
 const NavBarHome = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -161,15 +161,15 @@ const NavBarHome = (props) => {
   }, []);
 
   useEffect(() => {
-    // const geocoder = new window.google.maps.Geocoder();
-    // geocoder.geocode({ address: addr }, function (results, status) {
-    //   if (status === window.google.maps.GeocoderStatus.OK) {
-    //     setLatitude(results[0].geometry.location.lat());
-    //     setLongitude(results[0].geometry.location.lng());
-    //   } else {
-    //     console.log("Erreur : " + status);
-    //   }
-    // });
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address: addr }, function (results, status) {
+      if (status === window.google.maps.GeocoderStatus.OK) {
+        setLatitude(results[0].geometry.location.lat());
+        setLongitude(results[0].geometry.location.lng());
+      } else {
+        console.log("Erreur : " + status);
+      }
+    });
   }, [addr]);
 
   useEffect(() => {
@@ -654,7 +654,7 @@ const NavBarHome = (props) => {
 
   return (
     <>
-    
+
       <Modal isOpen={isOpen} onClose={closeModal}>
         <div className="container_x">
           <i className="fa-solid fa-xmark" onClick={closeModal}></i>
@@ -757,7 +757,6 @@ const NavBarHome = (props) => {
 
         </div>
         {allButtons}
-                <ButtonDisconnect></ButtonDisconnect>
       </div>
       <div className="container_forphone_navbar" onClick={handleToggle}>
         <i class="fa-solid fa-greater-than"></i>
@@ -815,7 +814,6 @@ const NavBarHome = (props) => {
             </h1>
           </div>
           {allButtons}
-          <button  >Déconnexion</button>
         </div>
       </div>
     </>

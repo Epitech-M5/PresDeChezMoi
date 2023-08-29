@@ -78,7 +78,7 @@
     text-align: center;
     line-height: 55px;
     color: $dark-grey;
-    font-size: 1.1rem;
+    font-size: 1.1rem !important;
 }
 
 .input_field input {
@@ -269,15 +269,15 @@
 @media (max-width: 870px) {
 
     .input_field textarea {
-        font-size: 0.8rem;
+        font-size: 0.8rem !important;
     }
 
     .input_field i {
-        font-size: 0.8rem;
+        font-size: 0.8rem !important;
     }
 
     .input_field input {
-        font-size: 0.8rem;
+        font-size: 0.8rem !important;
     }
 
     .container_loginpage {

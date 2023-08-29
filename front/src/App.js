@@ -125,20 +125,6 @@ const HomeContainer = () => {
     )
   }
 
-  else if (user.isLogin && user.idRole === 4) {
-
-    return (
-      <>
-        <Routes>
-          <Route path="*" element={<PageNotFound navigation={"/login"} />} />
-          <Route path="super-admin" element={<SuperAdm />} />
-          <Route path="super-admin/add-admin" element={<AddAdmin />} />
-          <Route path="super-admin/add-city" element={<AddCity />} />
-        </Routes>
-      </>
-    )
-  }
-
   else {
     if (user.isLogin && user.idRole === 3 || user.isLogin && user.idRole === 2) {
       return (
@@ -183,7 +169,12 @@ const HomeContainer = () => {
         <>
           {idVille === null ? (
             <>
-              <div className="container_all_ville">
+              <div className="container_titles_beforeLogin">
+                <h1>Avant de commencer</h1>
+                <h1>Veuillez choisir la commune dans laquelle vous habitez</h1>
+                <h1>Vous pourrez la modifier à tout moment</h1>
+              </div>
+              <div className="container_all_ville forAppjs">
                 {dataVille.map((item) => (
                   <>
                     <p key={item.id} onClick={() => handleChoice(item.id)}>{item.nom}</p>
@@ -410,6 +401,19 @@ const UserContainer = () => {
   }
 }
 
+const SuperAdminContainer = () => {
+  return (
+    <>
+      <Routes>
+        <Route path="*" element={<PageNotFound navigation={"/login"} />} />
+        <Route path="/" element={<SuperAdm />} />
+        <Route path="/add-admin" element={<AddAdmin />} />
+        <Route path="/add-city" element={<AddCity />} />
+      </Routes>
+    </>
+  )
+}
+
 const App = () => {
 
   const [loading, setLoading] = useState(true);
@@ -429,6 +433,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/*" element={<LandingContainer />} />
+            <Route path="/super-admin/*" element={<SuperAdminContainer />} />
             <Route path="/home/*" element={<HomeContainer />} />
             <Route path="/home/administration/*" element={<AdminContainer />} />
             <Route path="/home/user/*" element={<UserContainer />} />
