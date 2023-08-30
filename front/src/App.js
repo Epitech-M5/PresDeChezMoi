@@ -42,6 +42,7 @@ import SuperAdm from "./components/Admin/SuperAdm";
 import { useNavigate } from "react-router-dom";
 import AddAdmin from "./components/Admin/AddAdmin";
 import AddCity from "./components/Admin/AddCity";
+import ModifAdm from "./components/Admin/ModifAdm";
 
 import { useDispatch } from "react-redux";
 import { fetchVille } from "./redux/Utilisateur";

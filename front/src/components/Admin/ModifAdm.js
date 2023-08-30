@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js';
-import { getAPI, postAPI, putAPI } from '../../api';
+import { deleteAPI, getAPI, postAPI, putAPI } from '../../api';
 import { Provider, useSelector } from "react-redux";
 import Loader from '../Loader.js';
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
@@ -21,6 +21,11 @@ const ModifAdm = () => {
     const [nameVille, setNameVille] = useState("");
     const [allUser, setAllUser] = useState([]);
     const [adminSelected, setAdminSelected] = useState();
+    const [NameAdminSelected, setNameAdminSelected] = useState("");
+
+    const [newName, setNewName] = useState("");
+    const [newEmail, setNewEmail] = useState("");
+    const [newMdp, setNewMdp] = useState("");
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
@@ -42,7 +47,6 @@ const ModifAdm = () => {
 
         await getAPI(`http://${adresseip}:${port}/api/user/by_ville/${idVille}`, {}, { 'x-access-token': user.token })
             .then((response) => {
-                console.log('EEEEEEEEEEEEEEEEEE', response.dataAPI)
                 setAllUser(response.dataAPI)
                 setTimeout(() => {
                     setLoading(false);
@@ -53,8 +57,38 @@ const ModifAdm = () => {
             })
     }
 
-    const handleChoiceUserToModif = (idAdmin) => {
+    const handleChoiceUserToModif = (idAdmin, nameAdmin) => {
         setAdminSelected(idAdmin);
+        setNameAdminSelected(nameAdmin);
+    }
+
+    const handleDeleteAdmin = async () => {
+
+        await deleteAPI(`http://${adresseip}:${port}/api/user/${adminSelected}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+                addMessage(`${NameAdminSelected} à bien été supprimé !`, 'success');
+            })
+            .catch((error) => {
+                addMessage(`ERREUR : ${error}`);
+            })
+
+    }
+
+    const handleModifThisAdmin = () => {
+
+        if (newEmail.length <= 0 || newMdp <= 0 || newName <= 0) {
+            addMessage('Tous les champs doivent être remplie', 'info')
+        }
+        else {
+            putAPI(`http://${adresseip}:${port}/api/user/${adminSelected}`, { 'pseudo': newName, 'mail': newEmail, 'motDePasse': newMdp }, { 'x-access-token': user.token })
+                .then((response) => {
+                    addMessage(`${NameAdminSelected} à bien été modifié !`, 'success');
+                })
+                .catch((error) => {
+                    addMessage(`ERREUR : ${error}`);
+                });
+        }
+
     }
 
     return (
@@ -82,19 +116,23 @@ const ModifAdm = () => {
                                     <Loader />
                                 ) : adminSelected ? (
                                     <>
-                                        <h1>you selected {adminSelected} </h1>
-                                        <input type="text" placeholder='Nom' />
-                                        <input type="text" placeholder='Email' />
-                                        <input type="text" placeholder='Mot de passe' />
-                                        <button>Supprimer le compte</button>
-                                        <button>Modifier sa ville</button>
+                                        <div className="container_modif_admin">
+                                            <h1>Modifier l'administrateur : {NameAdminSelected}</h1>
+                                            <div className="wrapper_inputs_inside_modif_admin">
+                                                <input type="text" placeholder='Nom' onChange={(event) => setNewName(event.target.value)} />
+                                                <input type="text" placeholder='Email' onChange={(event) => setNewEmail(event.target.value)} />
+                                                <input type="text" placeholder='Mot de passe' onChange={(event) => setNewMdp(event.target.value)} />
+                                            </div>
+                                            <button onClick={handleModifThisAdmin}>Modifer</button>
+                                            <button onClick={handleDeleteAdmin}>Supprimer le compte</button>
+                                        </div>
                                     </>
                                 ) : (
                                     <>
                                         {
                                             allUser.filter(item => item.idRole === 3).map((item) => (
                                                 <>
-                                                    <p key={item.key} onClick={() => handleChoiceUserToModif(item.id)}>{item.nom}</p>
+                                                    <p key={item.key} onClick={() => handleChoiceUserToModif(item.id, item.nom)}>{item.nom}</p>
                                                 </>
                                             ))
                                         }
