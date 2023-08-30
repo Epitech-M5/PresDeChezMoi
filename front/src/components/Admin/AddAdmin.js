@@ -42,26 +42,27 @@ const AddAdmin = () => {
         setNameVille(nameVille);
     }
 
-    const handleCreateAdmin = () => {
+    const handleCreateAdmin = async () => {
 
         if (nameAdm.length <= 0 || mailAdm.length <= 0 || mailAdm.length <= 0) {
             addMessage('Tous les champs doivent être remplies', 'info');
         }
         else {
-            postAPI(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": nameAdm, "mail": mailAdm, "motDePasse": mdpAdm, "idRole": 3, "photoProfil": "1" }, {})
+            await postAPI(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": nameAdm, "mail": mailAdm, "motDePasse": mdpAdm, "idRole": 3, "photoProfil": "1" }, { "x-access-token": user.token })
                 .then((response) => {
                     addMessage('Admin pour ' + nameVille + ' à été crée avec succès !', 'success');
                     setIdAdm(response.dataAPI.id);
                 })
                 .catch((error) => {
-                    addMessage(`Erreur : + ${error}`, 'error');
+                    addMessage(`Erreur REQ 1 : + ${error}`, 'error');
                 })
 
-            putAPI(`http://${adresseip}:${port}/api/user/${idAdm}`, { 'idVille': idVille }, { "x-access-token": user.token })
+            await putAPI(`http://${adresseip}:${port}/api/user/${idAdm}`, { 'idVille': idVille }, { "x-access-token": user.token })
                 .then((response) => {
+                    console.log(response);
                 })
                 .catch((error) => {
-                    addMessage(`Erreur : + ${error}`, 'error');
+                    addMessage(`Erreur REQ 2 : + ${error}`, 'error');
                 })
         }
     }
