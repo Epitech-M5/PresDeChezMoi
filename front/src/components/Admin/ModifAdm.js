@@ -7,7 +7,7 @@ import Loader from '../Loader.js';
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 
-const ModifCity = () => {
+const ModifAdm = () => {
 
     const navigate = useNavigate();
 
@@ -19,11 +19,13 @@ const ModifCity = () => {
     const [loading, setLoading] = useState(true);
     const [idVille, setIdVille] = useState();
     const [nameVille, setNameVille] = useState("");
+    const [allUser, setAllUser] = useState([]);
+    const [adminSelected, setAdminSelected] = useState();
+    const [NameAdminSelected, setNameAdminSelected] = useState("");
 
     const [newName, setNewName] = useState("");
-    const [newCode, setNewCode] = useState();
-    const [newScoreF, setScoreF] = useState();
-    const [newScoreG, setScoreG] = useState();
+    const [newEmail, setNewEmail] = useState("");
+    const [newMdp, setNewMdp] = useState("");
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
@@ -38,36 +40,53 @@ const ModifCity = () => {
             });
     }, [])
 
-    const handleChoiceCity = (idVille, nameVille) => {
+    const handleChoiceCity = async (idVille, nameVille) => {
         setIdVille(idVille);
         setNameVille(nameVille);
-    }
+        setLoading(true);
 
-    const handleDeleteCity = async () => {
-
-        await deleteAPI(`http://${adresseip}:${port}/api/ville/${idVille}`, {}, { 'x-access-token': user.token })
+        await getAPI(`http://${adresseip}:${port}/api/user/by_ville/${idVille}`, {}, { 'x-access-token': user.token })
             .then((response) => {
-                addMessage(`${nameVille} vient d'être suprimé avec succès`, 'success')
+                setAllUser(response.dataAPI)
+                setTimeout(() => {
+                    setLoading(false);
+                }, 1000)
             })
             .catch((error) => {
-                addMessage(`ERREUR : ${error}`, 'error');
+                console.log(error)
+            })
+    }
+
+    const handleChoiceUserToModif = (idAdmin, nameAdmin) => {
+        setAdminSelected(idAdmin);
+        setNameAdminSelected(nameAdmin);
+    }
+
+    const handleDeleteAdmin = async () => {
+
+        await deleteAPI(`http://${adresseip}:${port}/api/user/${adminSelected}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+                addMessage(`${NameAdminSelected} à bien été supprimé !`, 'success');
+            })
+            .catch((error) => {
+                addMessage(`ERREUR : ${error}`);
             })
 
     }
 
-    const handleModifThisCity = async () => {
+    const handleModifThisAdmin = () => {
 
-        if (newName.length <= 0 || newCode <= 0 || newScoreF <= 0 || newScoreG <= 0) {
-            addMessage('Tous les champs doivent être remplies', 'info')
+        if (newEmail.length <= 0 || newMdp <= 0 || newName <= 0) {
+            addMessage('Tous les champs doivent être remplie', 'info')
         }
         else {
-            await putAPI(`http://${adresseip}:${port}/api/ville/${idVille}`, { 'nom': newName, 'codePostal': newCode, 'scoreVilleFleurie': newScoreF, 'scoreGlobale': newScoreG }, { 'x-access-token': user.token })
+            putAPI(`http://${adresseip}:${port}/api/user/${adminSelected}`, { 'pseudo': newName, 'mail': newEmail, 'motDePasse': newMdp }, { 'x-access-token': user.token })
                 .then((response) => {
-                    addMessage('Les paramètres de la ville ont été modifié', 'success')
+                    addMessage(`${NameAdminSelected} à bien été modifié !`, 'success');
                 })
                 .catch((error) => {
-                    addMessage(`ERREUR : ${error}`)
-                })
+                    addMessage(`ERREUR : ${error}`);
+                });
         }
 
     }
@@ -79,11 +98,11 @@ const ModifCity = () => {
                 <div className="container_title_superadm">
                     {idVille ? (
                         <>
-                            <h1>Modifer la ville de : <span>{nameVille}</span></h1>
+                            <h1>Modifer un administrateur de la ville de : <span>{nameVille}</span></h1>
                         </>
                     ) : (
                         <>
-                            <h1>Sélectionner une ville</h1>
+                            <h1>Sélectionner sa ville</h1>
                         </>
                     )}
 
@@ -95,19 +114,28 @@ const ModifCity = () => {
                             <div className="map_city_superadm">
                                 {loading ? (
                                     <Loader />
-                                ) : (
+                                ) : adminSelected ? (
                                     <>
                                         <div className="container_modif_admin">
-                                            <h1>Modifier la ville : {nameVille}</h1>
+                                            <h1>Modifier l'administrateur : {NameAdminSelected}</h1>
                                             <div className="wrapper_inputs_inside_modif_admin">
                                                 <input type="text" placeholder='Nom' onChange={(event) => setNewName(event.target.value)} />
-                                                <input type="number" placeholder='Code postal' onChange={(event) => setNewCode(event.target.value)} />
-                                                <input type="number" placeholder='Score ville fleurie' min="0" max="5" onChange={(event) => setScoreF(event.target.value)} />
-                                                <input type="number" placeholder='Score globale' min="0" max="5" onChange={(event) => setScoreG(event.target.value)} />
+                                                <input type="text" placeholder='Email' onChange={(event) => setNewEmail(event.target.value)} />
+                                                <input type="text" placeholder='Mot de passe' onChange={(event) => setNewMdp(event.target.value)} />
                                             </div>
-                                            <button onClick={handleModifThisCity}>Modifer</button>
-                                            <button onClick={handleDeleteCity}>Supprimer la ville</button>
+                                            <button onClick={handleModifThisAdmin}>Modifer</button>
+                                            <button onClick={handleDeleteAdmin}>Supprimer le compte</button>
                                         </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        {
+                                            allUser.filter(item => item.idRole === 3).map((item) => (
+                                                <>
+                                                    <p key={item.key} onClick={() => handleChoiceUserToModif(item.id, item.nom)}>{item.nom}</p>
+                                                </>
+                                            ))
+                                        }
                                     </>
                                 )}
                             </div>
@@ -151,4 +179,4 @@ const ModifCity = () => {
     );
 };
 
-export default ModifCity;
+export default ModifAdm;

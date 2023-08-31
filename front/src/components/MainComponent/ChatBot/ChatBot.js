@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
-import First from "../ChatBot/SubComponent/First";
+import FormTicket from "./SubComponent/FormTicket";
+import ListTicket from "./SubComponent/ListTicket";
 
 const ChatBot = () => {
-  const [history, setHistory] = useState([<First />]);
+  const [history, setHistory] = useState([<FormTicket />]);
 
   const handleToggle = () => {
     const toggleBtnIcon = document.querySelector(".container_logo_chatbot i");
@@ -33,17 +34,8 @@ const ChatBot = () => {
     return (
       <>
         {history.map((item, index) => (
-          <div key={index} className="chatbot_message">
-            <div className="chatbot_message_containt">
-              <div className="chatbot_logo_message">
-                <i className="fa-solid fa-robot"></i>
-              </div>
-              <div className="chatbot_text">
-                {
-                  item
-                }
-              </div>
-            </div>
+          <div key={index} className="chat_message">
+            {(item = "First" ? <First /> : null)}
           </div>
         ))}
       </>
@@ -62,10 +54,6 @@ const ChatBot = () => {
           <div className="center_forchatbot">
             <h1>BipBopBip</h1>
             <i className="fa-solid fa-circle"></i>
-          </div>
-
-          <div className="chatbot_history">
-            <History />
           </div>
         </div>
       </div>

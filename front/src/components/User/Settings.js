@@ -27,6 +27,11 @@ const Settings = () => {
     const [firstname, setFirstName] = useState('');
     const [lastname, setLastname] = useState('');
     const [email, setEmail] = useState('');
+    const [hygieneOption, setHygieneOption] = useState(0);
+    const [serviceOption, setServiceOption] = useState(null);
+    const [evenementOption, setEvenementOption] = useState(null);
+    const [scoreVilleFleurie, setScoreVilleFleurie] = useState(null);
+
 
     const navigate = useNavigate();
 
@@ -124,6 +129,42 @@ const Settings = () => {
             )
         }
 
+        else if (id === 6) {
+            setToAddModal(
+                <>
+                    <h1>Noter ma commune</h1>
+                    <div className="container_all_pdp">
+                        <h3>H : {hygieneOption}</h3>
+                        <h3 onClick={() => setHygieneOption(0)} className={hygieneOption === 0 ? "selected" : ""}>0</h3>
+                        <h3 onClick={() => setHygieneOption(1)} className={hygieneOption === 1 ? "selected" : ""}>1</h3>
+                        <h3 onClick={() => setHygieneOption(2)} className={hygieneOption === 2 ? "selected" : ""}>2</h3>
+                        <h3 onClick={() => setHygieneOption(3)} className={hygieneOption === 3 ? "selected" : ""}>3</h3>
+                        <h3 onClick={() => setHygieneOption(4)} className={hygieneOption === 4 ? "selected" : ""}>4</h3>
+                        <h3 onClick={() => setHygieneOption(5)} className={hygieneOption === 5 ? "selected" : ""}>5</h3>
+                    </div>
+                    <div className="container_all_pdp">
+                        <h3>S : {serviceOption}</h3>
+                        <h3 onClick={() => setServiceOption(0)} className={serviceOption === 0 ? "selected" : ""}>0</h3>
+                        <h3 onClick={() => setServiceOption(1)} className={serviceOption === 1 ? "selected" : ""}>1</h3>
+                        <h3 onClick={() => setServiceOption(2)} className={serviceOption === 2 ? "selected" : ""}>2</h3>
+                        <h3 onClick={() => setServiceOption(3)} className={serviceOption === 3 ? "selected" : ""}>3</h3>
+                        <h3 onClick={() => setServiceOption(4)} className={serviceOption === 4 ? "selected" : ""}>4</h3>
+                        <h3 onClick={() => setServiceOption(5)} className={serviceOption === 5 ? "selected" : ""}>5</h3>
+                    </div>
+                    <div className="container_all_pdp">
+                        <h3>E : {evenementOption}</h3>
+                        <h3 onClick={() => setEvenementOption(0)} className={evenementOption === 0 ? "selected" : ""}>0</h3>
+                        <h3 onClick={() => setEvenementOption(1)} className={evenementOption === 1 ? "selected" : ""}>1</h3>
+                        <h3 onClick={() => setEvenementOption(2)} className={evenementOption === 2 ? "selected" : ""}>2</h3>
+                        <h3 onClick={() => setEvenementOption(3)} className={evenementOption === 3 ? "selected" : ""}>3</h3>
+                        <h3 onClick={() => setEvenementOption(4)} className={evenementOption === 4 ? "selected" : ""}>4</h3>
+                        <h3 onClick={() => setEvenementOption(5)} className={evenementOption === 5 ? "selected" : ""}>5</h3>
+                    </div>
+                    <button onClick={handleNoteVille}>Modifier</button>
+                </>
+            )
+        }
+
         else {
             setToAddModal(
                 <>
@@ -132,7 +173,7 @@ const Settings = () => {
             );
         }
 
-    }, [mdp, id, mdpConfirm, pseudo, pdp, psdModif, description, metier, lastname, firstname, email]);
+    }, [mdp, id, mdpConfirm, pseudo, pdp, psdModif, description, metier, lastname, firstname, email, hygieneOption, serviceOption, evenementOption]);
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
@@ -143,12 +184,33 @@ const Settings = () => {
                 console.log(error);
             });
     }, [])
+    useEffect(() => {
+        getAPI(`http://${adresseip}:${port}/api/ville/${user.idVille}`, {}, { 'x-access-token': user.token })
+            .then((response) => {
+                setScoreVilleFleurie(response.dataAPI.scoreVilleFleurie);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [])
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
                 setPdp(response.dataAPI.photoProfil)
-                console.log(response.dataAPI)
+                var arrayNoteVille = JSON.parse(response.dataAPI.noteVille)
+                if (arrayNoteVille.length == 3) {
+                    setHygieneOption(arrayNoteVille[0])
+                    setServiceOption(arrayNoteVille[1])
+                    setEvenementOption(arrayNoteVille[2])
+                }
+                else {
+                    setHygieneOption(null)
+                    setServiceOption(null)
+                    setEvenementOption(null)
+                }
+                console.log(">>>>>>>>>>>>>>>>", response.dataAPI)
+                console.log(">>>>>>>>>>>>>>>>", arrayNoteVille)
             })
             .catch((error) => {
                 console.log(error);
@@ -168,7 +230,60 @@ const Settings = () => {
                 console.log(error);
             });
     }
+    function moyenne(array) {
+        var taille = array.length
+        var result = 0
+        for (let pas = 0; pas < taille; pas++) {
+            result += array[pas]
+        }
+        return result / taille
+    }
+    const handleNoteVille = () => {
 
+        putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'noteVille': [hygieneOption, serviceOption, evenementOption] }, { 'x-access-token': user.token })
+            .then((response) => {
+                getAPI(`http://${adresseip}:${port}/api/user/note_by_ville/${user.idVille}`, {}, { 'x-access-token': user.token })
+                    .then((response) => {
+                        var arrayHygiene = []
+                        var arrayService = []
+                        var arrayEvenement = []
+                        console.log("####### note ville :", user.idVille, '#', response.dataAPI)
+                        for (var data = 0; data < response.dataAPI.length; data++) {
+
+                            var arrayNoteVille = JSON.parse(response.dataAPI[data])
+                            console.log("####### note ville :", arrayNoteVille)
+
+                            if (arrayNoteVille.length == 3) {
+                                arrayHygiene.push(arrayNoteVille[0])
+                                arrayService.push(arrayNoteVille[1])
+                                arrayEvenement.push(arrayNoteVille[2])
+                            }
+                        }
+                        console.log("|||||||||||||||||||", arrayHygiene, arrayService, arrayEvenement)
+                        var moyenneHygiene = moyenne(arrayHygiene)
+                        var moyenneService = moyenne(arrayService)
+                        var moyenneEvenement = moyenne(arrayEvenement)
+
+                        var scoreGlobale = (moyenneHygiene / 5 * 1.5) + (moyenneService / 5 * 1.5) + (moyenneEvenement / 5 * 0.75) + (scoreVilleFleurie / 4 * 1.25)
+                        console.log("scoreGlobal ", scoreGlobale)
+                        putAPI(`http://${adresseip}:${port}/api/ville/${user.idVille}`, { "scoreGlobale": scoreGlobale, 'moyenneHygiene': moyenneHygiene, 'moyenneService': moyenneService, 'moyenneEvenement': moyenneEvenement }, { 'x-access-token': user.token })
+                            .then((response) => {
+                                console.log("Ville maj :", response)
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+                closeModal();
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
     const handleModif = () => {
 
         putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'pseudo': psdModif, 'photoProfil': pdp, 'description': description, 'profession': metier, 'nom': lastname, 'prenom': firstname }, { 'x-access-token': user.token })
@@ -221,6 +336,7 @@ const Settings = () => {
         }
     };
 
+
     const handleEmail = () => {
 
         console.log("email value = = = = = ", email);
@@ -261,6 +377,11 @@ const Settings = () => {
         openModal();
     }
 
+    const handleOpen_6 = () => {
+        setId(6);
+        openModal();
+    }
+
 
     return (
         <>
@@ -288,6 +409,7 @@ const Settings = () => {
                     <button onClick={handleOpen_3}>Supprimer votre compte</button>
                     <button onClick={handleOpen_4}>Modifier mot de passe</button>
                     <button onClick={handleOpen_5}>Modifier Email</button>
+                    <button onClick={handleOpen_6}>Noter ma commune</button>
                 </div>
             </div>
         </>

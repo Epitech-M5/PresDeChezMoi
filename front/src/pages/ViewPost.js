@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import AddressDisplay from '../components/MainComponent/AddressDisplay';
 import PageNotFound from './PageNotFound';
 import { useNavigate } from 'react-router-dom';
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
+const port = process.env.REACT_APP_BACKEND_PORT
 
 const ViewPost = ({ postId }) => {
 
@@ -13,7 +15,7 @@ const ViewPost = ({ postId }) => {
     useEffect(() => {
 
         console.log(postId)
-        getAPI(`http://localhost:8081/api/annonce/${postId}`, null, null).then((response) => {
+        getAPI(`http://${adresseip}:${port}/api/annonce/${postId}`, null, null).then((response) => {
 
             console.log(response)
             setData(response.dataAPI)

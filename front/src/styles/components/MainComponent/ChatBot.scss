@@ -20,7 +20,7 @@
 
 .container_logo_chatbot i {
   color: $white;
-  font-size: 2rem;
+  font-size: 2rem !important;
 }
 
 .toCenter {
@@ -75,6 +75,14 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+
+.center_forchatbot i {
+  font-size: 1rem !important;
+}
+
+.center_forchatbot.v2 i {
+  font-size: 1.5rem !important;
 }
 
 .container_send_msg_chatbot input {
@@ -274,6 +282,9 @@
     width: 60px;
   }
 
+  .container_logo_chatbot i {
+    font-size: 1.5rem !important;
+  }
 }
 
 @media (max-height: 700px) {

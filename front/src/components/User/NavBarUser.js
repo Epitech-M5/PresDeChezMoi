@@ -18,10 +18,10 @@ const NavBarUser = () => {
 
         getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
+                console.log("RERERERERERERERERER", response)
 
                 setTimeout(() => {
                     setData(response.dataAPI);
-                    console.log(response.dataAPI)
                 }, 4000)
 
             })

@@ -26,4 +26,4 @@
 
     - name: git pull & lancement docker-compose
       become: true
-      shell: cd T-YEP-600-MAR-6-1-finalproject-mateo.salvy && sudo git pull && sudo docker-compose up -d
+      shell: cd T-YEP-600-MAR-6-1-finalproject-mateo.salvy && git pull && docker-compose up -d
