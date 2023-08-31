@@ -33,8 +33,17 @@ const ChatBot = () => {
     return (
       <>
         {history.map((item, index) => (
-          <div key={index} className="chat_message">
-            {(item = "First" ? <First /> : null)}
+          <div key={index} className="chatbot_message">
+            <div className="chatbot_message_containt">
+              <div className="chatbot_logo_message">
+                <i className="fa-solid fa-robot"></i>
+              </div>
+              <div className="chatbot_text">
+                {
+                  item
+                }
+              </div>
+            </div>
           </div>
         ))}
       </>
@@ -54,13 +63,11 @@ const ChatBot = () => {
             <h1>BipBopBip</h1>
             <i className="fa-solid fa-circle"></i>
           </div>
+
+          <div className="chatbot_history">
+            <History />
+          </div>
         </div>
-      </div>
-
-      <div className="chatbot_history">
-
-        <History />
-        
       </div>
 
       <div
@@ -76,7 +83,6 @@ const ChatBot = () => {
         </div>
 
         <History />
-
       </div>
     </>
   );
