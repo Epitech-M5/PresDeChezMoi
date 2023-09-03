@@ -47,7 +47,7 @@ services:
       - back
     build: ./front/
     ports:
-      - "3001:3000"
+      - "80:3000"
     environment:
       TZ: Europe/Paris
     restart: always
