@@ -2,9 +2,25 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ButtonDisconnect from "../../Disconnect";
+import FormTicket from "./FormTicket";
+import ListTicket from "./ListTicket";
 
-const First = (props) => {
+const First = ({history, setHistory}) => {
   const navigate = useNavigate();
+
+  const problem = () => {
+    setHistory(prevArray => [...prevArray, <FormTicket history={history} setHistory={setHistory} />])
+    //l'historique dans un console.log affichera le tableau vide car le setHistory est async et ne se fait pas directement l'action (pour le component celui-ci est vide)
+  };
+
+  const tickets = () => {
+    setHistory(prevArray => [...prevArray, <ListTicket history={history} setHistory={setHistory} />])
+    //l'historique dans un console.log affichera le tableau vide car le setHistory est async et ne se fait pas directement l'action (pour le component celui-ci est vide)
+  };
+
+  useEffect(() => {
+    console.log("problem useEffect", history);
+  }, []);
 
   return (
     <>
@@ -14,14 +30,14 @@ const First = (props) => {
         <button className="chatbot_first_button">
           j'aimerai proposer une idée !
         </button>
-        <button className="chatbot_first_button">j'ai un problème</button>
+        <button className="chatbot_first_button" onClick={problem}>j'ai un problème</button>
         <button
           className="chatbot_first_button"
           onClick={() => navigate("/contact")}
         >
           je veux contacter l'equipe
         </button>
-        <button className="chatbot_first_button">voir mes demandes</button>
+        <button className="chatbot_first_button" onClick={tickets}>voir mes demandes</button>
       </div>
     </>
   );

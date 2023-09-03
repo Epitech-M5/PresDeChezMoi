@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import FormTicket from "./SubComponent/FormTicket";
 import ListTicket from "./SubComponent/ListTicket";
+import First from "./SubComponent/First";
 
 const ChatBot = () => {
-  const [history, setHistory] = useState([<FormTicket />]);
+  const [history, setHistory] = useState([]);
 
   const handleToggle = () => {
     const toggleBtnIcon = document.querySelector(".container_logo_chatbot i");
@@ -30,17 +31,35 @@ const ChatBot = () => {
       : "fa-solid fa-robot";
   };
 
+  const clear = () => {
+    setHistory([<First history={history} setHistory={setHistory} />]);
+  };
+
   const History = () => {
     return (
       <>
         {history.map((item, index) => (
-          <div key={index} className="chat_message">
-            {(item = "First" ? <First /> : null)}
+          <div key={index} className="chatbot_message">
+            <div className="chatbot_message_containt">
+              <div className="chatbot_logo_message">
+                <i className="fa-solid fa-robot"></i>
+              </div>
+              <div className="chatbot_text">{item}</div>
+            </div>
           </div>
         ))}
       </>
     );
   };
+
+  useEffect(() => {
+    setHistory([<First history={history} setHistory={setHistory} />]);
+    console.log("history", history);
+  }, []);
+
+  useEffect(() => {
+    console.log("history refresh", history);
+  }, [history]);
 
   return (
     <>
@@ -52,8 +71,16 @@ const ChatBot = () => {
       <div className="container_chatbot_chat">
         <div className="container_title_msg_chatbot">
           <div className="center_forchatbot">
-            <h1>BipBopBip</h1>
-            <i className="fa-solid fa-circle"></i>
+            <div className="inner_center">
+              <h1>BipBopBip</h1>
+              <i className="fa-solid fa-circle"></i>
+            </div>
+            <button className="chatbot_clear" onClick={clear}>
+              <i className="fa-solid fa-broom" />
+            </button>
+          </div>
+          <div className="chatbot_history">
+            <History />
           </div>
         </div>
       </div>
@@ -66,8 +93,13 @@ const ChatBot = () => {
       </div>
       <div className="chatbot_toslide">
         <div className="center_forchatbot forPhone">
-          <h1>BipBopBip</h1>
-          <i className="fa-solid fa-circle"></i>
+          <div className="inner_center">
+            <h1>BipBopBip</h1>
+            <i className="fa-solid fa-circle"></i>
+          </div>
+          <button className="chatbot_clear" onClick={clear}>
+            <i className="fa-solid fa-broom" />
+          </button>
         </div>
 
         <History />

@@ -112,6 +112,33 @@
   color: $green;
 }
 
+.inner_center {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.inner_center i {
+  padding-left: 7px;
+}
+
+.center_forchatbot > button.chatbot_clear {
+  margin-left: auto;
+}
+
+.chatbot_clear {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.chatbot_clear i {
+  color: $dark-grey;
+  font-size: 1.5rem;
+}
+
 .container_forphone_navbar_chatbot {
   display: none;
   position: fixed;
@@ -152,10 +179,6 @@
 
 .center_forchatbot.forPhone h1 {
   font-weight: 700;
-}
-
-.center_forchatbot.forPhone i {
-  color: $green;
 }
 
 .chatbot_message_containt {
@@ -272,7 +295,6 @@
   }
 }
 
-
 @media (max-width: 1600px) {
   .chatbot_text p {
     font-size: 14px;
@@ -288,7 +310,6 @@
 }
 
 @media (max-height: 700px) {
-
   .container_chatbot_chat {
     left: 250px;
     margin-bottom: 20px;

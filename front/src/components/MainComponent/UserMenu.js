@@ -41,8 +41,6 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
         />
         <li className="ms-main">
           <a onClick={() => console.log("00000")}>
-            {/* <a onClick={console.log('morgan ca bug')}> */}
-            {/* un console.log onClick c'est comme ça : onClick={() => console.log('morgan ca bug')} */}
             <label className="ms-menu-toggle-lbl" for="ms-menu">
               <img
                 src={`../../media/img/${user.photoProfil}.png`}

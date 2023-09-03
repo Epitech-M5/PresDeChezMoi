@@ -1,0 +1,66 @@
+.form_title_login {
+  font-size: 1.4rem;
+  font-family: $font-LeagueSpartan;
+  font-weight: 390;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.form_input_field {
+  max-width: 380px;
+  width: 94%;
+  height: 55px;
+  background-color: $grey;
+  margin: 3%;
+  border-radius: 55px;
+  display: grid;
+  grid-template-columns: 97% 100%;
+  padding: 0 0.4rem;
+}
+
+.form_btn_login {
+  width: 120px;
+  height: 49px;
+  border: none;
+  outline: none;
+  border-radius: 49px;
+  background-color: $orange;
+  color: $white;
+  font-family: $font-LeagueSpartan;
+  margin: 10px auto; 
+  transition: all 0.2s;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form_btn_login:hover {
+  background-color: $red-orange;
+  cursor: pointer;
+}
+
+.form_input_field input {
+  background: none;
+  outline: none;
+  border: none;
+  width: 100%; /* Prend toute la largeur de la colonne */
+  box-sizing: border-box;
+  line-height: 1;
+  font-size: 1.1rem;
+}
+
+.form_input_field input::placeholder {
+  font-weight: 700;
+  color: $dark-grey;
+}
+
+@media (max-width: 870px) {
+  .form_input_field i {
+    font-size: 0.8rem !important;
+  }
+  .form_title_login {
+    font-size: 1.6rem;
+  }
+}

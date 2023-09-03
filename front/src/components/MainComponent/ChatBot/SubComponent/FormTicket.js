@@ -37,7 +37,7 @@ const FormTicket = () => {
     )
       .then((response) => {
 
-        console.log("date ticket", annee+"-"+mois+"-"+jour)
+        console.log("date ticket", annee + "-" + mois + "-" + jour)
         console.log("response ticket : " , response);
 
       })
@@ -50,15 +50,15 @@ const FormTicket = () => {
     <>
       <div className="">
         <form>
-          <h2 className="title_login">Faire une demande</h2>
-          <div className="input_field">
+          <h2 className="form_title_login">Faire une demande</h2>
+          <div className="form_input_field">
             <input
               type="text"
               placeholder="Titre de la demande"
               onChange={handleTitle}
             />
           </div>
-          <div className="input_field">
+          <div className="form_input_field">
             <input
               type="text"
               placeholder="Entrez un message"
@@ -67,8 +67,8 @@ const FormTicket = () => {
           </div>
           <input
             type="submit"
-            value="Se connecter"
-            className="btn_login center_submit"
+            value="Envoyer"
+            className="form_btn_login"
             onClick={submitTicket}
           />
         </form>

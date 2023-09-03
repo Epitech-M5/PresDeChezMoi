@@ -23,7 +23,8 @@ const ListTicket = () => {
         console.log("error", error);
       });
   }, []);
-  console.log(ticket)
+  
+  console.log(ticket);
   return (
     <>
       <div className="">
