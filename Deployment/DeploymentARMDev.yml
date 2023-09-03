@@ -53,9 +53,9 @@
       become: true
       shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 8080 -j ACCEPT && netfilter-persistent save
 
-    - name: Ajout port 3001 front (react)
+    - name: Ajout port 80 front (react)
       become: true
-      shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 3001 -j ACCEPT && netfilter-persistent save
+      shell: iptables -I INPUT 6 -m state --state NEW -p tcp --dport 80 -j ACCEPT && netfilter-persistent save
 
     - name: Ajout port 8082 back
       become: true
