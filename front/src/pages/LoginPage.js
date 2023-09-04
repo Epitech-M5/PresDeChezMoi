@@ -6,7 +6,7 @@ import MessageQueue, { useMessageQueue } from "../components/MessageQueue.js";
 import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
-import { isLogin, fetchUtilisateurData, fetchRefreshToken, fetchToken } from "../redux/Utilisateur";
+import { isLogin, fetchUtilisateurData, fetchRefreshToken, fetchToken, fetchVille} from "../redux/Utilisateur";
 import Modal from '../components/MainComponent/Modal.js';
 import emailjs from 'emailjs-com';
 
@@ -71,11 +71,11 @@ const LoginPage = () => {
           dispatch(fetchToken(data.accessToken));
           dispatch(fetchRefreshToken(data.refreshToken));
           dispatch(fetchUtilisateurData(infoUtilisateur));
+          dispatch(fetchVille(data.idVille));
 
           setTimeout(() => {
             navigate('/home')
           }, 3000);
-
         }).catch(error => {
           console.log("error", error);
           addMessage(`${error}`, 'error');
@@ -115,6 +115,7 @@ const LoginPage = () => {
           dispatch(fetchToken(data.accessToken));
           dispatch(fetchRefreshToken(data.refreshToken));
           dispatch(fetchUtilisateurData(infoUtilisateur));
+          dispatch(fetchVille(data.idVille));
 
           if (data.idRole === 4) {
             setTimeout(() => {

@@ -78,8 +78,7 @@ const Tickets = () => {
 
   // Trier avec les status
   useEffect(() => {
-    console.log("ON EST DANS LA FONCTION STATUS", status);
-
+ 
     getAPI(`http://${adresseip}:${port}/api/ticket/status/` + status, null, {
       "x-access-token": utilisateur.token,
     })

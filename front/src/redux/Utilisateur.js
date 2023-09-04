@@ -28,7 +28,7 @@ export const utilisateurSlice = createSlice({
             state.idVille = action.payload;
         },
         fetchUtilisateurData: (state, action) => {
-            const { pseudo, idutilisateur, idRole, photoProfil, idVille } = action.payload
+            const { pseudo, idutilisateur, idRole, photoProfil } = action.payload
             state.pseudo = pseudo
             state.idutilisateur = idutilisateur
             state.idRole = idRole
