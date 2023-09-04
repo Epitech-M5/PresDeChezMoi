@@ -1,0 +1,16 @@
+{
+    "url": "http://IPBACKEND:PORTBACKEND/api/user/IDUTILISATEURSELF",
+    "body": {
+        "noteVille": [
+            5,
+            4,
+            2
+        ]
+    },
+    "codeExpected": 200,
+    "method": "PUT",
+    "header": {
+        "x-access-token": "TOKEN"
+    },
+    "hint": []
+}

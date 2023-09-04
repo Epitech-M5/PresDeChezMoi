@@ -1,0 +1,10 @@
+{
+    "url": "http://IPBACKEND:PORTBACKEND/api/user/IDUTILISATEURSELF",
+    "body": {},
+    "codeExpected": 200,
+    "method": "GET",
+    "header": {
+        "x-access-token": "TOKEN"
+    },
+    "hint": []
+}

@@ -1,0 +1,16 @@
+{
+    "url": "http://IPBACKEND:PORTBACKEND/api/user/auth/signup",
+    "body": {
+        "pseudo": "UTILISATEUR_TEST_UNITAIRE",
+        "mail": "UTILISATEUR@TEST.UNITAIRE",
+        "motDePasse": "s1P76VhzdA"
+    },
+    "codeExpected": 200,
+    "method": "POST",
+    "header": {},
+    "hint": [
+        "id",
+        "accessToken",
+        "idRole"
+    ]
+}
