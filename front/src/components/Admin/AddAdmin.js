@@ -22,7 +22,6 @@ const AddAdmin = () => {
     const [nameAdm, setNameAdm] = useState("");
     const [mailAdm, setMailAdm] = useState("");
     const [mdpAdm, setMdpAdm] = useState("");
-    const [idAdm, setIdAdm] = useState();
 
     useEffect(() => {
         getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
@@ -48,16 +47,19 @@ const AddAdmin = () => {
             addMessage('Tous les champs doivent être remplies', 'info');
         }
         else {
-            await postAPI(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": nameAdm, "mail": mailAdm, "motDePasse": mdpAdm, "idRole": 3, "photoProfil": "1" }, { "x-access-token": user.token })
+
+            let id_fix = "";
+
+            await postAPI(`http://${adresseip}:${port}/api/user/auth/signup`, { "pseudo": nameAdm, "mail": mailAdm, "motDePasse": mdpAdm }, { "x-access-token": user.token })
                 .then((response) => {
                     addMessage('Admin pour ' + nameVille + ' à été crée avec succès !', 'success');
-                    setIdAdm(response.dataAPI.id);
+                    id_fix = response.dataAPI.id;
                 })
                 .catch((error) => {
                     addMessage(`Erreur REQ 1 : + ${error}`, 'error');
                 })
 
-            await putAPI(`http://${adresseip}:${port}/api/user/${idAdm}`, { 'idVille': idVille }, { "x-access-token": user.token })
+            await putAPI(`http://${adresseip}:${port}/api/user/${id_fix}`, { 'idVille': idVille, "idRole": 3, "nom": nameAdm }, { "x-access-token": user.token })
                 .then((response) => {
                     console.log(response);
                 })
