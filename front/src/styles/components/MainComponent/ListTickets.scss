@@ -1,0 +1,27 @@
+.list_header {
+  margin-top: 6px;
+  padding-bottom: 4px;
+  margin-bottom: 7px;
+  font-weight: 400;
+  text-align: center;
+  border-bottom: 1px solid rgb(206, 206, 206);
+}
+
+.display_tickets {
+  border-bottom: 1px solid rgb(206, 206, 206);
+  margin-left: 5px;
+  padding-bottom: 4px;
+  margin-bottom: 7px;
+}
+
+.display_tickets h3 {
+  font-weight: 500;
+  text-align: left;
+}
+
+.display_tickets p {
+    font-weight: 300;
+    margin-top: 3px;
+    padding-left: 5px;
+    padding-bottom: 4px;
+}

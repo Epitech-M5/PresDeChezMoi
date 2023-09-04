@@ -23,20 +23,35 @@ const ListTicket = () => {
         console.log("error", error);
       });
   }, []);
-  
+
   console.log(ticket);
   return (
     <>
-      <div className="">
+      <div className="list_tickets">
+        <p className="list_header">Liste des tickets</p>
         <ul>
-          {ticket.map((item) => {
+          {ticket.map((item, index) => {
             // console.log(item.role.titre);
             return (
-              <div key={item.id}>
-                <li>{item.titre}</li>
-                <li>{item.status.titre}</li>
-                <li>{item.message}</li>
-                <li>{item.dateCreation}</li>
+              
+              <div key={item.id} className="display_tickets" >
+                {/* style={index == ticket.length - 1 ? ({ border-bottom: none }) : ({})} */} 
+                <li>
+                  <h3>Titre : </h3>
+                  <p>{item.titre}</p>
+                </li>
+                <li>
+                  <h3>Status : </h3>
+                  <p>{item.status.titre}</p>
+                </li>
+                <li>
+                  <h3>Message : </h3>
+                  <p>{item.message}</p>
+                </li>
+                <li>
+                  <h3>Date de Création : </h3>
+                  <p>{item.dateCreation}</p>
+                </li>
               </div>
             );
           })}

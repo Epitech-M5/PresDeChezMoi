@@ -3,9 +3,11 @@ import { io } from "socket.io-client";
 import FormTicket from "./SubComponent/FormTicket";
 import ListTicket from "./SubComponent/ListTicket";
 import First from "./SubComponent/First";
+import MessageQueue, { useMessageQueue } from "../../MessageQueue.js";
 
 const ChatBot = () => {
   const [history, setHistory] = useState([]);
+  const { addMessage, removeMessage, messages } = useMessageQueue();
 
   const handleToggle = () => {
     const toggleBtnIcon = document.querySelector(".container_logo_chatbot i");
@@ -53,7 +55,7 @@ const ChatBot = () => {
   };
 
   useEffect(() => {
-    setHistory([<First history={history} setHistory={setHistory} />]);
+    setHistory([<First addMessage={addMessage} history={history} setHistory={setHistory} />]);
     console.log("history", history);
   }, []);
 
@@ -104,6 +106,7 @@ const ChatBot = () => {
 
         <History />
       </div>
+      <MessageQueue messages={messages} removeMessage={removeMessage} />
     </>
   );
 };

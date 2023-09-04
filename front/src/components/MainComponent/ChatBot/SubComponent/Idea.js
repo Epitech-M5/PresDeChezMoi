@@ -6,7 +6,7 @@ import First from "./First";
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP;
 const port = process.env.REACT_APP_BACKEND_PORT;
 
-const FormTicket = ({ addMessage, setHistory, history }) => {
+const Idea = ({ addMessage, setHistory, history }) => {
   const [titleTicket, setTitleTicket] = useState("");
   const [message, setMessage] = useState("");
   const user = useSelector((state) => state.utilisateur);
@@ -37,10 +37,10 @@ const FormTicket = ({ addMessage, setHistory, history }) => {
       { "x-access-token": user.token }
     )
       .then((response) => {
-        addMessage("Votre demande a bien été envoyé !");
+        addMessage("Votre idée a bien été envoyé !");
         setHistory([<First history={history} setHistory={setHistory} />]);
-        console.log("date ticket", annee + "-" + mois + "-" + jour);
-        console.log("response ticket : ", response);
+        console.log("date idée", annee + "-" + mois + "-" + jour);
+        console.log("response idée : ", response);
       })
       .catch((error) => {
         console.log("error", error);
@@ -51,19 +51,19 @@ const FormTicket = ({ addMessage, setHistory, history }) => {
     <>
       <div className="">
         <form>
-          <h2 className="form_title_login">Faire une demande</h2>
+          <h2 className="form_title_login">Proposer une idée</h2>
           <div className="form_input_field">
             <input
               type="text"
-              placeholder="Titre de la demande"
+              placeholder="Titre de l'idée"
               onChange={handleTitle}
-              value={titleTicket} // Ajout de cette ligne
+              value={titleTicket}
             />
           </div>
           <div className="form_input_field">
             <input
               type="text"
-              placeholder="Entrez un message"
+              placeholder="Entrez une description"
               onChange={handleMessage}
               value={message}
             />
@@ -80,4 +80,4 @@ const FormTicket = ({ addMessage, setHistory, history }) => {
   );
 };
 
-export default FormTicket;
+export default Idea;
