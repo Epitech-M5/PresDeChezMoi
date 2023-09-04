@@ -1,4 +1,4 @@
-
+/* Base Styles */
 ul {
   margin: 0;
   padding: 0;
@@ -27,8 +27,8 @@ a {
   position: absolute;
   width: 60px;
   height: 60px;
-  top: 15%;
-  right: 2%;
+  top: 23%;
+  right: 4.5%;
   z-index: 101;
 }
 
@@ -47,7 +47,7 @@ a {
 .ms-menu-toggle-lbl {
   overflow: hidden;
   cursor: pointer;
-  border: 3px solid transparent; /* Épaisseur et couleur de la bordure */
+  border: 3px solid transparent;
   border-radius: 50%;
 }
 
@@ -67,8 +67,7 @@ a {
   height: 8px;
 }
 
-//----------------li main-----------------//
-
+/* li main styles */
 .ms-nav > .ms-main > a {
   box-shadow: 0px 5px 10px #333333;
 }
@@ -118,12 +117,16 @@ a {
   }
 }
 
-.ms-nav > .ms-main > h3 {
-  top: 5%;
+.ms-nav > .ms-main h3 {
   color: #333333;
   font-size: 20px;
   font-family: $font-LeagueSpartan;
   text-align: center;
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ms-nav .ms-menu-toggle:checked ~ .ms-main:after {
@@ -135,7 +138,6 @@ a {
   top: 0;
   left: 0;
   right: 0;
-  top: 0;
   margin: auto;
   height: 30px;
   width: 30px;
@@ -143,8 +145,7 @@ a {
   z-index: 12;
 }
 
-//----------------li1-----------------//
-
+/* li1 styles */
 .ms-nav .ms-menu-toggle:checked ~ .ms-li a {
   box-shadow: 0px 5px 10px #333333;
 }
@@ -193,16 +194,12 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   transition: opacity 0.5s ease 0.1s;
 }
 
-.ms-nav .ms-menu-toggle:checked ~ .ms-li1:before {
-  animation: border-top-animation 0.5s ease 0.2s;
-}
-
+.ms-nav .ms-menu-toggle:checked ~ .ms-li1:before,
 .ms-nav .ms-menu-toggle:checked ~ .ms-li1:after {
   animation: border-top-animation 0.5s ease 0.2s;
 }
 
-//----------------li2-----------------//
-
+/* li2 styles */
 .ms-nav .ms-menu-toggle ~ .ms-li2 a span {
   opacity: 0;
   transition: opacity 0.1s ease 0.1s;
@@ -218,16 +215,12 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   transition: opacity 0.7s ease 0.2s;
 }
 
-.ms-nav .ms-menu-toggle:checked ~ .ms-li2:before {
+.ms-nav .ms-menu-toggle:checked ~ .ms-li2:before,
+.ms-nav .ms-menu-toggle:checked ~ .ms-li2:after {
   animation: border-top-animation 0.5s ease 0.2s;
 }
 
-.ms-nav .ms-menu-toggle:checked ~ .ms-li2:after {
-  animation: border-top-animation 0.5s ease 0.3s;
-}
-
-//----------------li3-----------------//
-
+/* li3 styles */
 .ms-nav .ms-menu-toggle:checked ~ .ms-li3 {
   top: 400%;
   transition: top 0.68s ease;
@@ -238,16 +231,12 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   transition: opacity 0.7s ease 0.3s;
 }
 
-.ms-nav .ms-menu-toggle:checked ~ .ms-li3:before {
+.ms-nav .ms-menu-toggle:checked ~ .ms-li3:before,
+.ms-nav .ms-menu-toggle:checked ~ .ms-li3:after {
   animation: border-top-animation 0.5s ease 0.3s;
 }
 
-.ms-nav .ms-menu-toggle:checked ~ .ms-li3:after {
-  animation: border-top-animation 0.5s ease 0.4s;
-}
-
-//----------------li4-----------------//
-
+/* li4 styles */
 .ms-nav .ms-menu-toggle:checked ~ .ms-li4 {
   top: 495%;
   transition: top 0.9s ease;
@@ -262,23 +251,9 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   animation: border-top-animation 0.5s ease 0.4s;
 }
 
-//----------------when toggle-----------------//
-
-.ms-nav .ms-menu-toggle ~ .ms-li:before {
-  content: "";
-  width: 45px;
-  display: block;
-  position: absolute;
-  top: -5px;
-  left: 0;
-  right: 0;
-  margin: auto;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-top: 0px solid #337ab7;
-}
-
-.ms-nav .ms-menu-toggle ~ .ms-li:before {
+/* when toggle styles */
+.ms-nav .ms-menu-toggle ~ .ms-li:before,
+.ms-nav .ms-menu-toggle ~ .ms-li:after {
   content: "";
   width: 45px;
   display: block;
@@ -306,14 +281,10 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   border-top: 0px solid #337ab7;
 }
 
-//----------------BreakPoint-----------------//
-
-/* Styles pour les écrans de taille supérieure à 1200px */
-/* Styles pour les écrans de taille supérieure à 1200px */
+/* BreakPoint styles */
 @media (min-width: 1200px) {
   .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
     transform: scale(0.9);
-    /* Rétrécissement à 90% de la taille originale */
   }
 
   .ms-nav > li a {
@@ -334,11 +305,10 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   }
 }
 
-/* Styles pour les écrans de taille comprise entre 992px et 1199px */
-@media (min-width: 992px) and (max-width: 1199px) {
+@media (min-width: 992px) and (max-width: 1199px),
+  (min-width: 768px) and (max-width: 991px) {
   .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
     transform: scale(0.7);
-    /* Rétrécissement à 70% de la taille originale */
   }
 
   .ms-nav > li a {
@@ -368,45 +338,9 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   }
 }
 
-/* Styles pour les écrans de taille comprise entre 768px et 991px */
-@media (min-width: 768px) and (max-width: 991px) {
-  .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
-    transform: scale(0.7);
-    /* Rétrécissement à 70% de la taille originale */
-  }
-
-  .ms-nav > li a {
-    font-size: 15px;
-    width: 40px;
-    height: 40px;
-  }
-
-  .ms-nav > .ms-main a,
-  .ms-nav > .ms-main > a > label {
-    font-size: 25px;
-    width: 50px;
-    height: 50px;
-  }
-
-  .ms-nav > .ms-main > h3 {
-    font-size: 18px;
-  }
-
-  .ms-nav .ms-menu-toggle ~ .ms-li a span {
-    left: 4px;
-    top: 6px;
-  }
-
-  .fa-solid {
-    font-size: 30px !important;
-  }
-}
-
-/* Styles pour les écrans de taille inférieure à 767px */
 @media (max-width: 767px) {
   .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
     transform: scale(0.7);
-    /* Rétrécissement à 70% de la taille originale */
   }
 
   .ms-nav > li a {
@@ -435,8 +369,14 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   }
 }
 
-//----------------KeyFrame-----------------//
+@media (max-width: 650px), (max-height: 450px) {
+  .ms-nav {
+    right: 2%;
+  }
+}
 
+
+/* KeyFrame styles */
 @keyframes fadeOut {
   0% {
     opacity: 1;
@@ -444,20 +384,6 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
 
   100% {
     opacity: 0;
-  }
-}
-
-@keyframes border-top-animation {
-  0% {
-    top: 0px;
-  }
-
-  50% {
-    top: -14px;
-  }
-
-  100% {
-    top: 0px;
   }
 }
 
@@ -487,8 +413,4 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   100% {
     top: 0px;
   }
-}
-.ms-main h3 {
-  padding-top: 5px;
-  text-align: center;
 }

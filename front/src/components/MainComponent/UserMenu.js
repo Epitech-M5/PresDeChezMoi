@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -13,15 +13,39 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
 
   const navigate = useNavigate();
 
-  function handleNavigate(goTo){
-    // eslint-disable-next-line default-case
+  const [truncatedPseudo, setTruncatedPseudo] = useState(user.pseudo);
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 650 || window.innerHeight <= 450) {
+        setTruncatedPseudo(
+          user.pseudo.length > 5
+            ? `${user.pseudo.substring(0, 5)}...`
+            : user.pseudo
+        );
+      } else {
+        setTruncatedPseudo(user.pseudo);
+      }
+    }
+
+    handleResize(); // Appel initial
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [user.pseudo]);
+
+  function handleNavigate(goTo) {
     switch (goTo) {
       case 1:
         return navigate("/home/user/settings");
       case 2:
         return navigate("/login");
+      default:
+        break;
     }
-  };
+  }
 
   return (
     <div className="ms-nav-container">
@@ -48,7 +72,7 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
                 className="userProfile"
               />
             </label>
-            <h3>{user.pseudo}</h3>
+            <h3 className="ms-pseudo">{truncatedPseudo}</h3>
           </a>
         </li>
         <div className="ms-nav-point"> </div>
