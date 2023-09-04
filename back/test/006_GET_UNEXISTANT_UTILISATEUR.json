@@ -1,0 +1,10 @@
+{
+    "url": "http://IPBACKEND:PORTBACKEND/api/user/9999999999999",
+    "body": {},
+    "codeExpected": 500,
+    "method": "GET",
+    "header": {
+        "x-access-token": "TOKEN"
+    },
+    "hint": []
+}
