@@ -55,8 +55,32 @@ const ChatBot = () => {
   };
 
   useEffect(() => {
-    setHistory([<First addMessage={addMessage} history={history} setHistory={setHistory} />]);
+    setHistory([
+      <First
+        addMessage={addMessage}
+        history={history}
+        setHistory={setHistory}
+      />,
+    ]);
     console.log("history", history);
+
+    const handleScroll = () => {
+      const chatbotElem = document.querySelector(".container_chatbot_chat");
+      const clearBtn = document.querySelector(".chatbot_clear");
+      if (chatbotElem && clearBtn) {
+        const rect = chatbotElem.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) {
+          clearBtn.style.display = "none";
+        } else {
+          clearBtn.style.display = "block";
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   useEffect(() => {
