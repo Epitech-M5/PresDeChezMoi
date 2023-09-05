@@ -4,6 +4,8 @@ import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js'
 import { getAPI, postAPI, putAPI } from '../../api';
 import { Provider, useSelector } from "react-redux";
 import Loader from '../Loader.js';
+import emailjs from 'emailjs-com';
+
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 
@@ -62,6 +64,25 @@ const AddAdmin = () => {
             await putAPI(`http://${adresseip}:${port}/api/user/${id_fix}`, { 'idVille': idVille, "idRole": 3, "nom": nameAdm }, { "x-access-token": user.token })
                 .then((response) => {
                     console.log(response);
+                    const emailParams = {
+                        to_email: mailAdm,
+                        from_name: "PrèsDeChezMoi",
+                        message: `Bonjour,\nUn compte administrateur à été ouvert avec cette adresse mail sur le site PrèsDeChezMoi !\n\nVoici les identifiants :\npseudo : ${nameAdm}\nmot de passe : ${mdpAdm}\n\nMerci pour votre confiance et de nous avoir choisit !!\nCordialement,\nL'équipe PrèsDeChezMoi`,
+                        name_ville: nameVille
+                    };
+
+                    emailjs.init("kJ7x_5KhXaVSSjkIm");
+
+                    // 200 email par mois, id : presdechezmoi.email@gmail.com mdp : 123Azerty#
+                    emailjs.send("service_9ym8bhs", "template_vv9tyld", emailParams)
+                        .then(
+                            (result) => {
+                                console.log(result.text);
+                            },
+                            (error) => {
+                                console.log(error.text);
+                            }
+                        )
                 })
                 .catch((error) => {
                     addMessage(`Erreur REQ 2 : + ${error}`, 'error');
