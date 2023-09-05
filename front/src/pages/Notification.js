@@ -15,8 +15,8 @@ const Notification = () => {
     if (
       window.confirm(
         "Etes-vous sûr de vouloir supprimer la notification : " +
-          titleNotif +
-          " ?"
+        titleNotif +
+        " ?"
       )
     ) {
       const elementParent = e.target.parentElement;
@@ -39,17 +39,18 @@ const Notification = () => {
   useEffect(() => {
     getAPI(`http://${adresseip}:${port}/api/notification/${user.idRole}`, {})
       .then((response) => {
-        setDataNotif(response.dataAPI);
+        setDataNotif(response.dataAPI.filter(item => item.idVille === user.idVille));
       })
       .catch((error) => {
         console.log("error", error);
       });
   }, []);
-  console.log("dataNotif",dataNotif)
+  console.log("dataNotif", dataNotif)
   return (
     <>
       <div className="container_notifpage">
-        {dataNotif !== null &&(
+
+        {dataNotif !== null && (
           dataNotif.map(
             (notification) =>
               (notification.typeNotif === "Informatif" && (
@@ -79,17 +80,17 @@ const Notification = () => {
                   </div>
                   <i class="fa-solid fa-xmark" onClick={deleteNotif}></i>
                 </div>
+              )) ||
+              (notification.typeNotif == null && (
+                <div className="notif_warning notif_barre" >
+                  <div className="contein_text">
+                    <p id="title">Il n'y a pas de notifications </p>
+                  </div>
+                </div>
               ))
           )
-        )||(
-          <div className="notif_warning notif_barre" >
-          <div className="contein_text">
-            <p id="title">Il n'y a pas de notifications </p>
-          </div>
-        </div>
         )}
       </div>
-      ;
     </>
   );
 };

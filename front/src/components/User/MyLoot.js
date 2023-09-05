@@ -46,6 +46,7 @@ const MyLoot = () => {
             .then((response) => {
 
                 setDataScore(response.dataAPI);
+                // setData(response.dataAPI.filter(item => item.idVille === user.idVille));
                 setListRecompense(response.dataAPI.listRecompense)
                 setListRecompenseEnCours(response.dataAPI.listRecompenseEnCoursClaim)
 
@@ -63,6 +64,8 @@ const MyLoot = () => {
                 setTimeout(() => {
                     console.log("@@@@@@@@@@@@@@@@LOOOOOOOOOOOOOOOOOOOT:", response.dataAPI)
                     setData(response.dataAPI);
+
+
                     setLoading(false);
                 }, 2000);
             })

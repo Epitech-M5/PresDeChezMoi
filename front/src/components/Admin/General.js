@@ -39,7 +39,6 @@ const General = () => {
     const [name, setName] = useState('');
     const [numb, setNumb] = useState('');
     const [updateToggle, setUpdateToggle] = useState(false);
-    const [firstTime, setFirstTime] = useState(true);
 
     const user = useSelector((state) => state.utilisateur);
 
@@ -154,7 +153,7 @@ const General = () => {
             <MessageQueue messages={messages} removeMessage={removeMessage} />
             <div className='content_admin'>
                 <div className="container_title_page_admin">
-                    <h1>Réglagle Général</h1>
+                    <h1>Réglage Général</h1>
                 </div>
                 <div className="content_inside_admin_pages">
 

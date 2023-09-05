@@ -32,8 +32,9 @@ const MapPage = () => {
 
                 console.log(response.dataAPI)
 
+
                 setTimeout(() => {
-                    const verifiedItems = response.dataAPI.filter(item => item.estVerifie === true);
+                    const verifiedItems = response.dataAPI.filter(item => item.estVerifie === true && item.idVille === user.idVille);
                     setMarkers(verifiedItems.map(item => ({
                         ...item,
                         latitude: item.latitude !== null ? Number(item.latitude) : null,

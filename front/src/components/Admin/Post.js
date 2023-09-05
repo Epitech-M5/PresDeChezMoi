@@ -20,10 +20,9 @@ const Post = () => {
 
         getAPI(`http://${adresseip}:${port}/api/annonce/`, {}, { 'x-access-token': user.token })
             .then((response) => {
-
                 setData(response.dataAPI);
-
                 setTimeout(() => {
+
                     setLoading(false);
                 }, 4000);
             })
@@ -31,7 +30,7 @@ const Post = () => {
                 console.log('error', error);
                 setLoading(false);
             });
-    }, []);
+    }, [data]);
 
     useEffect(() => {
         setActiveId(1);
@@ -238,15 +237,18 @@ const Post = () => {
                                                 <i className="fa-solid fa-thumbs-up" onClick={() => handleOK(item.id, 'valide', item.organisateur)}></i>
                                                 <i className="fa-solid fa-thumbs-up fa-rotate-180" onClick={() => handleSupp(item.id, item.organisateur)}></i>
                                                 <i className="fa-solid fa-circle-exclamation" onClick={() => handleINap(item.id, item.organisateur, item.organisateur)}></i>
+                                            </div>
+
+
+                                            <div className="inputs_for_numb">
                                                 <input
                                                     type="number"
-                                                    value={scoreValue}
                                                     onChange={handleInputChange}
                                                     step={50}
                                                 />
                                             </div>
-
                                         </div>
+
                                     </>
                                 ))
                             ) : (
