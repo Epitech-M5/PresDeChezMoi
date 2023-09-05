@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
         titre: {
             type: Sequelize.STRING
         },
+        idVille: {
+            type: Sequelize.INTEGER
+        },
         idStatus: {
             type: Sequelize.INTEGER
         },

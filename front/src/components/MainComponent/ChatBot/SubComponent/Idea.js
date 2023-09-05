@@ -31,6 +31,7 @@ const Idea = ({ setHistory, history }) => {
         idUtilisateur: user.idutilisateur,
         titre: titleTicket,
         idStatus: 1,
+        idVille: user.idVille,
         message: message,
         dateCreation: dateObj,
       },

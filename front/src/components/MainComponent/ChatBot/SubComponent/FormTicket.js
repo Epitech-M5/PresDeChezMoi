@@ -32,15 +32,18 @@ const FormTicket = ({ setHistory, history }) => {
         titre: titleTicket,
         idStatus: 1,
         message: message,
+        idVille: user.idVille,
         dateCreation: dateObj,
       },
       { "x-access-token": user.token }
     )
       .then((response) => {
+
+        console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII", response)
+        alert("Votre demande a bien été envoyé !");
         setHistory([<First history={history} setHistory={setHistory} />]);
-        console.log("date ticket", annee + "-" + mois + "-" + jour);
-        console.log("response ticket : ", response);
-        alert("Votre ticket a bien été envoyé");
+        // console.log("date ticket", annee + "-" + mois + "-" + jour);
+        // console.log("response ticket : ", response);
       })
       .catch((error) => {
         console.log("error", error);

@@ -42,6 +42,9 @@ module.exports = (sequelize, Sequelize) => {
         idTypeSignalement: {
             type: Sequelize.INTEGER
         },
+        idVille: {
+            type: Sequelize.INTEGER
+        },
         idUtilisateurSignalement: {
             type: Sequelize.INTEGER
         },

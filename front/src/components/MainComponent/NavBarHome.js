@@ -392,6 +392,7 @@ const NavBarHome = (props) => {
           {
             titre: titre,
             description: descriptions,
+            idVille: user.idVille,
             image: image,
             dateDebut: dateDebut,
             dateFin: dateFin,
@@ -436,6 +437,7 @@ const NavBarHome = (props) => {
             titre: titre,
             description: descriptions,
             image: image,
+            idVille: user.idVille,
             dateDebut: dateDebut,
             dateFin: dateFin,
             prix: prix,
@@ -479,6 +481,8 @@ const NavBarHome = (props) => {
             image: image,
             dateDebut: dateDebut,
             dateFin: dateFin,
+            idVille: user.idVille,
+
             prix: prix,
             idTypeActivite: typeAct,
             latitude: latitude,
@@ -516,6 +520,8 @@ const NavBarHome = (props) => {
             image: image,
             dateDebut: dateDebut,
             dateFin: dateFin,
+            idVille: user.idVille,
+
             prix: prix,
             idTypeActivite: typeAct,
             latitude: latitude,
@@ -547,6 +553,8 @@ const NavBarHome = (props) => {
             description: descriptions,
             image: image,
             dateDebut: dateDebut,
+            idVille: user.idVille,
+
             dateFin: dateFin,
             prix: prix,
             idTypeActivite: typeAct,
@@ -579,6 +587,8 @@ const NavBarHome = (props) => {
             description: descriptions,
             image: image,
             dateDebut: dateDebut,
+            idVille: user.idVille,
+
             dateFin: dateFin,
             prix: prix,
             idTypeActivite: typeAct,

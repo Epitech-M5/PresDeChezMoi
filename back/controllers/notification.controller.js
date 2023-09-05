@@ -50,6 +50,7 @@ exports.create = (req, res) => {
           message: req.body.message,
           dateCreation: null,
           envoyeA: idRole,
+          idVille: req.body.idVille,
           typeNotif: req.body.typeNotif,
           formeNotif: req.body.formeNotif,
           destinataire: arrayUser,
@@ -136,37 +137,37 @@ exports.update = (req, res) => {
       var tabDestinataire = JSON.parse(data.destinataire);
       console.log("data.destinataire=", data.destinataire);
       console.log("ICICIICCIICICICICICICICICIIC")
-      console.log( tabDestinataire[0]);
+      console.log(tabDestinataire[0]);
 
-        var tabSansIdUtilisateur = [];
+      var tabSansIdUtilisateur = [];
 
 
-        // console.log("tabDestinataire", tabDestinataire);
-        for (var i = 0; i < tabDestinataire.length; i++) {
-          // console.log("i", i);
-          // console.log(tabDestinataire[i]);
-        
-            if (tabDestinataire[i] != idUtilisateur) {
-              tabSansIdUtilisateur.push(tabDestinataire[i]);
+      // console.log("tabDestinataire", tabDestinataire);
+      for (var i = 0; i < tabDestinataire.length; i++) {
+        // console.log("i", i);
+        // console.log(tabDestinataire[i]);
+
+        if (tabDestinataire[i] != idUtilisateur) {
+          tabSansIdUtilisateur.push(tabDestinataire[i]);
         }
-        
-        }
-        console.log("TABDEST AVANT")
-        console.log(tabSansIdUtilisateur);
 
-            // Mettre à jour le champ 'destinataire' dans la base de données
-        Notification.update({ destinataire: tabSansIdUtilisateur }, {
+      }
+      console.log("TABDEST AVANT")
+      console.log(tabSansIdUtilisateur);
+
+      // Mettre à jour le champ 'destinataire' dans la base de données
+      Notification.update({ destinataire: tabSansIdUtilisateur }, {
         where: {
           id: id,
         },
       })
-      .then((data)=>{
-        console.log("Modification réussi !")
-      })
-      .catch((err)=>{
-        console.log("une erreur est survenu: ")
-        console.log(err);
-      })
+        .then((data) => {
+          console.log("Modification réussi !")
+        })
+        .catch((err) => {
+          console.log("une erreur est survenu: ")
+          console.log(err);
+        })
     })
     .catch((err) => {
       console.log("ERRORORORO", err);

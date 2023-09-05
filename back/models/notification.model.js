@@ -31,6 +31,9 @@ module.exports = (sequelize, Sequelize) => {
     envoyeA: {
       type: Sequelize.INTEGER,
     },
+    idVille: {
+      type: Sequelize.INTEGER
+    },
     // Tableau d'idUser qui ont le rôle (envoyeA)
     destinataire: {
       type: Sequelize.JSON,

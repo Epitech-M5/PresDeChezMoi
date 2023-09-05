@@ -49,6 +49,7 @@ exports.create = (req, res) => {
                     prix: req.body.prix,
                     longitude: req.body.longitude,
                     latitude: req.body.latitude,
+                    idVille: req.body.idVille,
                     estVerifie: false,
                     parking: req.body.parking,
                     parkingGratuit: req.body.parkingGratuit
@@ -72,6 +73,7 @@ exports.create = (req, res) => {
                     longitude: req.body.longitude,
                     latitude: req.body.latitude,
                     estVerifie: false,
+                    idVille: req.body.idVille,
                     parking: req.body.parking,
                     parkingGratuit: req.body.parkingGratuit
                 }
