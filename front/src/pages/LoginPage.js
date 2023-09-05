@@ -45,7 +45,7 @@ const LoginPage = () => {
     ) {
       addMessage(
         'Les champs "Identifiant", "Mot de passe" et "Email" ne sont pas remplis',
-        "info"
+        "error"
       );
     } else {
 
@@ -78,7 +78,7 @@ const LoginPage = () => {
           }, 3000);
         }).catch(error => {
           console.log("error", error);
-          addMessage(`${error}`, 'error');
+          addMessage(`${error.response.data.message}`, 'error');
         })
 
     }
@@ -88,7 +88,7 @@ const LoginPage = () => {
     event.preventDefault();
 
     if (idLogin.length <= 0 || passwordLogin.length <= 0) {
-      addMessage('Les champs "Identifiant" et "Mot de passe" ne sont pas remplis', 'info');
+      addMessage('Les champs "Identifiant" et "Mot de passe" ne sont pas remplis', 'error');
     }
 
     else {
@@ -131,7 +131,7 @@ const LoginPage = () => {
 
         }).catch(error => {
           console.log("error", error);
-          addMessage(`${error}`, 'error');
+          addMessage(`${error.response.data.message}`, 'error');
         })
 
     }

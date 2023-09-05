@@ -100,7 +100,7 @@ exports.signin = (req, res) => {
   })
     .then(async user => {
       if (!user) {
-        return res.status(404).send({ message: "Utilisateur non trouvé." });
+        return res.status(404).send({ message: "Le pseudo n'éxiste pas" });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -156,7 +156,7 @@ exports.findByPseudo = (req, res) => {
   })
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: "Utilisateur non trouvé." });
+        return res.status(404).send({ message: "Le pseudo n'éxiste pas" });
       }
 
       res.status(200).send({
@@ -249,7 +249,7 @@ exports.find_by_email = (req, res) => {
   Utilisateur.findOne({ where: { mail: email } }) // Recherchez l'utilisateur par e-mail
     .then(user => {
       if (!user) {
-        return res.status(404).send({ message: 'Utilisateur introuvable' });
+        return res.status(404).send({ message: 'Le mail n\'existe pas.' });
       }
       console.log("USERRRRRRRRRR", user)
       // CREATION TOKEN
@@ -419,8 +419,6 @@ exports.update = (req, res) => {
 };
 
 exports.edit_password = (req, res) => {
-  console.log("mot de passe", req.body.motDePasse)
-  console.log("mot de passe", req.userId)
   req.body.motDePasse = bcrypt.hashSync(req.body.motDePasse, 8),
     Utilisateur.update(req.body, {
       where: { id: req.userId }
@@ -432,7 +430,7 @@ exports.edit_password = (req, res) => {
           });
         } else {
           res.status(400).send({
-            message: `Impossible de modifier l'utilisateurAAAAAAAAAAAAa id=${req.userId}.`
+            message: `Impossible de modifier l'utilisateur id=${req.userId}.`
           });
         }
       })

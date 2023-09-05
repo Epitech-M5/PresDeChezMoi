@@ -113,7 +113,13 @@ const Tickets = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
-
+   
+  /**
+   * 
+   * @param {string} messageTicket Permet de récupérer le message du ticket choisis
+   * Fonction qui permet d'ouvrir Modal et
+   * Récupère le message du ticket à afficher dans Modal
+   */
   const openModal = (messageTicket) => {
     setMessage(messageTicket);
     setIsOpen(true);
