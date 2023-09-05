@@ -6,7 +6,7 @@ import First from "./First";
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP;
 const port = process.env.REACT_APP_BACKEND_PORT;
 
-const Idea = ({ addMessage, setHistory, history }) => {
+const Idea = ({ setHistory, history }) => {
   const [titleTicket, setTitleTicket] = useState("");
   const [message, setMessage] = useState("");
   const user = useSelector((state) => state.utilisateur);
@@ -37,10 +37,10 @@ const Idea = ({ addMessage, setHistory, history }) => {
       { "x-access-token": user.token }
     )
       .then((response) => {
-        addMessage("Votre idée a bien été envoyé !");
         setHistory([<First history={history} setHistory={setHistory} />]);
         console.log("date idée", annee + "-" + mois + "-" + jour);
         console.log("response idée : ", response);
+        alert("Votre idée a bien été envoyée");
       })
       .catch((error) => {
         console.log("error", error);

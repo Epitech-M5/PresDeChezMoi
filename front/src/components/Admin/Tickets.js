@@ -1,8 +1,10 @@
-import { getAPI, postAPI, putAPI, deleteAPI } from "../../api.js";
+import { getAPI } from "../../api.js";
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import DropDownBtn from "../MainComponent/DropDownBtn.js";
 import Modal from "../MainComponent/Modal.js";
+import ShortDropDownBtn from "../MainComponent/ShortDropDownBtn.js";
+import axios from "axios";
 
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP;
 const port = process.env.REACT_APP_BACKEND_PORT;
@@ -10,119 +12,113 @@ const port = process.env.REACT_APP_BACKEND_PORT;
 const Tickets = () => {
   const utilisateur = useSelector((state) => state.utilisateur);
   const [listTicket, setListTicket] = useState([]);
-  const [listTicketFiltre, setListTicketFiltre] = useState([]);
   const [listTicketStatus, setListTicketStatus] = useState([]);
-  const [filtre, setFiltre] = useState("");
-  const [status, setStatus] = useState("");
   const [message, setMessage] = useState("");
-  const [isFiltre, setIsFiltre] = useState(false); // Filtre : + récent, - récent
-  const [isStatus, setisStatus] = useState(false); // Status : En cours, terminé etc
   const [isOpen, setIsOpen] = useState(false);
+  const [rendu, setRendu] = useState(listTicket);
 
   useEffect(() => {
-    getAPI(`http://${adresseip}:${port}/api/ticket`, null, {
-      "x-access-token": utilisateur.token,
-    })
-      .then((response) => {
+    async function fetchData() {
+      try {
+        const response = await getAPI(
+          `http://${adresseip}:${port}/api/ticket`,
+          null,
+          {
+            "x-access-token": utilisateur.token,
+          }
+        );
+        console.log("responseAAAAAAAAAAAAAAA", response);
         setListTicket(response.dataAPI);
-      })
-      .catch((error) => {
+        setRendu(response.dataAPI);
+      } catch (error) {
         console.log("error", error);
-      });
+      }
+
+      try {
+        const response = await getAPI(
+          `http://${adresseip}:${port}/api/status/`
+        );
+        const titles = response.dataAPI.map((item) => item.titre);
+        setListTicketStatus(titles);
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+
+    fetchData();
   }, []);
 
-  const handleCheckboxChange = (item) => {
+  const handleFilter = (item) => {
     if (item === "Le plus récent") {
-      setFiltre("desc");
+      const sortedTickets = [...listTicket].sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateB - dateA;
+      });
+      setRendu(sortedTickets);
+    } else if (item === "Le plus ancien") {
+      const sortedTickets = [...listTicket].sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateA - dateB;
+      });
+      setRendu(sortedTickets);
     } else {
-      setFiltre("asc");
+      setRendu(listTicket);
     }
-    setisStatus(false);
-    setIsFiltre(true);
+    setListTicket(rendu);
   };
 
-  const handleCheckboxChangeStatus = (item) => {
-    //["non résolu", "en cours de traitement", "résolu","inapproprié"]
-    switch (item) {
-      case "non résolu":
-        setStatus("nonResolu");
-        break;
-      case "en cours de traitement":
-        setStatus("enCours");
-        break;
-      case "résolu":
-        setStatus("resolu");
-        break;
-      case "inapproprié":
-        setStatus("inapproprie");
-        break;
+  const handleFilterStatus = (item) => {
+    if (item && item.length > 0) {
+      const filteredTickets = listTicket.filter(
+      (ticket) => ticket.status.titre == item//it dosn't work
+      );
+
+      setRendu(filteredTickets);
+    } else {
+      setRendu(listTicket);
     }
-    setisStatus(true);
-    setIsFiltre(false);
   };
 
-  // Trier avec les filtres
-  useEffect(() => {
-    getAPI(`http://${adresseip}:${port}/api/ticket/byDate/` + filtre, null, {
-      "x-access-token": utilisateur.token,
-    })
-      .then((response) => {
-        console.log("liste des tickets FILTRE", response);
-        setListTicketStatus([]);
-        setListTicketFiltre(response.dataAPI);
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  }, [filtre]);
+  const handleCheckboxChangeStatus = async (item, index) => {
+    const statusIndex =
+      listTicketStatus.findIndex((element) => element === item) + 1;
 
-  // Trier avec les status
-  useEffect(() => {
-    console.log("ON EST DANS LA FONCTION STATUS", status);
+    try {
+      await axios.put(
+        `http://${adresseip}:${port}/api/ticket/` + index,
+        { idStatus: statusIndex },
+        {
+          headers: {
+            "x-access-token": utilisateur.token,
+            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+          },
+        }
+      );
 
-    getAPI(`http://${adresseip}:${port}/api/ticket/status/` + status, null, {
-      "x-access-token": utilisateur.token,
-    })
-      .then((response) => {
-        console.log("liste des tickets FILTRE", response);
-        setListTicketFiltre([]);
-        setListTicketStatus(response.dataAPI);
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  }, [status]);
-
-  var rendu;
-  if (isFiltre) {
-    if (listTicketFiltre && listTicketFiltre.length !== 0) {
-      rendu = listTicketFiltre;
-    } else {
-      rendu = listTicket;
+      const response = await getAPI(
+        `http://${adresseip}:${port}/api/ticket`,
+        null,
+        {
+          "x-access-token": utilisateur.token,
+        }
+      );
+      setListTicket(response.dataAPI);
+    } catch (error) {
+      console.log("error", error);
     }
-  } else if (isStatus) {
-    if (listTicketStatus && listTicketStatus.length !== 0) {
-      rendu = listTicketStatus;
-    } else {
-      rendu = listTicket;
-    }
-  } else {
-    rendu = listTicket;
-  }
+  };
+
   const closeModal = () => {
     setIsOpen(false);
   };
-  
-  /**
-   * 
-   * @param {string} messageTicket Permet de récupérer le message du ticket choisis
-   * Fonction qui permet d'ouvrir Modal et
-   * Récupère le message du ticket à afficher dans Modal
-   */
+
   const openModal = (messageTicket) => {
-    setMessage(messageTicket)
+    setMessage(messageTicket);
     setIsOpen(true);
-};
+  };
+
   return (
     <>
       <div className="content_admin">
@@ -136,20 +132,15 @@ const Tickets = () => {
                 type="abs"
                 text="Filtre ticket"
                 items={["Le plus récent", "Le plus ancien"]}
-                onCheckboxChange={handleCheckboxChange}
+                onCheckboxChange={handleFilter}
               />
             </div>
             <div className="container_dropd2">
               <DropDownBtn
                 type="abs"
                 text="Filtre avec les status"
-                items={[
-                  "non résolu",
-                  "en cours de traitement",
-                  "résolu",
-                  "inapproprié",
-                ]}
-                onCheckboxChange={handleCheckboxChangeStatus}
+                items={listTicketStatus}
+                onCheckboxChange={handleFilterStatus}
               />
             </div>
           </div>
@@ -169,9 +160,23 @@ const Tickets = () => {
                   <tr key={tickets.id}>
                     <td>{tickets.utilisateur.pseudo}</td>
                     <td>{tickets.titre}</td>
-                    <td>{tickets.status.titre}</td>
                     <td>
-                      <button className="btn_detail" onClick={() => openModal(tickets.message)}>Voir lien</button>
+                      {tickets.status.titre}{" "}
+                      <ShortDropDownBtn
+                        type="abs"
+                        items={listTicketStatus}
+                        onCheckboxChange={(items) =>
+                          handleCheckboxChangeStatus(items, tickets.id)
+                        }
+                      />
+                    </td>
+                    <td>
+                      <button
+                        className="btn_detail"
+                        onClick={() => openModal(tickets.message)}
+                      >
+                        Voir lien
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -184,9 +189,7 @@ const Tickets = () => {
         <div className="container_x">
           <i className="fa-solid fa-xmark" onClick={closeModal}></i>
         </div>
-        <div className="wrapper_popup">
-          {message}
-        </div>
+        <div className="wrapper_popup">{message}</div>
       </Modal>
     </>
   );

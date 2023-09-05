@@ -160,17 +160,17 @@ const NavBarHome = (props) => {
     }
   }, []);
 
-  useEffect(() => {
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ address: addr }, function (results, status) {
-      if (status === window.google.maps.GeocoderStatus.OK) {
-        setLatitude(results[0].geometry.location.lat());
-        setLongitude(results[0].geometry.location.lng());
-      } else {
-        console.log("Erreur : " + status);
-      }
-    });
-  }, [addr]);
+  // useEffect(() => {
+  //   const geocoder = new window.google.maps.Geocoder();
+  //   geocoder.geocode({ address: addr }, function (results, status) {
+  //     if (status === window.google.maps.GeocoderStatus.OK) {
+  //       setLatitude(results[0].geometry.location.lat());
+  //       setLongitude(results[0].geometry.location.lng());
+  //     } else {
+  //       console.log("Erreur : " + status);
+  //     }
+  //   });
+  // }, [addr]);
 
   useEffect(() => {
     if (selectedValue === "Vente") {

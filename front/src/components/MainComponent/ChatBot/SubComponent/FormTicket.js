@@ -6,7 +6,7 @@ import First from "./First";
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP;
 const port = process.env.REACT_APP_BACKEND_PORT;
 
-const FormTicket = ({ addMessage, setHistory, history }) => {
+const FormTicket = ({ setHistory, history }) => {
   const [titleTicket, setTitleTicket] = useState("");
   const [message, setMessage] = useState("");
   const user = useSelector((state) => state.utilisateur);
@@ -37,10 +37,10 @@ const FormTicket = ({ addMessage, setHistory, history }) => {
       { "x-access-token": user.token }
     )
       .then((response) => {
-        addMessage("Votre demande a bien été envoyé !");
         setHistory([<First history={history} setHistory={setHistory} />]);
         console.log("date ticket", annee + "-" + mois + "-" + jour);
         console.log("response ticket : ", response);
+        alert("Votre ticket a bien été envoyé");
       })
       .catch((error) => {
         console.log("error", error);

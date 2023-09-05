@@ -6,21 +6,21 @@ import FormTicket from "./FormTicket";
 import ListTicket from "./ListTicket";
 import Idea from "./Idea";
 
-const First = ({addMessage, history, setHistory}) => {
+const First = ({history, setHistory}) => {
   const navigate = useNavigate();
 
   const idea = () => {
-    setHistory(prevArray => [...prevArray, <Idea addMessage={addMessage} history={history} setHistory={setHistory} />])
+    setHistory(prevArray => [...prevArray, <Idea history={history} setHistory={setHistory} />])
     //l'historique dans un console.log affichera le tableau vide car le setHistory est async et ne se fait pas directement l'action (pour le component celui-ci est vide)
   };
 
   const problem = () => {
-    setHistory(prevArray => [...prevArray, <FormTicket addMessage={addMessage} history={history} setHistory={setHistory} />])
+    setHistory(prevArray => [...prevArray, <FormTicket history={history} setHistory={setHistory} />])
     //l'historique dans un console.log affichera le tableau vide car le setHistory est async et ne se fait pas directement l'action (pour le component celui-ci est vide)
   };
 
   const tickets = () => {
-    setHistory(prevArray => [...prevArray, <ListTicket addMessage={addMessage} history={history} setHistory={setHistory} />])
+    setHistory(prevArray => [...prevArray, <ListTicket history={history} setHistory={setHistory} />])
     //l'historique dans un console.log affichera le tableau vide car le setHistory est async et ne se fait pas directement l'action (pour le component celui-ci est vide)
   };
 

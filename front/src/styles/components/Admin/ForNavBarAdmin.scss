@@ -75,6 +75,8 @@
     gap: 30px;
 }
 
+
+
 // role
 
 .container_for_simple_spacing {
@@ -106,6 +108,16 @@
 
 .wrapper_tab_role tr:nth-child(even) {
     background-color: $grey;
+}
+
+.wrapper_tab_role button {
+    border: none;
+    background-color: transparent;
+}
+
+.wrapper_tab_role i {
+    font-size: 15px;
+    cursor: pointer;
 }
 
 #title_role {

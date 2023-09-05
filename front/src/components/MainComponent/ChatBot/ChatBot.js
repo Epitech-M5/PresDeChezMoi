@@ -7,7 +7,7 @@ import MessageQueue, { useMessageQueue } from "../../MessageQueue.js";
 
 const ChatBot = () => {
   const [history, setHistory] = useState([]);
-  const { addMessage, removeMessage, messages } = useMessageQueue();
+  // const { addMessage, removeMessage, messages } = useMessageQueue();
 
   const handleToggle = () => {
     const toggleBtnIcon = document.querySelector(".container_logo_chatbot i");
@@ -57,7 +57,6 @@ const ChatBot = () => {
   useEffect(() => {
     setHistory([
       <First
-        addMessage={addMessage}
         history={history}
         setHistory={setHistory}
       />,
@@ -130,7 +129,6 @@ const ChatBot = () => {
 
         <History />
       </div>
-      <MessageQueue messages={messages} removeMessage={removeMessage} />
     </>
   );
 };
