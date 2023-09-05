@@ -87,8 +87,8 @@
 .chat_users_image {
   margin: 1.5%;
   margin-left: 4%;
-  max-width: 70px;
-  max-height: 70px;
+  max-width: 55px;
+  max-height: 55px;
   border: 3px solid var(--chat_sidebar);
   border: none;
   aspect-ratio: 1/1;
@@ -99,9 +99,15 @@
 
 .chat_users_pseudo {
   position: relative;
-  top: 30px;
+  //voir gpt
+  top: 0px;
   left: 15px;
   color: black;
+}
+
+.chat_users_pseudo h2 {
+  text-align: start;
+  font-size: 1.5vw;
 }
 
 .chat_list_users::-webkit-scrollbar {
@@ -117,10 +123,8 @@
 
 .chat_list_users::-webkit-scrollbar-thumb {
   // display:none;
-  background: orange;
-  border-radius: 5px;
-  height: 2px;
-  /* Ajustez la hauteur du pouce de la barre de défilement */
+  background: transparent;
+
 }
 
 .chat_list_users::-webkit-scrollbar-thumb:hover {
@@ -175,6 +179,7 @@
 }
 
 .chat_add_button {
+  cursor: pointer;
   z-index: 2;
   left: 9vw;
   bottom: 8vh ;

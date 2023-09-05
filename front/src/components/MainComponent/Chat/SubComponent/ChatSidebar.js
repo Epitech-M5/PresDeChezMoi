@@ -92,7 +92,7 @@ const ChatSidebar = (props) => {
         }
         pseudo += `${conversation.membres[i]}`;
       }
-      let photoProfilHeader
+      let photoProfilHeader;
       if (conversation.membres.length > 1) {
         photoProfilHeader = "group";
       } else {
@@ -253,7 +253,10 @@ const ChatSidebar = (props) => {
                 }.png`}
                 alt={item.id}
               />
-              <h2 className="chat_users_pseudo">{pseudo}</h2>
+
+              <div className="chat_users_pseudo">
+                <h2>{pseudo}</h2>
+              </div>
             </button>
           );
         })}
