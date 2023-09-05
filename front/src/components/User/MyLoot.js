@@ -62,7 +62,7 @@ const MyLoot = () => {
         getAPI(`http://${adresseip}:${port}/api/recompense/ville/${user.idVille}`, {}, { 'x-access-token': user.token })
             .then((response) => {
                 setTimeout(() => {
-                    console.log("@@@@@@@@@@@@@@@@LOOOOOOOOOOOOOOOOOOOT:", response.dataAPI)
+
                     setData(response.dataAPI);
 
 
