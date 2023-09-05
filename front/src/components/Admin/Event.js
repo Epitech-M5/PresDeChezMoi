@@ -16,18 +16,25 @@ const Event = () => {
   const [typeNotification, setTypeNotification] = useState("");
   const [formeNotification, setformeNotification] = useState("");
   const [message, setMessage] = useState("");
+  const [listSenduser, setListSendUser] = useState("Envoyé à");
+  const [typeAnnonce, setTypeAnnonce] = useState("Type d'annonce");
+  const [formeAnnonce, setFormeAnnonce] = useState("Forme de l'annonce");
+
   // Stock des idUser qui reçoivent la notif pour mettre pastille
   //(prévient qu'ils ont une notif)
   const [utilisateursEstNotif, setUtilisateursEstNotif] = useState([]);
 
   const handleEnvoyeA = (data) => {
     setEnvoyeA(data);
+    setListSendUser(data)
   };
   const handleTypeNotification = (data) => {
     setTypeNotification(data);
+    setTypeAnnonce(data)
   };
   const handleFormeNotification = (data) => {
     setformeNotification(data);
+    setFormeAnnonce(data)
   };
   const handleTitre = (data) => {
     setTitre(data.target.value);
@@ -112,7 +119,7 @@ const Event = () => {
               <div className="container_dropd1_event">
                 <DropDownBtn
                   type="abs"
-                  text="Envoyé à"
+                  text={listSenduser}
                   items={[
                     "Super Administrateur",
                     "Admin",
@@ -126,7 +133,7 @@ const Event = () => {
               <div className="container_dropd1_event">
                 <DropDownBtn
                   type="abs"
-                  text="Type d'annonce"
+                  text={typeAnnonce}
                   items={["Informatif", "Danger", "Warning"]}
                   onCheckboxChange={handleTypeNotification}
                 />
@@ -135,7 +142,7 @@ const Event = () => {
               <div className="container_dropd1_event">
                 <DropDownBtn
                   type="abs"
-                  text="Forme de l'annonce"
+                  text={formeAnnonce}
                   items={["Simple", "Bandereau"]}
                   onCheckboxChange={handleFormeNotification}
                 />

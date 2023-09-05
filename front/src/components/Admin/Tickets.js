@@ -111,7 +111,7 @@ const Tickets = () => {
   const closeModal = () => {
     setIsOpen(false);
   };
-  
+   
   /**
    * 
    * @param {string} messageTicket Permet de récupérer le message du ticket choisis
