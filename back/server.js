@@ -1,5 +1,8 @@
 const express = require("express");
 const cors = require("cors");
+const fileUpload = require('express-fileupload');
+const path = require('path');
+const fs = require('fs');
 const app = express();
 var bcrypt = require("bcryptjs");
 require('dotenv').config();
@@ -491,6 +494,26 @@ require("./routes/room.routes.js")(app);
 require("./routes/chat.routes.js")(app);
 require("./messages/chat")(app);
 
+app.use(fileUpload());
+
+
+app.post('/upload', (req, res) => {
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('Aucun fichier n\'a été téléchargé.');
+    }
+
+    const uploadedFile = req.files.uploadedFile;
+    const newFileName = `${req.body.newName}.jpg`; // Nouveau nom de fichier
+    const filePath = path.join(__dirname, '../front/public/recompense', newFileName);
+
+    uploadedFile.mv(filePath, (err) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        res.send('Fichier téléchargé avec succès et renommé !');
+    });
+});
 // set port, listen for requests
 const PORT = port || 8082;
 app.listen(PORT, () => {

@@ -22,7 +22,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         dateCreation: {
             type: Sequelize.DATE
-        }
+        },
+        estRecompense: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
+        },
     });
 
 
