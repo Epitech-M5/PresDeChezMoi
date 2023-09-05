@@ -32,7 +32,8 @@ const MyLoot = () => {
         else {
             return (
                 <>
-                    <h1>{item.image}</h1>
+                    {/* <h1>{item.image}</h1> */}
+                    <img src={item.image} alt="Ma récompense" />
                     <button onClick={() => handleClaimAward(idRecompense, item)}>Cliquez-moi</button>
                 </>
             )
@@ -95,6 +96,8 @@ const MyLoot = () => {
                                 idUtilisateur: user.idutilisateur,
                                 titre: `J'ai obtenu la récompense "${item.nom}", merci de me l'envoyer`,
                                 idStatus: 1,
+                                idVille: user.idVille,
+                                estRecompense: true,
                                 message: `Demande automatique`,
                                 dateCreation: new Date
                             },
