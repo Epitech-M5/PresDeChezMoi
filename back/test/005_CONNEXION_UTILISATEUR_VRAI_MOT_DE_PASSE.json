@@ -1,0 +1,15 @@
+{
+    "url": "http://IPBACKEND:PORTBACKEND/api/user/auth/signin",
+    "body": {
+        "pseudo": "UTILISATEUR_TEST_UNITAIRE",
+        "motDePasse": "M0T2P4SS3"
+    },
+    "codeExpected": 200,
+    "method": "POST",
+    "header": {},
+    "hint": [
+        "id",
+        "accessToken",
+        "idRole"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "url": "http://IPBACKEND:PORTBACKEND/api/user/edit_password",
+    "body": {
+        "motDePasse": "M0T2P4SS3"
+    },
+    "codeExpected": 200,
+    "method": "PUT",
+    "header": {
+        "x-access-token": "TOKEN"
+    },
+    "hint": []
+}

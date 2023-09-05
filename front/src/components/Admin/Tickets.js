@@ -72,7 +72,7 @@ const Tickets = () => {
   const handleFilterStatus = (item) => {
     if (item && item.length > 0) {
       const filteredTickets = listTicket.filter(
-      (ticket) => ticket.status.titre == item//it dosn't work
+        (ticket) => ticket.status.titre == item //it dosn't work
       );
 
       setRendu(filteredTickets);
