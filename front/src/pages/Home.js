@@ -37,8 +37,8 @@ const Home = () => {
         getAPI(`http://${adresseip}:${port}/api/annonce/`, {}, { 'x-access-token': user.token })
             .then((response) => {
                 setTimeout(() => {
-
-                    setMapData(response.dataAPI);
+                    const filteredData = response.dataAPI.filter(item => item.idVille === user.idVille);
+                    setMapData(filteredData);
                     setLoading(false);
 
                 }, 4000);
