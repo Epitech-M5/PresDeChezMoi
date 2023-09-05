@@ -49,6 +49,7 @@ const Event = () => {
         titre: titre,
         supprimer: false,
         message: message,
+        idVille: utilisateur.idVille,
         dateCreation: null,
         envoyeA: envoyeA,
         typeNotif: typeNotification,
@@ -80,9 +81,9 @@ const Event = () => {
   // Quand je reçois la réponse a l'envoie d'une notif
   // estNotif dans table user = true 
   useEffect(() => {
- 
+
     utilisateursEstNotif.forEach((idUtilisateur) => {
-      putAPI(`http://${adresseip}:${port}/api/user/` + idUtilisateur, {'estNotif':1}, {
+      putAPI(`http://${adresseip}:${port}/api/user/` + idUtilisateur, { 'estNotif': 1 }, {
         "x-access-token": utilisateur.token,
       })
         .then((response) => {
