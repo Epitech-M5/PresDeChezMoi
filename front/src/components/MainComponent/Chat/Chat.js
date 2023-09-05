@@ -27,8 +27,8 @@ const Chat = () => {
   const userInfo = useSelector((state) => state.utilisateur);
   const conv = useSelector((state) => state.listUsers);
 
-  const socketPort = 8081;
-  const ipBDD = "localhost";
+  const socketPort = process.env.SOCKET_PORT;
+  const ipBDD = process.env.REACT_APP_BACKEND_ADRESSEIP;
 
   const supIndexTableau = (tableau, indexASupprimer) => {
     // Créez une copie du tableau existant à l'aide de la méthode slice() ou spread operator.
