@@ -17,6 +17,8 @@ const Tickets = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [rendu, setRendu] = useState(listTicket);
 
+  const user = useSelector((state) => state.utilisateur);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -29,7 +31,8 @@ const Tickets = () => {
         );
         console.log("responseAAAAAAAAAAAAAAA", response);
         setListTicket(response.dataAPI);
-        setRendu(response.dataAPI);
+        setRendu(response.dataAPI.filter(item => item.idVille === user.idVille));
+
       } catch (error) {
         console.log("error", error);
       }

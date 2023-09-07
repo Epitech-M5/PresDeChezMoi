@@ -32,7 +32,8 @@ const MyLoot = () => {
         else {
             return (
                 <>
-                    <h1>{item.image}</h1>
+                    {/* <h1>{item.image}</h1> */}
+                    <img src={item.image} alt="Ma récompense" />
                     <button onClick={() => handleClaimAward(idRecompense, item)}>Cliquez-moi</button>
                 </>
             )
@@ -46,6 +47,7 @@ const MyLoot = () => {
             .then((response) => {
 
                 setDataScore(response.dataAPI);
+                // setData(response.dataAPI.filter(item => item.idVille === user.idVille));
                 setListRecompense(response.dataAPI.listRecompense)
                 setListRecompenseEnCours(response.dataAPI.listRecompenseEnCoursClaim)
 
@@ -61,8 +63,10 @@ const MyLoot = () => {
         getAPI(`http://${adresseip}:${port}/api/recompense/ville/${user.idVille}`, {}, { 'x-access-token': user.token })
             .then((response) => {
                 setTimeout(() => {
-                    console.log("@@@@@@@@@@@@@@@@LOOOOOOOOOOOOOOOOOOOT:", response.dataAPI)
+
                     setData(response.dataAPI);
+
+
                     setLoading(false);
                 }, 2000);
             })
@@ -95,6 +99,8 @@ const MyLoot = () => {
                                 idUtilisateur: user.idutilisateur,
                                 titre: `J'ai obtenu la récompense "${item.nom}", merci de me l'envoyer`,
                                 idStatus: 1,
+                                idVille: user.idVille,
+                                estRecompense: true,
                                 message: `Demande automatique`,
                                 dateCreation: new Date
                             },

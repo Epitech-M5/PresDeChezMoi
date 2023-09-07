@@ -39,7 +39,6 @@ const General = () => {
     const [name, setName] = useState('');
     const [numb, setNumb] = useState('');
     const [updateToggle, setUpdateToggle] = useState(false);
-    const [firstTime, setFirstTime] = useState(true);
 
     const user = useSelector((state) => state.utilisateur);
 
@@ -114,6 +113,7 @@ const General = () => {
 
         else {
 
+            console.log(name, file, numb)
             console.log(name, file.name, numb)
 
             var body = {
@@ -129,6 +129,41 @@ const General = () => {
             postAPI(`http://${adresseip}:${port}/api/recompense/`, body, header)
                 .then((response) => {
                     addMessage('Récompense ajouté en base de donnée', 'success');
+                    var idRecompense = response.dataAPI.id
+                    var body = {
+                        "image": `/recompense/${idRecompense}.jpg`
+                    }
+
+                    var header = {
+                        "x-access-token": user.token
+                    }
+                    putAPI(`http://${adresseip}:${port}/api/recompense/${idRecompense}`, body, header)
+                        .then((response) => {
+                            addMessage('Récompense ajouté en base de donnée', 'success');
+                        }).catch((error) => {
+                            addMessage(error, 'error')
+                        });
+
+                    // Créez un objet FormData
+                    const formData = new FormData();
+                    formData.append('uploadedFile', file);
+                    formData.append('newName', idRecompense);
+                    // var body = {
+                    //     "uploadedFile": file,
+                    //     "newName": idRecompense
+                    // }
+
+                    var header = {
+                        "x-access-token": user.token
+                    }
+                    postAPI(`http://127.0.0.1:8082/upload`, formData, header)
+                        .then((response) => {
+
+                            addMessage('Fichier ajouté dans la base d\'image', 'success');
+                            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", response)
+                        }).catch((error) => {
+                            addMessage(error, 'error')
+                        });
                 })
                 .catch((error) => {
                     addMessage(error, 'error')
@@ -154,7 +189,7 @@ const General = () => {
             <MessageQueue messages={messages} removeMessage={removeMessage} />
             <div className='content_admin'>
                 <div className="container_title_page_admin">
-                    <h1>Réglagle Général</h1>
+                    <h1>Réglage Général</h1>
                 </div>
                 <div className="content_inside_admin_pages">
 
