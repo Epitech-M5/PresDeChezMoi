@@ -30,7 +30,8 @@ exports.create = (req, res) => {
         idStatus: req.body.idStatus,
         message: req.body.message,
         dateCreation: req.body.dateCreation,
-        idVille: req.body.idVille
+        idVille: req.body.idVille,
+        estRecompense: req.body.estRecompense
     };
     console.log("OBJECT TICKET => ", req.body)
 
