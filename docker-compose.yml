@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: x9474h7mPwSxAEZt92Nb
-      MYSQL_DATABASE: testdb
+      MYSQL_DATABASE: PRESDECHEZMOI
       TZ: Europe/Paris
     ports:
       - 3306:3306

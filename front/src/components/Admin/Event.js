@@ -122,7 +122,6 @@ const Event = () => {
                   type="abs"
                   text={listSenduser}
                   items={[
-                    "Super Administrateur",
                     "Admin",
                     "Utilisateur",
                     "Modérateur",

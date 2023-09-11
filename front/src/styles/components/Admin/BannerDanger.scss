@@ -39,3 +39,21 @@
 
     margin-top: 10px;
 }
+
+.container_supp_alert {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.supp_alert{
+    padding: 8px;
+    min-width: 220px;
+    border-radius: 54px;
+    border: none;
+    background-color: #ec3c3c;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+    color: #ffffff;
+
+}
