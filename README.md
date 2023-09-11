@@ -40,7 +40,7 @@ Once this is done, you need to install node_modules lib :
 </details>
 
 ## Techno and Tools
-[![My Skills](https://skillicons.dev/icons?i=react,python,ansible,nodejs,docker,jenkins,expressjs,figma,github)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=react,python,ansible,nodejs,docker,jenkins,expressjs,figma,github,postman)](https://skillicons.dev)
 
 ## Unit test API
 Some unit tests present in `back/test` folder  
