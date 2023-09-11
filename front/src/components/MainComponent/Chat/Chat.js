@@ -15,9 +15,13 @@ import {
 import { fetchConv } from "../../../redux/ListUsers";
 import axios from "axios";
 
+const socketPort = 8081;
+const ipBDD = process.env.REACT_APP_BACKEND_ADRESSEIP;
+
 const Chat = () => {
   // const dispatch = useDispatch();
   // const userInfo = useSelector((state) => state.utilisateur);
+
   const [message, setMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const [socketId, setSocketId] = useState(null);
@@ -26,9 +30,6 @@ const Chat = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.utilisateur);
   const conv = useSelector((state) => state.listUsers);
-
-  const socketPort = process.env.SOCKET_PORT;
-  const ipBDD = process.env.REACT_APP_BACKEND_ADRESSEIP;
 
   const supIndexTableau = (tableau, indexASupprimer) => {
     // Créez une copie du tableau existant à l'aide de la méthode slice() ou spread operator.
@@ -94,6 +95,8 @@ const Chat = () => {
     var newSocket = io(`:${socketPort}`);
     setSocket(newSocket);
 
+    console.log("EEEEEEEEEEEEEEE", socketPort);
+
     if (conv.idRoom !== null) {
       handleChangeChannel(conv.idRoom);
     }
@@ -133,6 +136,7 @@ const Chat = () => {
 
   async function handleChangeChannel(channel) {
     setChannel(channel);
+    console.log("channel", channel);
     try {
       const response = await axios.get(
         `http://${ipBDD}:8082/api/chat/user/${channel}`

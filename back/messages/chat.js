@@ -32,6 +32,8 @@ function chat() {
         image: image,
         createdAt: createdAt,
       };
+
+      console.log("chatObjet", chatObjet);
       // Broadcast the message to all users in the channel
       io.emit("receive_message", chatObjet);
 
@@ -39,12 +41,23 @@ function chat() {
       chatController.create(
         { body: chatObjet },
         {
-          send: () => {}, // vous pouvez remplacer cette fonction vide par une gestion d'erreur ou une logique supplémentaire si nécessaire
+          send: (error) => {
+            if (error) {
+              console.error('Erreur lors de l\'enregistrement du message:', error);
+            }
+          },
           status: () => {
-            return { send: () => {} };
-          }, // De même ici
+            return {
+              send: (error) => {
+                if (error) {
+                  console.error('Erreur lors de l\'enregistrement du message:', error);
+                }
+              }
+            };
+          }
         }
       );
+      
     });
 
     socket.on("disconnect", () => {
