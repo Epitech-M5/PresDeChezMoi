@@ -11,7 +11,7 @@ Elle crée une communauté en favorisant les échanges d'informations et les col
 - **Deployment folder**  
 `You will find all the necessary resources to deploy the application on Oracle`  
 - **Documentation folder**  
-`You will find all documentation about the project, like organisation, mockups...`    
+`You will find all documentation about the project, like organisation, mockups... There is a `[link](https://documenter.getpostman.com/view/28082127/2s9YC2ystq) `of the postman documentation`    
 - **back folder**   
 `You will find all the code about backend (NodeJs + Express + socket.io)`  
 - **bdd folder**  
@@ -40,7 +40,7 @@ Once this is done, you need to install node_modules lib :
 </details>
 
 ## Techno and Tools
-[![My Skills](https://skills.thijs.gg/icons?i=react,css,docker,nodejs,figma,mysql&theme=light)](https://skills.thijs.gg)
+[![My Skills](https://skillicons.dev/icons?i=react,python,ansible,nodejs,docker,jenkins,expressjs,figma,github,postman)](https://skillicons.dev)
 
 ## Unit test API
 Some unit tests present in `back/test` folder  

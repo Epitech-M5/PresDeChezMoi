@@ -1,0 +1,2332 @@
+{
+	"info": {
+		"_postman_id": "9033ad38-5adf-456a-8758-73997f85d90a",
+		"name": "New API (PrèsDeChezMoi)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28082127"
+	},
+	"item": [
+		{
+			"name": "Utilisateur",
+			"item": [
+				{
+					"name": "Inscription",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pseudo\": \"test123\",\r\n    \"mail\": \"test123@mail.com\",\r\n    \"motDePasse\": \"test\",\r\n    \"idRole\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/auth/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Connexion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pseudo\": \"Administrateur\",\r\n    \"motDePasse\": \"Admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/auth/signin",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualiser Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"66047d21-c9c5-4f99-baaa-4f665fcffb5b\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/auth/refreshtoken",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"auth",
+								"refreshtoken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir Tous",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/user/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir par Ville",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/user/by_ville/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"by_ville",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir note par Ville",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/user/note_by_ville/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"note_by_ville",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir par ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/user/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier Mot de Passe",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"motDePasse\": \"Admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/edit_password/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"edit_password",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"pseudo\": \"JeanbomBeurre\",\r\n    // \"nom\": \"LeCoq\",\r\n    // \"prenom\": \"Jean\",\r\n    // \"photoProfil\": 5,\r\n    // \"mail\": \"jean.lecoq@gmail.com\",\r\n    // \"motDePasse\": \"Beurre123\",\r\n    // \"description\": \"Ici c'est le profil du meilleur boulanger de Bourgade\",\r\n    // \"nouveauUser\": false,\r\n    // \"idVille\": 1,\r\n    // \"score\": 150,\r\n    \"listRecompense\":[1, 2, 3],\r\n    \"listRecompenseEnCoursClaim\": [4]\r\n    // \"participation\": null,\r\n    // \"estAdministrateur\": false,\r\n    // \"abonnement\": null,\r\n    // \"profession\": \"Boulanger\",\r\n    // \"idRecompense\": null,\r\n    // \"listRecompense\": null,\r\n    // \"nombreSignalement\": 0,\r\n    // \"estBanni\": false,\r\n    // \"idRole\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/user/3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Annonce",
+			"item": [
+				{
+					"name": "Créer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titre\": \"Chasse aux oeufs\",\r\n    \"description\": \"Chasse aux oeufs dans le parc de la commune\",\r\n    \"image\": \"123.png\",\r\n    \"organisateur\": 1,\r\n    \"participants\": [1, 2, 3],\r\n    \"dateDebut\": \"2023-07-20 15:00:00\",\r\n    \"dateFin\": \"2023-07-20 18:00:00\",\r\n    \"estActive\": true,\r\n    \"reaction\": 2,\r\n    \"idTypeActivite\": 4,\r\n    \"annonceMairie\": true,\r\n    \"idTypeSignalement\": null,\r\n    \"idUtilisateurSignalement\": null,\r\n    \"prix\": 0.0,\r\n    \"longitude\": 5.4263808,\r\n    \"latitude\": 43.3455104,\r\n    \"estVerifie\": true,\r\n    \"parking\": true,\r\n    \"parkingGratuit\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/annonce/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"annonce",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir Tous",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/annonce/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"annonce",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir avec ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/annonce/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"annonce",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titre\": \"Chasse aux oeufs\",\r\n    \"description\": \"Chasse aux oeufs dans le parc de la commune\",\r\n    \"image\": \"123.png\",\r\n    \"organisateur\": 1,\r\n    \"participants\": [1, 2, 3],\r\n    \"dateDebut\": \"2023-07-20 15:00:00\",\r\n    \"dateFin\": \"2023-07-20 18:00:00\",\r\n    \"estActive\": true,\r\n    \"reaction\": 2,\r\n    \"idTypeActivite\": 4,\r\n    \"annonceMairie\": true,\r\n    \"idTypeSignalement\": null,\r\n    \"idUtilisateurSignalement\": null,\r\n\r\n    \"prix\": 0.0,\r\n    \"longitude\": 5.4263808,\r\n    \"latitude\": 43.3455104,\r\n    \"estVerifie\": true,\r\n    \"parking\": true,\r\n    \"parkingGratuit\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/annonce/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"annonce",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/annonce/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"annonce",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "Créer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "pseudo",
+									"value": "TheMaxquent",
+									"type": "text"
+								},
+								{
+									"key": "idUtilisateur",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idRoom",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "Bonjour",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir Tous",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir avec ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir par idRoom",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "message",
+									"value": "Bonjour les amis",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/chat/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/chat/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"chat",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Maps",
+			"item": [
+				{
+					"name": "Obtenir Tous",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/map/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"map",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Créer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titre",
+									"value": "Titre",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "Message",
+									"type": "text"
+								},
+								{
+									"key": "idVille",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "typeNotif",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "formeNotif",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "envoyeA",
+									"value": "Modérateur",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/notification/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notification",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir Tous",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/notification/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notification",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir par idRole",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/notification/?id=2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notification",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/notification/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"notification",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "Créer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titre",
+									"value": "\"Abricot\"",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/roles/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"roles",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir Tous",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/roles/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"roles",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir par ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/roles/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titre",
+									"value": "Abricot sec",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/roles/8",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"roles",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/roles/8",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"roles",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ville",
+			"item": [
+				{
+					"name": "Créer une ville",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nom",
+									"value": "Peypin",
+									"type": "text"
+								},
+								{
+									"key": "codePostal",
+									"value": "13124",
+									"type": "text"
+								},
+								{
+									"key": "scoreVilleFleurie",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/ville/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ville",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir toutes les villes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ville/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ville",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir une ville avec id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ville/9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ville",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier ville",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nom",
+									"value": "nouvelle ville",
+									"type": "text"
+								},
+								{
+									"key": "codePostal",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "scoreVilleFleurie",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "noteHygiene",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "moyenneHygiene",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "noteService",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "moyenneService",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "noteEvenement",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "moyenneEvenement",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "scoreGlobale",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/ville/9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ville",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer une ville",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ville/9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ville",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Type Urgence",
+			"item": [
+				{
+					"name": "Créer un type d'urgence",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titre",
+									"value": "eh oh",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/typeUrgence/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"typeUrgence",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir tous les types d'urgence",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/typeUrgence/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"typeUrgence",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir le type d'urgence avec id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/typeUrgence/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"typeUrgence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un type d'urgence",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titre",
+									"value": "Tornade",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/typeUrgence/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"typeUrgence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un type d'urgence",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/typeUrgence/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"typeUrgence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Type Signalement",
+			"item": [
+				{
+					"name": "Créer un type de signalement",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titre",
+									"value": "Nudité",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/typeSignalement/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"typeSignalement",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir tous les types de signalement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/typeSignalement/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"typeSignalement",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir un type de signalement avec id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/typeSignalement/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"typeSignalement",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier Signalement",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titre",
+									"value": "Harcelement",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/typeSignalement/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"typeSignalement",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer Signalement",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/typeSignalement/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"typeSignalement",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "typeActivite",
+			"item": [
+				{
+					"name": "créer typeActivite",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "Hygiene",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Toilette/douche/...",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/typeActivite/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"typeActivite",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir typeActivite",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/typeActivite/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"typeActivite",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir typeActivite avec id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/typeActivite/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"typeActivite",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier typeActivite",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "type",
+									"value": "Hygiene",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Toilette/douche/...",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/typeActivite/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"typeActivite",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer typeActivite",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/typeActivite/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"typeActivite",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recompense",
+			"item": [
+				{
+					"name": "Créer une recompense",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nom",
+									"value": "Badge Platine",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "img/1.png",
+									"type": "text"
+								},
+								{
+									"key": "idVille",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "scoreNecessaire",
+									"value": "3500",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/recompense/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"recompense",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir toutes les recompenses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/recompense/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"recompense",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir une recompense avec id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/recompense/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"recompense",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier recompense",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nom",
+									"value": "Badge Platine",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "img/1.png",
+									"type": "text"
+								},
+								{
+									"key": "idVille",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "scoreNecessaire",
+									"value": "3500",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/recompense/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"recompense",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer recompense",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/recompense/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"recompense",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ticket",
+			"item": [
+				{
+					"name": "Créer un ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUtilisateur",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "titre",
+									"value": "Zone pour fumeur",
+									"type": "text"
+								},
+								{
+									"key": "idStatus",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "Les fleurs ne mourrons plus!!!!!",
+									"type": "text"
+								},
+								{
+									"key": "dateCreation",
+									"value": "27/06/2023 15:35",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/ticket/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"ticket",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir ticket ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/ticket/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"ticket",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir ticket avec id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/ticket/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"ticket",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtenir ticket par status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/ticket/status/2",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"ticket",
+								"status",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtenir ticket par filtre ASC",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/ticket/byDate/asc",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"ticket",
+								"byDate",
+								"asc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtenir ticket par filtr DESC",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/ticket/byDate/asc",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"ticket",
+								"byDate",
+								"asc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un ticket",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUtilisateur",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "titre",
+									"value": "Zone pour fumeur",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "idStatus",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "Les fleurs ne mourrons plus!!!!!",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "dateCreation",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/ticket/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"ticket",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer ticket",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/ticket/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"ticket",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Status",
+			"item": [
+				{
+					"name": "Créer un status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titre",
+									"value": "En cours",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/status/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"status",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir tous les status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/status/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"status",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir un status avec id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/status/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"status",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "titre",
+									"value": "A terminer",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/status/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"status",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer Status",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/status/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"status",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Signalement",
+			"item": [
+				{
+					"name": "Créer signalement",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUtilisateur",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"value": "imageUrgence/1.png",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Une bouche a incendu c'est désoudé et inonde actuellement la rue",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "-1.055404",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "1.0002051",
+									"type": "text"
+								},
+								{
+									"key": "graviteUrgence",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "idTypeUrgence",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "estTraite",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/signalement/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"signalement",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir signalement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/signalement/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"signalement",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir signalement avec id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/signalement/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"signalement",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier signalement",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUtilisateur",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"value": "imageUrgence/1.png",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Une bouche a incendu c'est désoudé et inonde actuellement la rue",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "-1.055404",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "1.6666666",
+									"type": "text"
+								},
+								{
+									"key": "graviteUrgence",
+									"value": "9",
+									"type": "text"
+								},
+								{
+									"key": "idTypeUrgence",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "estTraite",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/signalement/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"signalement",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer signalement",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/signalement/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"signalement",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "Créer room",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5MDg1MzMwLCJleHAiOjE2ODkwODg5MzB9.gMjuTb8dHz7tMtrjIoPpk4dL3c_YGA7tJss2wr2pfkY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"membres\": [\"test2\", \"test3\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/room/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"room",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir room",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/room/",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"room",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir room member",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjg5NTc5MjcwLCJleHAiOjE2ODk1ODI4NzB9.tn8u1WBD2jOVI3qsQJpCZMhg5dM4zG21bAgDFYipGhE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "membres",
+									"value": "test2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/room/members",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"room",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtenir room avec id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/room/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"room",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier  room",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idUtilisateur",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/room/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"room",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer room",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{$ip}}:8081/api/room/1",
+							"protocol": "http",
+							"host": [
+								"{{$ip}}"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"room",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://127.0.0.1:8082/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkwODkzMTg4LCJleHAiOjg4ODkwNTc5NzgyMDc2fQ.e_umHhJWO0vjYahHdGorSghuoTlKPU7s-jkQHemhm4w",
+			"type": "string"
+		}
+	]
+}
