@@ -31,8 +31,9 @@ const Tickets = () => {
         );
         console.log("responseAAAAAAAAAAAAAAA", response);
         setListTicket(response.dataAPI);
-        setRendu(response.dataAPI.filter(item => item.idVille === user.idVille));
-
+        setRendu(
+          response.dataAPI.filter((item) => item.idVille === user.idVille)
+        );
       } catch (error) {
         console.log("error", error);
       }
@@ -84,7 +85,7 @@ const Tickets = () => {
     }
   };
 
-  const handleCheckboxChangeStatus = async (item, index) => {
+  const handleCheckboxChangeStatus = async (item, index, indexArray) => {
     const statusIndex =
       listTicketStatus.findIndex((element) => element === item) + 1;
 
@@ -109,16 +110,78 @@ const Tickets = () => {
       );
       setListTicket(response.dataAPI);
     } catch (error) {
-      console.log("error", error);
+      console.log("error modification ticket", error);
+    }
+    if (listTicket[indexArray].estRecompense === true && item == "résolu") {
+      try {
+        const response = await getAPI(
+          `http://${adresseip}:${port}/api/user/` + user.idutilisateur,
+          null,
+          {
+            "x-access-token": utilisateur.token,
+          }
+        );
+        const score = response.dataAPI.score;
+
+        const listRecompenseEnCoursClaim = JSON.parse(
+          response.dataAPI.listRecompenseEnCoursClaim
+        );
+        const listRecompense = JSON.parse(response.dataAPI.listRecompense);
+
+        try {
+          const responseRecompense = await getAPI(
+            `http://${adresseip}:${port}/api/recompense/` + index,
+            null,
+            {
+              "x-access-token": utilisateur.token,
+            }
+          );
+          console.log(response.dataAPI.listRecompenseEnCoursClaim);
+
+          // Supprimer la récompense actuelle de la liste des récompenses en cours
+          const rewardToRemove = listRecompenseEnCoursClaim[indexArray];
+          const updatedListRecompenseEnCoursClaim =
+            listRecompenseEnCoursClaim.filter((idx) => idx !== rewardToRemove);
+
+          // Ajouter la récompense actuelle à la liste des récompenses de l'utilisateur
+          const updatedListRecompense = [...listRecompense, rewardToRemove];
+
+          console.log({
+            listRecompenseEnCoursClaim: updatedListRecompenseEnCoursClaim,
+            listRecompense: updatedListRecompense,
+            score: score - responseRecompense.dataAPI.scoreNecessaire,
+          });
+
+          await axios.put(
+            `http://${adresseip}:${port}/api/user/` + user.idutilisateur,
+            {
+              listRecompenseEnCoursClaim: updatedListRecompenseEnCoursClaim,
+              listRecompense: updatedListRecompense,
+              score: score - responseRecompense.dataAPI.scoreNecessaire,
+            },
+            {
+              headers: {
+                "x-access-token": utilisateur.token,
+                "Content-Type":
+                  "application/x-www-form-urlencoded; charset=utf-8",
+              },
+            }
+          );
+        } catch (error) {
+          console.log("error get recompense for modify user", error);
+        }
+      } catch (error) {
+        console.log("error get user for modify recompense", error);
+      }
     }
   };
 
   const closeModal = () => {
     setIsOpen(false);
   };
-   
+
   /**
-   * 
+   *
    * @param {string} messageTicket Permet de récupérer le message du ticket choisis
    * Fonction qui permet d'ouvrir Modal et
    * Récupère le message du ticket à afficher dans Modal
@@ -165,7 +228,7 @@ const Tickets = () => {
                 </tr>
               </thead>
               <tbody>
-                {rendu.map((tickets) => (
+                {rendu.map((tickets, index) => (
                   <tr key={tickets.id}>
                     <td>{tickets.utilisateur.pseudo}</td>
                     <td>{tickets.titre}</td>
@@ -175,7 +238,7 @@ const Tickets = () => {
                         type="abs"
                         items={listTicketStatus}
                         onCheckboxChange={(items) =>
-                          handleCheckboxChangeStatus(items, tickets.id)
+                          handleCheckboxChangeStatus(items, tickets.id, index)
                         }
                       />
                     </td>

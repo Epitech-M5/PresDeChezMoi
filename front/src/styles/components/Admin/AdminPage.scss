@@ -5,12 +5,14 @@
     cursor: pointer;
     border-radius: 8px;
     overflow: hidden;
-    color: #fff;
+    color: #f67b7b;
     font-weight: 500;
     padding: 10px 15px;
 }
 
+
 .btn_detail:hover {
     background: $red-orange;
+    color: #fff;
     border-radius: 8px;
 }

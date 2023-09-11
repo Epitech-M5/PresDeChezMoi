@@ -102,6 +102,7 @@ const MyLoot = () => {
                                 idVille: user.idVille,
                                 estRecompense: true,
                                 message: `Demande automatique`,
+                                recompenseId: idItem,
                                 dateCreation: new Date
                             },
                             { "x-access-token": user.token }
