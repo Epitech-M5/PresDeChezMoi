@@ -30,7 +30,7 @@
 
 .container_3_home {
     width: $width-pub;
-    height: 0;
+    height: 100px;
     position: sticky !important;
     top: 0;
     bottom: 0;
@@ -62,7 +62,7 @@
     width: 100%;
     height: 500px;
     // margin-left: 5%;
-    margin-top: 120px;
+    margin-top: 168px;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
     display: flex;
