@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Provider, useSelector } from "react-redux";
+import { Provider,useDispatch, useSelector } from "react-redux";
 import { getAPI } from '../../api';
 import Loader from '../Loader';
+import { fetchScore } from "../../redux/Utilisateur";
+
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 const NavBarUser = () => {
 
     const [activeId, setActiveId] = useState(null);
     const [data, setData] = useState([]);
+    const dispatch = useDispatch();
 
     const user = useSelector((state) => state.utilisateur);
 
@@ -22,6 +25,7 @@ const NavBarUser = () => {
 
                 setTimeout(() => {
                     setData(response.dataAPI);
+                    dispatch(fetchScore(data.score));
                 }, 4000)
 
             })

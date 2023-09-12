@@ -6,8 +6,8 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
   // l'image de profil de l'utilisateur est stocké dans le redux, celle-ci est automatiquement chargé
   // au cas ou la position du menu c'est les param de .ms-nav impossible de le mettre en relative avec les autres balise (z-index 40000, container bye, ...)
 
-  liFirstPosition = "140%"; // Première bulle
-  liDiffPosition = "105%"; // diff entre les bulles
+  liFirstPosition = "180%"; // Première bulle
+  liDiffPosition = "110%"; // diff entre les bulles
 
   const user = useSelector((state) => state.utilisateur);
 
@@ -64,7 +64,7 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
           onClick={console.log("logo clicked")}
         />
         <li className="ms-main">
-          <a onClick={() => console.log("00000")}>
+          <a>
             <label className="ms-menu-toggle-lbl" for="ms-menu">
               <img
                 src={`../../media/img/${user.photoProfil}.png`}
@@ -73,6 +73,10 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
               />
             </label>
             <h3 className="ms-pseudo">{truncatedPseudo}</h3>
+            <span id="usermenu-score">
+              {user.score ? <>{user.score}</> : <>0</>}
+              <i class="fa-solid fa-carrot"></i>
+            </span>
           </a>
         </li>
         <div className="ms-nav-point"> </div>
@@ -86,7 +90,7 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
         <div className="ms-nav-point"> </div>
         <div className="ms-nav-point"> </div>
 
-        <li className="ms-li ms-li1 ms-li-first">
+        <li className="ms-li ms-li1">
           <a onClick={() => handleNavigate(1)}>
             <span className="fa-solid fa-gear"></span>
           </a>

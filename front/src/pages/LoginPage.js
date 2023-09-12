@@ -6,7 +6,7 @@ import MessageQueue, { useMessageQueue } from "../components/MessageQueue.js";
 import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
-import { isLogin, fetchUtilisateurData, fetchRefreshToken, fetchToken, fetchVille} from "../redux/Utilisateur";
+import { isLogin, fetchUtilisateurData, fetchRefreshToken, fetchToken, fetchVille, fetchScore} from "../redux/Utilisateur";
 import Modal from '../components/MainComponent/Modal.js';
 import emailjs from 'emailjs-com';
 
@@ -72,6 +72,7 @@ const LoginPage = () => {
           dispatch(fetchRefreshToken(data.refreshToken));
           dispatch(fetchUtilisateurData(infoUtilisateur));
           dispatch(fetchVille(data.idVille));
+          dispatch(fetchScore(data.score));
 
           setTimeout(() => {
             navigate('/home')
@@ -108,6 +109,7 @@ const LoginPage = () => {
             idutilisateur: data.id,
             idVille: data.idVille,
             photoProfil: data.photoProfil,
+            score: data.score
           };
           addMessage('Connexion réussie, attendez quelques instants....', 'success');
           // Stock dans store
@@ -116,6 +118,7 @@ const LoginPage = () => {
           dispatch(fetchRefreshToken(data.refreshToken));
           dispatch(fetchUtilisateurData(infoUtilisateur));
           dispatch(fetchVille(data.idVille));
+          dispatch(fetchScore(data.score));
 
           if (data.idRole === 4) {
             setTimeout(() => {

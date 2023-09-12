@@ -135,6 +135,7 @@ exports.signin = (req, res) => {
           idRole: user.idRole,
           photoProfil: user.photoProfil,
           idVille: user.idVille,
+          score: user.score,
           accessToken: token,
           refreshToken: refreshToken,
         });

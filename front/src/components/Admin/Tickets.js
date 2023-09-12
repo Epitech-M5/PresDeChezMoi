@@ -109,6 +109,7 @@ const Tickets = () => {
         }
       );
       setListTicket(response.dataAPI);
+      setRendu(response.dataAPI.filter((item) => item.idVille === user.idVille));
     } catch (error) {
       console.log("error modification ticket", error);
     }
@@ -237,6 +238,7 @@ const Tickets = () => {
                       <ShortDropDownBtn
                         type="abs"
                         items={listTicketStatus}
+                        className="shortddb_Tickets"
                         onCheckboxChange={(items) =>
                           handleCheckboxChangeStatus(items, tickets.id, index)
                         }

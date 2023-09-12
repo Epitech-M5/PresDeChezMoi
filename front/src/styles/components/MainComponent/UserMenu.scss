@@ -27,19 +27,35 @@ a {
   position: absolute;
   width: 60px;
   height: 60px;
-  top: 23%;
+  top: 10%;
   right: 4.5%;
   z-index: 101;
 }
 
 .ms-nav > .ms-main {
   position: relative;
+  
+}
+
+.ms-main span {
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.ms-main i {
+  position:relative;
+  top:-4px;
+  margin-left: 5px;
+  border-left: 1px solid #333;
+  padding-left: 5px;
+  color: $orange;
 }
 
 .ms-nav > .ms-li {
   position: absolute;
-  top: 10px;
-  left: 5px;
+  top: 2%;
+  margin-left: 10%;
   transition: top 0.4s ease;
   z-index: 1;
 }
@@ -73,11 +89,11 @@ a {
 }
 
 .ms-nav > li a {
-  font-size: 30px;
+  font-size: 1.4em;
   color: #ffffff;
   background: linear-gradient(90deg, $orange, red);
-  width: 75px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
   display: block;
   border-radius: 100%;
   position: relative;
@@ -87,7 +103,6 @@ a {
 .ms-nav > .ms-li1 > a,
 .ms-nav > .ms-li2 > a,
 .ms-nav > .ms-li3 > a {
-  border-radius: 100%;
   background: linear-gradient(to right, $orange, red);
   background-size: 200% 100%;
   transition: background-position 0.5s;
@@ -99,12 +114,10 @@ a {
 
 .ms-nav > .ms-main a,
 .ms-nav > .ms-main > a > label {
-  font-size: 30px;
   color: #333;
-  width: 75px;
-  height: 75px;
+  width: 60px;
+  height: 60px;
   display: block;
-  border-radius: 100%;
   position: relative;
   text-align: center;
   z-index: 19;
@@ -123,7 +136,8 @@ a {
   font-family: $font-LeagueSpartan;
   text-align: center;
   width: 100%;
-  height: 80%;
+  height: 40%;
+  margin-top: 15%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,15 +148,8 @@ a {
 }
 
 .ms-nav > li > a span {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  height: 30px;
-  width: 30px;
-  opacity: 0;
-  z-index: 12;
+  margin-top: 7%;
+  left: 15%;
 }
 
 /* li1 styles */
@@ -151,7 +158,7 @@ a {
 }
 
 .ms-nav .ms-menu-toggle:checked ~ .ms-li1 {
-  top: var(--liFirstPosition);
+  top: calc(var(--liFirstPosition) + 5%);
   transition: top 0.4s ease;
 }
 
@@ -205,8 +212,8 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   transition: opacity 0.1s ease 0.1s;
 }
 
-.ms-nav .ms-menu-toggle:checked ~ .ms-li2 {
-  top: calc(var(--liFirstPosition) + var(--liDiffPosition));
+.ms-nav .ms-menu-toggle:checked ~ .ms-li:not(.ms-li1) {
+  top: calc(var(--liFirstPosition) + var(--liDiffPosition) + 5%);
   transition: top 0.55s ease;
 }
 
@@ -281,34 +288,30 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   border-top: 0px solid #337ab7;
 }
 
+
 /* BreakPoint styles */
-@media (min-width: 1200px) {
+
+@media (min-width: 650px) and (max-width: 1000px) {
+  .ms-nav {
+    top: 20%;
+  }
+
   .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
     transform: scale(0.9);
   }
 
-  .ms-nav > li a {
-    font-size: 25px;
-    width: 50px;
-    height: 50px;
+  .ms-nav .ms-menu-toggle ~ .ms-li a span {
+    margin-top: 10%;
+    margin-left: auto;
   }
 
-  .ms-nav > .ms-main a,
-  .ms-nav > .ms-main > a > label {
-    font-size: 35px;
-    width: 60px;
-    height: 60px;
+  .ms-nav .ms-menu-toggle:checked ~ .ms-li1 {
+    top: calc(var(--liFirstPosition) - 10%);
   }
 
-  .ms-nav > .ms-main > h3 {
-    font-size: 24px;
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1199px),
-  (min-width: 768px) and (max-width: 991px) {
-  .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
-    transform: scale(0.7);
+  .ms-nav .ms-menu-toggle:checked ~ .ms-li:not(.ms-li1) {
+    top: calc(var(--liFirstPosition) + var(--liDiffPosition) - 10%);
+    transition: top 0.55s ease;
   }
 
   .ms-nav > li a {
@@ -323,58 +326,45 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
     width: 50px;
     height: 50px;
   }
-
-  .ms-nav > .ms-main > h3 {
-    font-size: 18px;
-  }
-
-  .ms-nav .ms-menu-toggle ~ .ms-li a span {
-    left: 4px;
-    top: 6px;
-  }
-
-  .fa-solid {
-    font-size: 30px !important;
-  }
 }
 
-@media (max-width: 767px) {
-  .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
-    transform: scale(0.7);
-  }
+@media (max-width: 650px) {
 
-  .ms-nav > li a {
-    font-size: 15px;
-    width: 30px;
-    height: 30px;
-  }
-
-  .ms-nav > .ms-main a,
-  .ms-nav > .ms-main > a > label {
-    font-size: 25px;
-    width: 40px;
-    height: 40px;
-  }
-
-  .ms-nav > .ms-main > h3 {
-    font-size: 18px;
-  }
-
-  .ms-nav .ms-menu-toggle ~ .ms-li a span {
-    left: 1px;
-  }
-
-  .fa-solid {
-    font-size: 25px !important;
-  }
-}
-
-@media (max-width: 650px), (max-height: 450px) {
   .ms-nav {
-    right: 2%;
+    top: 20%;
+  }
+  
+  .ms-nav .ms-menu-toggle:checked ~ .ms-nav-point {
+    transform: scale(0.9);
+  }
+
+  .ms-nav .ms-menu-toggle ~ .ms-li a span {
+    margin-top: 10%;
+    margin-left: auto;
+  }
+
+  .ms-nav .ms-menu-toggle:checked ~ .ms-li1 {
+    top: calc(var(--liFirstPosition) - 20%);
+  }
+
+  .ms-nav .ms-menu-toggle:checked ~ .ms-li:not(.ms-li1) {
+    top: calc(var(--liFirstPosition) + var(--liDiffPosition) - 20%);
+    transition: top 0.55s ease;
+  }
+
+  .ms-nav > li a {
+    font-size: 15px;
+    width: 35px;
+    height: 35px;
+  }
+
+  .ms-nav > .ms-main a,
+  .ms-nav > .ms-main > a > label {
+    font-size: 25px;
+    width: 45px;
+    height: 45px;
   }
 }
-
 
 /* KeyFrame styles */
 @keyframes fadeOut {
