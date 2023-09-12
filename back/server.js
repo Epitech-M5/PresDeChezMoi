@@ -364,7 +364,8 @@ function ajoutAnnonce() {
         latitude: 43.3455104,
         estVerifie: true,
         parking: true,
-        parkingGratuit: true
+        parkingGratuit: true,
+        idVille: 1
     })
     Annonce.create({
         id: 2,
@@ -386,7 +387,9 @@ function ajoutAnnonce() {
         latitude: 41.3455104,
         estVerifie: true,
         parking: true,
-        parkingGratuit: false
+        parkingGratuit: false,
+        idVille: 1
+
     })
     Annonce.create({
         id: 3,
@@ -408,7 +411,9 @@ function ajoutAnnonce() {
         latitude: null,
         estVerifie: true,
         parking: true,
-        parkingGratuit: false
+        parkingGratuit: false,
+        idVille: 1
+
     })
     Annonce.create({
         id: 4,
@@ -430,7 +435,9 @@ function ajoutAnnonce() {
         latitude: 43.3455104,
         estVerifie: true,
         parking: true,
-        parkingGratuit: false
+        parkingGratuit: false,
+        idVille: 1
+
     })
     Annonce.create({
         id: 5,
@@ -452,7 +459,9 @@ function ajoutAnnonce() {
         latitude: 43.3455104,
         estVerifie: true,
         parking: true,
-        parkingGratuit: false
+        parkingGratuit: false,
+        idVille: 1
+
     })
 }
 // =============================================
@@ -469,11 +478,6 @@ function initial() {
     ajoutStatus() // Ajout status des tickets
 }
 
-// // simple route
-// app.get("/", (req, res) => {
-//     res.json({ message: "Welcome to bezkoder application." });
-// });
-
 // routes
 require("./routes/utilisateur.routes.js")(app);
 require("./routes/roles.routes.js")(app);
@@ -485,9 +489,7 @@ require("./routes/recompense.routes.js")(app);
 require("./routes/ticket.routes.js")(app);
 require("./routes/notification.routes.js")(app);
 require("./routes/signalement.routes.js")(app);
-require("./routes/commentaireAdmin.routes.js")(app);
 require("./routes/annonce.routes.js")(app);
-require("./routes/commentaire.routes.js")(app);
 require("./routes/typeActivite.routes.js")(app);
 require("./routes/map.routes.js")(app);
 require("./routes/room.routes.js")(app);

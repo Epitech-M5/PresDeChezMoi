@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     // Champ nécessaire pour la requete
     if (!req.body.titre) {
         boolErrorFlag = true
-        stringErrorMessage = "Content can not be empty!"
+        stringErrorMessage = "le contenu ne peut pas être vide!"
     }
 
     // Validate request
@@ -37,7 +37,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Une erreur est survenue lors de la création du role."
             });
         });
 };
@@ -51,13 +51,13 @@ exports.find_one = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Role with id=${id}.`
+                    message: `Role non trouvé avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Role with id=" + id
+                message: "Une erreur est survenue lors de la récupération du role avec id=" + id
             });
         });
 };
@@ -70,7 +70,7 @@ exports.find_all = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Une erreur est survenue lors de la récupération des roles."
             });
         });
 };
@@ -84,17 +84,17 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Role was updated successfully."
+                    message: "Le role a été modifié."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Role with id=${id}. Maybe Role was not found or req.body is empty!`
+                    message: `Impossible de modifier le role avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Role with id=" + id + "(" + err + ")"
+                message: "Impossible de modifier le role avec id=" + id + "(" + err + ")"
             });
         });
 };
@@ -108,17 +108,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Role was deleted successfully!"
+                    message: ""
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Role with id=${id}. Maybe Role was not found!`
+                    message: `Impossible de supprimer le role avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Role with id=" + id
+                message: "Impossible de supprimer le role avec id=" + id
             });
         });
 };

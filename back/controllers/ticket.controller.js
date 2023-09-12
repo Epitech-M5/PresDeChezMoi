@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     // Champ nécessaire pour la requete
     if (!req.body.titre) {
         boolErrorFlag = true
-        stringErrorMessage = "Content can not be empty!"
+        stringErrorMessage = "Le contenu ne peut pas être vide."
     }
     // Validate request
     if (boolErrorFlag) {
@@ -33,7 +33,6 @@ exports.create = (req, res) => {
         idVille: req.body.idVille,
         estRecompense: req.body.estRecompense
     };
-    console.log("OBJECT TICKET => ", req.body)
 
     // Save Ticket in the database
     Ticket.create(ticketObjet)
@@ -43,7 +42,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Impossible de créer le ticket."
             });
         });
 };
@@ -60,13 +59,13 @@ exports.find_one = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Type Signalement with id=${id}.`
+                    message: `Impossible de trouver le ticket avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Type Signalement with id=" + id
+                message: "Impossible de trouver le status avec id=" + id
             });
         });
 };
@@ -89,7 +88,7 @@ exports.find_all = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Impossible de trouver les tickets."
             });
         });
 };
@@ -138,7 +137,7 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Le ticket aa été supprimé avec succès!"
+                    message: "Le ticket a été supprimé avec succès!"
                 });
             } else {
                 res.send({
@@ -172,7 +171,6 @@ exports.find_all_by_status = (req, res) => {
             nameStatus = "inapproprié"
             break;
     }
-    console.log("nameStatus", nameStatus)
 
     Ticket.findAll({
         include: [
@@ -194,7 +192,6 @@ exports.find_all_by_status = (req, res) => {
             res.send(data);
         })
         .catch(err => {
-            console.log(err)
             res.status(500).send({
                 message:
                     err.message || "Une erreur est survenu pour retrouver le ticket."
@@ -230,7 +227,7 @@ exports.find_all_by_date = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Impossible de trouver le ticket"
             });
         });
 
@@ -253,7 +250,6 @@ exports.find_one_by_user = (req, res) => {
             res.send(data);
         })
         .catch(err => {
-            console.log(err)
             res.status(500).send({
                 message:
                     err.message || "Une erreur est survenu pour retrouver le ticket."

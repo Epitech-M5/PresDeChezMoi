@@ -80,7 +80,6 @@ exports.signup = (req, res) => {
         refreshToken: refreshToken,
         photoProfil: data.photoProfil
       });
-      console.log("inscription", "User was registered successfully!")
     })
     .catch(err => {
       res.status(500).send({
@@ -138,7 +137,6 @@ exports.signin = (req, res) => {
           accessToken: token,
           refreshToken: refreshToken,
         });
-        console.log("user connect")
       })
     })
     .catch(err => {
@@ -185,7 +183,6 @@ exports.refreshToken = async (req, res) => {
     let refreshToken = await RefreshToken.findOne({ where: { token: requestToken } });
 
     if (!refreshToken) {
-      console.log("Le refresh Token n'est pas dans la base de donnée");
 
       res.status(403).json({ message: "Le refresh token n'existe pas dans la base de données!" });
       return;
@@ -194,7 +191,6 @@ exports.refreshToken = async (req, res) => {
     // Si le refresh token est expiré
     if (RefreshToken.verifyExpiration(refreshToken)) {
       RefreshToken.destroy({ where: { id: refreshToken.id } });
-      console.log("le refresh token est expiré.");
       res.status(403).json({
         message: "Le refresh token est expiré.",
       });
@@ -212,7 +208,6 @@ exports.refreshToken = async (req, res) => {
       refreshToken: refreshToken.token,
     });
   } catch (err) {
-    console.log("ERRORRRRR", err);
     return res.status(500).send({ message: err });
   }
 };
@@ -251,7 +246,6 @@ exports.find_by_email = (req, res) => {
       if (!user) {
         return res.status(404).send({ message: 'Le mail n\'existe pas.' });
       }
-      console.log("USERRRRRRRRRR", user)
       // CREATION TOKEN
       // Création du token à la connexion
       var token = jwt.sign({ id: user.id }, config.secret, {
@@ -268,7 +262,6 @@ exports.find_by_email = (req, res) => {
 };
 
 exports.check_token_mdp_oublie = (req, res) => {
-  console.log("check_token")
   res.status(200).send({ message: "ok" });
 
 };
@@ -299,7 +292,6 @@ exports.get_saves = (req, res) => {
       res.status(200).send({ "enregistrements": data.enregistrements });
     })
     .catch(err => {
-      console.log("@@@@")
 
       res.status(500).send({
         message:
@@ -365,9 +357,7 @@ async function userFindRole(userId) {
       id: userId
     }
   }).then((user) => {
-    console.log("est admin ? ", user.idRole == 3)
     if (user.idRole == 3) {
-      // console.log("je passe ici")
       return true
     } else {
       return false
@@ -465,20 +455,6 @@ exports.delete = (req, res) => {
       });
     });
 };
-
-// exports.get_by_id = (req, res) => {
-//   Utilisateur.findOne({ where: { id: req.params.id } })
-//     .then(data => {
-//       console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", data.likes)
-//       res.status(200).send({ "pseudo": data.pseudo, "description": data.description, "score": data.score, "photoProfil": data.photoProfil, "id": data.id, "likes": data.likes, "enregistrements": data.enregistrements });
-//     })
-//     .catch(err => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Une erreur est survenue lors de la récupération des utilisateur."
-//       });
-//     });
-// };
 
 exports.get_likes = (req, res) => {
   Utilisateur.findOne({ where: { id: req.userId } })

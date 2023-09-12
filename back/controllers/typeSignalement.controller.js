@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     // Champ nécessaire pour la requete
     if (!req.body.titre) {
         boolErrorFlag = true
-        stringErrorMessage = "Content can not be empty!"
+        stringErrorMessage = "Le contenu ne peut pas être vide."
     }
     // Validate request
     if (boolErrorFlag) {
@@ -36,7 +36,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Impossible de créer le type de signalement"
             });
         });
 };
@@ -50,13 +50,13 @@ exports.find_one = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Type Signalement with id=${id}.`
+                    message: `Impossible de trouver le type de signalement avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Type Signalement with id=" + id
+                message: "Impossible de trouver le type de signalement avec id=" + id
             });
         });
 };
@@ -69,7 +69,7 @@ exports.find_all = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Impossible de trouver les types de signalement."
             });
         });
 };
@@ -83,17 +83,17 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Type Signalement was updated successfully."
+                    message: "Le type de signalement à été modifié."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Type Signalement with id=${id}. Maybe Type Signalement was not found or req.body is empty!`
+                    message: `Impossible de modifier le type de signalement avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Type Signalement with id=" + id + "(" + err + ")"
+                message: "Impossible de modifier le type de signalement avec id=" + id + "(" + err + ")"
             });
         });
 };
@@ -107,17 +107,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Type Signalement was deleted successfully!"
+                    message: "Le type de signalement à été supprimé!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Type Signalement with id=${id}. Maybe Type Signalement was not found!`
+                    message: `Impossible de supprimer le type de signalement avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Type Signalement with id=" + id
+                message: "Impossible de supprimer le type de signalement avec id=" + id
             });
         });
 };

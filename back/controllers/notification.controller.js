@@ -14,7 +14,7 @@ exports.create = (req, res) => {
   // Champ nécessaire pour la requete
   if (!req.body.titre) {
     boolErrorFlag = true;
-    stringErrorMessage = "Content can not be empty!";
+    stringErrorMessage = "Le contenu ne peut pas être vide !";
   }
 
   // Validate request
@@ -64,13 +64,13 @@ exports.create = (req, res) => {
             res.status(500).send({
               message:
                 err.message ||
-                "Some error occurred while creating the Tutorial.",
+                "Une erreur est survenue lors de la création de la notification.",
             });
           });
       });
     } else {
       res.status(404).send({
-        message: `Cannot find Role with id=${id}.`,
+        message: `Impossible de trouver le role avec id=${id}.`,
       });
     }
   });
@@ -79,25 +79,23 @@ exports.create = (req, res) => {
 // trouver les notification en fonction des rôles
 exports.find_one = (req, res) => {
   const idRole = req.params.id;
-  console.log("idRole", idRole);
   Notification.findAll({
     where: {
       envoyeA: idRole,
     },
   })
     .then((data) => {
-      console.log("NORIFICATIOOOOOOON", data);
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Role with id=${idRole}.`,
+          message: `Impossible de trouver le role avec id=${idRole}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Role with id=" + idRole,
+        message: "Une erreur est survenue lors de la récupération du role avec id=" + idRole,
       });
     });
 };
@@ -110,7 +108,7 @@ exports.find_all = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials.",
+          err.message || "Une erreur est survenue lors de la récupération des roles.",
       });
     });
 };
@@ -118,9 +116,6 @@ exports.find_all = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
   const idUtilisateur = req.body.idUtilisateur;
-  console.log("idUtilisateur", idUtilisateur);
-  console.log("id", id);
-
   Notification.findOne({
     where: {
       id: id,
@@ -130,31 +125,17 @@ exports.update = (req, res) => {
       if (!data) {
         res
           .status(404)
-          .send({ message: "Notification not found with ID=" + id });
+          .send({ message: "Role non trouvé avec id=" + id });
         return;
       }
 
       var tabDestinataire = JSON.parse(data.destinataire);
-      console.log("data.destinataire=", data.destinataire);
-      console.log("ICICIICCIICICICICICICICICIIC")
-      console.log(tabDestinataire[0]);
-
       var tabSansIdUtilisateur = [];
-
-
-      // console.log("tabDestinataire", tabDestinataire);
       for (var i = 0; i < tabDestinataire.length; i++) {
-        // console.log("i", i);
-        // console.log(tabDestinataire[i]);
-
         if (tabDestinataire[i] != idUtilisateur) {
           tabSansIdUtilisateur.push(tabDestinataire[i]);
         }
-
       }
-      console.log("TABDEST AVANT")
-      console.log(tabSansIdUtilisateur);
-
       // Mettre à jour le champ 'destinataire' dans la base de données
       Notification.update({ destinataire: tabSansIdUtilisateur }, {
         where: {
@@ -162,15 +143,20 @@ exports.update = (req, res) => {
         },
       })
         .then((data) => {
-          console.log("Modification réussi !")
+          res
+            .status(200)
+            .send({ message: "Modification réussi !" });
         })
         .catch((err) => {
-          console.log("une erreur est survenu: ")
-          console.log(err);
+          res
+            .status(500)
+            .send({ message: "une erreur est survenue lors de la modification de la notification avec id=" + id + `(${err})` });
         })
     })
     .catch((err) => {
-      console.log("ERRORORORO", err);
+      res
+        .status(500)
+        .send({ message: "une erreur est survenue lors de la modification de la notification avec id=" + id + `(${err})` });
     });
 
 
@@ -186,17 +172,17 @@ exports.delete = (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Role was deleted successfully!",
+          message: "La notification a bien été supprimé.",
         });
       } else {
         res.send({
-          message: `Cannot delete Role with id=${id}. Maybe Role was not found!`,
+          message: `Impossible de supprimer la notification avec id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Role with id=" + id,
+        message: `Impossible de supprimer la notification avec id=${id}.`,
       });
     });
 };
