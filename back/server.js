@@ -148,7 +148,7 @@ function ajoutUtilisateur() {
         motDePasse: bcrypt.hashSync("Admin", 8),
         description: "Bonjour, je suis l'administrateur de la ville de Cadolive",
         nouveauUser: false,
-        idVille: 1,
+        idVille: 3,
         score: 3000,
         participation: null,
         estAdministrateur: true,

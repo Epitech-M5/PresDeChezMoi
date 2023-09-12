@@ -8,8 +8,6 @@ const port = process.env.REACT_APP_BACKEND_PORT
 
 const NavBarAdmin = ({ type }) => {
 
-    console.log('TYYYYYYYYYYYYYPPPPEEE', type)
-
     const [activeId, setActiveId] = useState(null);
     const [data, setData] = useState([]);
 

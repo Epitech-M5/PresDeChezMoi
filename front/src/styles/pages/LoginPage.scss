@@ -266,6 +266,38 @@
     opacity: 1;
 }
 
+#custom-input {
+    width: 400px;
+    padding: 8px 10px;
+    border-radius: 54px;
+    border: 1px solid $orange;
+}
+
+#custom-input:focus {
+    border-color: $green;
+}
+
+#custom-input-btn {
+    padding: 8px 10px;
+    border-radius: 54px;
+    border: 1px solid $dark-grey;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#error-msg-mdp {
+    color: $red-orange;
+    margin-top: 30px;
+}
+
+.fix-wrapper-mdp {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 @media (max-width: 870px) {
 
     .input_field textarea {
