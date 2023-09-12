@@ -134,6 +134,17 @@
 .container_img_loot img {
     width: 100%;
     height: 100%;
+    filter: blur(2px);
+}
+
+.container_img_loot button {
+    background-color: $white;
+    position: absolute;
+    z-index: 20000;
+    cursor: pointer;
+    padding: 8px 10px;
+    border: 1px solid $black;
+    border-radius: 54px;
 }
 
 .container_img_loot.lock i {
@@ -268,6 +279,11 @@
 .container_all_pdp h3.selected {
     background-color: #007bff !important;
     color: $white !important;
+}
+
+.container_img_rec {
+    background-color: red;
+    display: flex;
 }
 
 @media(max-width:650px),
