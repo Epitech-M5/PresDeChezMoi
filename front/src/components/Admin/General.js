@@ -113,60 +113,36 @@ const General = () => {
 
         else {
 
-            console.log(name, file, numb)
-            console.log(name, file.name, numb)
 
-            var body = {
-                "nom": name,
-                "image": file.name,
-                "idVille": user.idVille,
-                "scoreNecessaire": numb
-            }
-
-            var header = {
-                "x-access-token": user.token
-            }
-            postAPI(`http://${adresseip}:${port}/api/recompense/`, body, header)
+            postAPI(`http://${adresseip}:${port}/api/recompense/`, { "nom": name, "image": file.name, "idVille": user.idVille, "scoreNecessaire": numb }, { "x-access-token": user.token })
                 .then((response) => {
                     addMessage('Récompense ajouté en base de donnée', 'success');
-                    var idRecompense = response.dataAPI.id
-                    var body = {
-                        "image": `/recompense/${idRecompense}.jpg`
-                    }
 
-                    var header = {
-                        "x-access-token": user.token
-                    }
-                    putAPI(`http://${adresseip}:${port}/api/recompense/${idRecompense}`, body, header)
+                    var idRecompense = response.dataAPI.id
+
+                    putAPI(`http://${adresseip}:${port}/api/recompense/${idRecompense}`, { "image": `/recompense/${idRecompense}.jpg` }, { "x-access-token": user.token })
                         .then((response) => {
                             addMessage('Récompense ajouté en base de donnée', 'success');
                         }).catch((error) => {
-                            addMessage(error, 'error')
+                            addMessage(`Erreur : ${error}`, 'error')
                         });
 
                     // Créez un objet FormData
                     const formData = new FormData();
                     formData.append('uploadedFile', file);
                     formData.append('newName', idRecompense);
-                    // var body = {
-                    //     "uploadedFile": file,
-                    //     "newName": idRecompense
-                    // }
 
-                    var header = {
-                        "x-access-token": user.token
-                    }
-                    postAPI(`http://127.0.0.1:8082/upload`, formData, header)
+                    postAPI(`http://${adresseip}:${port}/upload`, formData, { "x-access-token": user.token })
                         .then((response) => {
 
                             addMessage('Fichier ajouté dans la base d\'image', 'success');
-                            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", response)
+
                         }).catch((error) => {
-                            addMessage(error, 'error')
+                            addMessage(`Erreur : ${error}`, 'error')
                         });
                 })
                 .catch((error) => {
-                    addMessage(error, 'error')
+                    addMessage(`Erreur : ${error}`, 'error')
                 });
 
             setFile(null);
