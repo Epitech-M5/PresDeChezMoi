@@ -6,7 +6,7 @@ import MessageQueue, { useMessageQueue } from "../components/MessageQueue.js";
 import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
-import { isLogin, fetchUtilisateurData, fetchRefreshToken, fetchToken, fetchVille} from "../redux/Utilisateur";
+import { isLogin, fetchUtilisateurData, fetchRefreshToken, fetchToken, fetchVille } from "../redux/Utilisateur";
 import Modal from '../components/MainComponent/Modal.js';
 import emailjs from 'emailjs-com';
 
@@ -31,6 +31,8 @@ const LoginPage = () => {
   const [mailPassword, setMailPassword] = useState("");
   const [link, setLink] = useState();
   const [isOpen, setIsOpen] = useState(false);
+
+  const [error, setError] = useState("");
 
   const { addMessage, removeMessage, messages } = useMessageQueue();
 
@@ -140,9 +142,6 @@ const LoginPage = () => {
   const handleId_login = (event) => {
     setIdLogin(event.target.value);
   };
-  const handleForgotPasswordButton = (event) => {
-    alert(mailPassword);
-  };
 
   const handlePassword_login = (event) => {
     setPasswordLogin(event.target.value);
@@ -153,7 +152,9 @@ const LoginPage = () => {
   };
 
   const handleForgotPassword = (event) => {
+    setError("")
     setIsOpen(true);
+
   };
 
   const closeModal = () => {
@@ -170,9 +171,8 @@ const LoginPage = () => {
 
   const handleSubmitEmail = (e) => {
     e.preventDefault();
-    alert(mailPassword);
     if (mailPassword.length <= 0) {
-      addMessage("Tous les champs doivent être remplis", "info");
+      setError("Tous les champs doivent être remplis")
     } else {
       // Check si l'user existe
       getAPI(
@@ -180,9 +180,8 @@ const LoginPage = () => {
       )
         .then((response) => {
           if (response.dataAPI) {
-            setLink(`http://127.0.0.1:3000/forgot-password?key=${response.dataAPI.token}`);
+            setLink(`http://${adresseip}:${port}/forgot-password?key=${response.dataAPI.token}`);
 
-            addMessage("Votre message à bien été envoyé", "success");
             const emailParams = {
               to_email: mailPassword,
               from_name: "PrèsDeChezMoi",
@@ -237,19 +236,23 @@ const LoginPage = () => {
           <i className="fa-solid fa-xmark" onClick={closeModal}></i>
         </div>
         <div className="wrapper_popup">
-          <form action="" ref={form} onSubmit={handleSubmitEmail}>
-            <input
-              placeholder="exemple@gmail.com"
-              name="email"
-              onChange={(event) => setMailPassword(event.target.value)}
-            />
-            {/* <button onClick={handleForgotPasswordButton}>VALIDE</button> */}
-            <input
-              type="submit"
-              value="Envoyer"
-              onSubmit={handleForgotPasswordButton}
-            />
-          </form>
+          <div className="fix-wrapper-mdp">
+            <form action="" ref={form} onSubmit={handleSubmitEmail}>
+              <input
+                placeholder="Votre adresse mail"
+                name="email"
+                onChange={(event) => setMailPassword(event.target.value)}
+                id="custom-input"
+              />
+              {/* <button onClick={handleForgotPasswordButton}>VALIDE</button> */}
+              <input
+                type="submit"
+                value="Envoyer"
+                id="custom-input-btn"
+              />
+            </form>
+            <p id="error-msg-mdp">{error}</p>
+          </div>
         </div>
       </Modal>
       <MessageQueue messages={messages} removeMessage={removeMessage} />
