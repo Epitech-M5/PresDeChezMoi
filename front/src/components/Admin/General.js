@@ -105,7 +105,7 @@ const General = () => {
         }
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
 
         if (name === '' || numb === '' || file === null) {
             addMessage('Les champs Nom, Nombre et Image doivent être remplies', 'info')
@@ -113,38 +113,37 @@ const General = () => {
 
         else {
 
-            alert("OK")
 
-            // await postAPI(`http://${adresseip}:${port}/api/recompense/`, { "nom": name, "image": file.name, "idVille": user.idVille, "scoreNecessaire": numb }, { "x-access-token": user.token })
-            //     .then((response) => {
-            //         addMessage('Récompense ajouté en base de donnée', 'success');
+            postAPI(`http://${adresseip}:${port}/api/recompense/`, { "nom": name, "image": file.name, "idVille": user.idVille, "scoreNecessaire": numb }, { "x-access-token": user.token })
+                .then((response) => {
+                    addMessage('Récompense ajouté en base de donnée', 'success');
 
-            //         var idRecompense = response.dataAPI.id
+                    var idRecompense = response.dataAPI.id
 
-            //         putAPI(`http://${adresseip}:${port}/api/recompense/${idRecompense}`, { "image": `/recompense/${idRecompense}.jpg` }, { "x-access-token": user.token })
-            //             .then((response) => {
-            //                 addMessage('Récompense ajouté en base de donnée', 'success');
-            //             }).catch((error) => {
-            //                 addMessage(`Erreur : ${error}`, 'error')
-            //             });
+                    putAPI(`http://${adresseip}:${port}/api/recompense/${idRecompense}`, { "image": `/recompense/${idRecompense}.jpg` }, { "x-access-token": user.token })
+                        .then((response) => {
+                            addMessage('Récompense ajouté en base de donnée', 'success');
+                        }).catch((error) => {
+                            addMessage(`Erreur : ${error}`, 'error')
+                        });
 
-            //         // Créez un objet FormData
-            //         const formData = new FormData();
-            //         formData.append('uploadedFile', file);
-            //         formData.append('newName', idRecompense);
+                    // Créez un objet FormData
+                    const formData = new FormData();
+                    formData.append('uploadedFile', file);
+                    formData.append('newName', idRecompense);
 
-            //         postAPI(`http://${adresseip}:${port}/upload`, formData, { "x-access-token": user.token })
-            //             .then((response) => {
+                    postAPI(`http://${adresseip}:${port}/upload`, formData, { "x-access-token": user.token })
+                        .then((response) => {
 
-            //                 addMessage('Fichier ajouté dans la base d\'image', 'success');
+                            addMessage('Fichier ajouté dans la base d\'image', 'success');
 
-            //             }).catch((error) => {
-            //                 addMessage(`Erreur : ${error}`, 'error')
-            //             });
-            //     })
-            //     .catch((error) => {
-            //         addMessage(`Erreur : ${error}`, 'error')
-            //     });
+                        }).catch((error) => {
+                            addMessage(`Erreur : ${error}`, 'error')
+                        });
+                })
+                .catch((error) => {
+                    addMessage(`Erreur : ${error}`, 'error')
+                });
 
             setFile(null);
             setNumb('');
