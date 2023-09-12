@@ -31,10 +31,10 @@
 .container_3_home {
     width: $width-pub;
     height: 0;
-    position: sticky;
+    position: sticky !important;
     top: 0;
     bottom: 0;
-    z-index: 7;
+    z-index: 2001 !important;
 }
 
 .main_container_home {
@@ -47,13 +47,13 @@
 }
 
 .container_bye {
-    position: fixed;
+    position: fixed !important;
     width: 100%;
     height: 50px;
     top: 0;
     left: 0;
     background: linear-gradient(to bottom, $white, transparent);
-    z-index: 100;
+    z-index: 20000000 !important;
 }
 
 .pub1 {

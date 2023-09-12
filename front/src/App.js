@@ -46,7 +46,7 @@ import ModifAdm from "./components/Admin/ModifAdm";
 
 import { useDispatch } from "react-redux";
 import { fetchVille } from "./redux/Utilisateur";
- 
+
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
 
@@ -67,8 +67,6 @@ const LandingContainer = () => {
         <Route path="/chat" element={<Chat />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<PageNotFound navigation={"/"} />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/usermenu" element={<UserMenu />} />
       </Routes>
       <FooterLandingPage />
     </>
@@ -159,7 +157,7 @@ const HomeContainer = () => {
               <ChatBot />
               <ResearchBar />
               <NavBarHome isAdmin='admin' />
-              {/* <UserMenu /> */}
+              <UserMenu />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/test" element={<Test />} />
@@ -197,7 +195,7 @@ const HomeContainer = () => {
               <ChatBot />
               <ResearchBar />
               <NavBarHome />
-              {/* <UserMenu /> */}
+              <UserMenu />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/test" element={<Test />} />

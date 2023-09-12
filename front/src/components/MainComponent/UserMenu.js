@@ -48,56 +48,60 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
   }
 
   return (
-    <div className="ms-nav-container">
-      <ul
-        className="ms-nav"
-        style={{
-          "--liFirstPosition": liFirstPosition,
-          "--liDiffPosition": liDiffPosition,
-        }}
-      >
-        <input
-          type="checkbox"
-          id="ms-menu"
-          className="ms-menu-toggle"
-          name="ms-menu-toggle"
-          onClick={console.log("logo clicked")}
-        />
-        <li className="ms-main">
-          <a onClick={() => console.log("00000")}>
-            <label className="ms-menu-toggle-lbl" for="ms-menu">
-              <img
-                src={`../../media/img/${user.photoProfil}.png`}
-                alt="logo"
-                className="userProfile"
-              />
-            </label>
-            <h3 className="ms-pseudo">{truncatedPseudo}</h3>
-          </a>
-        </li>
-        <div className="ms-nav-point"> </div>
-        <div className="ms-nav-point"> </div>
-        <div className="ms-nav-point"> </div>
-        <div className="ms-nav-point"> </div>
-        <div className="ms-nav-point"> </div>
-        <div className="ms-nav-point"> </div>
-        <div className="ms-nav-point"> </div>
-        <div className="ms-nav-point"> </div>
-        <div className="ms-nav-point"> </div>
-        <div className="ms-nav-point"> </div>
+    <>
 
-        <li className="ms-li ms-li1 ms-li-first">
-          <a onClick={() => handleNavigate(1)}>
-            <span className="fa-solid fa-gear"></span>
-          </a>
-        </li>
-        <li className="ms-li ms-li2">
-          <a onClick={() => handleNavigate(2)}>
-            <span className="fa-solid fa-right-from-bracket"></span>
-          </a>
-        </li>
-      </ul>
-    </div>
+      <div className="fix_menu">
+
+        <ul
+          className="ms-nav"
+          style={{
+            "--liFirstPosition": liFirstPosition,
+            "--liDiffPosition": liDiffPosition,
+          }}
+        >
+          <input
+            type="checkbox"
+            id="ms-menu"
+            className="ms-menu-toggle"
+            name="ms-menu-toggle"
+            onClick={console.log("logo clicked")}
+          />
+          <li className="ms-main">
+            <a onClick={() => console.log("00000")}>
+              <label className="ms-menu-toggle-lbl" for="ms-menu">
+                <img
+                  src={`../../media/img/${user.photoProfil}.png`}
+                  alt="logo"
+                  className="userProfile"
+                />
+              </label>
+              <h3 className="ms-pseudo">{truncatedPseudo}</h3>
+            </a>
+          </li>
+          <div className="ms-nav-point"> </div>
+          <div className="ms-nav-point"> </div>
+          <div className="ms-nav-point"> </div>
+          <div className="ms-nav-point"> </div>
+          <div className="ms-nav-point"> </div>
+          <div className="ms-nav-point"> </div>
+          <div className="ms-nav-point"> </div>
+          <div className="ms-nav-point"> </div>
+          <div className="ms-nav-point"> </div>
+          <div className="ms-nav-point"> </div>
+
+          <li className="ms-li ms-li1 ms-li-first">
+            <a onClick={() => handleNavigate(1)}>
+              <span className="fa-solid fa-gear"></span>
+            </a>
+          </li>
+          <li className="ms-li ms-li2">
+            <a onClick={() => handleNavigate(2)}>
+              <span className="fa-solid fa-right-from-bracket"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </>
   );
 };
 
