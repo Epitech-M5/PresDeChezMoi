@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { getAPI, putAPI, postAPI } from '../../api';
 import { useSelector } from 'react-redux';
 import Loader from '../Loader';
+import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js';
 const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
 const port = process.env.REACT_APP_BACKEND_PORT
+
 const MyLoot = () => {
 
     const [data, setData] = useState([]);
@@ -12,6 +14,8 @@ const MyLoot = () => {
     const [dataScore, setDataScore] = useState([]);
     const [listRecompense, setListRecompense] = useState([]);
     const [listRecompenseEnCours, setListRecompenseEnCours] = useState([]);
+
+    const { addMessage, removeMessage, messages } = useMessageQueue();
 
     const traitement = (idRecompense, item) => {
         console.log(")))))))", listRecompense, '))', listRecompenseEnCours, "))", listRecompense.includes(idRecompense), "))", idRecompense)
@@ -32,9 +36,10 @@ const MyLoot = () => {
         else {
             return (
                 <>
-                    {/* <h1>{item.image}</h1> */}
-                    <img src={item.image} alt="Ma récompense" />
-                    <button onClick={() => handleClaimAward(idRecompense, item)}>Cliquez-moi</button>
+
+                    <img src={item.image} alt="img-rec" />
+                    <button onClick={() => handleClaimAward(idRecompense, item)}>Obtenir récompense</button>
+
                 </>
             )
         }
@@ -86,10 +91,11 @@ const MyLoot = () => {
         // Créer un ticket
         getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
             .then((response) => {
-                console.log("CLLLLLLLLAAAAAIIIIIIIMMMMM :", response.dataAPI.listRecompenseEnCoursClaim)
+
+                addMessage("Annonce bien récupérée !", "success")
+
                 var arrayClaimEnCours = JSON.parse(response.dataAPI.listRecompenseEnCoursClaim)
                 arrayClaimEnCours.push(idItem)
-                console.log("CLLLLLLLLAAAAAIIIIIIIMMMMM2 :", arrayClaimEnCours)
 
                 putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'listRecompenseEnCoursClaim': arrayClaimEnCours }, { 'x-access-token': user.token })
                     .then((response) => {
@@ -135,6 +141,7 @@ const MyLoot = () => {
 
     return (
         <>
+            <MessageQueue messages={messages} removeMessage={removeMessage} />
             <div className="content_user_profil">
                 <div className="container_mypost_tomap">
 
@@ -159,12 +166,6 @@ const MyLoot = () => {
                                             {isLocked(dataScore.score, item.scoreNecessaire) ? (
                                                 <div className="container_img_loot">
                                                     {traitement(item.id, item)}
-                                                    {/* <h1>{item.image}</h1> */}
-                                                    {/* FAIRE UN HOOK avec plusieurs etats:
-                                                    - Obtenu (valide par admin) (<i class="fa-solid fa-check"></i>)
-                                                    - Obtenu (Pas valide par admin) (<i class="fa-regular fa-clock"></i>)
-                                                    - Pas obtenu (assez de score) (<h1>{item.image}</h1>)
-                                                    */}
                                                 </div>
                                             ) : (
                                                 // - Pas obtenu (Pas assez de score)

@@ -28,7 +28,6 @@ exports.create = (req, res) => {
         }
     })
         .then(async user => {
-            console.log("@@@@@@@@@@@@@@@@@@@@@@@@", user)
             var annonceObjet
             // Si c'est un administrateur
             if (user.idRole == 3) {
@@ -134,9 +133,7 @@ async function userFindRole(userId) {
             id: userId
         }
     }).then((user) => {
-        console.log("est admin ? ", user.idRole == 3)
         if (user.idRole == 3) {
-            // console.log("je passe ici")
             return true
         } else {
             return false
@@ -245,17 +242,17 @@ function deleteAnnonce(req, res, id, isAdmin) {
                         .then(num => {
                             if (num == 1) {
                                 res.send({
-                                    message: "Annonce was deleted successfully!"
+                                    message: "l'Annonce a été supprimé."
                                 });
                             } else {
                                 res.send({
-                                    message: `Cannot delete Annonce with id=${id}. Maybe Annonce was not found!`
+                                    message: `Impossible de supprimer l'Annonce avec id=${id}.`
                                 });
                             }
                         })
                         .catch(err => {
                             res.status(500).send({
-                                message: "Could not delete Annonce with id=" + id
+                                message: "impossible de supprimer l'annonce avec id=" + id
                             });
                         });
                 } else {

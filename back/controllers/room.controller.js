@@ -2,11 +2,6 @@ const db = require("../models");
 const room = db.room;
 const { Sequelize, Op } = require('sequelize');
 
-// title: req.body.title,
-// description: req.body.description,
-// published: req.body.published ? req.body.published : false
-
-
 exports.create = (req, res) => {
     var boolErrorFlag = false;
     var stringErrorMessage = "";
@@ -14,7 +9,7 @@ exports.create = (req, res) => {
     // Champ nécessaire pour la requete
     if (!req.body.membres) {
         boolErrorFlag = true
-        stringErrorMessage = "Content can not be empty!"
+        stringErrorMessage = "Le contenu ne peut pas être vide"
     }
 
     // Validate request
@@ -39,7 +34,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Impossible de créer une room."
             });
         });
 };
@@ -53,13 +48,13 @@ exports.find_one = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Role with id=${id}.`
+                    message: `Impossible de trouvé la room avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Role with id=" + id
+                message: "Impossible de trouvé la room avec id=" + id
             });
         });
 };
@@ -72,13 +67,12 @@ exports.find_all = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Impossible de récuperer les roles."
             });
         });
 };
 
 exports.find_all_members = (req, res) => {
-    // const members = [req.body.membres]; // Convertir en tableau
     const members = req.body.membres; // Convertir en tableau
 
     room.findAll({
@@ -94,8 +88,6 @@ exports.find_all_members = (req, res) => {
         });
 };
 exports.find_ville = (req, res) => {
-    console.log("##", req.params.idVille)
-    console.log("##", req.params)
     room.findAll({
         where: {
             idVille: req.params.idVille           // idVille: req.body.idVille
@@ -108,7 +100,7 @@ exports.find_ville = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Impossible de trouver la room de la ville."
             });
         });
 };
@@ -122,17 +114,17 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Role was updated successfully."
+                    message: "La room a été modifié."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Role with id=${id}. Maybe Role was not found or req.body is empty!`
+                    message: `Impossible de modifier la room avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Role with id=" + id + "(" + err + ")"
+                message: "Impossible de modifier la room avec id=" + id + "(" + err + ")"
             });
         });
 };
@@ -146,40 +138,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Role was deleted successfully!"
+                    message: "La room a été supprimé."
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Role with id=${id}. Maybe Role was not found!`
+                    message: `Impossible de supprimer la room avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Role with id=" + id
+                message: "Impossible de supprimer la room avec id=" + id
             });
         });
 };
-
-// const express = require('express');
-// const router = express.Router();
-// const db = require('../models');
-// const { Op } = require('sequelize');
-
-// router.get('/rooms', async (req, res) => {
-//     try {
-//         const rooms = await db.Room.findAll({
-//             where: {
-//                 membres: {
-//                     [Op.contains]: ['Maxence']
-//                 }
-//             }
-//         });
-//         res.json(rooms);
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ message: 'Server Error' });
-//     }
-// });
-
-// module.exports = router;

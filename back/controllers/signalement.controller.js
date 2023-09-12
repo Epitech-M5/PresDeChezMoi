@@ -8,7 +8,7 @@ exports.create = (req, res) => {
   // Champ nécessaire pour la requete
   if (!req.body.idUtilisateur) {
     boolErrorFlag = true;
-    stringErrorMessage = "Content can not be empty!";
+    stringErrorMessage = "Le contenu ne peut pas être vide!";
   }
 
   // Validate request
@@ -39,7 +39,7 @@ exports.create = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial.",
+          err.message || "Impossible de créer le signalement.",
       });
     });
 };
@@ -53,13 +53,13 @@ exports.find_one = (req, res) => {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Signalement with id=${id}.`,
+          message: `Impossible de trouver le signalement avec id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Signalement with id=" + id,
+        message: "Impossible de trouver le signalement avec id=" + id,
       });
     });
 };
@@ -72,7 +72,7 @@ exports.find_all = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials.",
+          err.message || "Impossible de trouver les signalements.",
       });
     });
 };
@@ -86,17 +86,17 @@ exports.update = (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Signalement was updated successfully.",
+          message: "Le signalement a été modifié.",
         });
       } else {
         res.send({
-          message: `Cannot update Signalement with id=${id}. Maybe Signalement was not found or req.body is empty!`,
+          message: `Impossible de modifier le signalement avec id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Signalement with id=" + id + "(" + err + ")",
+        message: "Impossible de modifier le signalement avec id=" + id + "(" + err + ")",
       });
     });
 };
@@ -110,17 +110,17 @@ exports.delete = (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Signalement was deleted successfully!",
+          message: "Le signalement a été supprimé!",
         });
       } else {
         res.send({
-          message: `Cannot delete Signalement with id=${id}. Maybe Signalement was not found!`,
+          message: `Impossible de supprimer le signalement avec id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Signalement with id=" + id,
+        message: "Impossible de supprimer le signalement avec id=" + id,
       });
     });
 };

@@ -74,7 +74,7 @@ const ResearchBar = () => {
                         ))}
                     </div>
                 )}
-                <UserMenu />
+
             </div>
         </>
     );

@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     // Champ nécessaire pour la requete
     if (!req.body.titre) {
         boolErrorFlag = true
-        stringErrorMessage = "Content can not be empty!"
+        stringErrorMessage = "Le contenu ne peut pas être vide."
     }
     // Validate request
     if (boolErrorFlag) {
@@ -27,7 +27,6 @@ exports.create = (req, res) => {
     const statusObjet = {
         titre: req.body.titre
     };
-    console.log(statusObjet)
 
     // Save Tutorial in the database adn catch internal error
     Status.create(statusObjet)
@@ -37,7 +36,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Impossible de créer le status"
             });
         });
 };
@@ -51,13 +50,13 @@ exports.find_one = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Status with id=${id}.`
+                    message: `Impossible de trouver le status avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Status with id=" + id
+                message: "Impossible de trouver le status avec id=" + id
             });
         });
 };
@@ -70,7 +69,7 @@ exports.find_all = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Impossible de trouver le status."
             });
         });
 };
@@ -84,17 +83,17 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Status was updated successfully."
+                    message: "le status a été modifié."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Status with id=${id}. Maybe Status was not found or req.body is empty!`
+                    message: `Impossible de modifier le status avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Status with id=" + id + "(" + err + ")"
+                message: "Impossible de modifier le status avec id=" + id + "(" + err + ")"
             });
         });
 };
@@ -108,17 +107,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Status was deleted successfully!"
+                    message: "le status a été supprimé!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Status with id=${id}. Maybe Status was not found!`
+                    message: `Impossible de supprimer le status avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Status with id=" + id
+                message: "Impossible de supprimer le status avec id=" + id
             });
         });
 };

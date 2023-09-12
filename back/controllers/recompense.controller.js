@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     // Champ nécessaire pour la requete
     if (!req.body.nom) {
         boolErrorFlag = true
-        stringErrorMessage = "Content can not be empty!"
+        stringErrorMessage = "Le contenu ne peut pas être vide."
     }
 
     // Validate request
@@ -40,7 +40,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Une erreur est survenue lors de la création de la récompense."
             });
         });
 };
@@ -54,13 +54,13 @@ exports.find_one = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Role with id=${id}.`
+                    message: `Impossible de trouvé la récompense avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Role with id=" + id
+                message: "Impossible de trouvé la récompense avec id=" + id
             });
         });
 };
@@ -73,20 +73,19 @@ exports.find_all = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Une erreur est survenue lors de la récupération des récompenses."
             });
         });
 };
 exports.find_all_by_ville = (req, res) => {
     Recompense.findAll({ where: { idVille: req.params.idVille } })
         .then(data => {
-            console.log("pour idville :", req.params.idVille, "  ", data)
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Une erreur est survenue lors de la récupération des récompenses."
             });
         });
 };
@@ -100,17 +99,17 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Role was updated successfully."
+                    message: "La récompense à été modifié."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Role with id=${id}. Maybe Role was not found or req.body is empty!`
+                    message: `Impossible de modifier la récompense avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Role with id=" + id + "(" + err + ")"
+                message: "Impossible de modifier la récompense avec id=" + id + "(" + err + ")"
             });
         });
 };
@@ -124,17 +123,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Role was deleted successfully!"
+                    message: "La récompense à été modifié."
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Role with id=${id}. Maybe Role was not found!`
+                    message: `Impossible de modifier la récompense avec id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Role with id=" + id
+                message: "Impossible de modifier la récompense avec id=" + id
             });
         });
 };
