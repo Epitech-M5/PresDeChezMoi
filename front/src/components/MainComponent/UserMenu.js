@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getAPI } from "../../api";
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP;
+const port = process.env.REACT_APP_BACKEND_PORT;
 
 const UserMenu = (liDiffPosition, liFirstPosition) => {
   // l'image de profil de l'utilisateur est stocké dans le redux, celle-ci est automatiquement chargé
@@ -14,6 +17,25 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
   const navigate = useNavigate();
 
   const [truncatedPseudo, setTruncatedPseudo] = useState(user.pseudo);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getAPI(
+      `http://${adresseip}:${port}/api/user/${user.idutilisateur}`,
+      {},
+      { "x-access-token": user.token }
+    )
+      .then((response) => {
+        console.log("RERERERERERERERERER", response);
+
+        setTimeout(() => {
+          setData(response.dataAPI);
+        }, 4000);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
     function handleResize() {
@@ -74,7 +96,7 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
             </label>
             <h3 className="ms-pseudo">{truncatedPseudo}</h3>
             <span id="usermenu-score">
-              {user.score ? <>{user.score}</> : <>0</>}
+              {data.score ? <>{data.score}</> : <>0</>}
               <i class="fa-solid fa-carrot"></i>
             </span>
           </a>
