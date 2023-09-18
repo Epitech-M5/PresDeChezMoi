@@ -41,6 +41,8 @@ services:
     networks:
       - back-mariadb
       - front-back
+    volumes:
+      - front-files:/front/
 
   front:
     depends_on:
@@ -53,6 +55,8 @@ services:
     restart: always
     networks:
       - front-back
+    volumes:
+      - front-files:/front/
 
   portainer:
     image: portainer/portainer-ce
@@ -68,6 +72,7 @@ services:
 volumes:
   mariadb_data:
   portainer_data:
+  front-files:
 
 networks:
   back-mariadb:
