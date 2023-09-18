@@ -24,6 +24,10 @@
       become: true
       shell: sudo docker rmi t-yep-600-mar-6-1-finalproject-mateosalvy-front
 
+    - name: Delete volume front
+      become: true
+      shell: docker volume rm t-yep-600-mar-6-1-finalproject-mateosalvy_front-files
+
     - name: git pull & lancement docker-compose
       become: true
       shell: cd T-YEP-600-MAR-6-1-finalproject-mateo.salvy && git pull && docker-compose up -d
