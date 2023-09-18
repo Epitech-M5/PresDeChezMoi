@@ -1,195 +1,120 @@
-import React, { useEffect, useState } from 'react';
-import DragAndDrop from '../MainComponent/DragAndDrop';
-import MessageQueue, { useMessageQueue } from '../../components/MessageQueue.js';
-import ToggleBtn from '../MainComponent/ToggleBtn';
-import { getAPI, postAPI, putAPI, deleteAPI } from '../../api.js';
-import { useSelector } from 'react-redux';
-const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP
-const port = process.env.REACT_APP_BACKEND_PORT
-async function getAllPeopleByCity(idVille, token) {
-    var response = await getAPI(`http://${adresseip}:${port}/api/user/by_ville/${idVille}`, {}, { "x-access-token": token })
-    // console.log(response.dataAPI)
-    var arrayUser = []
-    for (var n = 0; n < response.dataAPI.length; n++) {
-        arrayUser.push(response.dataAPI[n].pseudo)
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getAPI } from "../../api";
+const adresseip = process.env.REACT_APP_BACKEND_ADRESSEIP;
+const port = process.env.REACT_APP_BACKEND_PORT;
+
+const UserMenu = (liDiffPosition, liFirstPosition) => {
+  // l'image de profil de l'utilisateur est stocké dans le redux, celle-ci est automatiquement chargé
+  // au cas ou la position du menu c'est les param de .ms-nav impossible de le mettre en relative avec les autres balise (z-index 40000, container bye, ...)
+
+  liFirstPosition = "180%"; // Première bulle
+  liDiffPosition = "110%"; // diff entre les bulles
+
+  const user = useSelector((state) => state.utilisateur);
+
+  const navigate = useNavigate();
+
+  const [truncatedPseudo, setTruncatedPseudo] = useState(user.pseudo);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getAPI(
+      `http://${adresseip}:${port}/api/user/${user.idutilisateur}`,
+      {},
+      { "x-access-token": user.token }
+    )
+      .then((response) => {
+        console.log("RERERERERERERERERER", response);
+
+        setTimeout(() => {
+          setData(response.dataAPI);
+        }, 4000);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 650 || window.innerHeight <= 450) {
+        setTruncatedPseudo(
+          user.pseudo.length > 5
+            ? `${user.pseudo.substring(0, 5)}...`
+            : user.pseudo
+        );
+      } else {
+        setTruncatedPseudo(user.pseudo);
+      }
     }
-    return arrayUser
-}
-async function getRoomByCity(idVille, token) {
-    var response = await getAPI(`http://${adresseip}:${port}/api/room/ville/${idVille}`, {}, { "x-access-token": token })
-    // console.log(response, "   |   ", response.dataAPI.length)
-    if (response.dataAPI.length == 0) {
-        return { isRoomExist: false, id: null }
-    }
-    else {
-        console.log("AAAAAAAAAAA:", response.dataAPI[0])
-        return { isRoomExist: true, id: response.dataAPI[0].id }
-    }
-}
-async function createRoomByCity(idVille, token, data) {
-    return await postAPI(`http://${adresseip}:${port}/api/room/`, { "membres": data, "idVille": idVille }, { "x-access-token": token })
-}
-async function deleteRoomById(idRoom, token) {
-    return await deleteAPI(`http://${adresseip}:${port}/api/room/${idRoom}`, {}, { "x-access-token": token })
-}
 
-const General = () => {
+    handleResize(); // Appel initial
+    window.addEventListener("resize", handleResize);
 
-    const [file, setFile] = useState(null);
-    const [name, setName] = useState('');
-    const [numb, setNumb] = useState('');
-    const [updateToggle, setUpdateToggle] = useState(false);
-
-    const user = useSelector((state) => state.utilisateur);
-
-    const { addMessage, removeMessage, messages } = useMessageQueue();
-
-    useEffect(() => {
-
-        getAPI(`http://${adresseip}:${port}/api/room/ville/${user.idVille}`, {}, { "x-access-token": user.token }).then((response) => {
-
-            if (response.dataAPI.length > 0) {
-                setUpdateToggle(true)
-            }
-            else {
-                setUpdateToggle(false)
-            }
-        })
-
-    }, []);
-
-    const handleToggle = async (state) => {
-
-        setUpdateToggle(state);
-
-        console.log("UPDATE TOGGLE BEFORE", updateToggle)
-        // console.log("FIRST TIME BEFORE", firstTime)
-        console.log("STATE", state);
-
-        var data = await getRoomByCity(user.idVille, user.token)
-        var isRoomExist = data.isRoomExist
-        var idRoom = data.id
-        console.log("VALUEE ROOM EXIST :", isRoomExist)
-        console.log("NEED SUP ID :", idRoom)
-
-        if (state === true) {
-            if (isRoomExist) {
-                addMessage("Un groupe existe déjà pour cette ville", "error")
-            }
-            else {
-                addMessage("Création d'un groupe pour la ville en cours", "success")
-                var data = await getAllPeopleByCity(user.idVille, user.token)
-                await createRoomByCity(user.idVille, user.token, data)
-            }
-        }
-
-        else if (state === false) {
-
-            if (isRoomExist) {
-                addMessage("Suppression du groupe de la ville en cours", "success")
-                deleteRoomById(idRoom, user.token)
-            }
-            else {
-                addMessage("Aucun groupe n'a été trouvé pour cette ville", "error")
-            }
-        }
-
-        else {
-            addMessage("Erreur technique", "warning")
-        }
+    return () => {
+      window.removeEventListener("resize", handleResize);
     };
+  }, [user.pseudo]);
 
-    const updateFile = (droppedFile) => {
-        if (droppedFile) {
-            setFile(droppedFile);
-        }
-    };
-
-    const handleSubmit = () => {
-
-        if (name === '' || numb === '' || file === null) {
-            addMessage('Les champs Nom, Nombre et Image doivent être remplies', 'info')
-        }
-
-        else {
-
-
-            postAPI(`http://${adresseip}:${port}/api/recompense/`, { "nom": name, "image": file.name, "idVille": user.idVille, "scoreNecessaire": numb }, { "x-access-token": user.token })
-                .then((response) => {
-                    addMessage('Récompense ajouté en base de donnée', 'success');
-
-                    var idRecompense = response.dataAPI.id
-
-                    putAPI(`http://${adresseip}:${port}/api/recompense/${idRecompense}`, { "image": `/recompense/${idRecompense}.jpg` }, { "x-access-token": user.token })
-                        .then((response) => {
-                            addMessage('Récompense ajouté en base de donnée', 'success');
-                        }).catch((error) => {
-                            addMessage(`Erreur : ${error}`, 'error')
-                        });
-
-                    // Créez un objet FormData
-                    const formData = new FormData();
-                    formData.append('uploadedFile', file);
-                    formData.append('newName', idRecompense);
-
-                    postAPI(`http://${adresseip}:${port}/upload`, formData, { "x-access-token": user.token })
-                        .then((response) => {
-
-                            addMessage('Fichier ajouté dans la base d\'image', 'success');
-
-                        }).catch((error) => {
-                            addMessage(`Erreur : ${error}`, 'error')
-                        });
-                })
-                .catch((error) => {
-                    addMessage(`Erreur : ${error}`, 'error')
-                });
-
-            setFile(null);
-            setNumb('');
-            setName('');
-        }
-
-    };
-
-    const handleRec = (event) => {
-        setName(event.target.value);
+  function handleNavigate(goTo) {
+    switch (goTo) {
+      case 1:
+        return navigate("/home/user/settings");
+      case 2:
+        return navigate("/login");
+      default:
+        break;
     }
+  }
 
-    const handlePoint = (event) => {
-        setNumb(event.target.value);
-    }
+  return (
+    <div className="ms-nav-container">
+      <ul
+        className="ms-nav"
+        style={{
+          "--liFirstPosition": liFirstPosition,
+          "--liDiffPosition": liDiffPosition,
+        }}
+      >
+        <input
+          type="checkbox"
+          id="ms-menu"
+          className="ms-menu-toggle"
+          name="ms-menu-toggle"
+          onClick={console.log("logo clicked")}
+        />
+        <li className="ms-main">
+          <a>
+            <label className="ms-menu-toggle-lbl" for="ms-menu">
+              <img
+                src={`../../media/img/${user.photoProfil}.png`}
+                alt="logo"
+                className="userProfile"
+              />
+            </label>
+            <h3 className="ms-pseudo">{truncatedPseudo}</h3>
+            <span id="usermenu-score">
+              {data.score ? <>{data.score}</> : <>0</>}
+              <i class="fa-solid fa-carrot"></i>
+            </span>
+          </a>
+        </li>
 
-    return (
-        <>
-            <MessageQueue messages={messages} removeMessage={removeMessage} />
-            <div className='content_admin'>
-                <div className="container_title_page_admin">
-                    <h1>Réglage Général</h1>
-                </div>
-                <div className="content_inside_admin_pages">
-
-                    <h1>Ajouter une récompenses (PNG / JPG):</h1>
-                    <div className="wrapper_inputs_rec">
-                        <input type="text" placeholder='Nom récompense' className='input_rec_text' value={name} onChange={handleRec} />
-                        <input type="number" placeholder='Nombre de point' className='input_rec_number' value={numb} onChange={handlePoint} />
-                    </div>
-                    <DragAndDrop onFileDrop={updateFile} up={file} />
-                    <input className='input_rec' type="button" value='Envoyer !' onClick={handleSubmit} />
-
-                    <div className="space_hr_adm">
-                        <hr />
-                    </div>
-
-                    <div className="wrapper_chat_ville">
-                        <ToggleBtn toggled={updateToggle} onToggle={handleToggle} />
-                        <h1>Créer un chat de ville</h1>
-                    </div>
-
-                </div>
-            </div>
-        </>
-    );
+        <li className="ms-li ms-li1">
+          <a onClick={() => handleNavigate(1)}>
+            <span className="fa-solid fa-gear"></span>
+          </a>
+        </li>
+        <li className="ms-li ms-li2">
+          <a onClick={() => handleNavigate(2)}>
+            <span className="fa-solid fa-right-from-bracket"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  );
 };
 
-export default General;
+export default UserMenu;

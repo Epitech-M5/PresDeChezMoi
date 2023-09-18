@@ -174,21 +174,21 @@ $child-count: 15; // Nombre d'enfants de .ms-nav-point
   transition: top 0.7s ease;
 }
 
-@for $i from 1 through $child-count {
-  $top: random(350); // Valeur aléatoire pour le top (de 0 à 50)
-  $left: random(30); // Valeur aléatoire pour la position left (de 0 à 100)
-  $size: random(40)+10; // Valeur aléatoire pour la taille (de 10 à 30)
-  $shrink: 1 - ($i * 0.03); // Facteur de rétrécissement basé sur le numéro d'enfant
+// @for $i from 1 through $child-count {
+//   $top: random(350); // Valeur aléatoire pour le top (de 0 à 50)
+//   $left: random(30); // Valeur aléatoire pour la position left (de 0 à 100)
+//   $size: random(40)+10; // Valeur aléatoire pour la taille (de 10 à 30)
+//   $shrink: 1 - ($i * 0.03); // Facteur de rétrécissement basé sur le numéro d'enfant
 
-  .ms-nav .ms-menu-toggle:checked~.ms-nav-point:nth-child(#{$i}) {
-    top: calc(110% + #{$top}% - 0%);
-    left: calc(#{$left}% - 3%);
-    width: calc(#{$size}px * #{$shrink});
-    height: calc(#{$size}px * #{$shrink});
-    animation: fadeOut 1s ease calc(0.5s + (#{$i} * 0.1s)) forwards;
-    z-index: -1;
-  }
-}
+//   .ms-nav .ms-menu-toggle:checked~.ms-nav-point:nth-child(#{$i}) {
+//     top: calc(110% + #{$top}% - 0%);
+//     left: calc(#{$left}% - 3%);
+//     width: calc(#{$size}px * #{$shrink});
+//     height: calc(#{$size}px * #{$shrink});
+//     animation: fadeOut 1s ease calc(0.5s + (#{$i} * 0.1s)) forwards;
+//     z-index: -1;
+//   }
+// }
 
 .ms-nav .ms-menu-toggle~.ms-li a span {
   position: absolute;
