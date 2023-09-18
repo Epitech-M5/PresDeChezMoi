@@ -150,7 +150,7 @@ const Role = () => {
 
                                                 {/* <td><i class="fa-solid fa-hammer" onClick={handleBan}> Bannir</i></td>
                                         <td><i class="fa-solid fa-trash" onClick={handleSupp}> Supprimer</i></td> */}
-                                                <td><button onClick={() => handleBan(item.id)}>Bannir</button></td>
+                                                {/* <td><button onClick={() => handleBan(item.id)}>Bannir</button></td> */}
                                                 <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
                                                 {/* <td><i class="fa-solid fa-x" onClick={handleSupp}></i></td> */}
                                             </tr>
@@ -184,7 +184,7 @@ const Role = () => {
                                                 <td>
                                                     <DropDownBtn type='rela' text={item.role.titre} items={['user', 'modérateur']} onCheckboxChange={(items) => handleCheckboxChange(items, item)} />
                                                 </td>
-                                                <td><button onClick={() => handleBan(item.id)}>Bannir</button></td>
+                                                {/* <td><button onClick={() => handleBan(item.id)}>Bannir</button></td> */}
                                                 <td><button onClick={() => handleSupp(item.id)}>Supprimer</button></td>
                                             </tr>
                                         )
@@ -193,7 +193,7 @@ const Role = () => {
                                 </tbody>
                             </table>
                         </div>
-                        <div className="wrapper_tab_role">
+                        {/* <div className="wrapper_tab_role">
                             <h1 id='title_role'>Banni</h1>
                             <table>
                                 <thead>
@@ -221,7 +221,7 @@ const Role = () => {
 
                                 </tbody>
                             </table>
-                        </div>
+                        </div> */}
 
                     </div>
 

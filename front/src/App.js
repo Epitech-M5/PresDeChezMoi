@@ -90,9 +90,8 @@ const HomeContainer = () => {
       try {
         const response = await getAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, {}, { 'x-access-token': user.token })
         setIdVille(response.dataAPI.idVille);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000)
+
+
       } catch (error) {
         console.log('error', error);
         setIsLoading(false);
@@ -106,6 +105,9 @@ const HomeContainer = () => {
     getAPI(`http://${adresseip}:${port}/api/ville`, {}, { 'x-access-token': user.token })
       .then((response) => {
         setDataVille(response.dataAPI);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000)
       })
       .catch((error) => {
         console.log(error);
@@ -113,11 +115,17 @@ const HomeContainer = () => {
   }, [])
 
   const handleChoice = (ville) => {
+
+
+    setIsLoading(true);
+
     console.log('IDVILLE :', ville)
     putAPI(`http://${adresseip}:${port}/api/user/${user.idutilisateur}`, { 'idVille': ville }, { 'x-access-token': user.token })
       .then((response) => {
         setIdVille(ville);
         dispatch(fetchVille(ville));
+        window.location.reload();
+        // setIsLoading(false);
 
       })
       .catch((error) => {

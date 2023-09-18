@@ -359,7 +359,7 @@ function ajoutUtilisateur() {
         description: "Bonjour, je suis super admin",
         nouveauUser: false,
         idVille: 1,
-        score: 9999999,
+        score: 9999,
         participation: null,
         estAdministrateur: false,
         abonnement: null,
