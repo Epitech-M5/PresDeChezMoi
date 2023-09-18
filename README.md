@@ -7,6 +7,12 @@ L'application met en avant les commerces de proximité et facilite l'accès aux 
 
 Elle crée une communauté en favorisant les échanges d'informations et les collaborations entre les résidents, renforçant le sentiment d'appartenance à la Commune
 
+🇬🇧 "PrèsDeChezMoi" is a social network for the Commune, promoting mutual aid and local development. It promotes local services, supports small businesses and strengthens links between residents and their local environment  
+
+The application highlights local businesses and facilitates access to municipal services and community events  
+
+It creates a community by promoting information exchanges and collaborations between residents, strengthening the sense of belonging to the Commune
+
 ## What do we have in this project?
 - **Deployment folder**  
 `You will find all the necessary resources to deploy the application on Oracle`  
@@ -28,7 +34,7 @@ Once this is done, you need to install node_modules lib :
 - ``` cd back ``` and do ``` npm i ```
 - ``` cd bdd ``` and do ``` docker-compose up -d ```
 
-You can also think of the whole project on **Docker Desktop** like this: ``` cd / ``` and do ``` docker-compose up -d ```
+You can also think the whole project on **Docker Desktop** like this: ``` cd / ``` and do ``` docker-compose up -d ```
 
 
 ## Some preview
