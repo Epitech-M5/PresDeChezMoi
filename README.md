@@ -26,6 +26,10 @@ Firts you need install some application like : **NodeJs** and **Docker Desktop**
 Once this is done, you need to install node_modules lib :  
 - ``` cd front ``` and do ``` npm i ```
 - ``` cd back ``` and do ``` npm i ```
+- ``` cd bdd ``` and do ``` docker-compose up -d ```
+
+You can also think of the whole project on **Docker Desktop** like this: ``` cd / ``` and do ``` docker-compose up -d ```
+
 
 ## Some preview
 
