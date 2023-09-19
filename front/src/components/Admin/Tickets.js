@@ -168,7 +168,6 @@ const Tickets = () => {
               {
                 listRecompenseEnCoursClaim: updatedListRecompenseEnCoursClaim,
                 listRecompense: updatedListRecompense,
-                score: score - responseRecompense.dataAPI.scoreNecessaire,
               },
               {
                 headers: {
