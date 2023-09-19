@@ -144,7 +144,6 @@ const ChatSidebar = (props) => {
         });
 
         // Handle the response as needed
-        console.log(response.data);
         props.fetchData();
         closeModal();
         setSelectedMembers([]);
