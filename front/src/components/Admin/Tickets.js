@@ -85,13 +85,15 @@ const Tickets = () => {
     }
   };
 
-  const handleCheckboxChangeStatus = async (item, index, indexArray) => {
+  const handleCheckboxChangeStatus = async (item, ticket, indexArray) => {
     const statusIndex =
       listTicketStatus.findIndex((element) => element === item) + 1;
 
+    console.log("XXXXXXXXXXXX", item, ticket, indexArray);
+
     try {
       await axios.put(
-        `http://${adresseip}:${port}/api/ticket/` + index,
+        `http://${adresseip}:${port}/api/ticket/` + ticket.id,
         { idStatus: statusIndex },
         {
           headers: {
@@ -109,14 +111,16 @@ const Tickets = () => {
         }
       );
       setListTicket(response.dataAPI);
-      setRendu(response.dataAPI.filter((item) => item.idVille === user.idVille));
+      setRendu(
+        response.dataAPI.filter((item) => item.idVille === user.idVille)
+      );
     } catch (error) {
       console.log("error modification ticket", error);
     }
     if (listTicket[indexArray].estRecompense === true && item == "résolu") {
       try {
         const response = await getAPI(
-          `http://${adresseip}:${port}/api/user/` + user.idutilisateur,
+          `http://${adresseip}:${port}/api/user/` + ticket.idUtilisateur,
           null,
           {
             "x-access-token": utilisateur.token,
@@ -131,13 +135,12 @@ const Tickets = () => {
 
         try {
           const responseRecompense = await getAPI(
-            `http://${adresseip}:${port}/api/recompense/` + index,
+            `http://${adresseip}:${port}/api/recompense/` + ticket.recompenseId,
             null,
             {
               "x-access-token": utilisateur.token,
             }
           );
-          console.log(response.dataAPI.listRecompenseEnCoursClaim);
 
           // Supprimer la récompense actuelle de la liste des récompenses en cours
           const rewardToRemove = listRecompenseEnCoursClaim[indexArray];
@@ -148,26 +151,36 @@ const Tickets = () => {
           const updatedListRecompense = [...listRecompense, rewardToRemove];
 
           console.log({
-            listRecompenseEnCoursClaim: updatedListRecompenseEnCoursClaim,
-            listRecompense: updatedListRecompense,
-            score: score - responseRecompense.dataAPI.scoreNecessaire,
+            updatedListRecompenseEnCoursClaim:
+              updatedListRecompenseEnCoursClaim,
+            updatedListRecompense: updatedListRecompense,
+            responseRecompense: responseRecompense.dataAPI,
+            listRecompense: listRecompense,
+            listRecompenseEnCoursClaim: listRecompenseEnCoursClaim,
+            responseGet: response.dataAPI,
+            score: score,
+            updatedScore: score - responseRecompense.dataAPI.scoreNecessaire,
           });
 
-          await axios.put(
-            `http://${adresseip}:${port}/api/user/` + user.idutilisateur,
-            {
-              listRecompenseEnCoursClaim: updatedListRecompenseEnCoursClaim,
-              listRecompense: updatedListRecompense,
-              score: score - responseRecompense.dataAPI.scoreNecessaire,
-            },
-            {
-              headers: {
-                "x-access-token": utilisateur.token,
-                "Content-Type":
-                  "application/x-www-form-urlencoded; charset=utf-8",
+          await axios
+            .put(
+              `http://${adresseip}:${port}/api/user/` + ticket.idUtilisateur,
+              {
+                listRecompenseEnCoursClaim: updatedListRecompenseEnCoursClaim,
+                listRecompense: updatedListRecompense,
+                score: score - responseRecompense.dataAPI.scoreNecessaire,
               },
-            }
-          );
+              {
+                headers: {
+                  "x-access-token": utilisateur.token,
+                  "Content-Type": "application/json",
+                },
+              }
+            )
+            .then((response) => {
+              console.log("response", response.data);
+              // Socket.(response.data.id, response.data.membres);
+            });
         } catch (error) {
           console.log("error get recompense for modify user", error);
         }
@@ -240,7 +253,7 @@ const Tickets = () => {
                         items={listTicketStatus}
                         className="shortddb_Tickets"
                         onCheckboxChange={(items) =>
-                          handleCheckboxChangeStatus(items, tickets.id, index)
+                          handleCheckboxChangeStatus(items, tickets, index)
                         }
                       />
                     </td>

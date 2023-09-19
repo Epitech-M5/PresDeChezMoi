@@ -18,7 +18,7 @@ const MyLoot = () => {
     const { addMessage, removeMessage, messages } = useMessageQueue();
 
     const traitement = (idRecompense, item) => {
-        console.log(")))))))", listRecompense, '))', listRecompenseEnCours, "))", listRecompense.includes(idRecompense), "))", idRecompense)
+        console.log(")))))))", listRecompense, '))', listRecompenseEnCours, "))", listRecompense.includes(idRecompense), "))", idRecompense, "))", listRecompenseEnCours.includes(idRecompense))
         if (listRecompense.includes(idRecompense)) {
             return (
                 <>

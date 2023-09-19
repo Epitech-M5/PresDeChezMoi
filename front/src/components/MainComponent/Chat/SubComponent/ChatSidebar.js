@@ -33,7 +33,6 @@ const ChatSidebar = (props) => {
     }
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   async function fetchPhotosForMembers() {
     const promises = [];
     conv.rooms.forEach((item) => {
@@ -106,7 +105,7 @@ const ChatSidebar = (props) => {
           idUtilisateur: userInfo.idutilisateur,
         })
       );
-      //executé la maj de l'historique ici
+
     }
   };
 
@@ -139,7 +138,10 @@ const ChatSidebar = (props) => {
                 "application/x-www-form-urlencoded; charset=utf-8",
             },
           }
-        );
+        ).then((response) => {
+          console.log("response", response.data);
+          // Socket.(response.data.id, response.data.membres);
+        });
 
         // Handle the response as needed
         console.log(response.data);

@@ -95,7 +95,7 @@ const UserMenu = (liDiffPosition, liFirstPosition) => {
               />
             </label>
             <h3 className="ms-pseudo">{truncatedPseudo}</h3>
-            <span id="usermenu-score">
+            <span className="usermenu-score">
               {data.score ? <>{data.score}</> : <>0</>}
               <i class="fa-solid fa-carrot"></i>
             </span>

@@ -404,8 +404,7 @@ const NavBarHome = (props) => {
           { "x-access-token": user.token }
         )
           .then((response) => {
-            console.log("response : " + response);
-            setError("OK !");
+            console.log("response : " + response.dataAPI);
 
             setTimeout(() => {
               closeModal();
