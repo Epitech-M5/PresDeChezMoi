@@ -32,7 +32,7 @@ exports.create = (req, res) => {
         dateCreation: req.body.dateCreation,
         idVille: req.body.idVille,
         estRecompense: req.body.estRecompense,
-        recompenseId: req.body.createdBy
+        recompenseId: req.body.recompenseId
     };
 
     // Save Ticket in the database

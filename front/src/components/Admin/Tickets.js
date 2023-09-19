@@ -150,17 +150,17 @@ const Tickets = () => {
           // Ajouter la récompense actuelle à la liste des récompenses de l'utilisateur
           const updatedListRecompense = [...listRecompense, rewardToRemove];
 
-          console.log({
-            updatedListRecompenseEnCoursClaim:
-              updatedListRecompenseEnCoursClaim,
-            updatedListRecompense: updatedListRecompense,
-            responseRecompense: responseRecompense.dataAPI,
-            listRecompense: listRecompense,
-            listRecompenseEnCoursClaim: listRecompenseEnCoursClaim,
-            responseGet: response.dataAPI,
-            score: score,
-            updatedScore: score - responseRecompense.dataAPI.scoreNecessaire,
-          });
+          // console.log({
+          //   updatedListRecompenseEnCoursClaim:
+          //     updatedListRecompenseEnCoursClaim,
+          //   updatedListRecompense: updatedListRecompense,
+          //   responseRecompense: responseRecompense.dataAPI,
+          //   listRecompense: listRecompense,
+          //   listRecompenseEnCoursClaim: listRecompenseEnCoursClaim,
+          //   responseGet: response.dataAPI,
+          //   score: score,
+          //   updatedScore: score - responseRecompense.dataAPI.scoreNecessaire,
+          // });
 
           await axios
             .put(

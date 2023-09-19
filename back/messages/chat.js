@@ -60,6 +60,11 @@ function chat() {
       
     });
 
+    // socket.on("join_channel", (data) => {
+    //   const { channel, pseudo, idUtilisateur } = data;
+
+    // });
+
     socket.on("disconnect", () => {
       // Leave the channel, if any
       if (users[socket.id] && users[socket.id].channel) {

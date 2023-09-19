@@ -563,7 +563,7 @@ const NavBarHome = (props) => {
           { "x-access-token": user.token }
         )
           .then((response) => {
-            console.log("response : " + response);
+            console.log(response);
             setError("OK !");
 
             setTimeout(() => {
